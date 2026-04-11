@@ -46,7 +46,7 @@ export function Footer() {
               </li>
               <li className='flex items-center gap-4'>
                 <Mail className='size-5' />
-                contato@dimipabos.org
+                contato@ongdimipabos.org
               </li>
             </ul>
             <div className='mt-6 flex space-x-4'>
