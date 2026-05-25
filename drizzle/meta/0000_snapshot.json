@@ -176,12 +176,8 @@
           "name": "donations_donor_id_donors_id_fk",
           "tableFrom": "donations",
           "tableTo": "donors",
-          "columnsFrom": [
-            "donor_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["donor_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
@@ -189,12 +185,8 @@
           "name": "donations_campaign_id_campaigns_id_fk",
           "tableFrom": "donations",
           "tableTo": "campaigns",
-          "columnsFrom": [
-            "campaign_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["campaign_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -204,9 +196,7 @@
         "donations_stripe_payment_intent_id_unique": {
           "name": "donations_stripe_payment_intent_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "stripe_payment_intent_id"
-          ]
+          "columns": ["stripe_payment_intent_id"]
         }
       },
       "policies": {},
@@ -286,12 +276,8 @@
           "name": "donor_preferences_donor_id_donors_id_fk",
           "tableFrom": "donor_preferences",
           "tableTo": "donors",
-          "columnsFrom": [
-            "donor_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["donor_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -408,16 +394,12 @@
         "donors_email_unique": {
           "name": "donors_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         },
         "donors_stripe_customer_id_unique": {
           "name": "donors_stripe_customer_id_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "stripe_customer_id"
-          ]
+          "columns": ["stripe_customer_id"]
         }
       },
       "policies": {},

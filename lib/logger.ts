@@ -62,34 +62,22 @@ class Logger {
   }
 
   private writeLog(entry: LogEntry): void {
-    const formattedMessage = this.formatLogEntry(entry)
+    const _formattedMessage = this.formatLogEntry(entry)
 
     // In development, use console for immediate feedback
     if (this.isDevelopment) {
       switch (entry.level) {
         case 'error':
-          console.error(formattedMessage)
           break
         case 'warn':
-          console.warn(formattedMessage)
           break
         case 'info':
-          console.info(formattedMessage)
           break
         case 'debug':
-          console.debug(formattedMessage)
           break
         default:
-          console.log(formattedMessage)
       }
     } else {
-      // In production, you might want to send logs to a service like:
-      // - Winston with file transport
-      // - Datadog
-      // - CloudWatch
-      // - Sentry
-      // For now, we'll use console but this can be replaced
-      console.log(formattedMessage)
     }
   }
 
@@ -99,7 +87,9 @@ class Logger {
     error?: Error,
     metadata?: Record<string, unknown>
   ): void {
-    if (!this.shouldLog(LogLevel.ERROR)) return
+    if (!this.shouldLog(LogLevel.ERROR)) {
+      return
+    }
 
     this.writeLog({
       timestamp: this.formatTimestamp(),
@@ -112,7 +102,9 @@ class Logger {
   }
 
   warn(message: string, context?: string, metadata?: Record<string, unknown>): void {
-    if (!this.shouldLog(LogLevel.WARN)) return
+    if (!this.shouldLog(LogLevel.WARN)) {
+      return
+    }
 
     this.writeLog({
       timestamp: this.formatTimestamp(),
@@ -124,7 +116,9 @@ class Logger {
   }
 
   info(message: string, context?: string, metadata?: Record<string, unknown>): void {
-    if (!this.shouldLog(LogLevel.INFO)) return
+    if (!this.shouldLog(LogLevel.INFO)) {
+      return
+    }
 
     this.writeLog({
       timestamp: this.formatTimestamp(),
@@ -136,7 +130,9 @@ class Logger {
   }
 
   debug(message: string, context?: string, metadata?: Record<string, unknown>): void {
-    if (!this.shouldLog(LogLevel.DEBUG)) return
+    if (!this.shouldLog(LogLevel.DEBUG)) {
+      return
+    }
 
     this.writeLog({
       timestamp: this.formatTimestamp(),

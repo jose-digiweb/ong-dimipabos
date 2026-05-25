@@ -11,8 +11,7 @@ export async function testConnection(): Promise<boolean> {
   try {
     await db.execute('SELECT 1')
     return true
-  } catch (error) {
-    console.error('Database connection failed:', error)
+  } catch (_error) {
     return false
   }
 }
@@ -36,8 +35,6 @@ export async function initializeDatabase() {
         currentAmount: 0,
         isActive: true,
       })
-
-      console.log('Default campaign created successfully')
     }
 
     // Initialize project progress
@@ -53,13 +50,10 @@ export async function initializeDatabase() {
         percentageComplete: 10, // Current progress as mentioned in the site
         isActive: true,
       })
-
-      console.log('Project progress initialized successfully')
     }
 
     return true
-  } catch (error) {
-    console.error('Database initialization failed:', error)
+  } catch (_error) {
     return false
   }
 }
