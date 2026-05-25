@@ -1,6 +1,5 @@
 'use client'
 
-import { Slot } from '@radix-ui/react-slot'
 import * as React from 'react'
 import {
   Controller,
@@ -100,22 +99,21 @@ const FormLabel = React.forwardRef<HTMLLabelElement, React.ComponentPropsWithout
 )
 FormLabel.displayName = 'FormLabel'
 
-const FormControl = React.forwardRef<
-  React.ElementRef<typeof Slot>,
-  React.ComponentPropsWithoutRef<typeof Slot>
->(({ ...props }, ref) => {
+const FormControl = ({
+  children,
+}: {
+  children: React.ReactElement<React.HTMLAttributes<HTMLElement>>
+}) => {
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
 
-  return (
-    <Slot
-      ref={ref}
-      id={formItemId}
-      aria-describedby={error ? `${formDescriptionId} ${formMessageId}` : `${formDescriptionId}`}
-      aria-invalid={!!error}
-      {...props}
-    />
-  )
-})
+  return React.cloneElement(children, {
+    id: formItemId,
+    'aria-describedby': error
+      ? `${formDescriptionId} ${formMessageId}`
+      : formDescriptionId,
+    'aria-invalid': !!error,
+  })
+}
 FormControl.displayName = 'FormControl'
 
 const FormDescription = React.forwardRef<
