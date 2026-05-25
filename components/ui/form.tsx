@@ -108,9 +108,7 @@ const FormControl = ({
 
   return React.cloneElement(children, {
     id: formItemId,
-    'aria-describedby': error
-      ? `${formDescriptionId} ${formMessageId}`
-      : formDescriptionId,
+    'aria-describedby': error ? `${formDescriptionId} ${formMessageId}` : formDescriptionId,
     'aria-invalid': !!error,
   })
 }
