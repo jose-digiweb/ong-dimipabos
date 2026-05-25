@@ -37,7 +37,7 @@ const formSchema = z.object({
     message: 'Digite um número de telefone válido.',
   }),
   area: z.string({
-    required_error: 'Selecione uma área de interesse.',
+    error: 'Selecione uma área de interesse.',
   }),
   availability: z.string().min(2, {
     message: 'Descreva sua disponibilidade.',
