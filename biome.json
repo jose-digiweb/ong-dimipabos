@@ -51,7 +51,8 @@
       "**/coverage",
       "**/.cache",
       "**/*/sanity.types.ts",
-      "**/*/sanity-typegen.json"
+      "**/*/sanity-typegen.json",
+      "**/.agents"
     ]
   }
 }

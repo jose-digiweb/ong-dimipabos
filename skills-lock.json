@@ -13,6 +13,12 @@
       "skillPath": "skills/deploy-to-vercel/SKILL.md",
       "computedHash": "03e0eaaa9bf13ba1e7ffa387f5893de6f324c0868c627001f179395a8feaa7c9"
     },
+    "emilkowal-animations": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.experimental/emilkowal-animations/SKILL.md",
+      "computedHash": "f9d5fc89ddc9b7b1ce1b323c7152881c3a01d8088ccec5ddfd4c7aebc0c9c936"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
@@ -37,11 +43,71 @@
       "skillPath": "skills/next-upgrade/SKILL.md",
       "computedHash": "e3aeb1f9e8a68d24df0c1c2e3c8ab97ede09a7251a2c76988318d02254346979"
     },
+    "playwright": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/playwright/SKILL.md",
+      "computedHash": "8cdd6a79c7ee4184e9ed88c78fd8c4e1cb94807010871273c9747d07bcc745f2"
+    },
+    "react-hook-form": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/react-hook-form/SKILL.md",
+      "computedHash": "708cdc15b14a2826d05f1ac92a7d63f496a068cee5b4b5139c09cbcd68ba2409"
+    },
     "shadcn": {
       "source": "shadcn/ui",
       "sourceType": "github",
       "skillPath": "skills/shadcn/SKILL.md",
       "computedHash": "80a6226e78f6d1fe464214ae0ef449d49d8ffaa3e7704f011e9b418c678ad4d1"
+    },
+    "tailwind": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/tailwind/SKILL.md",
+      "computedHash": "973f01e905e679240c2e5a6ade87338d2d34719c8a5306f5d1ef71682be22f65"
+    },
+    "tailwind-refactor": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.experimental/tailwind-refactor/SKILL.md",
+      "computedHash": "74cc16b48321d9a943016420fac621fa45011ca64e566ccdf65046439942a783"
+    },
+    "tailwind-responsive-ui": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.experimental/tailwind-responsive-ui/SKILL.md",
+      "computedHash": "0b4a3b0ecc73594314c99603eef2cce8c4691ba27b7e373f93838fdda5487266"
+    },
+    "tanstack-query": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/tanstack-query/SKILL.md",
+      "computedHash": "f92abd0d7309c519f9947d749ecb20e79507a68d2d8752e9942228b019a52ccd"
+    },
+    "typescript": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/typescript/SKILL.md",
+      "computedHash": "a6abc7c40a305f4f15d1167a36931d97ac5271893924dc101ba945f0aaf241ce"
+    },
+    "typescript-advanced-patterns": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.experimental/typescript-advanced-patterns/SKILL.md",
+      "computedHash": "b5a96cfe06317b730f099bf93958509737a321577f86dbd33819c77c72db26f4"
+    },
+    "typescript-refactor": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.experimental/typescript-refactor/SKILL.md",
+      "computedHash": "8ea8df719cd12f7f3c7502341c75379ef19b27a5c011e34c27081545c23a094f"
+    },
+    "ui-design": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/ui-design/SKILL.md",
+      "computedHash": "9bb6421762ba99bbf0e5dc3b32ce0da9547ce884a0f712f4c6f528abe735ed47"
     },
     "vercel-composition-patterns": {
       "source": "vercel-labs/agent-skills",
@@ -67,11 +133,29 @@
       "skillPath": "skills/react-view-transitions/SKILL.md",
       "computedHash": "c8952fc9127fa0564d0cb71dccb4215a5608ac933b5831104f09173a97a46f85"
     },
+    "vitest": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/vitest/SKILL.md",
+      "computedHash": "2432cb7f9099423fb3768a925fa95d7f8a6dc56c76eaded47472f558bff7139e"
+    },
     "web-design-guidelines": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/web-design-guidelines/SKILL.md",
       "computedHash": "f3bc47f890f42a44db1007ab390709ec368e4b8c089baee6b0007182236ac474"
+    },
+    "zod": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.curated/zod/SKILL.md",
+      "computedHash": "c69b5133b65643317236707f2cd3e521b4fc6e5ee5fd6c6c00cf62a37dfd0144"
+    },
+    "zustand": {
+      "source": "pproenca/dot-skills",
+      "sourceType": "github",
+      "skillPath": "skills/.experimental/zustand/SKILL.md",
+      "computedHash": "337c79809642db2ecec7677e47fe17f26115a000a35b66ec5da4c38e132b0a8d"
     }
   }
 }
