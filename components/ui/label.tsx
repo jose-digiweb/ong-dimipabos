@@ -2,11 +2,17 @@
 
 import type * as React from 'react'
 
-import { cn } from '@/lib/utils'
+
+
+
+
+
+
+     import { cn } from '@/lib/utils'
 
 function Label({ className, ...props }: React.ComponentProps<'label'>) {
   return (
-    // biome-ignore lint/a11y/noLabelWithoutControl: generic reusable label; htmlFor/nesting is provided at the call site
+    // eslint-disable-next-line jsx-a11y/label-has-associated-control -- generic reusable label; htmlFor/nesting is provided at the call site
     <label
       data-slot='label'
       className={cn(

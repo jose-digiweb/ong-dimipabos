@@ -1,0 +1,22 @@
+{
+	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"plugins": ["typescript", "react", "nextjs", "jsx-a11y"],
+	"categories": {
+		"correctness": "error",
+		"suspicious": "warn"
+	},
+	"rules": {
+		"react/react-in-jsx-scope": "off",
+		"no-underscore-dangle": "off",
+		"jsx-a11y/prefer-tag-over-role": "off",
+		"no-unused-vars": [
+			"error",
+			{
+				"varsIgnorePattern": "^_",
+				"argsIgnorePattern": "^_",
+				"caughtErrorsIgnorePattern": "^_"
+			}
+		]
+	},
+	"ignorePatterns": [".next", ".agents", "dist", "build", "coverage", ".cache", "drizzle"]
+}

@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsgo --noEmit",
-    "lint": "biome lint .",
+    "lint": "oxlint",
     "wlogin": "wrangler login",
-    "format": "ultracite format",
-    "format:check": "biome check --fix --unsafe",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
@@ -39,17 +39,15 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
     "@tailwindcss/postcss": "^4.1.4",
     "@types/node": "^20.17.16",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@typescript/native-preview": "^7.0.0-dev.20260525.1",
-    "biome": "^0.3.3",
     "drizzle-kit": "^0.31.4",
+    "oxlint": "^1.66.0",
     "tailwindcss": "^4.1.4",
-    "typescript": "^5.7.3",
-    "ultracite": "^4.2.1"
+    "typescript": "^5.7.3"
   },
   "overrides": {
     "@types/react": "19.1.2",

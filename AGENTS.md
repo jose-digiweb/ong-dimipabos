@@ -13,7 +13,7 @@
 - Run a production build with `bun run build`.
 - Run linting with `bun run lint`.
 - Format the repo with `bun run format`.
-- `bun run format:check` is not read-only: it runs `biome check --fix --unsafe` and may rewrite files.
+- `bun run format:check` is read-only: it runs `oxfmt --check` and exits non-zero if any file would change.
 - Database workflow: `bun run db:generate`, `bun run db:migrate`, `bun run db:push`, `bun run db:studio`.
 - There is currently no test script or test suite in this repo. Validate with the smallest relevant command plus manual route checks when needed.
 
@@ -31,7 +31,7 @@
 ## Conventions
 
 - TypeScript is strict; use the existing `@/*` path alias.
-- Formatting uses tabs, single quotes, and no semicolons through Biome and Ultracite.
+- Formatting uses tabs, single quotes, and no semicolons through oxfmt (`.oxfmtrc.json`). Linting uses oxlint (`.oxlintrc.json`).
 - File naming is intentionally mixed in the current codebase. Match the local pattern instead of renaming files for consistency.
 - Tailwind v4 and the shared UI primitives are the default styling path. Prefer existing tokens, variants, and helpers over ad hoc patterns.
 - Use `cn` from `lib/utils.ts` and existing `Button` variants before introducing new utility wrappers.
