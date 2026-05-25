@@ -18,12 +18,18 @@ type Props = {
  */
 export const CTAButton = ({ text, onClick, size = 'lg', className }: Props) => {
   return (
-    <Button asChild size={size} variant='CTA' onClick={onClick}>
-      <Link href='/como-ajudar' className={cn('group flex items-center gap-4', className)}>
-        <span>{text ? text : 'Doe Agora'}</span>
+    <Button
+      render={
+        <Link href='/como-ajudar' className={cn('group flex items-center gap-4', className)} />
+      }
+      nativeButton={false}
+      size={size}
+      variant='CTA'
+      onClick={onClick}
+    >
+      <span>{text ? text : 'Doe Agora'}</span>
 
-        <HeartHandshake className='size-6 group-hover:animate-pulse' />
-      </Link>
+      <HeartHandshake className='size-6 group-hover:animate-pulse' />
     </Button>
   )
 }

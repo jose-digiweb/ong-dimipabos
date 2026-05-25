@@ -72,8 +72,13 @@ export default function HelpPage() {
                 pós-reabilitação.
               </p>
 
-              <Button asChild variant='CTA' className='mt-6'>
-                <Link href='#doar'>Doe Agora</Link>
+              <Button
+                render={<Link href='#doar' />}
+                nativeButton={false}
+                variant='CTA'
+                className='mt-6'
+              >
+                Doe Agora
               </Button>
             </div>
 
@@ -85,8 +90,13 @@ export default function HelpPage() {
                 Ajude em nossos programas de acompanhamento e suporte emocional aos pacientes.
               </p>
 
-              <Button asChild variant='CTA' className='mt-6'>
-                <Link href='#voluntario'>Inscreva-se</Link>
+              <Button
+                render={<Link href='#voluntario' />}
+                nativeButton={false}
+                variant='CTA'
+                className='mt-6'
+              >
+                Inscreva-se
               </Button>
             </div>
 
@@ -98,8 +108,13 @@ export default function HelpPage() {
                 Apoie nosso trabalho de reintegração social e manutenção da sobriedade.
               </p>
 
-              <Button asChild variant='CTA' className='mt-6'>
-                <Link href='#parceiro'>Saiba Mais</Link>
+              <Button
+                render={<Link href='#parceiro' />}
+                nativeButton={false}
+                variant='CTA'
+                className='mt-6'
+              >
+                Saiba Mais
               </Button>
             </div>
           </div>

@@ -40,8 +40,14 @@ export default function SobrePage() {
           <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
             <CTAButton text='Apoie Nossa Causa' size='lg' />
 
-            <Button asChild size='lg' variant='outline' className='bg-white'>
-              <Link href='/projetos'>Conheça o Projeto</Link>
+            <Button
+              render={<Link href='/projetos' />}
+              nativeButton={false}
+              size='lg'
+              variant='outline'
+              className='bg-white'
+            >
+              Conheça o Projeto
             </Button>
           </div>
 

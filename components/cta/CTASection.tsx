@@ -37,8 +37,13 @@ export const CTASection = ({ className }: Props) => {
 
         <div className='mt-8 flex justify-center gap-4'>
           <CTAButton />
-          <Button asChild size='lg' variant='outline'>
-            <Link href='/como-ajudar#voluntario'>Seja Voluntário</Link>
+          <Button
+            render={<Link href='/como-ajudar#voluntario' />}
+            nativeButton={false}
+            size='lg'
+            variant='outline'
+          >
+            Seja Voluntário
           </Button>
         </div>
       </div>

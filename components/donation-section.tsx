@@ -64,10 +64,8 @@ export function DonationSection() {
                   </div>
                   <TooltipProvider>
                     <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button variant='ghost' size='icon'>
-                          <Info className='h-4 w-4' />
-                        </Button>
+                      <TooltipTrigger render={<Button variant='ghost' size='icon' />}>
+                        <Info className='h-4 w-4' />
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>Qualquer valor é bem-vindo e faz a diferença!</p>

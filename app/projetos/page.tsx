@@ -38,8 +38,14 @@ export default function ProjectsPage() {
           <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
             <CTAButton text='Apoie Nossos Projetos' size='lg' />
 
-            <Button asChild size='lg' variant='outline' className='bg-white'>
-              <Link href='/como-ajudar#voluntario'>Seja Voluntário</Link>
+            <Button
+              render={<Link href='/como-ajudar#voluntario' />}
+              nativeButton={false}
+              size='lg'
+              variant='outline'
+              className='bg-white'
+            >
+              Seja Voluntário
             </Button>
           </div>
 

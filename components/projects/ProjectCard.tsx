@@ -47,11 +47,16 @@ export const ProjectCard = ({ project, className }: Props) => {
       </CardContent>
 
       <CardFooter className=''>
-        <Button asChild variant='CTA' className='group'>
-          <Link href={`/projetos/${project.slug}`} className='group inline-flex items-center'>
-            Leia Mais
-            <ArrowRight className='ml-2 size-4 transition-all group-hover:translate-x-1 group-hover:scale-125' />
-          </Link>
+        <Button
+          render={
+            <Link href={`/projetos/${project.slug}`} className='group inline-flex items-center' />
+          }
+          nativeButton={false}
+          variant='CTA'
+          className='group'
+        >
+          Leia Mais
+          <ArrowRight className='ml-2 size-4 transition-all group-hover:translate-x-1 group-hover:scale-125' />
         </Button>
       </CardFooter>
     </Card>

@@ -34,22 +34,30 @@ export default function ContactPage() {
           </HeroDescription>
 
           <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
-            <Button size='lg' variant='CTA' asChild>
-              <Link href='/contato#enviar-mensagem'>
-                Enviar Mensagem
-                <ArrowRight className='ml-2 size-4' />
-              </Link>
+            <Button
+              render={<Link href='/contato#enviar-mensagem' />}
+              nativeButton={false}
+              size='lg'
+              variant='CTA'
+            >
+              Enviar Mensagem
+              <ArrowRight className='ml-2 size-4' />
             </Button>
 
-            <Button size='lg' variant='outline' asChild>
-              <a
-                target='_blank'
-                rel='noopener noreferrer'
-                href='https://wa.me/31631791165'
-                className='hover:text-secondary'
-              >
-                WhatsApp
-              </a>
+            <Button
+              render={
+                <a
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  href='https://wa.me/31631791165'
+                  className='hover:text-secondary'
+                />
+              }
+              nativeButton={false}
+              size='lg'
+              variant='outline'
+            >
+              WhatsApp
             </Button>
           </div>
         </div>
@@ -146,27 +154,37 @@ export default function ContactPage() {
                 <div className='space-y-4'>
                   <h3 className='font-semibold'>Redes Sociais</h3>
                   <div className='flex gap-4'>
-                    <Button variant='outline' size='icon' asChild>
-                      <a
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        href='https://www.facebook.com/profile.php?id=100090763747200'
-                        className='hover:text-secondary'
-                      >
-                        <Facebook className='size-6' />
-                        <span className='sr-only'>Facebook</span>
-                      </a>
+                    <Button
+                      render={
+                        <a
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          href='https://www.facebook.com/profile.php?id=100090763747200'
+                          className='hover:text-secondary'
+                        />
+                      }
+                      nativeButton={false}
+                      variant='outline'
+                      size='icon'
+                    >
+                      <Facebook className='size-6' />
+                      <span className='sr-only'>Facebook</span>
                     </Button>
-                    <Button variant='outline' size='icon' asChild>
-                      <a
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        href='https://wa.me/31631791165'
-                        className='hover:text-secondary'
-                      >
-                        <MessageCircle className='size-6' />
-                        <span className='sr-only'>WhatsApp</span>
-                      </a>
+                    <Button
+                      render={
+                        <a
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          href='https://wa.me/31631791165'
+                          className='hover:text-secondary'
+                        />
+                      }
+                      nativeButton={false}
+                      variant='outline'
+                      size='icon'
+                    >
+                      <MessageCircle className='size-6' />
+                      <span className='sr-only'>WhatsApp</span>
                     </Button>
                   </div>
                 </div>

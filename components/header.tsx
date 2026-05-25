@@ -76,15 +76,17 @@ export function Header() {
 
           <div className='flex lg:hidden'>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild>
-                <Button
-                  size='none'
-                  variant='clean'
-                  className='inline-flex items-center justify-center rounded-md text-white'
-                >
-                  <span className='sr-only'>Abrir menu principal</span>
-                  <Menu className='size-10' aria-hidden='true' />
-                </Button>
+              <SheetTrigger
+                render={
+                  <Button
+                    size='none'
+                    variant='clean'
+                    className='inline-flex items-center justify-center rounded-md text-white'
+                  />
+                }
+              >
+                <span className='sr-only'>Abrir menu principal</span>
+                <Menu className='size-10' aria-hidden='true' />
               </SheetTrigger>
               <SheetContent side='right' className='w-full bg-slate-50 backdrop-blur-xs'>
                 <div className='mt-6 flow-root'>
