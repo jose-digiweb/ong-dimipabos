@@ -46,7 +46,9 @@ export default function ContactPage() {
 
             <Button
               render={
+                // biome-ignore lint/a11y/useAnchorContent: accessible via aria-label
                 <a
+                  aria-label='WhatsApp'
                   target='_blank'
                   rel='noopener noreferrer'
                   href='https://wa.me/31631791165'
@@ -156,7 +158,9 @@ export default function ContactPage() {
                   <div className='flex gap-4'>
                     <Button
                       render={
+                        // biome-ignore lint/a11y/useAnchorContent: accessible via aria-label
                         <a
+                          aria-label='Facebook'
                           target='_blank'
                           rel='noopener noreferrer'
                           href='https://www.facebook.com/profile.php?id=100090763747200'
@@ -172,7 +176,9 @@ export default function ContactPage() {
                     </Button>
                     <Button
                       render={
+                        // biome-ignore lint/a11y/useAnchorContent: accessible via aria-label
                         <a
+                          aria-label='WhatsApp'
                           target='_blank'
                           rel='noopener noreferrer'
                           href='https://wa.me/31631791165'

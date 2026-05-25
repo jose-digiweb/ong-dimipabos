@@ -3,12 +3,14 @@
  * Provides structured logging with different levels and proper formatting
  */
 
-export enum LogLevel {
-  ERROR = 0,
-  WARN = 1,
-  INFO = 2,
-  DEBUG = 3,
-}
+export const LogLevel = {
+  ERROR: 0,
+  WARN: 1,
+  INFO: 2,
+  DEBUG: 3,
+} as const
+
+export type LogLevel = (typeof LogLevel)[keyof typeof LogLevel]
 
 interface LogEntry {
   timestamp: string
@@ -77,7 +79,6 @@ class Logger {
           break
         default:
       }
-    } else {
     }
   }
 

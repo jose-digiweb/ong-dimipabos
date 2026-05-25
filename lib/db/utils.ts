@@ -91,9 +91,10 @@ export function fromCents(amountInCents: number): number {
 /**
  * Validate email format
  */
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export function isValidEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
+  return EMAIL_REGEX.test(email)
 }
 
 /**
