@@ -14,12 +14,12 @@ Tailwind CSS v4 exposes all theme values as CSS variables, enabling runtime cust
 ```typescript
 // Changing theme requires rebuild
 const theme = {
-  primary: "#0066ff",
-  secondary: "#6b7280",
-};
+	primary: '#0066ff',
+	secondary: '#6b7280',
+}
 
 function applyTheme(theme) {
-  // Can't change Tailwind classes at runtime
+	// Can't change Tailwind classes at runtime
 }
 ```
 
@@ -27,26 +27,27 @@ function applyTheme(theme) {
 
 ```css
 @theme {
-  --color-primary: oklch(0.623 0.214 259.1);
-  --color-secondary: oklch(0.551 0.027 264.4);
+	--color-primary: oklch(0.623 0.214 259.1);
+	--color-secondary: oklch(0.551 0.027 264.4);
 }
 ```
 
 ```typescript
 // Change theme at runtime without rebuild
 function applyTheme(theme: { primary: string; secondary: string }) {
-  document.documentElement.style.setProperty("--color-primary", theme.primary);
-  document.documentElement.style.setProperty("--color-secondary", theme.secondary);
+	document.documentElement.style.setProperty('--color-primary', theme.primary)
+	document.documentElement.style.setProperty('--color-secondary', theme.secondary)
 }
 
 // Usage
 applyTheme({
-  primary: "oklch(0.7 0.15 150)",  // Green theme
-  secondary: "oklch(0.6 0.1 160)",
-});
+	primary: 'oklch(0.7 0.15 150)', // Green theme
+	secondary: 'oklch(0.6 0.1 160)',
+})
 ```
 
 **Use cases:**
+
 - User-customizable themes
 - White-label applications
 - A/B testing color schemes

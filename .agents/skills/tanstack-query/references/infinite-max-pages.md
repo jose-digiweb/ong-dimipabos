@@ -13,11 +13,11 @@ Without `maxPages`, infinite queries accumulate all pages in memory indefinitely
 
 ```typescript
 const { data, fetchNextPage } = useInfiniteQuery({
-  queryKey: ['posts'],
-  queryFn: ({ pageParam }) => fetchPosts(pageParam),
-  initialPageParam: 0,
-  getNextPageParam: (lastPage) => lastPage.nextCursor,
-  // No maxPages - accumulates forever!
+	queryKey: ['posts'],
+	queryFn: ({ pageParam }) => fetchPosts(pageParam),
+	initialPageParam: 0,
+	getNextPageParam: (lastPage) => lastPage.nextCursor,
+	// No maxPages - accumulates forever!
 })
 
 // User scrolls through 100 pages:
@@ -30,12 +30,12 @@ const { data, fetchNextPage } = useInfiniteQuery({
 
 ```typescript
 const { data, fetchNextPage, fetchPreviousPage } = useInfiniteQuery({
-  queryKey: ['posts'],
-  queryFn: ({ pageParam }) => fetchPosts(pageParam),
-  initialPageParam: 0,
-  getNextPageParam: (lastPage) => lastPage.nextCursor,
-  getPreviousPageParam: (firstPage) => firstPage.prevCursor,
-  maxPages: 5, // Keep only 5 pages in memory
+	queryKey: ['posts'],
+	queryFn: ({ pageParam }) => fetchPosts(pageParam),
+	initialPageParam: 0,
+	getNextPageParam: (lastPage) => lastPage.nextCursor,
+	getPreviousPageParam: (firstPage) => firstPage.prevCursor,
+	maxPages: 5, // Keep only 5 pages in memory
 })
 
 // User scrolls through 100 pages:

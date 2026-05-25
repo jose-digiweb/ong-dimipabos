@@ -14,11 +14,11 @@ Playwright's Trace Viewer shows a step-by-step replay of test execution includin
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  use: {
-    // No trace configuration
-    // When tests fail in CI, you have no visibility into what happened
-  },
-});
+	use: {
+		// No trace configuration
+		// When tests fail in CI, you have no visibility into what happened
+	},
+})
 
 // Test fails in CI - you only see error message
 // No way to see page state, network requests, or console logs
@@ -29,16 +29,16 @@ export default defineConfig({
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  use: {
-    // Capture trace only when test fails or retries
-    trace: 'on-first-retry',
+	use: {
+		// Capture trace only when test fails or retries
+		trace: 'on-first-retry',
 
-    // Alternative options:
-    // trace: 'on' - Always capture (large files)
-    // trace: 'retain-on-failure' - Keep only for failures
-    // trace: 'off' - Never capture
-  },
-});
+		// Alternative options:
+		// trace: 'on' - Always capture (large files)
+		// trace: 'retain-on-failure' - Keep only for failures
+		// trace: 'off' - Never capture
+	},
+})
 ```
 
 **View traces locally:**
@@ -69,9 +69,9 @@ npx playwright show-trace --browser
   uses: actions/upload-artifact@v4
   if: failure() # Only upload on failure
   with:
-    name: playwright-traces
-    path: test-results/
-    retention-days: 7
+   name: playwright-traces
+   path: test-results/
+   retention-days: 7
 ```
 
 Reference: [Playwright Trace Viewer](https://playwright.dev/docs/trace-viewer)

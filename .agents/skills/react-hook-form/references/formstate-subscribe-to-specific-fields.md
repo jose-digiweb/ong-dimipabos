@@ -46,8 +46,8 @@ function PasswordStrengthIndicator({ control }: { control: Control }) {
 
 ```typescript
 const { errors } = useFormState({
-  control,
-  name: ['email', 'password'],  // Subscribe to multiple specific fields
+	control,
+	name: ['email', 'password'], // Subscribe to multiple specific fields
 })
 ```
 

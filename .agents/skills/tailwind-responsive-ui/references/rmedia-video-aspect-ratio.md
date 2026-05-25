@@ -14,19 +14,19 @@ Embedded videos from YouTube, Vimeo, or self-hosted sources need to maintain the
 ```html
 <!-- 560px iframe overflows on mobile, and resizing only the width squashes the video -->
 <section class="mx-auto max-w-4xl px-4 py-8">
-  <h2 class="text-2xl font-bold text-gray-900">Product Demo</h2>
-  <p class="mt-2 text-gray-600">Watch how our platform simplifies your workflow.</p>
-  <div class="mt-6">
-    <iframe
-      width="560"
-      height="315"
-      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-      title="Product Demo Video"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
-  </div>
+	<h2 class="text-2xl font-bold text-gray-900">Product Demo</h2>
+	<p class="mt-2 text-gray-600">Watch how our platform simplifies your workflow.</p>
+	<div class="mt-6">
+		<iframe
+			width="560"
+			height="315"
+			src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+			title="Product Demo Video"
+			frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+			allowfullscreen
+		></iframe>
+	</div>
 </section>
 ```
 
@@ -35,18 +35,18 @@ Embedded videos from YouTube, Vimeo, or self-hosted sources need to maintain the
 ```html
 <!-- Video fills container width while maintaining perfect 16:9 ratio on every screen size -->
 <section class="mx-auto max-w-4xl px-4 py-8">
-  <h2 class="text-2xl font-bold text-gray-900">Product Demo</h2>
-  <p class="mt-2 text-gray-600">Watch how our platform simplifies your workflow.</p>
-  <div class="mt-6 aspect-video w-full overflow-hidden rounded-lg shadow-md">
-    <iframe
-      class="h-full w-full"
-      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-      title="Product Demo Video"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
-  </div>
+	<h2 class="text-2xl font-bold text-gray-900">Product Demo</h2>
+	<p class="mt-2 text-gray-600">Watch how our platform simplifies your workflow.</p>
+	<div class="mt-6 aspect-video w-full overflow-hidden rounded-lg shadow-md">
+		<iframe
+			class="h-full w-full"
+			src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+			title="Product Demo Video"
+			frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+			allowfullscreen
+		></iframe>
+	</div>
 </section>
 ```
 

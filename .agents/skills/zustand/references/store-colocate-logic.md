@@ -13,22 +13,22 @@ Keep actions and the state they modify within the same store. This promotes enca
 
 ```typescript
 const useUserStore = create<UserState>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
+	user: null,
+	setUser: (user) => set({ user }),
 }))
 
 const useCartStore = create<CartState>((set) => ({
-  items: [],
-  userId: null,
+	items: [],
+	userId: null,
 
-  // Anti-pattern: modifying user store from cart store
-  addItemAndUpdateUser: (item) => {
-    set((s) => ({ items: [...s.items, item] }))
-    useUserStore.getState().setUser({
-      ...useUserStore.getState().user,
-      lastActivity: Date.now(),
-    })
-  },
+	// Anti-pattern: modifying user store from cart store
+	addItemAndUpdateUser: (item) => {
+		set((s) => ({ items: [...s.items, item] }))
+		useUserStore.getState().setUser({
+			...useUserStore.getState().user,
+			lastActivity: Date.now(),
+		})
+	},
 }))
 ```
 
@@ -36,31 +36,33 @@ const useCartStore = create<CartState>((set) => ({
 
 ```typescript
 const useUserStore = create<UserState>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-  updateLastActivity: () => set((s) => ({
-    user: s.user ? { ...s.user, lastActivity: Date.now() } : null,
-  })),
+	user: null,
+	setUser: (user) => set({ user }),
+	updateLastActivity: () =>
+		set((s) => ({
+			user: s.user ? { ...s.user, lastActivity: Date.now() } : null,
+		})),
 }))
 
 const useCartStore = create<CartState>((set) => ({
-  items: [],
-  addItem: (item) => set((s) => ({ items: [...s.items, item] })),
+	items: [],
+	addItem: (item) => set((s) => ({ items: [...s.items, item] })),
 }))
 
 // Coordinate in component or custom hook
 const useAddToCartWithActivity = () => {
-  const addItem = useCartStore((s) => s.addItem)
-  const updateLastActivity = useUserStore((s) => s.updateLastActivity)
+	const addItem = useCartStore((s) => s.addItem)
+	const updateLastActivity = useUserStore((s) => s.updateLastActivity)
 
-  return (item: CartItem) => {
-    addItem(item)
-    updateLastActivity()
-  }
+	return (item: CartItem) => {
+		addItem(item)
+		updateLastActivity()
+	}
 }
 ```
 
 **Benefits:**
+
 - Each store is self-contained and testable
 - Clear ownership of state mutations
 - Easier to trace state changes

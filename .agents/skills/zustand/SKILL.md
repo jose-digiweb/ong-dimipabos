@@ -10,6 +10,7 @@ Comprehensive performance and architecture guide for Zustand state management in
 ## When to Apply
 
 Reference these guidelines when:
+
 - Creating new Zustand stores
 - Optimizing re-render performance with selectors
 - Implementing persistence or middleware
@@ -18,16 +19,16 @@ Reference these guidelines when:
 
 ## Rule Categories by Priority
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Store Architecture | CRITICAL | `store-` |
-| 2 | Selector Optimization | CRITICAL | `select-` |
-| 3 | Re-render Prevention | HIGH | `render-` |
-| 4 | State Updates | MEDIUM-HIGH | `update-` |
-| 5 | Middleware Configuration | MEDIUM | `mw-` |
-| 6 | SSR and Hydration | MEDIUM | `ssr-` |
-| 7 | TypeScript Patterns | LOW-MEDIUM | `ts-` |
-| 8 | Advanced Patterns | LOW | `adv-` |
+| Priority | Category                 | Impact      | Prefix    |
+| -------- | ------------------------ | ----------- | --------- |
+| 1        | Store Architecture       | CRITICAL    | `store-`  |
+| 2        | Selector Optimization    | CRITICAL    | `select-` |
+| 3        | Re-render Prevention     | HIGH        | `render-` |
+| 4        | State Updates            | MEDIUM-HIGH | `update-` |
+| 5        | Middleware Configuration | MEDIUM      | `mw-`     |
+| 6        | SSR and Hydration        | MEDIUM      | `ssr-`    |
+| 7        | TypeScript Patterns      | LOW-MEDIUM  | `ts-`     |
+| 8        | Advanced Patterns        | LOW         | `adv-`    |
 
 ## Quick Reference
 
@@ -107,8 +108,8 @@ Read individual reference files for detailed explanations and code examples:
 
 ## Reference Files
 
-| File | Description |
-|------|-------------|
-| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
-| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
-| [metadata.json](metadata.json) | Version and reference information |
+| File                                                            | Description                       |
+| --------------------------------------------------------------- | --------------------------------- |
+| [references/\_sections.md](references/_sections.md)             | Category definitions and ordering |
+| [assets/templates/\_template.md](assets/templates/_template.md) | Template for new rules            |
+| [metadata.json](metadata.json)                                  | Version and reference information |

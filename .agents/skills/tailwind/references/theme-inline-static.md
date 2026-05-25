@@ -13,8 +13,8 @@ Tailwind v4 provides `@theme inline` and `@theme static` modifiers to control ho
 
 ```css
 @theme {
-  --font-sans: "Inter", sans-serif;
-  --color-brand: oklch(0.623 0.214 259.1);
+	--font-sans: 'Inter', sans-serif;
+	--color-brand: oklch(0.623 0.214 259.1);
 }
 /* Generates CSS variables on :root that may never be read at runtime */
 /* .font-sans { font-family: var(--font-sans); } */
@@ -25,8 +25,8 @@ Tailwind v4 provides `@theme inline` and `@theme static` modifiers to control ho
 
 ```css
 @theme inline {
-  --font-sans: "Inter", sans-serif;
-  --color-brand: oklch(0.623 0.214 259.1);
+	--font-sans: 'Inter', sans-serif;
+	--color-brand: oklch(0.623 0.214 259.1);
 }
 /* No CSS variables on :root — values are inlined into utilities */
 /* .font-sans { font-family: "Inter", sans-serif; } */
@@ -37,14 +37,15 @@ Tailwind v4 provides `@theme inline` and `@theme static` modifiers to control ho
 
 ```css
 @theme static {
-  --color-primary: var(--color-brand-500);
-  --color-secondary: var(--color-blue-500);
+	--color-primary: var(--color-brand-500);
+	--color-secondary: var(--color-blue-500);
 }
 /* Variables always emitted on :root, even if unused in this package */
 /* Consumers in other packages can reference these variables */
 ```
 
 **When to use each:**
+
 - `@theme` (default) — most cases, balances runtime access with output size
 - `@theme inline` — when you don't need runtime CSS variable access (e.g., fonts, static values)
 - `@theme static` — when building shared libraries where consumers reference your variables

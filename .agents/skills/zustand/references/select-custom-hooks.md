@@ -63,6 +63,7 @@ function BearCounter() {
 ```
 
 **Benefits:**
+
 - Impossible to accidentally subscribe to entire store
 - Selectors defined once, reused everywhere
 - Easy to add memoization or logging later

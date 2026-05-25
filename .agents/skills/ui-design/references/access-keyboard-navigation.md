@@ -13,11 +13,11 @@ All interactive elements must be reachable and operable via keyboard. Many users
 
 ```html
 <div class="dropdown" onmouseover="showMenu()">
-  <span>Menu</span>
-  <div class="menu-items">
-    <div onclick="selectItem('option1')">Option 1</div>
-    <div onclick="selectItem('option2')">Option 2</div>
-  </div>
+	<span>Menu</span>
+	<div class="menu-items">
+		<div onclick="selectItem('option1')">Option 1</div>
+		<div onclick="selectItem('option2')">Option 2</div>
+	</div>
 </div>
 <!-- Cannot be reached with Tab key -->
 <!-- Cannot be activated with Enter/Space -->
@@ -27,23 +27,18 @@ All interactive elements must be reachable and operable via keyboard. Many users
 
 ```html
 <div class="dropdown">
-  <button
-    aria-expanded="false"
-    aria-haspopup="menu"
-    onkeydown="handleKeydown(event)"
-  >
-    Menu
-  </button>
-  <ul role="menu">
-    <li role="menuitem" tabindex="-1">Option 1</li>
-    <li role="menuitem" tabindex="-1">Option 2</li>
-  </ul>
+	<button aria-expanded="false" aria-haspopup="menu" onkeydown="handleKeydown(event)">Menu</button>
+	<ul role="menu">
+		<li role="menuitem" tabindex="-1">Option 1</li>
+		<li role="menuitem" tabindex="-1">Option 2</li>
+	</ul>
 </div>
 <!-- Tab reaches button, Enter opens menu -->
 <!-- Arrow keys navigate options, Escape closes -->
 ```
 
 **Keyboard requirements:**
+
 - Tab: Move between interactive elements
 - Enter/Space: Activate buttons and links
 - Arrow keys: Navigate within components (menus, tabs, sliders)

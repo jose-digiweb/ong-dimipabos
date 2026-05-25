@@ -13,9 +13,9 @@ The `theme()` function is deprecated in Tailwind CSS v4. All design tokens defin
 
 ```css
 .banner {
-  background-color: theme(colors.red.500);
-  width: theme(screens.xl);
-  font-family: theme(fontFamily.sans);
+	background-color: theme(colors.red.500);
+	width: theme(screens.xl);
+	font-family: theme(fontFamily.sans);
 }
 ```
 
@@ -23,9 +23,9 @@ The `theme()` function is deprecated in Tailwind CSS v4. All design tokens defin
 
 ```css
 .banner {
-  background-color: var(--color-red-500);
-  width: var(--breakpoint-xl);
-  font-family: var(--font-sans);
+	background-color: var(--color-red-500);
+	width: var(--breakpoint-xl);
+	font-family: var(--font-sans);
 }
 ```
 
@@ -33,6 +33,6 @@ Note: CSS variables cannot be used inside `@media` condition values. In media qu
 
 ```css
 @media (width >= theme(--breakpoint-xl)) {
-  /* styles */
+	/* styles */
 }
 ```

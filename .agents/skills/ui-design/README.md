@@ -60,16 +60,16 @@ pnpm validate
 
 ### Prefix Reference
 
-| Category | Prefix | Impact |
-|----------|--------|--------|
-| Accessibility & WCAG Compliance | `access-` | CRITICAL |
-| Core Web Vitals Optimization | `cwv-` | CRITICAL |
-| Visual Hierarchy & Layout | `layout-` | HIGH |
-| Responsive & Mobile-First Design | `resp-` | HIGH |
-| Typography & Font Loading | `typo-` | MEDIUM-HIGH |
-| Color & Contrast | `color-` | MEDIUM |
-| Forms & Validation UX | `form-` | MEDIUM |
-| Animation & Performance | `anim-` | LOW-MEDIUM |
+| Category                         | Prefix    | Impact      |
+| -------------------------------- | --------- | ----------- |
+| Accessibility & WCAG Compliance  | `access-` | CRITICAL    |
+| Core Web Vitals Optimization     | `cwv-`    | CRITICAL    |
+| Visual Hierarchy & Layout        | `layout-` | HIGH        |
+| Responsive & Mobile-First Design | `resp-`   | HIGH        |
+| Typography & Font Loading        | `typo-`   | MEDIUM-HIGH |
+| Color & Contrast                 | `color-`  | MEDIUM      |
+| Forms & Validation UX            | `form-`   | MEDIUM      |
+| Animation & Performance          | `anim-`   | LOW-MEDIUM  |
 
 ## Rule File Structure
 
@@ -88,13 +88,17 @@ Brief explanation of WHY this matters (1-3 sentences).
 **Incorrect (description of problem):**
 
 \`\`\`html
+
 <!-- Code with accessibility/performance issue -->
+
 \`\`\`
 
 **Correct (description of solution):**
 
 \`\`\`html
+
 <!-- Optimized/accessible code -->
+
 \`\`\`
 
 Reference: [Link](url)
@@ -108,20 +112,21 @@ Rules follow the pattern: `{prefix}-{description}.md`
 - `description`: Kebab-case description of the rule
 
 Examples:
+
 - `access-semantic-html.md`
 - `cwv-optimize-lcp.md`
 - `resp-mobile-first.md`
 
 ## Impact Levels
 
-| Level | Description | Typical Improvement |
-|-------|-------------|---------------------|
-| CRITICAL | Must fix immediately | Blocks 15%+ users or 25%+ SEO impact |
-| HIGH | Fix in current sprint | 20-50% improvement in UX metrics |
-| MEDIUM-HIGH | Fix soon | 15-25% improvement |
-| MEDIUM | Fix when convenient | 10-20% improvement |
-| LOW-MEDIUM | Nice to have | 5-15% improvement |
-| LOW | Edge cases only | Situational |
+| Level       | Description           | Typical Improvement                  |
+| ----------- | --------------------- | ------------------------------------ |
+| CRITICAL    | Must fix immediately  | Blocks 15%+ users or 25%+ SEO impact |
+| HIGH        | Fix in current sprint | 20-50% improvement in UX metrics     |
+| MEDIUM-HIGH | Fix soon              | 15-25% improvement                   |
+| MEDIUM      | Fix when convenient   | 10-20% improvement                   |
+| LOW-MEDIUM  | Nice to have          | 5-15% improvement                    |
+| LOW         | Edge cases only       | Situational                          |
 
 ## Scripts
 

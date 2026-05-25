@@ -12,42 +12,41 @@ When integrating Tailwind into existing projects or component libraries, use a p
 **Incorrect (potential conflicts):**
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --color-primary: oklch(0.623 0.214 259.1);
-  /* May conflict with existing --color-primary in project */
+	--color-primary: oklch(0.623 0.214 259.1);
+	/* May conflict with existing --color-primary in project */
 }
 ```
 
 **Correct (prefixed variables):**
 
 ```css
-@import "tailwindcss" prefix(tw);
+@import 'tailwindcss' prefix(tw);
 
 @theme {
-  /* Define without prefix */
-  --color-primary: oklch(0.623 0.214 259.1);
-  --font-display: "Satoshi", sans-serif;
+	/* Define without prefix */
+	--color-primary: oklch(0.623 0.214 259.1);
+	--font-display: 'Satoshi', sans-serif;
 }
 ```
 
 ```css
 /* Generated CSS variables are prefixed */
 :root {
-  --tw-color-primary: oklch(0.623 0.214 259.1);
-  --tw-font-display: "Satoshi", sans-serif;
+	--tw-color-primary: oklch(0.623 0.214 259.1);
+	--tw-font-display: 'Satoshi', sans-serif;
 }
 ```
 
 ```html
 <!-- Utility classes are also prefixed -->
-<div class="tw:bg-primary tw:font-display">
-  Content
-</div>
+<div class="tw:bg-primary tw:font-display">Content</div>
 ```
 
 **When to use prefixes:**
+
 - Migrating existing projects with CSS variables
 - Building embeddable widgets
 - Creating component libraries

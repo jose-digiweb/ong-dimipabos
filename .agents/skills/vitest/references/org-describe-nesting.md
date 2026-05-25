@@ -31,29 +31,29 @@ it('should fail to delete non-existent user', () => {})
 import { describe, it, expect, beforeEach } from 'vitest'
 
 describe('UserService', () => {
-  describe('create', () => {
-    it('should create user with valid data', () => {})
+	describe('create', () => {
+		it('should create user with valid data', () => {})
 
-    describe('validation', () => {
-      it('should reject invalid email', () => {})
-      it('should reject short password', () => {})
-    })
-  })
+		describe('validation', () => {
+			it('should reject invalid email', () => {})
+			it('should reject short password', () => {})
+		})
+	})
 
-  describe('update', () => {
-    beforeEach(() => {
-      // Setup specific to update tests
-    })
+	describe('update', () => {
+		beforeEach(() => {
+			// Setup specific to update tests
+		})
 
-    it('should update user name', () => {})
-    it('should update user email', () => {})
-    it('should reject invalid email', () => {})
-  })
+		it('should update user name', () => {})
+		it('should update user email', () => {})
+		it('should reject invalid email', () => {})
+	})
 
-  describe('delete', () => {
-    it('should delete existing user', () => {})
-    it('should throw for non-existent user', () => {})
-  })
+	describe('delete', () => {
+		it('should delete existing user', () => {})
+		it('should throw for non-existent user', () => {})
+	})
 })
 ```
 
@@ -74,10 +74,12 @@ describe('UserService', () => {
 ```
 
 **Nesting limits:**
+
 - Keep nesting to 2-3 levels max
 - If deeper, consider splitting into separate files
 
 **Benefits:**
+
 - Clearer test output
 - Scoped beforeEach/afterEach
 - Easy to run subsets (`vitest UserService.create`)

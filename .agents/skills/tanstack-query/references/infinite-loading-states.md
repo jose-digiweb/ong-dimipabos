@@ -89,8 +89,8 @@ function PostsList() {
 
 **Loading state summary:**
 
-| State | Initial Load | Fetch Next | Background Refetch |
-|-------|--------------|------------|-------------------|
-| isPending | ✓ | ✗ | ✗ |
-| isFetchingNextPage | ✗ | ✓ | ✗ |
-| isFetching | ✓ | ✓ | ✓ |
+| State              | Initial Load | Fetch Next | Background Refetch |
+| ------------------ | ------------ | ---------- | ------------------ |
+| isPending          | ✓            | ✗          | ✗                  |
+| isFetchingNextPage | ✗            | ✓          | ✗                  |
+| isFetching         | ✓            | ✓          | ✓                  |

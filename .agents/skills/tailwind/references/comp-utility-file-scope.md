@@ -14,14 +14,14 @@ Custom utilities defined with `@utility` are only available in the file where th
 ```css
 /* components/button.css */
 @utility btn {
-  @apply px-4 py-2 rounded font-medium;
+	@apply px-4 py-2 rounded font-medium;
 }
 ```
 
 ```css
 /* components/card.css */
 .card-action {
-  @apply btn; /* Error: btn not defined in this file */
+	@apply btn; /* Error: btn not defined in this file */
 }
 ```
 
@@ -30,20 +30,20 @@ Custom utilities defined with `@utility` are only available in the file where th
 ```css
 /* utilities.css */
 @utility btn {
-  @apply px-4 py-2 rounded font-medium;
+	@apply px-4 py-2 rounded font-medium;
 }
 
 @utility card-shadow {
-  @apply shadow-md hover:shadow-lg transition-shadow;
+	@apply shadow-md hover:shadow-lg transition-shadow;
 }
 ```
 
 ```css
 /* components/card.css */
-@import "./utilities.css";
+@import './utilities.css';
 
 .card-action {
-  @apply btn; /* Works: imported from utilities.css */
+	@apply btn; /* Works: imported from utilities.css */
 }
 ```
 

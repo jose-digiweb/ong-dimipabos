@@ -13,23 +13,23 @@ When multiple state properties need to change together, update them in a single 
 
 ```typescript
 const useFormStore = create<FormState>((set) => ({
-  values: {},
-  errors: {},
-  touched: {},
-  isSubmitting: false,
+	values: {},
+	errors: {},
+	touched: {},
+	isSubmitting: false,
 
-  submitForm: async () => {
-    set({ isSubmitting: true })          // Re-render 1
-    set({ errors: {} })                   // Re-render 2
+	submitForm: async () => {
+		set({ isSubmitting: true }) // Re-render 1
+		set({ errors: {} }) // Re-render 2
 
-    try {
-      await submitToServer(get().values)
-      set({ isSubmitting: false })        // Re-render 3
-    } catch (error) {
-      set({ errors: parseErrors(error) }) // Re-render 4
-      set({ isSubmitting: false })        // Re-render 5
-    }
-  },
+		try {
+			await submitToServer(get().values)
+			set({ isSubmitting: false }) // Re-render 3
+		} catch (error) {
+			set({ errors: parseErrors(error) }) // Re-render 4
+			set({ isSubmitting: false }) // Re-render 5
+		}
+	},
 }))
 ```
 
@@ -37,31 +37,32 @@ const useFormStore = create<FormState>((set) => ({
 
 ```typescript
 const useFormStore = create<FormState>((set, get) => ({
-  values: {},
-  errors: {},
-  touched: {},
-  isSubmitting: false,
+	values: {},
+	errors: {},
+	touched: {},
+	isSubmitting: false,
 
-  submitForm: async () => {
-    // Single update for start
-    set({ isSubmitting: true, errors: {} })
+	submitForm: async () => {
+		// Single update for start
+		set({ isSubmitting: true, errors: {} })
 
-    try {
-      await submitToServer(get().values)
-      // Single update for success
-      set({ isSubmitting: false })
-    } catch (error) {
-      // Single update for failure
-      set({
-        errors: parseErrors(error),
-        isSubmitting: false,
-      })
-    }
-  },
+		try {
+			await submitToServer(get().values)
+			// Single update for success
+			set({ isSubmitting: false })
+		} catch (error) {
+			// Single update for failure
+			set({
+				errors: parseErrors(error),
+				isSubmitting: false,
+			})
+		}
+	},
 }))
 ```
 
 **Note on React 18:** React 18 batches state updates automatically within event handlers and effects. However, batching in Zustand still matters for:
+
 - State consistency within a single synchronous operation
 - Reducing subscriber notifications
 - Clear intent in code

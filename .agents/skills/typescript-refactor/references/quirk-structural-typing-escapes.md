@@ -13,12 +13,12 @@ TypeScript's structural type system means any object with the right properties s
 
 ```typescript
 interface PublicProfile {
-  name: string
-  avatar: string
+	name: string
+	avatar: string
 }
 
 function toPublicProfile(user: User): PublicProfile {
-  return user // Compiles — User has name and avatar (plus email, password, etc.)
+	return user // Compiles — User has name and avatar (plus email, password, etc.)
 }
 
 const profile = toPublicProfile(currentUser)
@@ -29,15 +29,15 @@ JSON.stringify(profile) // Includes email, password — data leak!
 
 ```typescript
 interface PublicProfile {
-  name: string
-  avatar: string
+	name: string
+	avatar: string
 }
 
 function toPublicProfile(user: User): PublicProfile {
-  return {
-    name: user.name,
-    avatar: user.avatar,
-  }
+	return {
+		name: user.name,
+		avatar: user.avatar,
+	}
 }
 
 const profile = toPublicProfile(currentUser)

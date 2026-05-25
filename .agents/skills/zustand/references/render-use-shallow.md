@@ -68,6 +68,7 @@ function BearStats() {
 ```
 
 **When to use:**
+
 - Selecting 2+ properties that you need as destructured values
 - Selectors that return arrays (filter, map results)
 - Any selector that creates a new reference

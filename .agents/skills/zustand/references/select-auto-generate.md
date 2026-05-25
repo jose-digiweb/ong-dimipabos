@@ -13,12 +13,12 @@ For stores with many properties, writing individual selector hooks is tedious. U
 
 ```typescript
 const useSettingsStore = create<SettingsState>((set) => ({
-  theme: 'light',
-  language: 'en',
-  notifications: true,
-  fontSize: 14,
-  autoSave: true,
-  // ... 20 more settings
+	theme: 'light',
+	language: 'en',
+	notifications: true,
+	fontSize: 14,
+	autoSave: true,
+	// ... 20 more settings
 }))
 
 // Tedious to write for each property
@@ -34,28 +34,26 @@ export const useNotifications = () => useSettingsStore((s) => s.notifications)
 import { StoreApi, UseBoundStore } from 'zustand'
 
 type WithSelectors<S> = S extends { getState: () => infer T }
-  ? S & { use: { [K in keyof T]: () => T[K] } }
-  : never
+	? S & { use: { [K in keyof T]: () => T[K] } }
+	: never
 
-const createSelectors = <S extends UseBoundStore<StoreApi<object>>>(
-  store: S
-) => {
-  const storeIn = store as WithSelectors<typeof store>
-  storeIn.use = {}
-  for (const key of Object.keys(storeIn.getState())) {
-    (storeIn.use as Record<string, () => unknown>)[key] = () =>
-      storeIn((s) => s[key as keyof typeof s])
-  }
-  return storeIn
+const createSelectors = <S extends UseBoundStore<StoreApi<object>>>(store: S) => {
+	const storeIn = store as WithSelectors<typeof store>
+	storeIn.use = {}
+	for (const key of Object.keys(storeIn.getState())) {
+		;(storeIn.use as Record<string, () => unknown>)[key] = () =>
+			storeIn((s) => s[key as keyof typeof s])
+	}
+	return storeIn
 }
 
 // Create store with auto-generated selectors
 const useSettingsStoreBase = create<SettingsState>((set) => ({
-  theme: 'light',
-  language: 'en',
-  notifications: true,
-  fontSize: 14,
-  autoSave: true,
+	theme: 'light',
+	language: 'en',
+	notifications: true,
+	fontSize: 14,
+	autoSave: true,
 }))
 
 export const useSettingsStore = createSelectors(useSettingsStoreBase)
@@ -66,6 +64,7 @@ const language = useSettingsStore.use.language()
 ```
 
 **Benefits:**
+
 - No manual selector boilerplate
 - Type-safe generated hooks
 - Consistent patterns across the codebase

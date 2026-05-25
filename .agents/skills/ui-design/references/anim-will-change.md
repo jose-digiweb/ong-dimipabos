@@ -14,16 +14,16 @@ The `will-change` property hints that an element will animate, allowing the brow
 ```css
 /* Applied to everything "just in case" */
 * {
-  will-change: transform, opacity;
+	will-change: transform, opacity;
 }
 
 /* Or on static elements that rarely animate */
 .card {
-  will-change: transform;
+	will-change: transform;
 }
 
 .button {
-  will-change: transform, opacity, background-color;
+	will-change: transform, opacity, background-color;
 }
 /* Hundreds of GPU layers created */
 /* Memory consumption spikes, performance degrades */
@@ -34,41 +34,40 @@ The `will-change` property hints that an element will animate, allowing the brow
 ```css
 /* Apply via JavaScript just before animation */
 .element-about-to-animate {
-  will-change: transform;
+	will-change: transform;
 }
 
 /* Or apply on parent hover when child will animate */
 .card:hover .card-image {
-  will-change: transform;
+	will-change: transform;
 }
 
 /* Remove after animation completes */
 .element.animation-complete {
-  will-change: auto;
+	will-change: auto;
 }
 ```
 
 ```javascript
 // Apply will-change just before animation
 element.addEventListener('mouseenter', () => {
-  element.style.willChange = 'transform';
-});
+	element.style.willChange = 'transform'
+})
 
 element.addEventListener('animationend', () => {
-  element.style.willChange = 'auto'; // Release GPU layer
-});
+	element.style.willChange = 'auto' // Release GPU layer
+})
 
 // Or for scroll-triggered animations
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    entry.target.style.willChange = entry.isIntersecting
-      ? 'transform, opacity'
-      : 'auto';
-  });
-});
+	entries.forEach((entry) => {
+		entry.target.style.willChange = entry.isIntersecting ? 'transform, opacity' : 'auto'
+	})
+})
 ```
 
 **will-change guidelines:**
+
 - Never use `will-change: *` globally
 - Apply just before animation starts
 - Remove after animation completes

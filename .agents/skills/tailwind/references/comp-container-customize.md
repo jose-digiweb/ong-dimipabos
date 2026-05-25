@@ -14,23 +14,23 @@ Tailwind CSS v4 removes the `container` configuration options (`center`, `paddin
 ```javascript
 // tailwind.config.js - No longer works in v4
 module.exports = {
-  theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-    },
-  },
-};
+	theme: {
+		container: {
+			center: true,
+			padding: '2rem',
+		},
+	},
+}
 ```
 
 **Correct (v4 @utility customization):**
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @utility container {
-  margin-inline: auto;
-  padding-inline: 2rem;
+	margin-inline: auto;
+	padding-inline: 2rem;
 }
 ```
 
@@ -38,20 +38,21 @@ module.exports = {
 
 ```css
 @utility container {
-  margin-inline: auto;
-  padding-inline: 1rem;
+	margin-inline: auto;
+	padding-inline: 1rem;
 
-  @media (width >= 640px) {
-    padding-inline: 2rem;
-  }
+	@media (width >= 640px) {
+		padding-inline: 2rem;
+	}
 
-  @media (width >= 1024px) {
-    padding-inline: 4rem;
-  }
+	@media (width >= 1024px) {
+		padding-inline: 4rem;
+	}
 }
 ```
 
 **Benefits:**
+
 - Full CSS control over container behavior
 - Responsive customization without config
 - Consistent with CSS-first approach

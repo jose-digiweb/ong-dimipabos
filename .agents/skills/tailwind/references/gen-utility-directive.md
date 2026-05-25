@@ -13,13 +13,13 @@ Define custom utilities with `@utility` instead of `@layer utilities`. This enab
 
 ```css
 @layer utilities {
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
 }
 /* No automatic variant support */
 ```
@@ -28,22 +28,23 @@ Define custom utilities with `@utility` instead of `@layer utilities`. This enab
 
 ```css
 @utility scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
 /* Automatically works with hover:, focus:, md:, etc. */
 ```
 
 ```html
 <div class="scrollbar-hide hover:scrollbar-default">
-  <!-- Variants work automatically -->
+	<!-- Variants work automatically -->
 </div>
 ```
 
 **Benefits:**
+
 - Automatic variant support (hover, focus, responsive)
 - Proper cascade layer ordering
 - Smart specificity sorting

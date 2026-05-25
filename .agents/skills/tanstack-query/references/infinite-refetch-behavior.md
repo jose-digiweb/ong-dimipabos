@@ -13,10 +13,10 @@ When an infinite query refetches, it refetches ALL pages sequentially. This can 
 
 ```typescript
 const { data, refetch } = useInfiniteQuery({
-  queryKey: ['posts'],
-  queryFn: ({ pageParam }) => fetchPosts(pageParam),
-  initialPageParam: 0,
-  getNextPageParam: (lastPage) => lastPage.nextCursor,
+	queryKey: ['posts'],
+	queryFn: ({ pageParam }) => fetchPosts(pageParam),
+	initialPageParam: 0,
+	getNextPageParam: (lastPage) => lastPage.nextCursor,
 })
 
 // User has loaded 20 pages, then window focus triggers refetch:
@@ -28,10 +28,10 @@ const { data, refetch } = useInfiniteQuery({
 
 ```typescript
 useInfiniteQuery({
-  queryKey: ['posts'],
-  queryFn: fetchPosts,
-  maxPages: 5, // Only 5 sequential requests on refetch
-  // ...
+	queryKey: ['posts'],
+	queryFn: fetchPosts,
+	maxPages: 5, // Only 5 sequential requests on refetch
+	// ...
 })
 ```
 
@@ -39,12 +39,12 @@ useInfiniteQuery({
 
 ```typescript
 useInfiniteQuery({
-  queryKey: ['posts'],
-  queryFn: fetchPosts,
-  refetchOnWindowFocus: false, // Don't refetch all pages on focus
-  refetchOnMount: false,       // Don't refetch on remount
-  staleTime: 5 * 60 * 1000,    // Stay fresh for 5 minutes
-  // ...
+	queryKey: ['posts'],
+	queryFn: fetchPosts,
+	refetchOnWindowFocus: false, // Don't refetch all pages on focus
+	refetchOnMount: false, // Don't refetch on remount
+	staleTime: 5 * 60 * 1000, // Stay fresh for 5 minutes
+	// ...
 })
 ```
 

@@ -13,41 +13,42 @@ For stores with deeply nested objects, immer middleware lets you write mutations
 
 ```typescript
 const useFormStore = create<FormState>((set) => ({
-  form: {
-    sections: {
-      personal: {
-        fields: {
-          firstName: { value: '', error: null, touched: false },
-          lastName: { value: '', error: null, touched: false },
-        },
-      },
-      address: {
-        fields: {
-          street: { value: '', error: null, touched: false },
-          city: { value: '', error: null, touched: false },
-        },
-      },
-    },
-  },
+	form: {
+		sections: {
+			personal: {
+				fields: {
+					firstName: { value: '', error: null, touched: false },
+					lastName: { value: '', error: null, touched: false },
+				},
+			},
+			address: {
+				fields: {
+					street: { value: '', error: null, touched: false },
+					city: { value: '', error: null, touched: false },
+				},
+			},
+		},
+	},
 
-  setFieldValue: (section, field, value) => set((state) => ({
-    form: {
-      ...state.form,
-      sections: {
-        ...state.form.sections,
-        [section]: {
-          ...state.form.sections[section],
-          fields: {
-            ...state.form.sections[section].fields,
-            [field]: {
-              ...state.form.sections[section].fields[field],
-              value,
-            },
-          },
-        },
-      },
-    },
-  })),
+	setFieldValue: (section, field, value) =>
+		set((state) => ({
+			form: {
+				...state.form,
+				sections: {
+					...state.form.sections,
+					[section]: {
+						...state.form.sections[section],
+						fields: {
+							...state.form.sections[section].fields,
+							[field]: {
+								...state.form.sections[section].fields[field],
+								value,
+							},
+						},
+					},
+				},
+			},
+		})),
 }))
 ```
 
@@ -57,46 +58,51 @@ const useFormStore = create<FormState>((set) => ({
 import { immer } from 'zustand/middleware/immer'
 
 const useFormStore = create<FormState>()(
-  immer((set) => ({
-    form: {
-      sections: {
-        personal: {
-          fields: {
-            firstName: { value: '', error: null, touched: false },
-            lastName: { value: '', error: null, touched: false },
-          },
-        },
-        address: {
-          fields: {
-            street: { value: '', error: null, touched: false },
-            city: { value: '', error: null, touched: false },
-          },
-        },
-      },
-    },
+	immer((set) => ({
+		form: {
+			sections: {
+				personal: {
+					fields: {
+						firstName: { value: '', error: null, touched: false },
+						lastName: { value: '', error: null, touched: false },
+					},
+				},
+				address: {
+					fields: {
+						street: { value: '', error: null, touched: false },
+						city: { value: '', error: null, touched: false },
+					},
+				},
+			},
+		},
 
-    // Direct mutation syntax, immer handles immutability
-    setFieldValue: (section, field, value) => set((state) => {
-      state.form.sections[section].fields[field].value = value
-    }),
+		// Direct mutation syntax, immer handles immutability
+		setFieldValue: (section, field, value) =>
+			set((state) => {
+				state.form.sections[section].fields[field].value = value
+			}),
 
-    setFieldError: (section, field, error) => set((state) => {
-      state.form.sections[section].fields[field].error = error
-    }),
+		setFieldError: (section, field, error) =>
+			set((state) => {
+				state.form.sections[section].fields[field].error = error
+			}),
 
-    touchField: (section, field) => set((state) => {
-      state.form.sections[section].fields[field].touched = true
-    }),
-  }))
+		touchField: (section, field) =>
+			set((state) => {
+				state.form.sections[section].fields[field].touched = true
+			}),
+	})),
 )
 ```
 
 **When to use immer:**
+
 - Deeply nested state (3+ levels)
 - Array operations (push, splice, filter in-place)
 - Complex conditional updates
 
 **When NOT to use:**
+
 - Simple flat state
 - Performance-critical hot paths (immer has overhead)
 

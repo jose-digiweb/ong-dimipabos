@@ -13,14 +13,14 @@ Start async operations immediately but defer `await` until the value is actually
 
 ```typescript
 async function processOrder(orderId: string): Promise<OrderResult> {
-  const order = await fetchOrder(orderId)  // Blocks here
-  const config = await loadProcessingConfig()  // Waits for order first, unnecessarily
+	const order = await fetchOrder(orderId) // Blocks here
+	const config = await loadProcessingConfig() // Waits for order first, unnecessarily
 
-  // config doesn't depend on order — these could run in parallel
-  if (order.priority === 'express') {
-    return processExpress(order, config)
-  }
-  return processStandard(order, config)
+	// config doesn't depend on order — these could run in parallel
+	if (order.priority === 'express') {
+		return processExpress(order, config)
+	}
+	return processStandard(order, config)
 }
 ```
 
@@ -28,15 +28,15 @@ async function processOrder(orderId: string): Promise<OrderResult> {
 
 ```typescript
 async function processOrder(orderId: string): Promise<OrderResult> {
-  const orderPromise = fetchOrder(orderId)  // Start immediately
-  const config = await loadProcessingConfig()  // Runs while order fetches
+	const orderPromise = fetchOrder(orderId) // Start immediately
+	const config = await loadProcessingConfig() // Runs while order fetches
 
-  const order = await orderPromise  // Now await when needed
+	const order = await orderPromise // Now await when needed
 
-  if (order.priority === 'express') {
-    return processExpress(order, config)
-  }
-  return processStandard(order, config)
+	if (order.priority === 'express') {
+		return processExpress(order, config)
+	}
+	return processStandard(order, config)
 }
 ```
 
@@ -44,27 +44,27 @@ async function processOrder(orderId: string): Promise<OrderResult> {
 
 ```typescript
 async function loadUserContent(userId: string): Promise<Content> {
-  // Start user fetch (needed for dependent calls)
-  const userPromise = fetchUser(userId)
+	// Start user fetch (needed for dependent calls)
+	const userPromise = fetchUser(userId)
 
-  // Start independent operations immediately
-  const settingsPromise = fetchGlobalSettings()
-  const featuresPromise = fetchFeatureFlags()
+	// Start independent operations immediately
+	const settingsPromise = fetchGlobalSettings()
+	const featuresPromise = fetchFeatureFlags()
 
-  // Await user for dependent operations
-  const user = await userPromise
-  const ordersPromise = fetchOrders(user.id)
-  const prefsPromise = fetchPreferences(user.id)
+	// Await user for dependent operations
+	const user = await userPromise
+	const ordersPromise = fetchOrders(user.id)
+	const prefsPromise = fetchPreferences(user.id)
 
-  // Await all remaining
-  const [settings, features, orders, prefs] = await Promise.all([
-    settingsPromise,
-    featuresPromise,
-    ordersPromise,
-    prefsPromise,
-  ])
+	// Await all remaining
+	const [settings, features, orders, prefs] = await Promise.all([
+		settingsPromise,
+		featuresPromise,
+		ordersPromise,
+		prefsPromise,
+	])
 
-  return { user, settings, features, orders, prefs }
+	return { user, settings, features, orders, prefs }
 }
 ```
 

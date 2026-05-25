@@ -16,10 +16,10 @@ type FunctionKeys<T> = { [K in keyof T]: T[K] extends Function ? K : never }[key
 type Methods<T> = Pick<T, FunctionKeys<T>>
 
 interface User {
-  id: string
-  name: string
-  save(): Promise<void>
-  delete(): Promise<void>
+	id: string
+	name: string
+	save(): Promise<void>
+	delete(): Promise<void>
 }
 
 type M = Methods<User>
@@ -31,7 +31,7 @@ type M = Methods<User>
 
 ```typescript
 type Methods<T> = {
-  [K in keyof T as T[K] extends Function ? K : never]: T[K]
+	[K in keyof T as T[K] extends Function ? K : never]: T[K]
 }
 
 type M = Methods<User>
@@ -39,7 +39,7 @@ type M = Methods<User>
 
 // Rename keys with a template literal:
 type Getters<T> = {
-  [K in keyof T & string as `get${Capitalize<K>}`]: () => T[K]
+	[K in keyof T & string as `get${Capitalize<K>}`]: () => T[K]
 }
 
 type G = Getters<{ id: string; name: string }>
@@ -47,8 +47,9 @@ type G = Getters<{ id: string; name: string }>
 
 // Filter and rename simultaneously:
 type Setters<T> = {
-  [K in keyof T & string as T[K] extends Function ? never : `set${Capitalize<K>}`]:
-    (value: T[K]) => void
+	[K in keyof T & string as T[K] extends Function ? never : `set${Capitalize<K>}`]: (
+		value: T[K],
+	) => void
 }
 
 type S = Setters<User>
@@ -58,11 +59,13 @@ type S = Setters<User>
 A common library-author use is generating event-handler prop names from an event map (`onLoggedIn`, `onLoggedOut`) or generating selector hooks from a state shape (`useUserName`, `useUserAge`).
 
 **When NOT to apply:**
+
 - When the filtering or renaming logic depends on context the mapped type can't see (e.g. user input, runtime values).
 - For non-string keys (`symbol`, `number`) — template literals only work on `string`, so widen with `& string` and accept that symbol-keyed properties get dropped.
 - When you genuinely want a multi-stage pipeline so each step is named and reusable.
 
 **Scope delta:**
+
 - `typescript-refactor`'s `generic-mapped-type-utilities` covers mapped types broadly. This rule is specifically about `as` clauses, which were added later and unlock filtering/renaming in one step — many existing codebases still use the older two-step pattern.
 
 Reference: [TypeScript 4.1 Release Notes — Key Remapping in Mapped Types](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-1.html#key-remapping-in-mapped-types)

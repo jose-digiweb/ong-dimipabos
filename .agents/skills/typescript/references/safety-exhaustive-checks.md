@@ -15,16 +15,16 @@ Exhaustive checks ensure all union members are handled. When a new member is add
 type OrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered'
 
 function getStatusMessage(status: OrderStatus): string {
-  switch (status) {
-    case 'pending':
-      return 'Order received'
-    case 'processing':
-      return 'Preparing your order'
-    case 'shipped':
-      return 'On the way'
-    // 'delivered' case missing - no compile error
-    // Returns undefined at runtime
-  }
+	switch (status) {
+		case 'pending':
+			return 'Order received'
+		case 'processing':
+			return 'Preparing your order'
+		case 'shipped':
+			return 'On the way'
+		// 'delivered' case missing - no compile error
+		// Returns undefined at runtime
+	}
 }
 
 // Later, someone adds 'cancelled' to OrderStatus
@@ -37,22 +37,22 @@ function getStatusMessage(status: OrderStatus): string {
 type OrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered'
 
 function assertNever(value: never): never {
-  throw new Error(`Unhandled value: ${value}`)
+	throw new Error(`Unhandled value: ${value}`)
 }
 
 function getStatusMessage(status: OrderStatus): string {
-  switch (status) {
-    case 'pending':
-      return 'Order received'
-    case 'processing':
-      return 'Preparing your order'
-    case 'shipped':
-      return 'On the way'
-    case 'delivered':
-      return 'Order complete'
-    default:
-      return assertNever(status)  // Compile error if case missed
-  }
+	switch (status) {
+		case 'pending':
+			return 'Order received'
+		case 'processing':
+			return 'Preparing your order'
+		case 'shipped':
+			return 'On the way'
+		case 'delivered':
+			return 'Order complete'
+		default:
+			return assertNever(status) // Compile error if case missed
+	}
 }
 
 // Adding 'cancelled' to OrderStatus now causes compile error:
@@ -63,19 +63,20 @@ function getStatusMessage(status: OrderStatus): string {
 
 ```typescript
 const statusMessages: Record<OrderStatus, string> = {
-  pending: 'Order received',
-  processing: 'Preparing your order',
-  shipped: 'On the way',
-  delivered: 'Order complete',
-  // Missing key causes: Property 'cancelled' is missing in type
+	pending: 'Order received',
+	processing: 'Preparing your order',
+	shipped: 'On the way',
+	delivered: 'Order complete',
+	// Missing key causes: Property 'cancelled' is missing in type
 }
 
 function getStatusMessage(status: OrderStatus): string {
-  return statusMessages[status]
+	return statusMessages[status]
 }
 ```
 
 **Benefits:**
+
 - Compile-time error when union expands
 - Self-documenting: all cases explicitly handled
 - Runtime safety via assertNever fallback

@@ -13,13 +13,13 @@ Model domain errors as a discriminated union and use exhaustive switch statement
 
 ```typescript
 function handleError(error: Error) {
-  if (error.message.includes("not found")) {
-    showNotFound()
-  } else if (error.message.includes("unauthorized")) {
-    redirectToLogin()
-  } else {
-    showGenericError() // New error types silently fall here
-  }
+	if (error.message.includes('not found')) {
+		showNotFound()
+	} else if (error.message.includes('unauthorized')) {
+		redirectToLogin()
+	} else {
+		showGenericError() // New error types silently fall here
+	}
 }
 ```
 
@@ -27,27 +27,27 @@ function handleError(error: Error) {
 
 ```typescript
 type AppError =
-  | { type: "not_found"; resourceId: string }
-  | { type: "unauthorized"; requiredRole: string }
-  | { type: "validation"; fields: string[] }
+	| { type: 'not_found'; resourceId: string }
+	| { type: 'unauthorized'; requiredRole: string }
+	| { type: 'validation'; fields: string[] }
 
 function assertNever(value: never): never {
-  throw new Error(`Unhandled error type: ${JSON.stringify(value)}`)
+	throw new Error(`Unhandled error type: ${JSON.stringify(value)}`)
 }
 
 function handleError(error: AppError) {
-  switch (error.type) {
-    case "not_found":
-      showNotFound(error.resourceId)
-      break
-    case "unauthorized":
-      redirectToLogin(error.requiredRole)
-      break
-    case "validation":
-      highlightFields(error.fields)
-      break
-    default:
-      assertNever(error) // Compile error if new type added but not handled
-  }
+	switch (error.type) {
+		case 'not_found':
+			showNotFound(error.resourceId)
+			break
+		case 'unauthorized':
+			redirectToLogin(error.requiredRole)
+			break
+		case 'validation':
+			highlightFields(error.fields)
+			break
+		default:
+			assertNever(error) // Compile error if new type added but not handled
+	}
 }
 ```

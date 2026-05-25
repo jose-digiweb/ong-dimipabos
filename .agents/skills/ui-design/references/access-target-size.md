@@ -13,14 +13,14 @@ Small tap targets cause frustration and errors for users with motor impairments,
 
 ```css
 .icon-button {
-  width: 16px;
-  height: 16px;
-  padding: 0;
+	width: 16px;
+	height: 16px;
+	padding: 0;
 }
 
 .nav-link {
-  padding: 4px 8px;
-  font-size: 12px;
+	padding: 4px 8px;
+	font-size: 12px;
 }
 /* Touch targets too small for reliable tapping */
 /* Users with motor impairments will miss frequently */
@@ -30,24 +30,25 @@ Small tap targets cause frustration and errors for users with motor impairments,
 
 ```css
 .icon-button {
-  min-width: 44px;
-  min-height: 44px;
-  padding: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+	min-width: 44px;
+	min-height: 44px;
+	padding: 12px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .nav-link {
-  padding: 12px 16px;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
+	padding: 12px 16px;
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
 }
 /* 44×44px meets WCAG AAA and iOS/Android guidelines */
 ```
 
 **Target size requirements:**
+
 - WCAG 2.2 AA: Minimum 24×24 CSS pixels
 - WCAG 2.2 AAA: Minimum 44×44 CSS pixels (recommended)
 - Spacing: At least 8px between adjacent targets

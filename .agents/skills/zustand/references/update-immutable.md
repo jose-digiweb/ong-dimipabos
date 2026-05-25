@@ -13,22 +13,22 @@ Always create new objects/arrays when updating state. Direct mutation bypasses Z
 
 ```typescript
 const useListStore = create<ListState>((set, get) => ({
-  items: [],
+	items: [],
 
-  addItem: (item) => {
-    // Mutates existing array
-    get().items.push(item)
-    set({ items: get().items })
-    // Same array reference, components may not re-render
-  },
+	addItem: (item) => {
+		// Mutates existing array
+		get().items.push(item)
+		set({ items: get().items })
+		// Same array reference, components may not re-render
+	},
 
-  updateItem: (id, updates) => {
-    const items = get().items
-    const item = items.find((i) => i.id === id)
-    // Mutates existing object
-    Object.assign(item, updates)
-    set({ items })
-  },
+	updateItem: (id, updates) => {
+		const items = get().items
+		const item = items.find((i) => i.id === id)
+		// Mutates existing object
+		Object.assign(item, updates)
+		set({ items })
+	},
 }))
 ```
 
@@ -36,21 +36,22 @@ const useListStore = create<ListState>((set, get) => ({
 
 ```typescript
 const useListStore = create<ListState>((set) => ({
-  items: [],
+	items: [],
 
-  addItem: (item) => set((state) => ({
-    items: [...state.items, item], // New reference, triggers re-render
-  })),
+	addItem: (item) =>
+		set((state) => ({
+			items: [...state.items, item], // New reference, triggers re-render
+		})),
 
-  updateItem: (id, updates) => set((state) => ({
-    items: state.items.map((item) =>
-      item.id === id ? { ...item, ...updates } : item
-    ),
-  })),
+	updateItem: (id, updates) =>
+		set((state) => ({
+			items: state.items.map((item) => (item.id === id ? { ...item, ...updates } : item)),
+		})),
 
-  removeItem: (id) => set((state) => ({
-    items: state.items.filter((item) => item.id !== id),
-  })),
+	removeItem: (id) =>
+		set((state) => ({
+			items: state.items.filter((item) => item.id !== id),
+		})),
 }))
 ```
 
@@ -60,19 +61,21 @@ const useListStore = create<ListState>((set) => ({
 import { immer } from 'zustand/middleware/immer'
 
 const useListStore = create<ListState>()(
-  immer((set) => ({
-    items: [],
+	immer((set) => ({
+		items: [],
 
-    // Immer allows mutation syntax, handles immutability internally
-    addItem: (item) => set((state) => {
-      state.items.push(item)
-    }),
+		// Immer allows mutation syntax, handles immutability internally
+		addItem: (item) =>
+			set((state) => {
+				state.items.push(item)
+			}),
 
-    updateItem: (id, updates) => set((state) => {
-      const item = state.items.find((i) => i.id === id)
-      if (item) Object.assign(item, updates)
-    }),
-  }))
+		updateItem: (id, updates) =>
+			set((state) => {
+				const item = state.items.find((i) => i.id === id)
+				if (item) Object.assign(item, updates)
+			}),
+	})),
 )
 ```
 

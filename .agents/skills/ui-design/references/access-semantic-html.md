@@ -13,16 +13,16 @@ Semantic HTML provides meaning to assistive technologies and improves SEO. Scree
 
 ```html
 <div class="header">
-  <div class="nav">
-    <div class="nav-item" onclick="navigate()">Home</div>
-    <div class="nav-item" onclick="navigate()">About</div>
-  </div>
+	<div class="nav">
+		<div class="nav-item" onclick="navigate()">Home</div>
+		<div class="nav-item" onclick="navigate()">About</div>
+	</div>
 </div>
 <div class="main">
-  <div class="article">
-    <div class="title">Welcome</div>
-    <div class="content">Article content here...</div>
-  </div>
+	<div class="article">
+		<div class="title">Welcome</div>
+		<div class="content">Article content here...</div>
+	</div>
 </div>
 <!-- Screen readers cannot identify page structure -->
 ```
@@ -31,21 +31,22 @@ Semantic HTML provides meaning to assistive technologies and improves SEO. Scree
 
 ```html
 <header>
-  <nav aria-label="Main navigation">
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-  </nav>
+	<nav aria-label="Main navigation">
+		<a href="/">Home</a>
+		<a href="/about">About</a>
+	</nav>
 </header>
 <main>
-  <article>
-    <h1>Welcome</h1>
-    <p>Article content here...</p>
-  </article>
+	<article>
+		<h1>Welcome</h1>
+		<p>Article content here...</p>
+	</article>
 </main>
 <!-- Screen readers announce: "navigation landmark", "main landmark", "heading level 1" -->
 ```
 
 **Key semantic elements:**
+
 - `<header>`, `<footer>`, `<nav>`, `<main>` for page landmarks
 - `<article>`, `<section>`, `<aside>` for content grouping
 - `<h1>`-`<h6>` for heading hierarchy (never skip levels)

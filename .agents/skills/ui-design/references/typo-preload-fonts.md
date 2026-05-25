@@ -13,10 +13,10 @@ Fonts are discovered late in the loading waterfall (after CSS parses). Preloadin
 
 ```html
 <head>
-  <link rel="stylesheet" href="styles.css">
-  <!-- styles.css contains @font-face rules -->
-  <!-- Browser: download CSS → parse → discover font → download font -->
-  <!-- Font download starts 200-500ms after CSS -->
+	<link rel="stylesheet" href="styles.css" />
+	<!-- styles.css contains @font-face rules -->
+	<!-- Browser: download CSS → parse → discover font → download font -->
+	<!-- Font download starts 200-500ms after CSS -->
 </head>
 ```
 
@@ -24,28 +24,17 @@ Fonts are discovered late in the loading waterfall (after CSS parses). Preloadin
 
 ```html
 <head>
-  <!-- Preload critical fonts in <head> -->
-  <link
-    rel="preload"
-    href="/fonts/brand-regular.woff2"
-    as="font"
-    type="font/woff2"
-    crossorigin
-  >
-  <link
-    rel="preload"
-    href="/fonts/brand-bold.woff2"
-    as="font"
-    type="font/woff2"
-    crossorigin
-  >
-  <!-- Font download starts immediately, parallel with CSS -->
+	<!-- Preload critical fonts in <head> -->
+	<link rel="preload" href="/fonts/brand-regular.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="/fonts/brand-bold.woff2" as="font" type="font/woff2" crossorigin />
+	<!-- Font download starts immediately, parallel with CSS -->
 
-  <link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="styles.css" />
 </head>
 ```
 
 **Preloading guidelines:**
+
 - Only preload fonts used above-the-fold (1-2 fonts max)
 - Always include `crossorigin` (even for same-origin fonts)
 - Use WOFF2 format (smallest, best compression)

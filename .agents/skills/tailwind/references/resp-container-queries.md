@@ -13,11 +13,11 @@ Use built-in container queries (`@container`, `@sm:`, `@lg:`) for components tha
 
 ```html
 <aside class="w-full lg:w-80">
-  <!-- Card adapts to viewport, not sidebar width -->
-  <div class="p-4 lg:p-6">
-    <h3 class="text-lg lg:text-xl">Title</h3>
-    <p class="text-sm lg:text-base">Description</p>
-  </div>
+	<!-- Card adapts to viewport, not sidebar width -->
+	<div class="p-4 lg:p-6">
+		<h3 class="text-lg lg:text-xl">Title</h3>
+		<p class="text-sm lg:text-base">Description</p>
+	</div>
 </aside>
 ```
 
@@ -25,11 +25,11 @@ Use built-in container queries (`@container`, `@sm:`, `@lg:`) for components tha
 
 ```html
 <aside class="w-full lg:w-80 @container">
-  <!-- Card adapts to sidebar width -->
-  <div class="p-4 @lg:p-6">
-    <h3 class="text-lg @lg:text-xl">Title</h3>
-    <p class="text-sm @lg:text-base">Description</p>
-  </div>
+	<!-- Card adapts to sidebar width -->
+	<div class="p-4 @lg:p-6">
+		<h3 class="text-lg @lg:text-xl">Title</h3>
+		<p class="text-sm @lg:text-base">Description</p>
+	</div>
 </aside>
 ```
 
@@ -38,15 +38,16 @@ Use built-in container queries (`@container`, `@sm:`, `@lg:`) for components tha
 ```html
 <!-- Min-width queries (default) -->
 <div class="@sm:flex @lg:grid">
-
-<!-- Max-width queries -->
-<div class="@max-md:hidden">
-
-<!-- Range queries -->
-<div class="@min-sm:@max-lg:flex">
+	<!-- Max-width queries -->
+	<div class="@max-md:hidden">
+		<!-- Range queries -->
+		<div class="@min-sm:@max-lg:flex"></div>
+	</div>
+</div>
 ```
 
 **When to use container queries:**
+
 - Cards in variable-width layouts
 - Sidebar components
 - Reusable UI components

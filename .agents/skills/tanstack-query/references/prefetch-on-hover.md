@@ -53,9 +53,9 @@ function ProjectLink({ projectId }: { projectId: string }) {
 
 ```typescript
 const prefetch = () => {
-  queryClient.prefetchQuery(projectQueries.detail(projectId))
-  queryClient.prefetchQuery(projectQueries.members(projectId))
-  queryClient.prefetchQuery(projectQueries.activity(projectId))
+	queryClient.prefetchQuery(projectQueries.detail(projectId))
+	queryClient.prefetchQuery(projectQueries.members(projectId))
+	queryClient.prefetchQuery(projectQueries.activity(projectId))
 }
 ```
 

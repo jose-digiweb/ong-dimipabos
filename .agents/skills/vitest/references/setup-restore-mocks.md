@@ -16,17 +16,17 @@ import { describe, it, expect, vi } from 'vitest'
 import * as api from './api'
 
 describe('UserService', () => {
-  it('should handle API errors', () => {
-    vi.spyOn(api, 'fetchUser').mockRejectedValue(new Error('Network error'))
+	it('should handle API errors', () => {
+		vi.spyOn(api, 'fetchUser').mockRejectedValue(new Error('Network error'))
 
-    // Test error handling...
-  })
+		// Test error handling...
+	})
 
-  it('should fetch user data', async () => {
-    // FAILS - fetchUser is still mocked from previous test!
-    const user = await api.fetchUser(1)
-    expect(user.name).toBe('Alice')
-  })
+	it('should fetch user data', async () => {
+		// FAILS - fetchUser is still mocked from previous test!
+		const user = await api.fetchUser(1)
+		expect(user.name).toBe('Alice')
+	})
 })
 ```
 
@@ -37,20 +37,20 @@ import { describe, it, expect, vi, afterEach } from 'vitest'
 import * as api from './api'
 
 describe('UserService', () => {
-  afterEach(() => {
-    vi.restoreAllMocks()
-  })
+	afterEach(() => {
+		vi.restoreAllMocks()
+	})
 
-  it('should handle API errors', () => {
-    vi.spyOn(api, 'fetchUser').mockRejectedValue(new Error('Network error'))
-    // Test error handling...
-  })
+	it('should handle API errors', () => {
+		vi.spyOn(api, 'fetchUser').mockRejectedValue(new Error('Network error'))
+		// Test error handling...
+	})
 
-  it('should fetch user data', async () => {
-    // Works - mock was restored
-    const user = await api.fetchUser(1)
-    expect(user.name).toBe('Alice')
-  })
+	it('should fetch user data', async () => {
+		// Works - mock was restored
+		const user = await api.fetchUser(1)
+		expect(user.name).toBe('Alice')
+	})
 })
 ```
 
@@ -59,9 +59,9 @@ describe('UserService', () => {
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    restoreMocks: true,  // Automatically restore mocks after each test
-  },
+	test: {
+		restoreMocks: true, // Automatically restore mocks after each test
+	},
 })
 ```
 
@@ -79,6 +79,7 @@ vi.clearAllMocks()
 ```
 
 **Benefits:**
+
 - Tests don't affect each other
 - Predictable mock behavior
 - Easier to reason about test isolation

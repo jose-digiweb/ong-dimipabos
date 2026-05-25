@@ -13,30 +13,30 @@ The `erasableSyntaxOnly` flag (TypeScript 5.8+) ensures your code only uses Type
 
 ```json
 {
-  "compilerOptions": {
-    "erasableSyntaxOnly": true
-  }
+	"compilerOptions": {
+		"erasableSyntaxOnly": true
+	}
 }
 ```
 
 ```typescript
 // Error: non-erasable syntax
 export enum OrderStatus {
-  Pending = 'pending',
-  Shipped = 'shipped',
-  Delivered = 'delivered'
+	Pending = 'pending',
+	Shipped = 'shipped',
+	Delivered = 'delivered',
 }
 
 // Error: non-erasable syntax
 namespace Validation {
-  export function isValid(input: string): boolean {
-    return input.length > 0
-  }
+	export function isValid(input: string): boolean {
+		return input.length > 0
+	}
 }
 
 // Error: non-erasable parameter property
 class UserService {
-  constructor(private readonly repository: UserRepository) {}
+	constructor(private readonly repository: UserRepository) {}
 }
 ```
 
@@ -48,22 +48,22 @@ export type OrderStatus = 'pending' | 'shipped' | 'delivered'
 
 // Object constant for runtime values
 export const OrderStatus = {
-  Pending: 'pending',
-  Shipped: 'shipped',
-  Delivered: 'delivered',
+	Pending: 'pending',
+	Shipped: 'shipped',
+	Delivered: 'delivered',
 } as const satisfies Record<string, OrderStatus>
 
 // Module-level functions instead of namespace
 export function isValid(input: string): boolean {
-  return input.length > 0
+	return input.length > 0
 }
 
 // Explicit property assignment instead of parameter property
 class UserService {
-  readonly repository: UserRepository
-  constructor(repository: UserRepository) {
-    this.repository = repository
-  }
+	readonly repository: UserRepository
+	constructor(repository: UserRepository) {
+		this.repository = repository
+	}
 }
 ```
 
@@ -71,15 +71,16 @@ class UserService {
 
 ```json
 {
-  "compilerOptions": {
-    "erasableSyntaxOnly": true,
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true
-  }
+	"compilerOptions": {
+		"erasableSyntaxOnly": true,
+		"verbatimModuleSyntax": true,
+		"isolatedModules": true
+	}
 }
 ```
 
 **When NOT to use this flag:**
+
 - Projects using a bundler (esbuild, swc, Vite) that supports enum transformation
 - Libraries that need to support both bundled and unbundled consumers
 - Codebases with extensive enum usage where migration cost is high

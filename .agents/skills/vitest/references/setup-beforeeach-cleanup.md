@@ -15,16 +15,16 @@ Tests that modify global state, DOM, or shared resources must clean up after the
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 describe('ThemeService', () => {
-  beforeEach(() => {
-    // Sets global state
-    window.localStorage.setItem('theme', 'dark')
-  })
+	beforeEach(() => {
+		// Sets global state
+		window.localStorage.setItem('theme', 'dark')
+	})
 
-  it('should read theme from storage', () => {
-    expect(ThemeService.getTheme()).toBe('dark')
-  })
+	it('should read theme from storage', () => {
+		expect(ThemeService.getTheme()).toBe('dark')
+	})
 
-  // Other tests may fail because localStorage still has 'dark'
+	// Other tests may fail because localStorage still has 'dark'
 })
 ```
 
@@ -34,18 +34,18 @@ describe('ThemeService', () => {
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 describe('ThemeService', () => {
-  beforeEach(() => {
-    window.localStorage.setItem('theme', 'dark')
-  })
+	beforeEach(() => {
+		window.localStorage.setItem('theme', 'dark')
+	})
 
-  afterEach(() => {
-    // Clean up after each test
-    window.localStorage.clear()
-  })
+	afterEach(() => {
+		// Clean up after each test
+		window.localStorage.clear()
+	})
 
-  it('should read theme from storage', () => {
-    expect(ThemeService.getTheme()).toBe('dark')
-  })
+	it('should read theme from storage', () => {
+		expect(ThemeService.getTheme()).toBe('dark')
+	})
 })
 ```
 
@@ -55,27 +55,28 @@ describe('ThemeService', () => {
 import { describe, afterEach, vi } from 'vitest'
 
 describe('Integration tests', () => {
-  afterEach(() => {
-    // Restore all mocks
-    vi.restoreAllMocks()
+	afterEach(() => {
+		// Restore all mocks
+		vi.restoreAllMocks()
 
-    // Clear all timers
-    vi.useRealTimers()
+		// Clear all timers
+		vi.useRealTimers()
 
-    // Clean DOM
-    document.body.innerHTML = ''
+		// Clean DOM
+		document.body.innerHTML = ''
 
-    // Clear storage
-    localStorage.clear()
-    sessionStorage.clear()
+		// Clear storage
+		localStorage.clear()
+		sessionStorage.clear()
 
-    // Reset modules
-    vi.resetModules()
-  })
+		// Reset modules
+		vi.resetModules()
+	})
 })
 ```
 
 **Benefits:**
+
 - Tests are independent of execution order
 - No mysterious failures when running full suite
 - Easier debugging - each test starts clean

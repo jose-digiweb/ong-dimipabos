@@ -14,9 +14,9 @@ tags: {prefix}, {technique}, {tool-if-mentioned}, {related-concepts}
 ```typescript
 // tests/example.spec.ts
 test('example test', async ({ page }) => {
-  // Bad code example - production-realistic, not strawman
-  // Comments explaining the problem
-});
+	// Bad code example - production-realistic, not strawman
+	// Comments explaining the problem
+})
 ```
 
 **Correct ({what's right}):**
@@ -24,9 +24,9 @@ test('example test', async ({ page }) => {
 ```typescript
 // tests/example.spec.ts
 test('example test', async ({ page }) => {
-  // Good code example - minimal diff from incorrect
-  // Comments explaining the benefit
-});
+	// Good code example - minimal diff from incorrect
+	// Comments explaining the benefit
+})
 ```
 
 {Optional sections as needed:}
@@ -35,10 +35,12 @@ test('example test', async ({ page }) => {
 {Alternative approach when applicable}
 
 **When NOT to use this pattern:**
+
 - {Exception 1}
 - {Exception 2}
 
 **Benefits:**
+
 - {Benefit 1}
 - {Benefit 2}
 

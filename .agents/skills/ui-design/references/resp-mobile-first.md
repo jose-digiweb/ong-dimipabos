@@ -14,24 +14,24 @@ Mobile-first design starts with the smallest viewport and progressively enhances
 ```css
 /* Desktop styles first */
 .navigation {
-  display: flex;
-  gap: 32px;
+	display: flex;
+	gap: 32px;
 }
 
 .card-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
 }
 
 /* Then override everything for mobile */
 @media (max-width: 768px) {
-  .navigation {
-    display: none; /* Just hide it?! */
-  }
+	.navigation {
+		display: none; /* Just hide it?! */
+	}
 
-  .card-grid {
-    grid-template-columns: 1fr;
-  }
+	.card-grid {
+		grid-template-columns: 1fr;
+	}
 }
 /* Mobile is an afterthought, features hidden or broken */
 ```
@@ -41,40 +41,41 @@ Mobile-first design starts with the smallest viewport and progressively enhances
 ```css
 /* Mobile styles are the base */
 .navigation {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 }
 
 .card-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 16px;
 }
 
 /* Enhance for tablet */
 @media (min-width: 768px) {
-  .navigation {
-    flex-direction: row;
-    gap: 24px;
-  }
+	.navigation {
+		flex-direction: row;
+		gap: 24px;
+	}
 
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+	.card-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 
 /* Enhance for desktop */
 @media (min-width: 1024px) {
-  .card-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-  }
+	.card-grid {
+		grid-template-columns: repeat(4, 1fr);
+		gap: 24px;
+	}
 }
 /* Mobile experience is complete, larger screens get enhancements */
 ```
 
 **Mobile-first benefits:**
+
 - Forces prioritization of essential content
 - Smaller base CSS file (add vs. override)
 - Better performance on slower mobile connections

@@ -13,7 +13,7 @@ Use the `/oklch` modifier for gradient interpolation to produce more vivid color
 
 ```html
 <div class="bg-linear-to-r from-blue-500 to-green-500">
-  <!-- sRGB interpolation produces grayish/muddy midpoint -->
+	<!-- sRGB interpolation produces grayish/muddy midpoint -->
 </div>
 ```
 
@@ -21,7 +21,7 @@ Use the `/oklch` modifier for gradient interpolation to produce more vivid color
 
 ```html
 <div class="bg-linear-to-r/oklch from-blue-500 to-green-500">
-  <!-- OKLCH produces vibrant cyan midpoint -->
+	<!-- OKLCH produces vibrant cyan midpoint -->
 </div>
 ```
 
@@ -39,6 +39,7 @@ Use the `/oklch` modifier for gradient interpolation to produce more vivid color
 ```
 
 **When to use OKLCH:**
+
 - Gradients between complementary colors
 - Brand gradients requiring specific midpoints
 - Any gradient where sRGB looks "muddy"

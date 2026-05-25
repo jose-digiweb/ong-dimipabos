@@ -13,20 +13,20 @@ Broad invalidation (`queryClient.invalidateQueries()` with no filter) refetches 
 
 ```typescript
 const mutation = useMutation({
-  mutationFn: updateUser,
-  onSuccess: () => {
-    // Invalidates EVERY query in the cache!
-    queryClient.invalidateQueries()
-  },
+	mutationFn: updateUser,
+	onSuccess: () => {
+		// Invalidates EVERY query in the cache!
+		queryClient.invalidateQueries()
+	},
 })
 
 // Also bad - too broad for a single user update
 const mutation = useMutation({
-  mutationFn: updateUser,
-  onSuccess: () => {
-    // Refetches all user lists, all user details - wasteful
-    queryClient.invalidateQueries({ queryKey: ['users'] })
-  },
+	mutationFn: updateUser,
+	onSuccess: () => {
+		// Refetches all user lists, all user details - wasteful
+		queryClient.invalidateQueries({ queryKey: ['users'] })
+	},
 })
 ```
 
@@ -34,18 +34,18 @@ const mutation = useMutation({
 
 ```typescript
 const mutation = useMutation({
-  mutationFn: (data: { userId: string; updates: UserUpdate }) =>
-    updateUser(data.userId, data.updates),
-  onSuccess: (_, variables) => {
-    // Only invalidate the specific user detail
-    queryClient.invalidateQueries({
-      queryKey: ['users', 'detail', variables.userId],
-    })
-    // And user lists (they contain this user's summary)
-    queryClient.invalidateQueries({
-      queryKey: ['users', 'list'],
-    })
-  },
+	mutationFn: (data: { userId: string; updates: UserUpdate }) =>
+		updateUser(data.userId, data.updates),
+	onSuccess: (_, variables) => {
+		// Only invalidate the specific user detail
+		queryClient.invalidateQueries({
+			queryKey: ['users', 'detail', variables.userId],
+		})
+		// And user lists (they contain this user's summary)
+		queryClient.invalidateQueries({
+			queryKey: ['users', 'list'],
+		})
+	},
 })
 ```
 
@@ -53,16 +53,13 @@ const mutation = useMutation({
 
 ```typescript
 const mutation = useMutation({
-  mutationFn: updateUser,
-  onSuccess: (updatedUser) => {
-    // Update detail cache directly - no refetch needed
-    queryClient.setQueryData(
-      ['users', 'detail', updatedUser.id],
-      updatedUser
-    )
-    // Only invalidate lists (need refetch for sorting/filtering)
-    queryClient.invalidateQueries({ queryKey: ['users', 'list'] })
-  },
+	mutationFn: updateUser,
+	onSuccess: (updatedUser) => {
+		// Update detail cache directly - no refetch needed
+		queryClient.setQueryData(['users', 'detail', updatedUser.id], updatedUser)
+		// Only invalidate lists (need refetch for sorting/filtering)
+		queryClient.invalidateQueries({ queryKey: ['users', 'list'] })
+	},
 })
 ```
 
@@ -72,7 +69,7 @@ const mutation = useMutation({
 // Invalidate ONLY ['users', 'list', { status: 'active' }]
 // Not ['users', 'list'] or ['users', 'list', { status: 'inactive' }]
 queryClient.invalidateQueries({
-  queryKey: ['users', 'list', { status: 'active' }],
-  exact: true,
+	queryKey: ['users', 'list', { status: 'active' }],
+	exact: true,
 })
 ```

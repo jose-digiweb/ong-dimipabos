@@ -14,12 +14,12 @@ Testing against `next dev` misses production-only issues like minification bugs,
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  webServer: {
-    command: 'npm run dev', // Dev server has different behavior
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-  },
-});
+	webServer: {
+		command: 'npm run dev', // Dev server has different behavior
+		url: 'http://localhost:3000',
+		reuseExistingServer: !process.env.CI,
+	},
+})
 
 // Tests pass in dev but fail in production due to:
 // - Hot reload interference
@@ -56,17 +56,16 @@ export default defineConfig({
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  webServer: {
-    command: process.env.CI
-      ? 'npm run build && npm run start'
-      : 'npm run start', // Assumes build exists locally
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-  },
-});
+	webServer: {
+		command: process.env.CI ? 'npm run build && npm run start' : 'npm run start', // Assumes build exists locally
+		url: 'http://localhost:3000',
+		reuseExistingServer: !process.env.CI,
+	},
+})
 ```
 
 **Benefits:**
+
 - Tests match production behavior exactly
 - Catches minification and tree-shaking bugs
 - Validates environment variable handling

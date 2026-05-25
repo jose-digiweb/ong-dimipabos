@@ -14,7 +14,7 @@ The v3 `safelist` configuration in `tailwind.config.js` has been replaced by `@s
 ```js
 // tailwind.config.js — v3 safelist
 module.exports = {
-  safelist: ['bg-red-500', 'bg-blue-500', /^text-/],
+	safelist: ['bg-red-500', 'bg-blue-500', /^text-/],
 }
 ```
 

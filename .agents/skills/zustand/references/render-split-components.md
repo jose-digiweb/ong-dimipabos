@@ -68,6 +68,7 @@ function ProductPage() {
 ```
 
 **Benefits:**
+
 - Cart changes only re-render `CartBadge`
 - Review changes only re-render `ReviewList`
 - Parent `ProductPage` never re-renders from store updates

@@ -16,13 +16,13 @@ import { renderHook } from '@testing-library/react'
 import { useForm } from 'react-hook-form'
 
 test('form submits correctly', () => {
-  const { result } = renderHook(() => useForm())  // May fail if form uses context
+	const { result } = renderHook(() => useForm()) // May fail if form uses context
 
-  act(() => {
-    result.current.setValue('email', 'test@example.com')
-  })
+	act(() => {
+		result.current.setValue('email', 'test@example.com')
+	})
 
-  expect(result.current.getValues('email')).toBe('test@example.com')
+	expect(result.current.getValues('email')).toBe('test@example.com')
 })
 ```
 

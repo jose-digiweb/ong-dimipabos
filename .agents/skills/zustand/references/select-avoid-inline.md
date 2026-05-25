@@ -67,6 +67,7 @@ function ProductList() {
 ```
 
 **Note:** For simple atomic selectors like `(s) => s.count`, inline is fine because the cost is negligible. This matters most for selectors that:
+
 - Transform data (filter, map, sort)
 - Create new objects or arrays
 - Perform expensive computations

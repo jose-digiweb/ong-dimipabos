@@ -13,13 +13,13 @@ Tailwind CSS v4 only applies `hover:` styles on devices that support hover (`@me
 
 ```html
 <button class="bg-blue-500 hover:bg-blue-600">
-  <!-- Desktop: visual feedback on hover -->
-  <!-- Touch: no feedback at all — button appears unresponsive -->
+	<!-- Desktop: visual feedback on hover -->
+	<!-- Touch: no feedback at all — button appears unresponsive -->
 </button>
 
 <a href="/settings" class="text-gray-600 hover:text-blue-500">
-  <!-- Touch users get no indication the link is tappable -->
-  Settings
+	<!-- Touch users get no indication the link is tappable -->
+	Settings
 </a>
 ```
 
@@ -27,26 +27,26 @@ Tailwind CSS v4 only applies `hover:` styles on devices that support hover (`@me
 
 ```html
 <button class="bg-blue-500 hover:bg-blue-600 active:bg-blue-700">
-  <!-- Desktop: hover feedback + press feedback -->
-  <!-- Touch: press feedback via active: -->
+	<!-- Desktop: hover feedback + press feedback -->
+	<!-- Touch: press feedback via active: -->
 </button>
 
-<a href="/settings" class="text-gray-600 hover:text-blue-500 active:text-blue-600">
-  Settings
-</a>
+<a href="/settings" class="text-gray-600 hover:text-blue-500 active:text-blue-600"> Settings </a>
 ```
 
 **Complete interactive pattern:**
 
 ```html
-<button class="
+<button
+	class="
   bg-blue-500 text-white
   hover:bg-blue-600
   active:bg-blue-700
   focus-visible:ring-2 focus-visible:ring-blue-400
   disabled:opacity-50 disabled:pointer-events-none
-">
-  Touch-friendly button
+"
+>
+	Touch-friendly button
 </button>
 ```
 
@@ -54,9 +54,9 @@ Tailwind CSS v4 only applies `hover:` styles on devices that support hover (`@me
 
 ```css
 @media (hover: hover) {
-  .hover\:bg-blue-600:hover {
-    background-color: var(--color-blue-600);
-  }
+	.hover\:bg-blue-600:hover {
+		background-color: var(--color-blue-600);
+	}
 }
 /* active: applies on all devices — no media query wrapping */
 ```

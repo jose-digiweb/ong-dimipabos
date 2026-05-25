@@ -13,7 +13,7 @@ Animation values should fit the personality of what they animate. A playful prod
 
 ```css
 .toast {
-  transition: transform 150ms ease-out; /* crisp, like a dashboard control */
+	transition: transform 150ms ease-out; /* crisp, like a dashboard control */
 }
 /* Reads as abrupt against a relaxed, elegant product */
 ```
@@ -22,7 +22,7 @@ Animation values should fit the personality of what they animate. A playful prod
 
 ```css
 .toast {
-  transition: transform 400ms ease; /* slightly slower + plain ease = elegant */
+	transition: transform 400ms ease; /* slightly slower + plain ease = elegant */
 }
 /* Motion, visual design, and pacing all feel like one coherent system */
 ```

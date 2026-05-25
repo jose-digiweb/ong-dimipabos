@@ -14,8 +14,8 @@ Viewport breakpoints couple a component's layout to the screen size, which break
 ```html
 <!-- Component uses viewport breakpoints — breaks when placed in a narrow sidebar -->
 <div class="md:flex md:gap-4">
-  <img class="md:w-1/3" />
-  <div class="md:w-2/3">...</div>
+	<img class="md:w-1/3" />
+	<div class="md:w-2/3">...</div>
 </div>
 ```
 
@@ -24,9 +24,9 @@ Viewport breakpoints couple a component's layout to the screen size, which break
 ```html
 <!-- Component adapts to its container's width, works anywhere -->
 <div class="@container">
-  <div class="@md:flex @md:gap-4">
-    <img class="@md:w-1/3" />
-    <div class="@md:w-2/3">...</div>
-  </div>
+	<div class="@md:flex @md:gap-4">
+		<img class="@md:w-1/3" />
+		<div class="@md:w-2/3">...</div>
+	</div>
 </div>
 ```

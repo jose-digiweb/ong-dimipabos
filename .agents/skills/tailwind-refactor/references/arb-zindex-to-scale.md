@@ -25,9 +25,9 @@ Option A — CSS custom properties with `z-(--var)` syntax:
 
 ```css
 :root {
-  --z-dropdown: 50;
-  --z-modal: 100;
-  --z-toast: 150;
+	--z-dropdown: 50;
+	--z-modal: 100;
+	--z-toast: 150;
 }
 ```
 
@@ -41,13 +41,13 @@ Option B — named utilities with `@utility`:
 
 ```css
 @utility z-dropdown {
-  z-index: 50;
+	z-index: 50;
 }
 @utility z-modal {
-  z-index: 100;
+	z-index: 100;
 }
 @utility z-toast {
-  z-index: 150;
+	z-index: 150;
 }
 ```
 

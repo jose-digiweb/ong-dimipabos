@@ -14,9 +14,9 @@ Some test flakiness is unavoidable (network, timing). Configure retries to autom
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  // No retries configured
-  // Any flaky test fails the entire CI run
-});
+	// No retries configured
+	// Any flaky test fails the entire CI run
+})
 ```
 
 **Correct (strategic retries):**
@@ -24,15 +24,12 @@ export default defineConfig({
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  // More retries in CI where flakiness is more common
-  retries: process.env.CI ? 2 : 0,
+	// More retries in CI where flakiness is more common
+	retries: process.env.CI ? 2 : 0,
 
-  // Use reporter to track which tests needed retries
-  reporter: [
-    ['html', { open: 'never' }],
-    ['list'],
-  ],
-});
+	// Use reporter to track which tests needed retries
+	reporter: [['html', { open: 'never' }], ['list']],
+})
 ```
 
 **Retry configuration options:**
@@ -40,37 +37,37 @@ export default defineConfig({
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  retries: 2,
+	retries: 2,
 
-  // Only rerun failed tests, not entire file
-  use: {
-    trace: 'on-first-retry', // Capture trace on retry for debugging
-    video: 'on-first-retry',
-    screenshot: 'only-on-failure',
-  },
-});
+	// Only rerun failed tests, not entire file
+	use: {
+		trace: 'on-first-retry', // Capture trace on retry for debugging
+		video: 'on-first-retry',
+		screenshot: 'only-on-failure',
+	},
+})
 ```
 
 **Per-test retry configuration:**
 
 ```typescript
 // tests/critical.spec.ts
-import { test } from '@playwright/test';
+import { test } from '@playwright/test'
 
 // Critical tests get extra retries
 test.describe('payment flow', () => {
-  test.describe.configure({ retries: 3 });
+	test.describe.configure({ retries: 3 })
 
-  test('complete checkout', async ({ page }) => {
-    // This test gets 3 retries
-  });
-});
+	test('complete checkout', async ({ page }) => {
+		// This test gets 3 retries
+	})
+})
 
 // Unstable third-party integration
 test('external API test', async ({ page }) => {
-  test.info().annotations.push({ type: 'flaky', description: 'External API' });
-  // ...
-});
+	test.info().annotations.push({ type: 'flaky', description: 'External API' })
+	// ...
+})
 ```
 
 **Identify and fix flaky tests:**
@@ -80,16 +77,16 @@ test('external API test', async ({ page }) => {
 
 // BAD: Flaky due to timing
 test('shows notification', async ({ page }) => {
-  await page.click('#trigger');
-  await page.waitForTimeout(1000); // Hoping it's enough
-  await expect(page.getByText('Done')).toBeVisible();
-});
+	await page.click('#trigger')
+	await page.waitForTimeout(1000) // Hoping it's enough
+	await expect(page.getByText('Done')).toBeVisible()
+})
 
 // GOOD: Deterministic wait
 test('shows notification', async ({ page }) => {
-  await page.click('#trigger');
-  await expect(page.getByText('Done')).toBeVisible(); // Auto-retries
-});
+	await page.click('#trigger')
+	await expect(page.getByText('Done')).toBeVisible() // Auto-retries
+})
 ```
 
 **Monitor retry rate:**

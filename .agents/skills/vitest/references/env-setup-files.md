@@ -29,9 +29,9 @@ afterAll(() => server.close())
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    setupFiles: ['./vitest.setup.ts'],
-  },
+	test: {
+		setupFiles: ['./vitest.setup.ts'],
+	},
 })
 ```
 
@@ -51,7 +51,7 @@ afterAll(() => server.close())
 
 // Global mocks
 vi.mock('./config', () => ({
-  config: { apiUrl: 'http://localhost:3000' },
+	config: { apiUrl: 'http://localhost:3000' },
 }))
 ```
 
@@ -76,17 +76,18 @@ describe('UserList', () => {
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    setupFiles: [
-      './vitest.setup.ts',      // Base setup
-      './vitest.mocks.ts',      // Global mocks
-      './vitest.matchers.ts',   // Custom matchers
-    ],
-  },
+	test: {
+		setupFiles: [
+			'./vitest.setup.ts', // Base setup
+			'./vitest.mocks.ts', // Global mocks
+			'./vitest.matchers.ts', // Custom matchers
+		],
+	},
 })
 ```
 
 **Benefits:**
+
 - DRY - setup code in one place
 - Consistent environment across all tests
 - Easier to update global configuration

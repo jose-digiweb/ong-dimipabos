@@ -17,16 +17,19 @@ import { devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
 const useStore = create<State>()(
-  // Wrong: persist outside devtools won't show persisted state in DevTools
-  persist(
-    devtools(
-      immer((set) => ({
-        count: 0,
-        increment: () => set((s) => { s.count++ }),
-      }))
-    ),
-    { name: 'store' }
-  )
+	// Wrong: persist outside devtools won't show persisted state in DevTools
+	persist(
+		devtools(
+			immer((set) => ({
+				count: 0,
+				increment: () =>
+					set((s) => {
+						s.count++
+					}),
+			})),
+		),
+		{ name: 'store' },
+	),
 )
 ```
 
@@ -38,17 +41,20 @@ import { devtools, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 
 const useStore = create<State>()(
-  // Correct order: devtools → persist → immer
-  devtools(
-    persist(
-      immer((set) => ({
-        count: 0,
-        increment: () => set((s) => { s.count++ }),
-      })),
-      { name: 'store' }
-    ),
-    { name: 'store', enabled: process.env.NODE_ENV === 'development' }
-  )
+	// Correct order: devtools → persist → immer
+	devtools(
+		persist(
+			immer((set) => ({
+				count: 0,
+				increment: () =>
+					set((s) => {
+						s.count++
+					}),
+			})),
+			{ name: 'store' },
+		),
+		{ name: 'store', enabled: process.env.NODE_ENV === 'development' },
+	),
 )
 ```
 
@@ -62,6 +68,7 @@ const useStore = create<State>()(
 ```
 
 **Why this order:**
+
 - `devtools` should see final state changes, so it wraps everything
 - `persist` should save the immer-processed state, not raw mutations
 - `immer` is innermost because it transforms how `set` works

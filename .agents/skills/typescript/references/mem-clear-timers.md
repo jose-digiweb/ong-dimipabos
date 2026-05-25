@@ -13,20 +13,20 @@ tags: mem, timers, intervals, cleanup, memory-leaks
 
 ```typescript
 class DataPoller {
-  private data: LargeDataset
+	private data: LargeDataset
 
-  start(): void {
-    setInterval(() => {
-      this.data = fetchLatestData()
-      this.updateDashboard()
-    }, 5000)
-    // No reference to interval ID, can't clear it
-  }
+	start(): void {
+		setInterval(() => {
+			this.data = fetchLatestData()
+			this.updateDashboard()
+		}, 5000)
+		// No reference to interval ID, can't clear it
+	}
 
-  stop(): void {
-    // Can't stop the interval - it runs forever
-    // 'this' is retained, DataPoller can't be GC'd
-  }
+	stop(): void {
+		// Can't stop the interval - it runs forever
+		// 'this' is retained, DataPoller can't be GC'd
+	}
 }
 
 // Each new DataPoller instance creates another interval
@@ -37,24 +37,24 @@ class DataPoller {
 
 ```typescript
 class DataPoller {
-  private data: LargeDataset
-  private intervalId: ReturnType<typeof setInterval> | null = null
+	private data: LargeDataset
+	private intervalId: ReturnType<typeof setInterval> | null = null
 
-  start(): void {
-    if (this.intervalId) return  // Prevent duplicate intervals
+	start(): void {
+		if (this.intervalId) return // Prevent duplicate intervals
 
-    this.intervalId = setInterval(() => {
-      this.data = fetchLatestData()
-      this.updateDashboard()
-    }, 5000)
-  }
+		this.intervalId = setInterval(() => {
+			this.data = fetchLatestData()
+			this.updateDashboard()
+		}, 5000)
+	}
 
-  stop(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId)
-      this.intervalId = null
-    }
-  }
+	stop(): void {
+		if (this.intervalId) {
+			clearInterval(this.intervalId)
+			this.intervalId = null
+		}
+	}
 }
 ```
 
@@ -62,22 +62,22 @@ class DataPoller {
 
 ```typescript
 class AnimationController {
-  private timers = new Set<ReturnType<typeof setTimeout>>()
+	private timers = new Set<ReturnType<typeof setTimeout>>()
 
-  scheduleAnimation(delay: number, callback: () => void): void {
-    const timerId = setTimeout(() => {
-      this.timers.delete(timerId)
-      callback()
-    }, delay)
-    this.timers.add(timerId)
-  }
+	scheduleAnimation(delay: number, callback: () => void): void {
+		const timerId = setTimeout(() => {
+			this.timers.delete(timerId)
+			callback()
+		}, delay)
+		this.timers.add(timerId)
+	}
 
-  cancelAll(): void {
-    for (const timerId of this.timers) {
-      clearTimeout(timerId)
-    }
-    this.timers.clear()
-  }
+	cancelAll(): void {
+		for (const timerId of this.timers) {
+			clearTimeout(timerId)
+		}
+		this.timers.clear()
+	}
 }
 ```
 
@@ -85,21 +85,21 @@ class AnimationController {
 
 ```typescript
 function usePolling(callback: () => void, interval: number): void {
-  useEffect(() => {
-    const id = setInterval(callback, interval)
-    return () => clearInterval(id)  // Cleanup on unmount
-  }, [callback, interval])
+	useEffect(() => {
+		const id = setInterval(callback, interval)
+		return () => clearInterval(id) // Cleanup on unmount
+	}, [callback, interval])
 }
 
 function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebouncedValue] = useState(value)
+	const [debouncedValue, setDebouncedValue] = useState(value)
 
-  useEffect(() => {
-    const timer = setTimeout(() => setDebouncedValue(value), delay)
-    return () => clearTimeout(timer)  // Clear on value change or unmount
-  }, [value, delay])
+	useEffect(() => {
+		const timer = setTimeout(() => setDebouncedValue(value), delay)
+		return () => clearTimeout(timer) // Clear on value change or unmount
+	}, [value, delay])
 
-  return debouncedValue
+	return debouncedValue
 }
 ```
 

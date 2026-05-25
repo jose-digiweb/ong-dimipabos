@@ -78,6 +78,7 @@ function OrderSummary() {
 ```
 
 **Benefits:**
+
 - Expensive computations only run when dependencies change
 - React's useMemo integrates naturally with Zustand selectors
 - Reusable computed hooks share the pattern

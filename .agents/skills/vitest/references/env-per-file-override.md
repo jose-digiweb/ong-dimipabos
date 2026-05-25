@@ -14,10 +14,10 @@ Not all tests need a DOM environment. Running DOM tests in node mode fails, whil
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // All tests run in jsdom, even pure logic tests
-    environment: 'jsdom',
-  },
+	test: {
+		// All tests run in jsdom, even pure logic tests
+		environment: 'jsdom',
+	},
 })
 ```
 
@@ -29,9 +29,9 @@ export default defineConfig({
 import { describe, it, expect } from 'vitest'
 
 describe('math utils', () => {
-  it('should add numbers', () => {
-    expect(add(1, 2)).toBe(3)
-  })
+	it('should add numbers', () => {
+		expect(add(1, 2)).toBe(3)
+	})
 })
 ```
 
@@ -53,33 +53,34 @@ describe('Button', () => {
 
 **Environment options:**
 
-| Environment | Use For |
-|-------------|---------|
-| `node` (default) | Pure logic, Node.js APIs, utilities |
-| `jsdom` | Full DOM compatibility, complex browser APIs |
-| `happy-dom` | Fast DOM testing, most component tests |
-| `edge-runtime` | Edge function testing |
+| Environment      | Use For                                      |
+| ---------------- | -------------------------------------------- |
+| `node` (default) | Pure logic, Node.js APIs, utilities          |
+| `jsdom`          | Full DOM compatibility, complex browser APIs |
+| `happy-dom`      | Fast DOM testing, most component tests       |
+| `edge-runtime`   | Edge function testing                        |
 
 **Configuration-based overrides:**
 
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // Default to node for speed
-    environment: 'node',
+	test: {
+		// Default to node for speed
+		environment: 'node',
 
-    // Pattern-based overrides
-    environmentMatchGlobs: [
-      ['src/components/**', 'happy-dom'],
-      ['src/hooks/**', 'happy-dom'],
-      ['tests/e2e/**', 'jsdom'],
-    ],
-  },
+		// Pattern-based overrides
+		environmentMatchGlobs: [
+			['src/components/**', 'happy-dom'],
+			['src/hooks/**', 'happy-dom'],
+			['tests/e2e/**', 'jsdom'],
+		],
+	},
 })
 ```
 
 **Benefits:**
+
 - Faster tests for pure logic
 - Correct environment for DOM tests
 - Flexible per-test-file control

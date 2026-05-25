@@ -15,19 +15,21 @@ Don't persist the entire store. Use `partialize` to select only the data that sh
 import { persist } from 'zustand/middleware'
 
 const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      user: null,
-      accessToken: null,     // Sensitive, shouldn't persist long-term
-      refreshToken: null,    // Sensitive
-      isLoading: false,      // Transient UI state
-      error: null,           // Transient
-      loginAttempts: 0,      // Temporary
+	persist(
+		(set) => ({
+			user: null,
+			accessToken: null, // Sensitive, shouldn't persist long-term
+			refreshToken: null, // Sensitive
+			isLoading: false, // Transient UI state
+			error: null, // Transient
+			loginAttempts: 0, // Temporary
 
-      login: (credentials) => { /* ... */ },
-    }),
-    { name: 'auth-storage' }
-  )
+			login: (credentials) => {
+				/* ... */
+			},
+		}),
+		{ name: 'auth-storage' },
+	),
 )
 // Persists loading state, errors, and sensitive tokens
 ```
@@ -38,25 +40,27 @@ const useAuthStore = create<AuthState>()(
 import { persist } from 'zustand/middleware'
 
 const useAuthStore = create<AuthState>()(
-  persist(
-    (set) => ({
-      user: null,
-      accessToken: null,
-      refreshToken: null,
-      isLoading: false,
-      error: null,
-      loginAttempts: 0,
+	persist(
+		(set) => ({
+			user: null,
+			accessToken: null,
+			refreshToken: null,
+			isLoading: false,
+			error: null,
+			loginAttempts: 0,
 
-      login: (credentials) => { /* ... */ },
-    }),
-    {
-      name: 'auth-storage',
-      // Only persist user profile, not tokens or UI state
-      partialize: (state) => ({
-        user: state.user,
-      }),
-    }
-  )
+			login: (credentials) => {
+				/* ... */
+			},
+		}),
+		{
+			name: 'auth-storage',
+			// Only persist user profile, not tokens or UI state
+			partialize: (state) => ({
+				user: state.user,
+			}),
+		},
+	),
 )
 ```
 
@@ -66,27 +70,28 @@ const useAuthStore = create<AuthState>()(
 import { persist } from 'zustand/middleware'
 
 const useSettingsStore = create<SettingsState>()(
-  persist(
-    (set) => ({
-      theme: 'dark',
-      language: 'en',
-      fontSize: 14,
-      sidebarOpen: true,    // Don't persist
-      modalOpen: false,     // Don't persist
-    }),
-    {
-      name: 'settings-storage',
-      partialize: (state) => {
-        // Exclude transient UI state
-        const { sidebarOpen, modalOpen, ...persisted } = state
-        return persisted
-      },
-    }
-  )
+	persist(
+		(set) => ({
+			theme: 'dark',
+			language: 'en',
+			fontSize: 14,
+			sidebarOpen: true, // Don't persist
+			modalOpen: false, // Don't persist
+		}),
+		{
+			name: 'settings-storage',
+			partialize: (state) => {
+				// Exclude transient UI state
+				const { sidebarOpen, modalOpen, ...persisted } = state
+				return persisted
+			},
+		},
+	),
 )
 ```
 
 **What NOT to persist:**
+
 - Loading/error states
 - Sensitive tokens (use secure storage instead)
 - Temporary UI state (modals, tooltips)

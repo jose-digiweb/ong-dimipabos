@@ -13,11 +13,11 @@ Without `font-display`, browsers may hide text until custom fonts load (FOIT). T
 
 ```css
 @font-face {
-  font-family: 'Brand Font';
-  src: url('brand-font.woff2') format('woff2');
-  /* No font-display specified */
-  /* Safari hides text indefinitely until font loads */
-  /* Chrome/Firefox hide for 3s, then show fallback */
+	font-family: 'Brand Font';
+	src: url('brand-font.woff2') format('woff2');
+	/* No font-display specified */
+	/* Safari hides text indefinitely until font loads */
+	/* Chrome/Firefox hide for 3s, then show fallback */
 }
 /* Users see blank space where text should be */
 ```
@@ -27,33 +27,34 @@ Without `font-display`, browsers may hide text until custom fonts load (FOIT). T
 ```css
 /* Option 1: swap - always show text, swap when ready */
 @font-face {
-  font-family: 'Brand Font';
-  src: url('brand-font.woff2') format('woff2');
-  font-display: swap;
+	font-family: 'Brand Font';
+	src: url('brand-font.woff2') format('woff2');
+	font-display: swap;
 }
 /* Text visible immediately with fallback */
 /* Swaps to custom font when loaded (may cause reflow) */
 
 /* Option 2: optional - no swap if not cached */
 @font-face {
-  font-family: 'Brand Font';
-  src: url('brand-font.woff2') format('woff2');
-  font-display: optional;
+	font-family: 'Brand Font';
+	src: url('brand-font.woff2') format('woff2');
+	font-display: optional;
 }
 /* Text visible immediately */
 /* Custom font only used if already cached (no CLS) */
 
 /* Option 3: fallback - short block, then fallback */
 @font-face {
-  font-family: 'Brand Font';
-  src: url('brand-font.woff2') format('woff2');
-  font-display: fallback;
+	font-family: 'Brand Font';
+	src: url('brand-font.woff2') format('woff2');
+	font-display: fallback;
 }
 /* 100ms block period, then fallback */
 /* Swap window of ~3s before giving up */
 ```
 
 **font-display values:**
+
 - `swap`: Show fallback immediately, always swap (may cause CLS)
 - `optional`: No CLS, but font may not appear on first visit
 - `fallback`: Brief block, then swap window (balanced)

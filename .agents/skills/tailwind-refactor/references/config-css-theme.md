@@ -14,33 +14,33 @@ Tailwind CSS v4 replaces the JavaScript configuration file with a CSS-native `@t
 ```js
 // tailwind.config.js
 module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        brand: '#3b82f6',
-        surface: '#f8fafc',
-      },
-      fontFamily: {
-        display: ['Inter', 'sans-serif'],
-      },
-      spacing: {
-        18: '4.5rem',
-      },
-    },
-  },
-};
+	theme: {
+		extend: {
+			colors: {
+				brand: '#3b82f6',
+				surface: '#f8fafc',
+			},
+			fontFamily: {
+				display: ['Inter', 'sans-serif'],
+			},
+			spacing: {
+				18: '4.5rem',
+			},
+		},
+	},
+}
 ```
 
 **Correct (what's right):**
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --color-brand: #3b82f6;
-  --color-surface: #f8fafc;
-  --font-display: "Inter", sans-serif;
-  --spacing-18: 4.5rem;
+	--color-brand: #3b82f6;
+	--color-surface: #f8fafc;
+	--font-display: 'Inter', sans-serif;
+	--spacing-18: 4.5rem;
 }
 ```
 

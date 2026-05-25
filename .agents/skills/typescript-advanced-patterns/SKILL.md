@@ -19,25 +19,25 @@ Reference these guidelines when:
 
 ## Boundary with neighbouring skills
 
-| Skill | Don't reach for this skill if you need… |
-|-------|-----------------------------------------|
-| `typescript` (curated) | Compiler performance / tsconfig tuning |
-| `typescript-refactor` | General refactoring patterns and modern-TS surface basics |
-| `ts-google` | Google-style code style decisions |
-| `clean-code-ts-react` | Clean-code principles (naming, function shape, abstraction) |
-| `effect-ts` / `opencode-ts` | Effect library-specific patterns |
+| Skill                       | Don't reach for this skill if you need…                     |
+| --------------------------- | ----------------------------------------------------------- |
+| `typescript` (curated)      | Compiler performance / tsconfig tuning                      |
+| `typescript-refactor`       | General refactoring patterns and modern-TS surface basics   |
+| `ts-google`                 | Google-style code style decisions                           |
+| `clean-code-ts-react`       | Clean-code principles (naming, function shape, abstraction) |
+| `effect-ts` / `opencode-ts` | Effect library-specific patterns                            |
 
 If a rule in this skill overlaps with one in `typescript-refactor` or `.curated/typescript`, the rule's **Scope delta** section names what this skill adds beyond the simpler version.
 
 ## Rule Categories by Priority
 
-| Priority | Category | Impact | Prefix | Rules |
-|----------|----------|--------|--------|-------|
-| 1 | Library Author / DSL Patterns | CRITICAL | `dsl-` | 8 |
-| 2 | Type-level Programming | HIGH | `tlp-` | 10 |
-| 3 | Modern Features at Depth | HIGH | `mod-` | 8 |
-| 4 | Feature Implementation Patterns | MEDIUM-HIGH | `impl-` | 8 |
-| 5 | Declaration & Module System | MEDIUM | `decl-` | 6 |
+| Priority | Category                        | Impact      | Prefix  | Rules |
+| -------- | ------------------------------- | ----------- | ------- | ----- |
+| 1        | Library Author / DSL Patterns   | CRITICAL    | `dsl-`  | 8     |
+| 2        | Type-level Programming          | HIGH        | `tlp-`  | 10    |
+| 3        | Modern Features at Depth        | HIGH        | `mod-`  | 8     |
+| 4        | Feature Implementation Patterns | MEDIUM-HIGH | `impl-` | 8     |
+| 5        | Declaration & Module System     | MEDIUM      | `decl-` | 6     |
 
 ## Quick Reference
 
@@ -107,8 +107,8 @@ Rules cross-link via `[[other-rule-slug]]`; follow them when a related pattern i
 
 ## Reference Files
 
-| File | Description |
-|------|-------------|
-| [references/_sections.md](references/_sections.md) | Category definitions and ordering |
-| [assets/templates/_template.md](assets/templates/_template.md) | Template for new rules |
-| [metadata.json](metadata.json) | Version and reference information |
+| File                                                            | Description                       |
+| --------------------------------------------------------------- | --------------------------------- |
+| [references/\_sections.md](references/_sections.md)             | Category definitions and ordering |
+| [assets/templates/\_template.md](assets/templates/_template.md) | Template for new rules            |
+| [metadata.json](metadata.json)                                  | Version and reference information |

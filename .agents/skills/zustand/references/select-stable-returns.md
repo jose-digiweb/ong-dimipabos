@@ -55,9 +55,8 @@ function ActiveUsers() {
 
 ```typescript
 // If filtering is expensive or used in many components
-const useActiveUsers = () => useUserStore(
-  useShallow((state) => state.users.filter((u) => u.isActive))
-)
+const useActiveUsers = () =>
+	useUserStore(useShallow((state) => state.users.filter((u) => u.isActive)))
 ```
 
 Reference: [Zustand - Prevent Rerenders with useShallow](https://zustand.docs.pmnd.rs/guides/prevent-rerenders-with-use-shallow)

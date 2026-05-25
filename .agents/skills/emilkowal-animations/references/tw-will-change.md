@@ -13,7 +13,7 @@ tags: tw, tailwind, will-change, performance, compositor, drag
 
 ```tsx
 // Layer stays allocated even when the sheet is idle
-<div className="will-change-transform transition-transform duration-300 ease-out" />
+<div className='will-change-transform transition-transform duration-300 ease-out' />
 ```
 
 **Correct (scoped to the drag state):**
@@ -21,12 +21,13 @@ tags: tw, tailwind, will-change, performance, compositor, drag
 ```tsx
 // will-change only while data-dragging is set; gone at rest
 <div
-  data-dragging={isDragging}
-  className="transition-transform duration-300 ease-out data-[dragging=true]:will-change-transform"
+	data-dragging={isDragging}
+	className='transition-transform duration-300 ease-out data-[dragging=true]:will-change-transform'
 />
 ```
 
 **Notes:**
+
 - Reach for this only after a measurable sub-pixel shift appears; promoting every element costs more than it saves.
 
 Reference: [Great Animations](https://emilkowal.ski/ui/great-animations)

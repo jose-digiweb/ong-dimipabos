@@ -14,11 +14,11 @@ Visual artifacts provide immediate insight into what the page looked like when a
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  use: {
-    // No screenshot or video configuration
-    // When tests fail, you only get error messages
-  },
-});
+	use: {
+		// No screenshot or video configuration
+		// When tests fail, you only get error messages
+	},
+})
 
 // Test failure output:
 // Error: expect(locator).toBeVisible()
@@ -32,14 +32,14 @@ export default defineConfig({
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  use: {
-    // Screenshots on failure
-    screenshot: 'only-on-failure',
+	use: {
+		// Screenshots on failure
+		screenshot: 'only-on-failure',
 
-    // Video on failure
-    video: 'retain-on-failure',
-  },
-});
+		// Video on failure
+		video: 'retain-on-failure',
+	},
+})
 
 // Test failure now includes:
 // - Screenshot of final page state
@@ -51,13 +51,13 @@ export default defineConfig({
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  use: {
-    video: {
-      mode: 'retain-on-failure',
-      size: { width: 1280, height: 720 }, // Video resolution
-    },
-  },
-});
+	use: {
+		video: {
+			mode: 'retain-on-failure',
+			size: { width: 1280, height: 720 }, // Video resolution
+		},
+	},
+})
 ```
 
 **CI artifact upload:**
@@ -71,19 +71,19 @@ export default defineConfig({
   uses: actions/upload-artifact@v4
   if: failure()
   with:
-    name: test-artifacts
-    path: |
-      test-results/**/*.png
-      test-results/**/*.webm
-    retention-days: 7
+   name: test-artifacts
+   path: |
+    test-results/**/*.png
+    test-results/**/*.webm
+   retention-days: 7
 ```
 
 **Storage considerations:**
 
-| Artifact | Typical Size | Recommendation |
-|----------|--------------|----------------|
-| Screenshot | 100-500KB | Always capture on failure |
-| Video (30s) | 2-5MB | Retain on failure only |
-| Trace | 5-20MB | On first retry |
+| Artifact    | Typical Size | Recommendation            |
+| ----------- | ------------ | ------------------------- |
+| Screenshot  | 100-500KB    | Always capture on failure |
+| Video (30s) | 2-5MB        | Retain on failure only    |
+| Trace       | 5-20MB       | On first retry            |
 
 Reference: [Playwright Screenshots](https://playwright.dev/docs/screenshots)

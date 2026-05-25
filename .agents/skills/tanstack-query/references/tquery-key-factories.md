@@ -14,14 +14,14 @@ Query keys scattered across components lead to typos, inconsistent structure, an
 ```typescript
 // In UserProfile.tsx
 const { data } = useQuery({
-  queryKey: ['user', userId],
-  queryFn: () => fetchUser(userId),
+	queryKey: ['user', userId],
+	queryFn: () => fetchUser(userId),
 })
 
 // In UserSettings.tsx - typo breaks invalidation
 const { data } = useQuery({
-  queryKey: ['users', userId], // 'users' vs 'user' - different cache!
-  queryFn: () => fetchUser(userId),
+	queryKey: ['users', userId], // 'users' vs 'user' - different cache!
+	queryFn: () => fetchUser(userId),
 })
 
 // In mutation - invalidation misses the typo
@@ -33,17 +33,17 @@ queryClient.invalidateQueries({ queryKey: ['user'] })
 ```typescript
 // queries/users.ts
 export const userKeys = {
-  all: ['users'] as const,
-  lists: () => [...userKeys.all, 'list'] as const,
-  list: (filters: UserFilters) => [...userKeys.lists(), filters] as const,
-  details: () => [...userKeys.all, 'detail'] as const,
-  detail: (id: string) => [...userKeys.details(), id] as const,
+	all: ['users'] as const,
+	lists: () => [...userKeys.all, 'list'] as const,
+	list: (filters: UserFilters) => [...userKeys.lists(), filters] as const,
+	details: () => [...userKeys.all, 'detail'] as const,
+	detail: (id: string) => [...userKeys.details(), id] as const,
 }
 
 // In UserProfile.tsx
 const { data } = useQuery({
-  queryKey: userKeys.detail(userId),
-  queryFn: () => fetchUser(userId),
+	queryKey: userKeys.detail(userId),
+	queryFn: () => fetchUser(userId),
 })
 
 // In mutation - invalidates all user queries
@@ -51,6 +51,7 @@ queryClient.invalidateQueries({ queryKey: userKeys.all })
 ```
 
 **Benefits:**
+
 - TypeScript autocompletion prevents typos
 - Hierarchical structure enables granular invalidation
 - Single source of truth for all user-related keys

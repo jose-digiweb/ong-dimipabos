@@ -82,10 +82,10 @@ function Article({ id }: { id: string }) {
 // TanStack Query can auto-track which props you access
 // Enable via QueryClient config:
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      notifyOnChangeProps: 'all', // Or specific props
-    },
-  },
+	defaultOptions: {
+		queries: {
+			notifyOnChangeProps: 'all', // Or specific props
+		},
+	},
 })
 ```

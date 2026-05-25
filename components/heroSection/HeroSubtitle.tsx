@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils'
 // Types
 import type { ReactNode } from 'react'
 type Props = {
-  children: ReactNode
-  className?: string
+	children: ReactNode
+	className?: string
 }
 
 /**
@@ -16,14 +16,14 @@ type Props = {
  * @returns {JSX.Element} The HeroSubtitle component
  */
 export const HeroSubtitle = ({ children, className }: Props) => {
-  return (
-    <span
-      className={cn(
-        'mt-2 block max-w-lg text-pretty font-medium text-2xl text-primary sm:text-3xl md:text-4xl',
-        className
-      )}
-    >
-      {children}
-    </span>
-  )
+	return (
+		<span
+			className={cn(
+				'mt-2 block max-w-lg text-pretty font-medium text-2xl text-primary sm:text-3xl md:text-4xl',
+				className,
+			)}
+		>
+			{children}
+		</span>
+	)
 }

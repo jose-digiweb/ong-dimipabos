@@ -14,17 +14,17 @@ Playwright Inspector lets you step through tests interactively, inspect selector
 ```typescript
 // tests/checkout.spec.ts
 test('complete checkout', async ({ page }) => {
-  await page.goto('/checkout');
+	await page.goto('/checkout')
 
-  // Something fails here but you don't know why
-  await page.getByRole('button', { name: 'Pay' }).click();
-  // Error: locator.click: Target closed
+	// Something fails here but you don't know why
+	await page.getByRole('button', { name: 'Pay' }).click()
+	// Error: locator.click: Target closed
 
-  // Without inspector, you're guessing:
-  // - Is the button there?
-  // - Is it visible?
-  // - Is there an overlay blocking it?
-});
+	// Without inspector, you're guessing:
+	// - Is the button there?
+	// - Is it visible?
+	// - Is there an overlay blocking it?
+})
 
 // Run: npx playwright test
 // Output: Error with no visual context
@@ -35,17 +35,17 @@ test('complete checkout', async ({ page }) => {
 ```typescript
 // tests/checkout.spec.ts
 test('complete checkout', async ({ page }) => {
-  await page.goto('/checkout');
+	await page.goto('/checkout')
 
-  // Add breakpoint to pause and inspect
-  await page.pause();
+	// Add breakpoint to pause and inspect
+	await page.pause()
 
-  // Now you can:
-  // - See the actual page state
-  // - Test different selectors
-  // - Step through one action at a time
-  await page.getByRole('button', { name: 'Pay' }).click();
-});
+	// Now you can:
+	// - See the actual page state
+	// - Test different selectors
+	// - Step through one action at a time
+	await page.getByRole('button', { name: 'Pay' }).click()
+})
 
 // Run: npx playwright test --debug
 // Inspector opens with full visibility
@@ -69,17 +69,17 @@ npx playwright test -g "login flow" --debug
 ```json
 // .vscode/launch.json
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug Playwright Tests",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["playwright", "test", "--debug"],
-      "console": "integratedTerminal"
-    }
-  ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Debug Playwright Tests",
+			"runtimeExecutable": "npx",
+			"runtimeArgs": ["playwright", "test", "--debug"],
+			"console": "integratedTerminal"
+		}
+	]
 }
 ```
 

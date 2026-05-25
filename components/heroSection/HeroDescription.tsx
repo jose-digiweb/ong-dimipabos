@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils'
 // Types
 import type { ReactNode } from 'react'
 type Props = {
-  children: ReactNode
-  className?: string
+	children: ReactNode
+	className?: string
 }
 
 /**
@@ -17,11 +17,9 @@ type Props = {
  * @returns {JSX.Element} The HeroDescription component
  */
 export const HeroDescription = ({ children, className }: Props) => {
-  return (
-    <p
-      className={cn('mt-6 max-w-xl text-pretty text-muted-foreground text-xl leading-8', className)}
-    >
-      {children}
-    </p>
-  )
+	return (
+		<p className={cn('mt-6 max-w-xl text-pretty text-muted-foreground text-xl leading-8', className)}>
+			{children}
+		</p>
+	)
 }

@@ -13,30 +13,30 @@ Ensure CSS minification is enabled for production builds. While Tailwind's JIT p
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from "vite";
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [tailwindcss()],
-  build: {
-    cssMinify: false, // Disabled minification
-  },
-});
+	plugins: [tailwindcss()],
+	build: {
+		cssMinify: false, // Disabled minification
+	},
+})
 ```
 
 **Correct (minification enabled):**
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from "vite";
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [tailwindcss()],
-  build: {
-    cssMinify: "lightningcss", // Fast, modern minifier
-  },
-});
+	plugins: [tailwindcss()],
+	build: {
+		cssMinify: 'lightningcss', // Fast, modern minifier
+	},
+})
 ```
 
 **For CLI builds:**
@@ -50,6 +50,7 @@ npx @tailwindcss/cli -i input.css -o output.css --minify
 ```
 
 **Benefits:**
+
 - 40-60% smaller file sizes
 - Faster network transfer
 - Improved Core Web Vitals

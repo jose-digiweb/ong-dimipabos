@@ -13,17 +13,18 @@ tags: tw, tailwind, easing, duration, transition, ease-out
 
 ```tsx
 // Animates layout props on any change and uses the default ease-in-out curve
-<div className="transition-all duration-300" />
+<div className='transition-all duration-300' />
 ```
 
 **Correct (compositor-only properties + explicit ease-out):**
 
 ```tsx
 // Only transform and opacity animate; ease-out at 200ms feels responsive
-<div className="transition-[transform,opacity] duration-200 ease-out" />
+<div className='transition-[transform,opacity] duration-200 ease-out' />
 ```
 
 **Notes:**
+
 - `transition-transform`, `transition-opacity`, and `transition-colors` are narrower built-ins when you animate a single property group.
 - Reserve durations of 300–500ms for large surfaces (modals, drawers); see [`tw-asymmetric-timing`](tw-asymmetric-timing.md) for press/release splits.
 

@@ -14,18 +14,18 @@ Structure stores around feature domains rather than data types. This aligns with
 ```typescript
 // stores/entities.ts - all entities in one place
 const useEntitiesStore = create((set) => ({
-  users: [],
-  products: [],
-  orders: [],
-  // Hard to find what belongs where
+	users: [],
+	products: [],
+	orders: [],
+	// Hard to find what belongs where
 }))
 
 // stores/ui.ts - all UI state together
 const useUIStore = create((set) => ({
-  userModalOpen: false,
-  productFilterVisible: false,
-  checkoutStep: 0,
-  // Unrelated concerns mixed
+	userModalOpen: false,
+	productFilterVisible: false,
+	checkoutStep: 0,
+	// Unrelated concerns mixed
 }))
 ```
 
@@ -34,31 +34,34 @@ const useUIStore = create((set) => ({
 ```typescript
 // features/auth/store.ts
 const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  isAuthenticated: false,
-  login: (credentials) => { /* ... */ },
-  logout: () => set({ user: null, isAuthenticated: false }),
+	user: null,
+	isAuthenticated: false,
+	login: (credentials) => {
+		/* ... */
+	},
+	logout: () => set({ user: null, isAuthenticated: false }),
 }))
 
 // features/catalog/store.ts
 const useCatalogStore = create<CatalogState>((set) => ({
-  products: [],
-  filters: { category: null, priceRange: null },
-  filterVisible: false,
-  setFilters: (filters) => set({ filters }),
-  toggleFilterVisible: () => set((s) => ({ filterVisible: !s.filterVisible })),
+	products: [],
+	filters: { category: null, priceRange: null },
+	filterVisible: false,
+	setFilters: (filters) => set({ filters }),
+	toggleFilterVisible: () => set((s) => ({ filterVisible: !s.filterVisible })),
 }))
 
 // features/checkout/store.ts
 const useCheckoutStore = create<CheckoutState>((set) => ({
-  step: 0,
-  shippingAddress: null,
-  paymentMethod: null,
-  nextStep: () => set((s) => ({ step: s.step + 1 })),
+	step: 0,
+	shippingAddress: null,
+	paymentMethod: null,
+	nextStep: () => set((s) => ({ step: s.step + 1 })),
 }))
 ```
 
 **Benefits:**
+
 - Feature teams own their stores
 - Easy to code-split by feature
 - Related state and actions colocated

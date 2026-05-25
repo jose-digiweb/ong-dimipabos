@@ -13,12 +13,12 @@ Project references split a monorepo into independently compilable units. Each pr
 
 ```json
 {
-  "compilerOptions": {
-    "target": "ES2024",
-    "strict": true,
-    "outDir": "dist"
-  },
-  "include": ["src/**/*", "packages/**/*"]
+	"compilerOptions": {
+		"target": "ES2024",
+		"strict": true,
+		"outDir": "dist"
+	},
+	"include": ["src/**/*", "packages/**/*"]
 }
 ```
 
@@ -26,31 +26,32 @@ Project references split a monorepo into independently compilable units. Each pr
 
 ```json
 {
-  "compilerOptions": {
-    "target": "ES2024",
-    "strict": true
-  },
-  "references": [
-    { "path": "./packages/shared" },
-    { "path": "./packages/api" },
-    { "path": "./packages/web" }
-  ]
+	"compilerOptions": {
+		"target": "ES2024",
+		"strict": true
+	},
+	"references": [
+		{ "path": "./packages/shared" },
+		{ "path": "./packages/api" },
+		{ "path": "./packages/web" }
+	]
 }
 ```
 
 ```json
 {
-  "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "dist"
-  },
-  "include": ["src/**/*"]
+	"compilerOptions": {
+		"composite": true,
+		"declaration": true,
+		"declarationMap": true,
+		"outDir": "dist"
+	},
+	"include": ["src/**/*"]
 }
 ```
 
 **Benefits:**
+
 - `tsc --build` only recompiles changed projects
 - Parallel compilation across independent projects
 - IDE navigation works across project boundaries with declaration maps

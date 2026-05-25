@@ -13,7 +13,7 @@ Once a drag is in progress, ignore any additional pointers. Without this guard, 
 
 ```tsx
 function onPointerDown(event: React.PointerEvent) {
-  startDrag(event.clientY)
+	startDrag(event.clientY)
 }
 // A second finger begins a fresh drag; the drawer jumps to it
 ```
@@ -22,8 +22,8 @@ function onPointerDown(event: React.PointerEvent) {
 
 ```tsx
 function onPointerDown(event: React.PointerEvent) {
-  if (isDragging) return // ignore extra touch points once dragging
-  startDrag(event.clientY)
+	if (isDragging) return // ignore extra touch points once dragging
+	startDrag(event.clientY)
 }
 ```
 

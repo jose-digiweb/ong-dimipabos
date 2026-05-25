@@ -14,13 +14,13 @@ Large headings on desktop benefit from tighter letter-spacing (negative tracking
 ```html
 <!-- tracking-tight on a text-xl mobile heading cramps the characters -->
 <header class="bg-gray-950 px-4 py-16 text-white md:px-8 lg:py-24">
-  <h1 class="text-xl font-bold tracking-tight md:text-4xl lg:text-6xl">
-    The Future of Design Systems
-  </h1>
-  <p class="mt-4 text-sm tracking-tight text-gray-300 md:text-base lg:text-lg">
-    A comprehensive guide to building scalable, maintainable UI architectures
-    that work across teams and products.
-  </p>
+	<h1 class="text-xl font-bold tracking-tight md:text-4xl lg:text-6xl">
+		The Future of Design Systems
+	</h1>
+	<p class="mt-4 text-sm tracking-tight text-gray-300 md:text-base lg:text-lg">
+		A comprehensive guide to building scalable, maintainable UI architectures that work across teams
+		and products.
+	</p>
 </header>
 ```
 
@@ -29,13 +29,15 @@ Large headings on desktop benefit from tighter letter-spacing (negative tracking
 ```html
 <!-- Normal tracking on mobile, tighter as the heading grows at wider breakpoints -->
 <header class="bg-gray-950 px-4 py-16 text-white md:px-8 lg:py-24">
-  <h1 class="text-xl font-bold tracking-normal md:text-4xl md:tracking-tight lg:text-6xl lg:tracking-tighter">
-    The Future of Design Systems
-  </h1>
-  <p class="mt-4 text-sm text-gray-300 md:text-base lg:text-lg">
-    A comprehensive guide to building scalable, maintainable UI architectures
-    that work across teams and products.
-  </p>
+	<h1
+		class="text-xl font-bold tracking-normal md:text-4xl md:tracking-tight lg:text-6xl lg:tracking-tighter"
+	>
+		The Future of Design Systems
+	</h1>
+	<p class="mt-4 text-sm text-gray-300 md:text-base lg:text-lg">
+		A comprehensive guide to building scalable, maintainable UI architectures that work across teams
+		and products.
+	</p>
 </header>
 ```
 

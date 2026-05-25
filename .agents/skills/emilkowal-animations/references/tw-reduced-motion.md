@@ -13,17 +13,18 @@ Opacity changes do not affect perceived position or size, so they are safe under
 
 ```tsx
 // Slides for everyone, including users who asked for reduced motion
-<div className="transition-[transform,opacity] duration-300 ease-out translate-y-0 opacity-100" />
+<div className='transition-[transform,opacity] duration-300 ease-out translate-y-0 opacity-100' />
 ```
 
 **Correct (transform only when safe, opacity fallback otherwise):**
 
 ```tsx
 // motion-safe adds the slide; motion-reduce keeps a calm fade
-<div className="opacity-100 transition-opacity duration-300 ease-out motion-safe:transition-[transform,opacity] motion-safe:translate-y-0" />
+<div className='opacity-100 transition-opacity duration-300 ease-out motion-safe:transition-[transform,opacity] motion-safe:translate-y-0' />
 ```
 
 **Notes:**
+
 - Prefer a softened alternative over `motion-reduce:transition-none`; a one-property fade still communicates state change without motion.
 
 Reference: [Great Animations](https://emilkowal.ski/ui/great-animations)

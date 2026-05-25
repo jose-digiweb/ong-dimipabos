@@ -12,8 +12,7 @@ In Tailwind CSS v3, the `ring` utility implicitly set the ring color to `blue-50
 **Incorrect (what's wrong):**
 
 ```html
-<input class="ring focus:ring-2" />
-<button class="focus:ring">Assumed blue ring</button>
+<input class="ring focus:ring-2" /> <button class="focus:ring">Assumed blue ring</button>
 ```
 
 **Correct (what's right):**

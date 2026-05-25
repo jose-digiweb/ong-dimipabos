@@ -14,22 +14,22 @@ Use Zustand for client state (UI, preferences, forms) and data-fetching librarie
 ```typescript
 // Anti-pattern: Zustand managing server data
 const useUserStore = create<UserState>((set) => ({
-  users: [],
-  isLoading: false,
-  error: null,
+	users: [],
+	isLoading: false,
+	error: null,
 
-  fetchUsers: async () => {
-    set({ isLoading: true })
-    try {
-      const users = await api.getUsers()
-      set({ users, isLoading: false })
-    } catch (error) {
-      set({ error, isLoading: false })
-    }
-  },
+	fetchUsers: async () => {
+		set({ isLoading: true })
+		try {
+			const users = await api.getUsers()
+			set({ users, isLoading: false })
+		} catch (error) {
+			set({ error, isLoading: false })
+		}
+	},
 
-  // Manual cache invalidation, no background refresh
-  // No deduplication, no retry logic
+	// Manual cache invalidation, no background refresh
+	// No deduplication, no retry logic
 }))
 ```
 
@@ -93,6 +93,7 @@ function UserList() {
 ```
 
 **Benefits:**
+
 - React Query handles caching, deduplication, background refresh
 - Zustand handles UI state that doesn't belong in URL or server
 - Clear separation of concerns

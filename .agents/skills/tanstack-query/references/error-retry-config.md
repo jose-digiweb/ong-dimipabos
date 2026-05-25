@@ -15,10 +15,10 @@ Default retry (3 attempts with exponential backoff) is aggressive for some queri
 // Retries 3 times with exponential backoff (1s, 2s, 4s)
 // Total: up to 7 seconds before error shows
 useQuery({
-  queryKey: ['data'],
-  queryFn: fetchData,
-  // retry: 3 (default)
-  // retryDelay: attempt => Math.min(1000 * 2 ** attempt, 30000) (default)
+	queryKey: ['data'],
+	queryFn: fetchData,
+	// retry: 3 (default)
+	// retryDelay: attempt => Math.min(1000 * 2 ** attempt, 30000) (default)
 })
 ```
 
@@ -27,10 +27,10 @@ useQuery({
 ```typescript
 // User clicks search - don't make them wait
 useQuery({
-  queryKey: ['search', query],
-  queryFn: () => search(query),
-  retry: 1,              // One retry only
-  retryDelay: 500,       // Quick retry
+	queryKey: ['search', query],
+	queryFn: () => search(query),
+	retry: 1, // One retry only
+	retryDelay: 500, // Quick retry
 })
 ```
 
@@ -39,10 +39,10 @@ useQuery({
 ```typescript
 // Dashboard widget - can wait for recovery
 useQuery({
-  queryKey: ['analytics'],
-  queryFn: fetchAnalytics,
-  retry: 5,
-  retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 60000),
+	queryKey: ['analytics'],
+	queryFn: fetchAnalytics,
+	retry: 5,
+	retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 60000),
 })
 ```
 
@@ -67,14 +67,14 @@ retryDelay: (attempt) => {
 
 ```typescript
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 2,
-      retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10000),
-    },
-    mutations: {
-      retry: 0, // Don't retry mutations by default
-    },
-  },
+	defaultOptions: {
+		queries: {
+			retry: 2,
+			retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10000),
+		},
+		mutations: {
+			retry: 0, // Don't retry mutations by default
+		},
+	},
 })
 ```

@@ -13,15 +13,15 @@ Animations can trigger motion sickness, migraines, and seizures in users with ve
 
 ```css
 .hero {
-  animation: parallax-float 10s infinite;
+	animation: parallax-float 10s infinite;
 }
 
 .page-transition {
-  animation: slide-in 0.5s ease-out;
+	animation: slide-in 0.5s ease-out;
 }
 
 .notification {
-  animation: shake 0.3s ease-in-out;
+	animation: shake 0.3s ease-in-out;
 }
 /* Users with motion sensitivity have no way to opt out */
 /* Can cause nausea, dizziness, or seizures */
@@ -32,42 +32,43 @@ Animations can trigger motion sickness, migraines, and seizures in users with ve
 ```css
 /* Default animations for users who haven't opted out */
 .hero {
-  animation: parallax-float 10s infinite;
+	animation: parallax-float 10s infinite;
 }
 
 .page-transition {
-  animation: slide-in 0.5s ease-out;
+	animation: slide-in 0.5s ease-out;
 }
 
 /* Disable or simplify for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .hero {
-    animation: none;
-  }
+	.hero {
+		animation: none;
+	}
 
-  .page-transition {
-    animation: fade-in 0.2s ease-out; /* Simple opacity fade instead */
-  }
+	.page-transition {
+		animation: fade-in 0.2s ease-out; /* Simple opacity fade instead */
+	}
 
-  /* Disable all decorative animations globally */
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+	/* Disable all decorative animations globally */
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
 }
 
 /* Alternative: Start with no motion, opt-in */
 @media (prefers-reduced-motion: no-preference) {
-  .hero {
-    animation: parallax-float 10s infinite;
-  }
+	.hero {
+		animation: parallax-float 10s infinite;
+	}
 }
 ```
 
 **Motion that should be reduced/removed:**
+
 - Parallax scrolling effects
 - Auto-playing carousels and sliders
 - Decorative floating/pulsing elements
@@ -75,6 +76,7 @@ Animations can trigger motion sickness, migraines, and seizures in users with ve
 - Background video
 
 **Motion that can remain:**
+
 - Essential state change indicators
 - Loading spinners (simplified)
 - Simple opacity fades

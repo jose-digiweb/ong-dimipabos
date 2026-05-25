@@ -49,9 +49,10 @@ Or apply globally in your CSS:
 
 ```css
 @layer base {
-  button, [role="button"] {
-    cursor: pointer;
-  }
+	button,
+	[role='button'] {
+		cursor: pointer;
+	}
 }
 ```
 
@@ -64,7 +65,7 @@ In v3, Preflight centered `<dialog>` elements with `margin: auto`. In v4, dialog
 ```html
 <!-- Assumes dialog is auto-centered by Preflight -->
 <dialog class="rounded-lg p-6 shadow-xl">
-  <p>Modal content</p>
+	<p>Modal content</p>
 </dialog>
 ```
 
@@ -73,6 +74,6 @@ In v3, Preflight centered `<dialog>` elements with `margin: auto`. In v4, dialog
 ```html
 <!-- Explicitly center the dialog -->
 <dialog class="mx-auto my-auto rounded-lg p-6 shadow-xl">
-  <p>Modal content</p>
+	<p>Modal content</p>
 </dialog>
 ```

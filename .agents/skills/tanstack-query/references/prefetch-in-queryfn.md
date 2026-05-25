@@ -77,6 +77,7 @@ function Feed() {
 ```
 
 **Timeline improvement:**
+
 ```
 Before: Feed (100ms) → then Graph1 + Graph2 + Graph3 (150ms each) = 550ms
 After:  Feed (100ms) + Graphs prefetching in parallel = 150ms total

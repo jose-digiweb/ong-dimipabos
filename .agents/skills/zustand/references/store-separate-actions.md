@@ -13,12 +13,12 @@ Group all mutations into a dedicated `actions` namespace. This provides a single
 
 ```typescript
 const useBearStore = create<BearState>((set, get) => ({
-  bears: 0,
-  honey: 100,
-  increasePopulation: () => set((s) => ({ bears: s.bears + 1 })),
-  decreasePopulation: () => set((s) => ({ bears: s.bears - 1 })),
-  eatHoney: () => set((s) => ({ honey: s.honey - 10 })),
-  removeAllBears: () => set({ bears: 0 }),
+	bears: 0,
+	honey: 100,
+	increasePopulation: () => set((s) => ({ bears: s.bears + 1 })),
+	decreasePopulation: () => set((s) => ({ bears: s.bears - 1 })),
+	eatHoney: () => set((s) => ({ honey: s.honey - 10 })),
+	removeAllBears: () => set({ bears: 0 }),
 }))
 
 // Components must pick each action individually
@@ -30,14 +30,14 @@ const decrease = useBearStore((s) => s.decreasePopulation)
 
 ```typescript
 const useBearStore = create<BearState>((set, get) => ({
-  bears: 0,
-  honey: 100,
-  actions: {
-    increasePopulation: () => set((s) => ({ bears: s.bears + 1 })),
-    decreasePopulation: () => set((s) => ({ bears: s.bears - 1 })),
-    eatHoney: () => set((s) => ({ honey: s.honey - 10 })),
-    removeAllBears: () => set({ bears: 0 }),
-  },
+	bears: 0,
+	honey: 100,
+	actions: {
+		increasePopulation: () => set((s) => ({ bears: s.bears + 1 })),
+		decreasePopulation: () => set((s) => ({ bears: s.bears - 1 })),
+		eatHoney: () => set((s) => ({ honey: s.honey - 10 })),
+		removeAllBears: () => set({ bears: 0 }),
+	},
 }))
 
 // Single hook for all actions, never causes re-renders
@@ -48,6 +48,7 @@ const { increasePopulation, eatHoney } = useBearActions()
 ```
 
 **Benefits:**
+
 - Actions object is stable, never triggers re-renders
 - Cleaner API with single actions hook
 - Business logic stays in store, not components

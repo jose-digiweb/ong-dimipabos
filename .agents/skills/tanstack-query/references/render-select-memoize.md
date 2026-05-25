@@ -63,9 +63,9 @@ function FilteredTodoCount({ minPriority }: { minPriority: number }) {
 ```typescript
 // Static filtering with no dependencies - consider extracting
 const { data } = useQuery({
-  queryKey: ['users'],
-  queryFn: fetchUsers,
-  select: (users) => users.filter(u => u.active), // Runs every render
+	queryKey: ['users'],
+	queryFn: fetchUsers,
+	select: (users) => users.filter((u) => u.active), // Runs every render
 })
 
 // But if data changes rarely and component doesn't render often,

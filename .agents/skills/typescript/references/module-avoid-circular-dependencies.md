@@ -16,22 +16,24 @@ Circular dependencies cause undefined values at runtime (due to incomplete modul
 import { Order } from './order'
 
 export interface User {
-  id: string
-  orders: Order[]
+	id: string
+	orders: Order[]
 }
 
-export function createUser(): User { /* ... */ }
+export function createUser(): User {
+	/* ... */
+}
 
 // order.ts
-import { User } from './user'  // Circular!
+import { User } from './user' // Circular!
 
 export interface Order {
-  id: string
-  user: User
+	id: string
+	user: User
 }
 
 export function createOrder(user: User): Order {
-  // 'createUser' might be undefined if order.ts loads first
+	// 'createUser' might be undefined if order.ts loads first
 }
 ```
 
@@ -40,24 +42,28 @@ export function createOrder(user: User): Order {
 ```typescript
 // types.ts (no dependencies)
 export interface User {
-  id: string
-  orders: Order[]
+	id: string
+	orders: Order[]
 }
 
 export interface Order {
-  id: string
-  user: User
+	id: string
+	user: User
 }
 
 // user.ts
 import { User, Order } from './types'
 
-export function createUser(): User { /* ... */ }
+export function createUser(): User {
+	/* ... */
+}
 
 // order.ts
 import { User, Order } from './types'
 
-export function createOrder(user: User): Order { /* ... */ }
+export function createOrder(user: User): Order {
+	/* ... */
+}
 ```
 
 **Alternative (interface segregation):**
@@ -65,16 +71,16 @@ export function createOrder(user: User): Order { /* ... */ }
 ```typescript
 // user-types.ts
 export interface UserBase {
-  id: string
-  name: string
+	id: string
+	name: string
 }
 
 // order.ts
 import { UserBase } from './user-types'
 
 export interface Order {
-  id: string
-  user: UserBase  // Only needs base interface, not full User
+	id: string
+	user: UserBase // Only needs base interface, not full User
 }
 ```
 

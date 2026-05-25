@@ -13,7 +13,7 @@ Built-in CSS easing curves (ease, ease-in, ease-out) are usually not strong enou
 
 ```css
 .dropdown {
-  transition: transform 200ms ease-out;
+	transition: transform 200ms ease-out;
 }
 /* Feels generic and muted */
 ```
@@ -22,7 +22,7 @@ Built-in CSS easing curves (ease, ease-in, ease-out) are usually not strong enou
 
 ```css
 .dropdown {
-  transition: transform 200ms cubic-bezier(0.32, 0.72, 0, 1);
+	transition: transform 200ms cubic-bezier(0.32, 0.72, 0, 1);
 }
 /* Feels energetic and intentional */
 ```
@@ -31,18 +31,19 @@ Built-in CSS easing curves (ease, ease-in, ease-out) are usually not strong enou
 
 ```css
 :root {
-  /* Strong ease-out for UI interactions */
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  /* Strong ease-in-out for on-screen movement */
-  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
-  /* iOS-like drawer/sheet curve (from Ionic) */
-  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+	/* Strong ease-out for UI interactions */
+	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+	/* Strong ease-in-out for on-screen movement */
+	--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+	/* iOS-like drawer/sheet curve (from Ionic) */
+	--ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 ```
 
 **Exception:** The `ease` keyword works well for basic hover effects like background color changes—anything more complex needs a custom curve.
 
 **Resources for custom curves:**
+
 - [easings.co](https://easings.co)
 - [easing.dev](https://easing.dev)
 

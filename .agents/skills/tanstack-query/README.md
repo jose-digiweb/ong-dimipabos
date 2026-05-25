@@ -8,16 +8,16 @@ This skill contains **40 rules** across **8 categories**, prioritized by impact 
 
 ## Categories
 
-| Priority | Category | Rules | Description |
-|----------|----------|-------|-------------|
-| 1 | Query Key Structure | 6 | Key factories, hierarchy, serialization |
-| 2 | Caching Configuration | 6 | staleTime, gcTime, invalidation |
-| 3 | Mutation Patterns | 5 | Optimistic updates, rollback |
-| 4 | Prefetching & Waterfalls | 5 | Parallel fetching, hoisting |
-| 5 | Infinite Queries | 4 | maxPages, pagination |
-| 6 | Suspense Integration | 4 | Error boundaries, parallel queries |
-| 7 | Error & Retry | 5 | Retry strategies, global handling |
-| 8 | Render Optimization | 5 | select, notifyOnChangeProps |
+| Priority | Category                 | Rules | Description                             |
+| -------- | ------------------------ | ----- | --------------------------------------- |
+| 1        | Query Key Structure      | 6     | Key factories, hierarchy, serialization |
+| 2        | Caching Configuration    | 6     | staleTime, gcTime, invalidation         |
+| 3        | Mutation Patterns        | 5     | Optimistic updates, rollback            |
+| 4        | Prefetching & Waterfalls | 5     | Parallel fetching, hoisting             |
+| 5        | Infinite Queries         | 4     | maxPages, pagination                    |
+| 6        | Suspense Integration     | 4     | Error boundaries, parallel queries      |
+| 7        | Error & Retry            | 5     | Retry strategies, global handling       |
+| 8        | Render Optimization      | 5     | select, notifyOnChangeProps             |
 
 ## Files
 
@@ -29,9 +29,11 @@ This skill contains **40 rules** across **8 categories**, prioritized by impact 
 ## Usage
 
 ### For AI Agents
+
 The skill is automatically applied when working with TanStack Query code. Reference individual rules or AGENTS.md for comprehensive guidance.
 
 ### For Humans
+
 Read SKILL.md for the quick reference, or dive into specific rule files under `rules/` for detailed examples.
 
 ## Sources

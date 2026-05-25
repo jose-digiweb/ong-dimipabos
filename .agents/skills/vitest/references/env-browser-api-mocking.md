@@ -14,10 +14,10 @@ Even with jsdom/happy-dom, some browser APIs are missing or incomplete. Tests fa
 ```typescript
 // Component uses ResizeObserver
 export function ResponsiveComponent() {
-  useEffect(() => {
-    const observer = new ResizeObserver(() => {})
-    // ResizeObserver is not defined in jsdom!
-  }, [])
+	useEffect(() => {
+		const observer = new ResizeObserver(() => {})
+		// ResizeObserver is not defined in jsdom!
+	}, [])
 }
 ```
 
@@ -29,34 +29,34 @@ import { vi } from 'vitest'
 
 // ResizeObserver mock
 global.ResizeObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
+	observe: vi.fn(),
+	unobserve: vi.fn(),
+	disconnect: vi.fn(),
 }))
 
 // IntersectionObserver mock
 global.IntersectionObserver = vi.fn().mockImplementation(() => ({
-  observe: vi.fn(),
-  unobserve: vi.fn(),
-  disconnect: vi.fn(),
-  root: null,
-  rootMargin: '',
-  thresholds: [],
+	observe: vi.fn(),
+	unobserve: vi.fn(),
+	disconnect: vi.fn(),
+	root: null,
+	rootMargin: '',
+	thresholds: [],
 }))
 
 // matchMedia mock
 Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: vi.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
+	writable: true,
+	value: vi.fn().mockImplementation((query) => ({
+		matches: false,
+		media: query,
+		onchange: null,
+		addListener: vi.fn(),
+		removeListener: vi.fn(),
+		addEventListener: vi.fn(),
+		removeEventListener: vi.fn(),
+		dispatchEvent: vi.fn(),
+	})),
 })
 ```
 
@@ -70,10 +70,10 @@ window.scrollTo = vi.fn()
 
 // localStorage (enhanced mock)
 const localStorageMock = {
-  getItem: vi.fn(),
-  setItem: vi.fn(),
-  removeItem: vi.fn(),
-  clear: vi.fn(),
+	getItem: vi.fn(),
+	setItem: vi.fn(),
+	removeItem: vi.fn(),
+	clear: vi.fn(),
 }
 Object.defineProperty(window, 'localStorage', { value: localStorageMock })
 
@@ -82,13 +82,14 @@ global.fetch = vi.fn()
 
 // crypto.randomUUID
 Object.defineProperty(global, 'crypto', {
-  value: {
-    randomUUID: () => 'test-uuid-1234',
-  },
+	value: {
+		randomUUID: () => 'test-uuid-1234',
+	},
 })
 ```
 
 **Benefits:**
+
 - Tests run without browser API errors
 - Predictable mock behavior
 - Can verify interactions with browser APIs

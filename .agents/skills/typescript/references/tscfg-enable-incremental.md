@@ -13,11 +13,11 @@ Incremental compilation caches project graph information between builds in a `.t
 
 ```json
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "strict": true
-  }
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"strict": true
+	}
 }
 ```
 
@@ -29,13 +29,13 @@ tsc  # 15 seconds every build
 
 ```json
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "strict": true,
-    "incremental": true,
-    "tsBuildInfoFile": "./dist/.tsbuildinfo"
-  }
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"strict": true,
+		"incremental": true,
+		"tsBuildInfoFile": "./dist/.tsbuildinfo"
+	}
 }
 ```
 
@@ -47,21 +47,19 @@ tsc  # 15s first build, 1-3s subsequent builds
 
 ```json
 {
-  "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true
-  },
-  "references": [
-    { "path": "../shared" },
-    { "path": "../utils" }
-  ]
+	"compilerOptions": {
+		"composite": true,
+		"declaration": true,
+		"declarationMap": true
+	},
+	"references": [{ "path": "../shared" }, { "path": "../utils" }]
 }
 ```
 
 **Note:** The `composite` flag implies `incremental: true` and requires `declaration: true`.
 
 **When to disable incremental:**
+
 - CI environments where cache isn't preserved between runs
 - One-off type-checking scripts
 

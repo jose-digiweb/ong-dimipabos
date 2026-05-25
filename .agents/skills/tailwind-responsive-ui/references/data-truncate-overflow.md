@@ -13,30 +13,32 @@ Long strings like email addresses, URLs, file paths, and product names break mob
 
 ```html
 <ul class="divide-y divide-gray-200">
-  <li class="flex items-center justify-between gap-4 px-4 py-3">
-    <div>
-      <p class="text-sm font-medium text-gray-900">Sarah Chen</p>
-      <!-- 30+ character email wraps to 2 lines on mobile, misaligning the row -->
-      <p class="text-sm text-gray-500">sarah.chen.engineering@longcompanyname.com</p>
-    </div>
-    <span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Active</span>
-  </li>
-  <li class="flex items-center justify-between gap-4 px-4 py-3">
-    <div>
-      <p class="text-sm font-medium text-gray-900">Alexander Konstantinidis</p>
-      <!-- Long name + long email = 4 lines of text on mobile for a single list item -->
-      <p class="text-sm text-gray-500">alexander.konstantinidis@international-corp.co.uk</p>
-    </div>
-    <span class="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Pending</span>
-  </li>
-  <li class="flex items-center justify-between gap-4 px-4 py-3">
-    <div>
-      <p class="text-sm font-medium text-gray-900">Documentation Update</p>
-      <!-- URLs are the worst offenders — no natural break points -->
-      <p class="text-sm text-gray-500">https://github.com/organization/repository-name/pull/1234/files#diff-abc123</p>
-    </div>
-    <span class="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Review</span>
-  </li>
+	<li class="flex items-center justify-between gap-4 px-4 py-3">
+		<div>
+			<p class="text-sm font-medium text-gray-900">Sarah Chen</p>
+			<!-- 30+ character email wraps to 2 lines on mobile, misaligning the row -->
+			<p class="text-sm text-gray-500">sarah.chen.engineering@longcompanyname.com</p>
+		</div>
+		<span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Active</span>
+	</li>
+	<li class="flex items-center justify-between gap-4 px-4 py-3">
+		<div>
+			<p class="text-sm font-medium text-gray-900">Alexander Konstantinidis</p>
+			<!-- Long name + long email = 4 lines of text on mobile for a single list item -->
+			<p class="text-sm text-gray-500">alexander.konstantinidis@international-corp.co.uk</p>
+		</div>
+		<span class="rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Pending</span>
+	</li>
+	<li class="flex items-center justify-between gap-4 px-4 py-3">
+		<div>
+			<p class="text-sm font-medium text-gray-900">Documentation Update</p>
+			<!-- URLs are the worst offenders — no natural break points -->
+			<p class="text-sm text-gray-500">
+				https://github.com/organization/repository-name/pull/1234/files#diff-abc123
+			</p>
+		</div>
+		<span class="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Review</span>
+	</li>
 </ul>
 ```
 
@@ -44,36 +46,36 @@ Long strings like email addresses, URLs, file paths, and product names break mob
 
 ```html
 <ul class="divide-y divide-gray-200">
-  <li class="flex items-center justify-between gap-4 px-4 py-3">
-    <!-- min-w-0 is critical — allows flex child to shrink below its content size -->
-    <div class="min-w-0 flex-1">
-      <p class="truncate text-sm font-medium text-gray-900">Sarah Chen</p>
-      <!-- truncate clips at container edge, line-clamp-1 md:line-clamp-none for multi-line control -->
-      <p class="truncate text-sm text-gray-500 md:overflow-visible md:text-clip md:whitespace-normal">
-        sarah.chen.engineering@longcompanyname.com
-      </p>
-    </div>
-    <span class="shrink-0 rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Active</span>
-  </li>
-  <li class="flex items-center justify-between gap-4 px-4 py-3">
-    <div class="min-w-0 flex-1">
-      <p class="truncate text-sm font-medium text-gray-900">Alexander Konstantinidis</p>
-      <p class="truncate text-sm text-gray-500 md:overflow-visible md:text-clip md:whitespace-normal">
-        alexander.konstantinidis@international-corp.co.uk
-      </p>
-    </div>
-    <span class="shrink-0 rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Pending</span>
-  </li>
-  <li class="flex items-center justify-between gap-4 px-4 py-3">
-    <div class="min-w-0 flex-1">
-      <p class="truncate text-sm font-medium text-gray-900">Documentation Update</p>
-      <!-- line-clamp-1 on mobile, full text on desktop -->
-      <p class="line-clamp-1 text-sm text-gray-500 md:line-clamp-none">
-        https://github.com/organization/repository-name/pull/1234/files#diff-abc123
-      </p>
-    </div>
-    <span class="shrink-0 rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Review</span>
-  </li>
+	<li class="flex items-center justify-between gap-4 px-4 py-3">
+		<!-- min-w-0 is critical — allows flex child to shrink below its content size -->
+		<div class="min-w-0 flex-1">
+			<p class="truncate text-sm font-medium text-gray-900">Sarah Chen</p>
+			<!-- truncate clips at container edge, line-clamp-1 md:line-clamp-none for multi-line control -->
+			<p class="truncate text-sm text-gray-500 md:overflow-visible md:text-clip md:whitespace-normal">
+				sarah.chen.engineering@longcompanyname.com
+			</p>
+		</div>
+		<span class="shrink-0 rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Active</span>
+	</li>
+	<li class="flex items-center justify-between gap-4 px-4 py-3">
+		<div class="min-w-0 flex-1">
+			<p class="truncate text-sm font-medium text-gray-900">Alexander Konstantinidis</p>
+			<p class="truncate text-sm text-gray-500 md:overflow-visible md:text-clip md:whitespace-normal">
+				alexander.konstantinidis@international-corp.co.uk
+			</p>
+		</div>
+		<span class="shrink-0 rounded-full bg-yellow-100 px-2 py-1 text-xs text-yellow-700">Pending</span>
+	</li>
+	<li class="flex items-center justify-between gap-4 px-4 py-3">
+		<div class="min-w-0 flex-1">
+			<p class="truncate text-sm font-medium text-gray-900">Documentation Update</p>
+			<!-- line-clamp-1 on mobile, full text on desktop -->
+			<p class="line-clamp-1 text-sm text-gray-500 md:line-clamp-none">
+				https://github.com/organization/repository-name/pull/1234/files#diff-abc123
+			</p>
+		</div>
+		<span class="shrink-0 rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">Review</span>
+	</li>
 </ul>
 ```
 

@@ -13,7 +13,7 @@ Arbitrary breakpoints scatter responsive logic across files, making it impossibl
 
 ```html
 <div class="min-[1200px]:flex min-[1200px]:gap-4">
-  <aside class="min-[1200px]:w-64">Repeated hardcoded breakpoint</aside>
+	<aside class="min-[1200px]:w-64">Repeated hardcoded breakpoint</aside>
 </div>
 ```
 
@@ -21,12 +21,12 @@ Arbitrary breakpoints scatter responsive logic across files, making it impossibl
 
 ```css
 @theme {
-  --breakpoint-wide: 1200px;
+	--breakpoint-wide: 1200px;
 }
 ```
 
 ```html
 <div class="wide:flex wide:gap-4">
-  <aside class="wide:w-64">Named breakpoint, one source of truth</aside>
+	<aside class="wide:w-64">Named breakpoint, one source of truth</aside>
 </div>
 ```

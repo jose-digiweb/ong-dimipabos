@@ -14,14 +14,14 @@ CSS selectors break when class names change or DOM structure shifts. Role-based 
 ```typescript
 // tests/navigation.spec.ts
 test('navigate to about page', async ({ page }) => {
-  await page.goto('/');
-  // Breaks when class name changes
-  await page.click('.nav-link.about-link');
-  // Breaks when nesting changes
-  await page.click('div > ul > li:nth-child(2) > a');
-  // Breaks when ID changes
-  await page.click('#about-nav-item');
-});
+	await page.goto('/')
+	// Breaks when class name changes
+	await page.click('.nav-link.about-link')
+	// Breaks when nesting changes
+	await page.click('div > ul > li:nth-child(2) > a')
+	// Breaks when ID changes
+	await page.click('#about-nav-item')
+})
 ```
 
 **Correct (role-based selectors):**
@@ -29,17 +29,17 @@ test('navigate to about page', async ({ page }) => {
 ```typescript
 // tests/navigation.spec.ts
 test('navigate to about page', async ({ page }) => {
-  await page.goto('/');
+	await page.goto('/')
 
-  // Uses ARIA role - stable across CSS/DOM changes
-  await page.getByRole('link', { name: 'About' }).click();
+	// Uses ARIA role - stable across CSS/DOM changes
+	await page.getByRole('link', { name: 'About' }).click()
 
-  // For navigation elements
-  await page.getByRole('navigation').getByRole('link', { name: 'About' }).click();
+	// For navigation elements
+	await page.getByRole('navigation').getByRole('link', { name: 'About' }).click()
 
-  // For buttons (even if styled as links)
-  await page.getByRole('button', { name: 'Submit' }).click();
-});
+	// For buttons (even if styled as links)
+	await page.getByRole('button', { name: 'Submit' }).click()
+})
 ```
 
 **Common role mappings:**
@@ -67,6 +67,7 @@ page.getByRole('dialog', { name: 'Confirm' })
 ```
 
 **Benefits:**
+
 - Selectors match how users perceive the page
 - Encourages accessible markup
 - Survives CSS refactors

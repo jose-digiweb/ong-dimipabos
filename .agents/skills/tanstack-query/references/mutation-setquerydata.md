@@ -13,11 +13,11 @@ When mutation responses contain the updated data, use `setQueryData` to update t
 
 ```typescript
 const mutation = useMutation({
-  mutationFn: updateUser,
-  onSuccess: () => {
-    // Triggers a refetch - extra roundtrip!
-    queryClient.invalidateQueries({ queryKey: ['user', userId] })
-  },
+	mutationFn: updateUser,
+	onSuccess: () => {
+		// Triggers a refetch - extra roundtrip!
+		queryClient.invalidateQueries({ queryKey: ['user', userId] })
+	},
 })
 ```
 
@@ -25,14 +25,14 @@ const mutation = useMutation({
 
 ```typescript
 const mutation = useMutation({
-  mutationFn: updateUser,
-  onSuccess: (updatedUser) => {
-    // Update cache directly with response
-    queryClient.setQueryData(['user', updatedUser.id], updatedUser)
+	mutationFn: updateUser,
+	onSuccess: (updatedUser) => {
+		// Update cache directly with response
+		queryClient.setQueryData(['user', updatedUser.id], updatedUser)
 
-    // Only invalidate related queries that might be affected
-    queryClient.invalidateQueries({ queryKey: ['users', 'list'] })
-  },
+		// Only invalidate related queries that might be affected
+		queryClient.invalidateQueries({ queryKey: ['users', 'list'] })
+	},
 })
 ```
 
@@ -40,28 +40,26 @@ const mutation = useMutation({
 
 ```typescript
 const mutation = useMutation({
-  mutationFn: (data: { todoId: string; completed: boolean }) =>
-    updateTodo(data.todoId, { completed: data.completed }),
-  onSuccess: (updatedTodo) => {
-    // Update the detail cache
-    queryClient.setQueryData(['todos', 'detail', updatedTodo.id], updatedTodo)
+	mutationFn: (data: { todoId: string; completed: boolean }) =>
+		updateTodo(data.todoId, { completed: data.completed }),
+	onSuccess: (updatedTodo) => {
+		// Update the detail cache
+		queryClient.setQueryData(['todos', 'detail', updatedTodo.id], updatedTodo)
 
-    // Update the todo within list caches
-    queryClient.setQueriesData(
-      { queryKey: ['todos', 'list'] },
-      (old: Todo[] | undefined) =>
-        old?.map(t => t.id === updatedTodo.id ? updatedTodo : t)
-    )
-  },
+		// Update the todo within list caches
+		queryClient.setQueriesData({ queryKey: ['todos', 'list'] }, (old: Todo[] | undefined) =>
+			old?.map((t) => (t.id === updatedTodo.id ? updatedTodo : t)),
+		)
+	},
 })
 ```
 
 **When to invalidate vs setQueryData:**
 
-| Scenario | Use |
-|----------|-----|
-| API returns full updated entity | `setQueryData` |
-| API returns partial data | `invalidateQueries` |
-| Update affects list ordering/filtering | `invalidateQueries` |
-| Delete operation | Both (remove + invalidate) |
-| Create operation | Both (add + invalidate for sorting) |
+| Scenario                               | Use                                 |
+| -------------------------------------- | ----------------------------------- |
+| API returns full updated entity        | `setQueryData`                      |
+| API returns partial data               | `invalidateQueries`                 |
+| Update affects list ordering/filtering | `invalidateQueries`                 |
+| Delete operation                       | Both (remove + invalidate)          |
+| Create operation                       | Both (add + invalidate for sorting) |

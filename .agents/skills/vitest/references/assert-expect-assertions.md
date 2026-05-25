@@ -15,16 +15,16 @@ In async tests with conditional or callback-based assertions, it's possible for 
 import { describe, it, expect } from 'vitest'
 
 describe('EventEmitter', () => {
-  it('should emit data event', () => {
-    const emitter = new EventEmitter()
+	it('should emit data event', () => {
+		const emitter = new EventEmitter()
 
-    emitter.on('data', (data) => {
-      expect(data).toBe('test')
-    })
+		emitter.on('data', (data) => {
+			expect(data).toBe('test')
+		})
 
-    // If event never fires, test passes with 0 assertions!
-    emitter.emit('data', 'test')
-  })
+		// If event never fires, test passes with 0 assertions!
+		emitter.emit('data', 'test')
+	})
 })
 ```
 
@@ -34,17 +34,17 @@ describe('EventEmitter', () => {
 import { describe, it, expect } from 'vitest'
 
 describe('EventEmitter', () => {
-  it('should emit data event', () => {
-    expect.assertions(1) // Fails if assertion doesn't run
+	it('should emit data event', () => {
+		expect.assertions(1) // Fails if assertion doesn't run
 
-    const emitter = new EventEmitter()
+		const emitter = new EventEmitter()
 
-    emitter.on('data', (data) => {
-      expect(data).toBe('test')
-    })
+		emitter.on('data', (data) => {
+			expect(data).toBe('test')
+		})
 
-    emitter.emit('data', 'test')
-  })
+		emitter.emit('data', 'test')
+	})
 })
 ```
 
@@ -52,16 +52,16 @@ describe('EventEmitter', () => {
 
 ```typescript
 describe('FileProcessor', () => {
-  it('should process all files', async () => {
-    expect.assertions(3) // Expect 3 files to be processed
+	it('should process all files', async () => {
+		expect.assertions(3) // Expect 3 files to be processed
 
-    const files = ['a.txt', 'b.txt', 'c.txt']
-    const processor = new FileProcessor()
+		const files = ['a.txt', 'b.txt', 'c.txt']
+		const processor = new FileProcessor()
 
-    await processor.processAll(files, (file) => {
-      expect(file).toMatch(/\.txt$/)
-    })
-  })
+		await processor.processAll(files, (file) => {
+			expect(file).toMatch(/\.txt$/)
+		})
+	})
 })
 ```
 
@@ -69,25 +69,27 @@ describe('FileProcessor', () => {
 
 ```typescript
 describe('API', () => {
-  it('should handle all responses', async () => {
-    expect.hasAssertions() // Fails if zero assertions
+	it('should handle all responses', async () => {
+		expect.hasAssertions() // Fails if zero assertions
 
-    const responses = await api.fetchAll()
+		const responses = await api.fetchAll()
 
-    responses.forEach(response => {
-      expect(response.status).toBe(200)
-    })
-  })
+		responses.forEach((response) => {
+			expect(response.status).toBe(200)
+		})
+	})
 })
 ```
 
 **When to use:**
+
 - Event handlers and callbacks
 - Dynamic number of assertions in loops
 - Tests with conditional logic
 - Promise chains with `.then()` assertions
 
 **Benefits:**
+
 - Catches tests that pass without testing anything
 - Verifies callbacks and events fire as expected
 - More reliable async test coverage

@@ -14,8 +14,8 @@ Tailwind CSS v4 automatically detects your template files by scanning the projec
 ```js
 // tailwind.config.js
 module.exports = {
-  content: ['./src/**/*.{html,js,tsx}', './public/index.html'],
-};
+	content: ['./src/**/*.{html,js,tsx}', './public/index.html'],
+}
 ```
 
 **Correct (what's right):**
@@ -25,7 +25,7 @@ Remove the `content` configuration entirely. Tailwind v4 auto-detection respects
 For edge cases where you need to include files outside the project root — such as a monorepo dependency — use the `@source` directive in your CSS:
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @source "../node_modules/@my-company/ui-lib";
 ```

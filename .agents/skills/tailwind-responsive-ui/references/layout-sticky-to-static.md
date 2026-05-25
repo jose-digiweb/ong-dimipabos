@@ -13,27 +13,27 @@ Sticky headers, toolbars, and sidebars consume fixed vertical space that is scar
 
 ```html
 <div class="min-h-screen">
-  <!-- 64px sticky header -->
-  <header class="sticky top-0 z-30 border-b bg-white px-4 py-4">
-    <div class="flex items-center justify-between">
-      <h1 class="text-lg font-bold">Project Board</h1>
-      <button class="rounded bg-blue-600 px-3 py-1.5 text-sm text-white">New Task</button>
-    </div>
-  </header>
+	<!-- 64px sticky header -->
+	<header class="sticky top-0 z-30 border-b bg-white px-4 py-4">
+		<div class="flex items-center justify-between">
+			<h1 class="text-lg font-bold">Project Board</h1>
+			<button class="rounded bg-blue-600 px-3 py-1.5 text-sm text-white">New Task</button>
+		</div>
+	</header>
 
-  <!-- 48px sticky toolbar — stacks below the header -->
-  <div class="sticky top-[64px] z-20 border-b bg-gray-50 px-4 py-3">
-    <div class="flex gap-2">
-      <button class="rounded border px-3 py-1 text-sm">All</button>
-      <button class="rounded border px-3 py-1 text-sm">In Progress</button>
-      <button class="rounded border px-3 py-1 text-sm">Done</button>
-    </div>
-  </div>
+	<!-- 48px sticky toolbar — stacks below the header -->
+	<div class="sticky top-[64px] z-20 border-b bg-gray-50 px-4 py-3">
+		<div class="flex gap-2">
+			<button class="rounded border px-3 py-1 text-sm">All</button>
+			<button class="rounded border px-3 py-1 text-sm">In Progress</button>
+			<button class="rounded border px-3 py-1 text-sm">Done</button>
+		</div>
+	</div>
 
-  <!-- Content area now starts 112px down and loses that space while scrolling -->
-  <main class="p-4">
-    <p class="text-gray-600">Your tasks will appear here.</p>
-  </main>
+	<!-- Content area now starts 112px down and loses that space while scrolling -->
+	<main class="p-4">
+		<p class="text-gray-600">Your tasks will appear here.</p>
+	</main>
 </div>
 ```
 
@@ -41,27 +41,27 @@ Sticky headers, toolbars, and sidebars consume fixed vertical space that is scar
 
 ```html
 <div class="min-h-screen">
-  <!-- Scrolls naturally on mobile, sticks on lg screens -->
-  <header class="static border-b bg-white px-4 py-4 lg:sticky lg:top-0 lg:z-30">
-    <div class="flex items-center justify-between">
-      <h1 class="text-lg font-bold">Project Board</h1>
-      <button class="rounded bg-blue-600 px-3 py-1.5 text-sm text-white">New Task</button>
-    </div>
-  </header>
+	<!-- Scrolls naturally on mobile, sticks on lg screens -->
+	<header class="static border-b bg-white px-4 py-4 lg:sticky lg:top-0 lg:z-30">
+		<div class="flex items-center justify-between">
+			<h1 class="text-lg font-bold">Project Board</h1>
+			<button class="rounded bg-blue-600 px-3 py-1.5 text-sm text-white">New Task</button>
+		</div>
+	</header>
 
-  <!-- Also static on mobile, sticky only on lg -->
-  <div class="static border-b bg-gray-50 px-4 py-3 lg:sticky lg:top-[64px] lg:z-20">
-    <div class="flex gap-2">
-      <button class="rounded border px-3 py-1 text-sm">All</button>
-      <button class="rounded border px-3 py-1 text-sm">In Progress</button>
-      <button class="rounded border px-3 py-1 text-sm">Done</button>
-    </div>
-  </div>
+	<!-- Also static on mobile, sticky only on lg -->
+	<div class="static border-b bg-gray-50 px-4 py-3 lg:sticky lg:top-[64px] lg:z-20">
+		<div class="flex gap-2">
+			<button class="rounded border px-3 py-1 text-sm">All</button>
+			<button class="rounded border px-3 py-1 text-sm">In Progress</button>
+			<button class="rounded border px-3 py-1 text-sm">Done</button>
+		</div>
+	</div>
 
-  <!-- Full viewport available for content on mobile -->
-  <main class="p-4">
-    <p class="text-gray-600">Your tasks will appear here.</p>
-  </main>
+	<!-- Full viewport available for content on mobile -->
+	<main class="p-4">
+		<p class="text-gray-600">Your tasks will appear here.</p>
+	</main>
 </div>
 ```
 

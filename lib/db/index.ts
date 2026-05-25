@@ -9,14 +9,14 @@ import * as schema from './schema'
 const connectionString = process.env.DATABASE_URL
 
 if (!connectionString) {
-  throw new Error('DATABASE_URL environment variable is required')
+	throw new Error('DATABASE_URL environment variable is required')
 }
 
 // Create postgres client
 const client = postgres(connectionString, {
-  max: 1,
-  idle_timeout: 20,
-  connect_timeout: 10,
+	max: 1,
+	idle_timeout: 20,
+	connect_timeout: 10,
 })
 
 // Create drizzle instance
@@ -32,5 +32,5 @@ export const campaignRepository = new CampaignRepository()
 
 // Utility function to close the connection (useful for serverless)
 export const closeConnection = async () => {
-  await client.end()
+	await client.end()
 }

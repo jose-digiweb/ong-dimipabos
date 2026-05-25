@@ -13,10 +13,10 @@ Tailwind v4.1 introduced `@theme inline` for CSS variables that should be availa
 
 ```css
 @theme {
-  --color-brand: #3b82f6;
-  --animation-duration-fast: 150ms;
-  --animation-duration-normal: 300ms;
-  --sidebar-width: 280px;
+	--color-brand: #3b82f6;
+	--animation-duration-fast: 150ms;
+	--animation-duration-normal: 300ms;
+	--sidebar-width: 280px;
 }
 ```
 
@@ -27,21 +27,21 @@ This generates utility classes like `animation-duration-fast`, `sidebar-width` �
 ```css
 /* Public tokens — generate utility classes */
 @theme {
-  --color-brand: #3b82f6;
+	--color-brand: #3b82f6;
 }
 
 /* Internal tokens — available via var() but no utility classes */
 @theme inline {
-  --animation-duration-fast: 150ms;
-  --animation-duration-normal: 300ms;
-  --sidebar-width: 280px;
+	--animation-duration-fast: 150ms;
+	--animation-duration-normal: 300ms;
+	--sidebar-width: 280px;
 }
 ```
 
 ```css
 /* Reference internal tokens in your CSS */
 .sidebar {
-  width: var(--sidebar-width);
-  transition: transform var(--animation-duration-normal);
+	width: var(--sidebar-width);
+	transition: transform var(--animation-duration-normal);
 }
 ```

@@ -13,9 +13,9 @@ The `flex-shrink-*` and `flex-grow-*` utilities were deprecated in Tailwind v3.3
 
 ```html
 <div class="flex">
-  <div class="flex-shrink-0">Logo</div>
-  <div class="flex-grow">Content</div>
-  <div class="flex-shrink flex-grow-0">Sidebar</div>
+	<div class="flex-shrink-0">Logo</div>
+	<div class="flex-grow">Content</div>
+	<div class="flex-shrink flex-grow-0">Sidebar</div>
 </div>
 ```
 
@@ -23,8 +23,8 @@ The `flex-shrink-*` and `flex-grow-*` utilities were deprecated in Tailwind v3.3
 
 ```html
 <div class="flex">
-  <div class="shrink-0">Logo</div>
-  <div class="grow">Content</div>
-  <div class="shrink grow-0">Sidebar</div>
+	<div class="shrink-0">Logo</div>
+	<div class="grow">Content</div>
+	<div class="shrink grow-0">Sidebar</div>
 </div>
 ```

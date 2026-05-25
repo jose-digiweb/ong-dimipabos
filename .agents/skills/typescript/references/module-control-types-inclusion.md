@@ -13,10 +13,10 @@ By default, TypeScript loads all `@types/*` packages from `node_modules`. This c
 
 ```json
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext"
-  }
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext"
+	}
 }
 ```
 
@@ -30,11 +30,11 @@ By default, TypeScript loads all `@types/*` packages from `node_modules`. This c
 
 ```json
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "types": ["node", "react", "jest"]
-  }
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"types": ["node", "react", "jest"]
+	}
 }
 ```
 
@@ -74,17 +74,18 @@ By default, TypeScript loads all `@types/*` packages from `node_modules`. This c
 
 ```json
 {
-  "compilerOptions": {
-    "typeRoots": [
-      "./types",           // Custom declarations first
-      "./node_modules/@types"  // Then @types
-    ],
-    "types": ["node"]
-  }
+	"compilerOptions": {
+		"typeRoots": [
+			"./types", // Custom declarations first
+			"./node_modules/@types" // Then @types
+		],
+		"types": ["node"]
+	}
 }
 ```
 
 **Benefits:**
+
 - Prevents type conflicts between similar packages
 - Reduces memory usage during compilation
 - Faster IDE responsiveness

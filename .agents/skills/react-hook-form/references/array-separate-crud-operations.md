@@ -66,10 +66,10 @@ function ReplaceItemForm() {
 const [pendingRemoval, setPendingRemoval] = useState<number | null>(null)
 
 useEffect(() => {
-  if (pendingRemoval !== null) {
-    remove(pendingRemoval)
-    setPendingRemoval(null)
-  }
+	if (pendingRemoval !== null) {
+		remove(pendingRemoval)
+		setPendingRemoval(null)
+	}
 }, [pendingRemoval, remove])
 ```
 

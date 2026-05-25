@@ -13,7 +13,7 @@ Most animation flaws are invisible at full speed. Slow playback 2–5×, step fr
 
 ```css
 .feedback-button {
-  transition: transform 160ms ease-out;
+	transition: transform 160ms ease-out;
 }
 /* Origin, easing, and out-of-sync properties hide at 160ms */
 ```
@@ -22,12 +22,13 @@ Most animation flaws are invisible at full speed. Slow playback 2–5×, step fr
 
 ```css
 .feedback-button {
-  transition: transform 1600ms ease-out; /* 10× slower while debugging only */
+	transition: transform 1600ms ease-out; /* 10× slower while debugging only */
 }
 /* Or use DevTools → Animations to slow playback and step frame-by-frame */
 ```
 
 What to look for in slow motion:
+
 - Crossfades that show two overlapping states instead of one smooth blend
 - Easing that starts or stops abruptly
 - A `transform-origin` that scales from the wrong point

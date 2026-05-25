@@ -14,13 +14,13 @@ Starting a new server for each test run wastes time during local development. Re
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  webServer: {
-    command: 'npm run build && npm run start',
-    url: 'http://localhost:3000',
-    // Always starts new server, even if one is running
-    reuseExistingServer: false,
-  },
-});
+	webServer: {
+		command: 'npm run build && npm run start',
+		url: 'http://localhost:3000',
+		// Always starts new server, even if one is running
+		reuseExistingServer: false,
+	},
+})
 ```
 
 **Correct (reuse locally, fresh in CI):**
@@ -28,14 +28,14 @@ export default defineConfig({
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  webServer: {
-    command: 'npm run build && npm run start',
-    url: 'http://localhost:3000',
-    // Reuse existing server locally, start fresh in CI
-    reuseExistingServer: !process.env.CI,
-    timeout: 120000, // Build can take time
-  },
-});
+	webServer: {
+		command: 'npm run build && npm run start',
+		url: 'http://localhost:3000',
+		// Reuse existing server locally, start fresh in CI
+		reuseExistingServer: !process.env.CI,
+		timeout: 120000, // Build can take time
+	},
+})
 ```
 
 **Local development workflow:**
@@ -54,19 +54,19 @@ npx playwright test --watch
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  webServer: [
-    {
-      command: 'npm run start:frontend',
-      url: 'http://localhost:3000',
-      reuseExistingServer: !process.env.CI,
-    },
-    {
-      command: 'npm run start:api',
-      url: 'http://localhost:4000',
-      reuseExistingServer: !process.env.CI,
-    },
-  ],
-});
+	webServer: [
+		{
+			command: 'npm run start:frontend',
+			url: 'http://localhost:3000',
+			reuseExistingServer: !process.env.CI,
+		},
+		{
+			command: 'npm run start:api',
+			url: 'http://localhost:4000',
+			reuseExistingServer: !process.env.CI,
+		},
+	],
+})
 ```
 
 **Environment-specific server commands:**
@@ -74,22 +74,22 @@ export default defineConfig({
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  webServer: {
-    command: process.env.CI
-      ? 'npm run build && npm run start' // Production build in CI
-      : 'npm run dev', // Dev server locally
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-  },
-});
+	webServer: {
+		command: process.env.CI
+			? 'npm run build && npm run start' // Production build in CI
+			: 'npm run dev', // Dev server locally
+		url: 'http://localhost:3000',
+		reuseExistingServer: !process.env.CI,
+	},
+})
 ```
 
 **Benefits of reuse:**
 
-| Scenario | New Server | Reuse Server |
-|----------|------------|--------------|
-| Local test run | 30-60s startup | Instant |
-| Watch mode | New server per run | Same server |
-| CI | Fresh server (correct) | N/A |
+| Scenario       | New Server             | Reuse Server |
+| -------------- | ---------------------- | ------------ |
+| Local test run | 30-60s startup         | Instant      |
+| Watch mode     | New server per run     | Same server  |
+| CI             | Fresh server (correct) | N/A          |
 
 Reference: [Playwright Web Server](https://playwright.dev/docs/test-webserver)

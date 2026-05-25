@@ -58,20 +58,22 @@ vitest --watch
 ```yaml
 # .github/workflows/test.yml
 jobs:
-  test:
-    steps:
-      - run: npx vitest run
-      # Fail CI if snapshots are out of date
-      # Forces developers to update locally and review
+ test:
+  steps:
+   - run: npx vitest run
+   # Fail CI if snapshots are out of date
+   # Forces developers to update locally and review
 ```
 
 **Questions to ask when reviewing:**
+
 - Did I expect this output to change?
 - Does the new output look correct?
 - Is this change related to my code changes?
 - Could this be hiding a regression?
 
 **Benefits:**
+
 - Catches accidental behavior changes
 - Maintains snapshot quality as documentation
 - Forces intentional changes

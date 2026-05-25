@@ -55,12 +55,12 @@ function UserProfilePage({ userId }: { userId: string }) {
 
 **Key differences from useQuery:**
 
-| Feature | useQuery | useSuspenseQuery |
-|---------|----------|------------------|
-| `data` type | `T \| undefined` | `T` (guaranteed) |
-| `isPending` | Can be `true` | Always `false` |
-| `status` | `'pending' \| 'error' \| 'success'` | `'error' \| 'success'` |
-| `enabled` option | Supported | Not supported |
-| `placeholderData` | Supported | Not supported |
+| Feature           | useQuery                            | useSuspenseQuery       |
+| ----------------- | ----------------------------------- | ---------------------- |
+| `data` type       | `T \| undefined`                    | `T` (guaranteed)       |
+| `isPending`       | Can be `true`                       | Always `false`         |
+| `status`          | `'pending' \| 'error' \| 'success'` | `'error' \| 'success'` |
+| `enabled` option  | Supported                           | Not supported          |
+| `placeholderData` | Supported                           | Not supported          |
 
 **Important:** `enabled: false` is not compatible with Suspense because the component would suspend forever waiting for data that will never come.

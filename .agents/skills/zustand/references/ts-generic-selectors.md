@@ -13,8 +13,8 @@ Create typed selector factories and utilities for consistent, reusable selection
 
 ```typescript
 // Each usage might have different typing
-const bears = useStore((s) => s.bears)  // s is inferred
-const fish = useStore((s) => s.fish)    // repeated pattern
+const bears = useStore((s) => s.bears) // s is inferred
+const fish = useStore((s) => s.fish) // repeated pattern
 
 // No shared selector logic
 const totalAnimals = useStore((s) => s.bears + s.fish)

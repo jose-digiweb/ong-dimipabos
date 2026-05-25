@@ -13,20 +13,20 @@ When queries depend on each other (`fetchUser` → `fetchUserProjects`), conside
 
 ```typescript
 function UserProjects({ email }: { email: string }) {
-  // First: get user by email to get their ID
-  const { data: user } = useQuery({
-    queryKey: ['user', email],
-    queryFn: () => getUserByEmail(email),
-  })
+	// First: get user by email to get their ID
+	const { data: user } = useQuery({
+		queryKey: ['user', email],
+		queryFn: () => getUserByEmail(email),
+	})
 
-  // Second: get projects using user ID (depends on first)
-  const { data: projects } = useQuery({
-    queryKey: ['projects', user?.id],
-    queryFn: () => getProjectsByUser(user!.id),
-    enabled: !!user?.id, // Must wait for user
-  })
+	// Second: get projects using user ID (depends on first)
+	const { data: projects } = useQuery({
+		queryKey: ['projects', user?.id],
+		queryFn: () => getProjectsByUser(user!.id),
+		enabled: !!user?.id, // Must wait for user
+	})
 
-  // Total time: getUserByEmail (100ms) + getProjectsByUser (100ms) = 200ms
+	// Total time: getUserByEmail (100ms) + getProjectsByUser (100ms) = 200ms
 }
 ```
 
@@ -37,12 +37,12 @@ function UserProjects({ email }: { email: string }) {
 // Backend joins user + projects in one query
 
 function UserProjects({ email }: { email: string }) {
-  const { data: projects } = useQuery({
-    queryKey: ['projects', { userEmail: email }],
-    queryFn: () => getProjectsByUserEmail(email), // Single request!
-  })
+	const { data: projects } = useQuery({
+		queryKey: ['projects', { userEmail: email }],
+		queryFn: () => getProjectsByUserEmail(email), // Single request!
+	})
 
-  // Total time: getProjectsByUserEmail (100ms) = 100ms
+	// Total time: getProjectsByUserEmail (100ms) = 100ms
 }
 ```
 
@@ -51,17 +51,17 @@ function UserProjects({ email }: { email: string }) {
 ```typescript
 // Server Action or API route handles the chain
 async function getProjectsForEmail(email: string) {
-  const user = await getUserByEmail(email)
-  const projects = await getProjectsByUser(user.id)
-  return { user, projects }
+	const user = await getUserByEmail(email)
+	const projects = await getProjectsByUser(user.id)
+	return { user, projects }
 }
 
 // Client makes single request
 function UserProjects({ email }: { email: string }) {
-  const { data } = useQuery({
-    queryKey: ['userProjects', email],
-    queryFn: () => getProjectsForEmail(email),
-  })
+	const { data } = useQuery({
+		queryKey: ['userProjects', email],
+		queryFn: () => getProjectsForEmail(email),
+	})
 }
 ```
 

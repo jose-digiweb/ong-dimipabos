@@ -14,20 +14,20 @@ Query keys are hashed deterministically—object property order doesn't matter, 
 ```typescript
 // Functions in keys - never match
 const { data } = useQuery({
-  queryKey: ['users', { filter: (u: User) => u.active }], // Function!
-  queryFn: fetchUsers,
+	queryKey: ['users', { filter: (u: User) => u.active }], // Function!
+	queryFn: fetchUsers,
 })
 
 // Date objects - reference comparison fails
 const { data: events } = useQuery({
-  queryKey: ['events', { date: new Date() }], // New Date each render!
-  queryFn: fetchEvents,
+	queryKey: ['events', { date: new Date() }], // New Date each render!
+	queryFn: fetchEvents,
 })
 
 // Class instances - unpredictable serialization
 const { data: search } = useQuery({
-  queryKey: ['search', new SearchParams({ q: 'test' })], // Class instance
-  queryFn: performSearch,
+	queryKey: ['search', new SearchParams({ q: 'test' })], // Class instance
+	queryFn: performSearch,
 })
 ```
 
@@ -36,24 +36,25 @@ const { data: search } = useQuery({
 ```typescript
 // Plain objects with primitive values
 const { data } = useQuery({
-  queryKey: ['users', { status: 'active', role: 'admin' }],
-  queryFn: () => fetchUsers({ status: 'active', role: 'admin' }),
+	queryKey: ['users', { status: 'active', role: 'admin' }],
+	queryFn: () => fetchUsers({ status: 'active', role: 'admin' }),
 })
 
 // ISO string for dates
 const { data: events } = useQuery({
-  queryKey: ['events', { date: selectedDate.toISOString() }],
-  queryFn: () => fetchEvents(selectedDate),
+	queryKey: ['events', { date: selectedDate.toISOString() }],
+	queryFn: () => fetchEvents(selectedDate),
 })
 
 // Extract serializable properties
 const { data: search } = useQuery({
-  queryKey: ['search', { q: searchParams.query, page: searchParams.page }],
-  queryFn: () => performSearch(searchParams),
+	queryKey: ['search', { q: searchParams.query, page: searchParams.page }],
+	queryFn: () => performSearch(searchParams),
 })
 ```
 
 **Safe types for query keys:**
+
 - Strings, numbers, booleans, null
 - Arrays of the above
 - Plain objects with primitive values

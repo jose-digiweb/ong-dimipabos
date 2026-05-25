@@ -13,9 +13,9 @@ In Tailwind CSS v4, custom utilities defined with `@layer utilities` will not be
 
 ```css
 @layer utilities {
-  .tab-4 {
-    tab-size: 4;
-  }
+	.tab-4 {
+		tab-size: 4;
+	}
 }
 ```
 
@@ -23,7 +23,7 @@ In Tailwind CSS v4, custom utilities defined with `@layer utilities` will not be
 
 ```css
 @utility tab-4 {
-  tab-size: 4;
+	tab-size: 4;
 }
 ```
 

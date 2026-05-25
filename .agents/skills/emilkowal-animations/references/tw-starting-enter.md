@@ -13,17 +13,17 @@ Tailwind v4 exposes `@starting-style` through the `starting:` variant, so an ele
 
 ```tsx
 function Toast({ message }: { message: string }) {
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
-  return (
-    <div
-      className={`transition-[transform,opacity] duration-300 ease-out ${
-        mounted ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-      }`}
-    >
-      {message}
-    </div>
-  )
+	const [mounted, setMounted] = useState(false)
+	useEffect(() => setMounted(true), [])
+	return (
+		<div
+			className={`transition-[transform,opacity] duration-300 ease-out ${
+				mounted ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+			}`}
+		>
+			{message}
+		</div>
+	)
 }
 ```
 
@@ -31,15 +31,16 @@ function Toast({ message }: { message: string }) {
 
 ```tsx
 function Toast({ message }: { message: string }) {
-  return (
-    <div className="transition-discrete transition-[transform,opacity] duration-300 ease-out translate-y-0 opacity-100 starting:translate-y-full starting:opacity-0">
-      {message}
-    </div>
-  )
+	return (
+		<div className='transition-discrete transition-[transform,opacity] duration-300 ease-out translate-y-0 opacity-100 starting:translate-y-full starting:opacity-0'>
+			{message}
+		</div>
+	)
 }
 ```
 
 **When NOT to use this pattern:**
+
 - You must support browsers without `@starting-style`—keep the `mounted` toggle as a fallback there.
 
 Reference: [Building a Toast Component](https://emilkowal.ski/ui/building-a-toast-component)

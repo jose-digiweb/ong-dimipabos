@@ -50,14 +50,14 @@ function Dashboard() {
 // Dates are compared by reference, not value
 // Different Date objects are always "new"
 const { data } = useQuery({
-  queryKey: ['events'],
-  queryFn: async () => {
-    const events = await fetchEvents()
-    return events.map(e => ({
-      ...e,
-      date: new Date(e.dateString), // New Date each time!
-    }))
-  },
+	queryKey: ['events'],
+	queryFn: async () => {
+		const events = await fetchEvents()
+		return events.map((e) => ({
+			...e,
+			date: new Date(e.dateString), // New Date each time!
+		}))
+	},
 })
 // Every refetch = new references for all events
 ```
@@ -66,14 +66,15 @@ const { data } = useQuery({
 
 ```typescript
 const { data } = useQuery({
-  queryKey: ['events'],
-  queryFn: fetchEvents, // Returns raw data with date strings
-  select: (events) => events.map(e => ({
-    ...e,
-    date: new Date(e.dateString),
-  })),
-  // select's result also gets structural sharing
-  // but Dates still break it - consider keeping as strings
+	queryKey: ['events'],
+	queryFn: fetchEvents, // Returns raw data with date strings
+	select: (events) =>
+		events.map((e) => ({
+			...e,
+			date: new Date(e.dateString),
+		})),
+	// select's result also gets structural sharing
+	// but Dates still break it - consider keeping as strings
 })
 ```
 
@@ -81,8 +82,8 @@ const { data } = useQuery({
 
 ```typescript
 useQuery({
-  queryKey: ['data'],
-  queryFn: fetchData,
-  structuralSharing: false, // Always returns new references
+	queryKey: ['data'],
+	queryFn: fetchData,
+	structuralSharing: false, // Always returns new references
 })
 ```

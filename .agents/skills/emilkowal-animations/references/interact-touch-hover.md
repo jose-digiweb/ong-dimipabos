@@ -13,7 +13,7 @@ Touch devices fire `:hover` on tap and leave it stuck until the user taps elsewh
 
 ```css
 .card:hover {
-  transform: scale(1.05);
+	transform: scale(1.05);
 }
 /* On touch, a tap triggers :hover and the card stays scaled until you tap away */
 ```
@@ -22,9 +22,9 @@ Touch devices fire `:hover` on tap and leave it stuck until the user taps elsewh
 
 ```css
 @media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    transform: scale(1.05);
-  }
+	.card:hover {
+		transform: scale(1.05);
+	}
 }
 /* Mouse users get the hover; touch users get a clean tap */
 ```

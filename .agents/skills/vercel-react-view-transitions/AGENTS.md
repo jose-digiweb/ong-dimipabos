@@ -46,7 +46,7 @@ Guide for implementing smooth, native-feeling animations using React's View Tran
 
 ---
 
-Animate between UI states using the browser's native `document.startViewTransition`. Declare *what* with `<ViewTransition>`, trigger *when* with `startTransition` / `useDeferredValue` / `Suspense`, control *how* with CSS classes. Unsupported browsers skip animations gracefully.
+Animate between UI states using the browser's native `document.startViewTransition`. Declare _what_ with `<ViewTransition>`, trigger _when_ with `startTransition` / `useDeferredValue` / `Suspense`, control _how_ with CSS classes. Unsupported browsers skip animations gracefully.
 
 ## When to Animate
 
@@ -54,24 +54,24 @@ Every `<ViewTransition>` should communicate a spatial relationship or continuity
 
 Implement **all** applicable patterns from this list, in this order:
 
-| Priority | Pattern | What it communicates |
-|----------|---------|---------------------|
-| 1 | **Shared element** (`name`) | "Same thing — going deeper" |
-| 2 | **Suspense reveal** | "Data loaded" |
-| 3 | **List identity** (per-item `key`) | "Same items, new arrangement" |
-| 4 | **State change** (`enter`/`exit`) | "Something appeared/disappeared" |
-| 5 | **Route change** (layout-level) | "Going to a new place" |
+| Priority | Pattern                            | What it communicates             |
+| -------- | ---------------------------------- | -------------------------------- |
+| 1        | **Shared element** (`name`)        | "Same thing — going deeper"      |
+| 2        | **Suspense reveal**                | "Data loaded"                    |
+| 3        | **List identity** (per-item `key`) | "Same items, new arrangement"    |
+| 4        | **State change** (`enter`/`exit`)  | "Something appeared/disappeared" |
+| 5        | **Route change** (layout-level)    | "Going to a new place"           |
 
 This is an implementation order, not a "pick one" list. Implement every pattern that fits the app. Only skip a pattern if the app has no use case for it.
 
 ### Choosing Animation Style
 
-| Context | Animation | Why |
-|---------|-----------|-----|
-| Hierarchical navigation (list → detail) | Type-keyed `nav-forward` / `nav-back` | Communicates spatial depth |
-| Lateral navigation (tab-to-tab) | Bare `<ViewTransition>` (fade) or `default="none"` | No depth to communicate |
-| Suspense reveal | `enter`/`exit` string props | Content arriving |
-| Revalidation / background refresh | `default="none"` | Silent — no animation needed |
+| Context                                 | Animation                                          | Why                          |
+| --------------------------------------- | -------------------------------------------------- | ---------------------------- |
+| Hierarchical navigation (list → detail) | Type-keyed `nav-forward` / `nav-back`              | Communicates spatial depth   |
+| Lateral navigation (tab-to-tab)         | Bare `<ViewTransition>` (fade) or `default="none"` | No depth to communicate      |
+| Suspense reveal                         | `enter`/`exit` string props                        | Content arriving             |
+| Revalidation / background refresh       | `default="none"`                                   | Silent — no animation needed |
 
 Reserve directional slides for hierarchical navigation (list → detail) and ordered sequences (prev/next photo, carousel, paginated results). For ordered sequences, the direction communicates position: "next" slides from right, "previous" from left. Lateral/unordered navigation (tab-to-tab) should not use directional slides — it falsely implies spatial depth.
 
@@ -90,10 +90,9 @@ Reserve directional slides for hierarchical navigation (list → detail) and ord
 ### The `<ViewTransition>` Component
 
 ```jsx
-import { ViewTransition } from 'react';
-
-<ViewTransition>
-  <Component />
+import { ViewTransition } from 'react'
+;<ViewTransition>
+	<Component />
 </ViewTransition>
 ```
 
@@ -101,12 +100,12 @@ React auto-assigns a unique `view-transition-name` and calls `document.startView
 
 ### Animation Triggers
 
-| Trigger | When it fires |
-|---------|--------------|
-| **enter** | VT first inserted during a Transition |
-| **exit** | VT first removed during a Transition |
+| Trigger    | When it fires                                                                     |
+| ---------- | --------------------------------------------------------------------------------- |
+| **enter**  | VT first inserted during a Transition                                             |
+| **exit**   | VT first removed during a Transition                                              |
 | **update** | DOM mutations inside a VT. With nested VTs, mutation applies to the innermost one |
-| **share** | Named VT unmounts and another with same `name` mounts in same Transition |
+| **share**  | Named VT unmounts and another with same `name` mounts in same Transition          |
 
 Only `startTransition`, `useDeferredValue`, or `Suspense` activate VTs. Regular `setState` does not animate.
 
@@ -129,7 +128,7 @@ VT only activates enter/exit if it appears **before any DOM nodes**:
 Values: `"auto"` (browser cross-fade), `"none"` (disabled), `"class-name"` (custom CSS), or `{ [type]: value }` for type-specific animations.
 
 ```jsx
-<ViewTransition default="none" enter="slide-in" exit="slide-out" share="morph" />
+<ViewTransition default='none' enter='slide-in' exit='slide-out' share='morph' />
 ```
 
 If `default` is `"none"`, all triggers are off unless explicitly listed.
@@ -149,22 +148,22 @@ Tag transitions with `addTransitionType` so VTs can pick different animations. C
 
 ```jsx
 startTransition(() => {
-  addTransitionType('nav-forward');
-  addTransitionType('select-item');
-  router.push('/detail/1');
-});
+	addTransitionType('nav-forward')
+	addTransitionType('select-item')
+	router.push('/detail/1')
+})
 ```
 
 Map types to CSS classes. Works on `enter`, `exit`, **and** `share`:
 
 ```jsx
 <ViewTransition
-  enter={{ 'nav-forward': 'slide-from-right', 'nav-back': 'slide-from-left', default: 'none' }}
-  exit={{ 'nav-forward': 'slide-to-left', 'nav-back': 'slide-to-right', default: 'none' }}
-  share={{ 'nav-forward': 'morph-forward', 'nav-back': 'morph-back', default: 'morph' }}
-  default="none"
+	enter={{ 'nav-forward': 'slide-from-right', 'nav-back': 'slide-from-left', default: 'none' }}
+	exit={{ 'nav-forward': 'slide-to-left', 'nav-back': 'slide-to-right', default: 'none' }}
+	share={{ 'nav-forward': 'morph-forward', 'nav-back': 'morph-back', default: 'morph' }}
+	default='none'
 >
-  <Page />
+	<Page />
 </ViewTransition>
 ```
 
@@ -205,7 +204,7 @@ Same `name` on two VTs — one unmounting, one mounting — creates a shared ele
 </ViewTransition>
 ```
 
-- Only one VT with a given `name` can be mounted at a time — use unique names. Watch for reusable components: if a component with a named VT is rendered in both a modal/popover *and* a page, both mount simultaneously and break the morph. Either make the name conditional (via a prop) or move the named VT out of the shared component into the specific consumer.
+- Only one VT with a given `name` can be mounted at a time — use unique names. Watch for reusable components: if a component with a named VT is rendered in both a modal/popover _and_ a page, both mount simultaneously and break the morph. Either make the name conditional (via a prop) or move the named VT out of the shared component into the specific consumer.
 - `share` takes precedence over `enter`/`exit`. Think through each navigation path: when no pair forms, `enter`/`exit` fires instead. Consider whether the element needs a fallback animation for those paths.
 - Never use fade-out exit on pages with shared morphs — use directional slide.
 
@@ -216,17 +215,25 @@ Same `name` on two VTs — one unmounting, one mounting — creates a shared ele
 ### Enter/Exit
 
 ```jsx
-{show && (
-  <ViewTransition enter="fade-in" exit="fade-out"><Panel /></ViewTransition>
-)}
+{
+	show && (
+		<ViewTransition enter='fade-in' exit='fade-out'>
+			<Panel />
+		</ViewTransition>
+	)
+}
 ```
 
 ### List Reorder
 
 ```jsx
-{items.map(item => (
-  <ViewTransition key={item.id}><ItemCard item={item} /></ViewTransition>
-))}
+{
+	items.map((item) => (
+		<ViewTransition key={item.id}>
+			<ItemCard item={item} />
+		</ViewTransition>
+	))
+}
 ```
 
 Trigger inside `startTransition`. Avoid wrapper `<div>`s between list and VT.
@@ -236,16 +243,22 @@ Trigger inside `startTransition`. Avoid wrapper `<div>`s between list and VT.
 Shared elements and list identity are independent concerns — don't confuse one for the other. When a list item contains a shared element, use two nested `<ViewTransition>` boundaries:
 
 ```jsx
-{items.map(item => (
-  <ViewTransition key={item.id}>                                      {/* list identity */}
-    <Link href={`/items/${item.id}`}>
-      <ViewTransition name={`item-image-${item.id}`} share="morph">   {/* shared element */}
-        <Image src={item.image} />
-      </ViewTransition>
-      <p>{item.name}</p>
-    </Link>
-  </ViewTransition>
-))}
+{
+	items.map((item) => (
+		<ViewTransition key={item.id}>
+			{' '}
+			{/* list identity */}
+			<Link href={`/items/${item.id}`}>
+				<ViewTransition name={`item-image-${item.id}`} share='morph'>
+					{' '}
+					{/* shared element */}
+					<Image src={item.image} />
+				</ViewTransition>
+				<p>{item.name}</p>
+			</Link>
+		</ViewTransition>
+	))
+}
 ```
 
 The outer VT handles list reorder/enter. The inner VT handles cross-route shared element morph. Missing either layer means that animation silently doesn't happen.
@@ -253,8 +266,8 @@ The outer VT handles list reorder/enter. The inner VT handles cross-route shared
 ### Force Re-Enter with `key`
 
 ```jsx
-<ViewTransition key={searchParams.toString()} enter="slide-up" default="none">
-  <ResultsGrid />
+<ViewTransition key={searchParams.toString()} enter='slide-up' default='none'>
+	<ResultsGrid />
 </ViewTransition>
 ```
 
@@ -263,16 +276,28 @@ The outer VT handles list reorder/enter. The inner VT handles cross-route shared
 ### Suspense Fallback to Content
 
 Simple cross-fade:
+
 ```jsx
 <ViewTransition>
-  <Suspense fallback={<Skeleton />}><Content /></Suspense>
+	<Suspense fallback={<Skeleton />}>
+		<Content />
+	</Suspense>
 </ViewTransition>
 ```
 
 Directional reveal:
+
 ```jsx
-<Suspense fallback={<ViewTransition exit="slide-down"><Skeleton /></ViewTransition>}>
-  <ViewTransition enter="slide-up" default="none"><Content /></ViewTransition>
+<Suspense
+	fallback={
+		<ViewTransition exit='slide-down'>
+			<Skeleton />
+		</ViewTransition>
+	}
+>
+	<ViewTransition enter='slide-up' default='none'>
+		<Content />
+	</ViewTransition>
 </Suspense>
 ```
 
@@ -311,12 +336,12 @@ Always add reduced motion CSS to your global stylesheet:
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(*),
-  ::view-transition-new(*),
-  ::view-transition-group(*) {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
-  }
+	::view-transition-old(*),
+	::view-transition-new(*),
+	::view-transition-group(*) {
+		animation-duration: 0s !important;
+		animation-delay: 0s !important;
+	}
 }
 ```
 
@@ -358,13 +383,13 @@ Copy the **complete** CSS recipe set from the CSS Animation Recipes section belo
 ## Step 3: Isolate Persistent Elements
 
 ```jsx
-<header style={{ viewTransitionName: "site-header" }}>...</header>
+<header style={{ viewTransitionName: 'site-header' }}>...</header>
 ```
 
 ```css
 ::view-transition-group(site-header) {
-  animation: none;
-  z-index: 100;
+	animation: none;
+	z-index: 100;
 }
 ```
 
@@ -374,20 +399,20 @@ For `backdrop-blur`/`backdrop-filter`, use the backdrop-blur workaround instead.
 
 ```jsx
 startTransition(() => {
-  addTransitionType('nav-forward');
-  router.push('/detail/1');
-});
+	addTransitionType('nav-forward')
+	router.push('/detail/1')
+})
 ```
 
 Wrap each **page component** (not layout) in a type-keyed VT:
 
 ```jsx
 <ViewTransition
-  enter={{ "nav-forward": "nav-forward", "nav-back": "nav-back", default: "none" }}
-  exit={{ "nav-forward": "nav-forward", "nav-back": "nav-back", default: "none" }}
-  default="none"
+	enter={{ 'nav-forward': 'nav-forward', 'nav-back': 'nav-back', default: 'none' }}
+	exit={{ 'nav-forward': 'nav-forward', 'nav-back': 'nav-back', default: 'none' }}
+	default='none'
 >
-  <div>...page content...</div>
+	<div>...page content...</div>
 </ViewTransition>
 ```
 
@@ -412,8 +437,16 @@ export function DirectionalTransition({ children }: { children: React.ReactNode 
 ## Step 5: Add Suspense Reveals
 
 ```jsx
-<Suspense fallback={<ViewTransition exit="slide-down"><Skeleton /></ViewTransition>}>
-  <ViewTransition enter="slide-up" default="none"><AsyncContent /></ViewTransition>
+<Suspense
+	fallback={
+		<ViewTransition exit='slide-down'>
+			<Skeleton />
+		</ViewTransition>
+	}
+>
+	<ViewTransition enter='slide-up' default='none'>
+		<AsyncContent />
+	</ViewTransition>
 </Suspense>
 ```
 
@@ -473,7 +506,7 @@ Walk through every row in the navigation map from Step 1:
 - **Type maps on Suspense reveals** — Suspense resolves have no type, use string props
 - **Raw `viewTransitionName` CSS to trigger animations** — React only starts view transitions when `<ViewTransition>` components are in the tree. Bare `viewTransitionName` is for isolating elements, not triggering animations.
 - **`update` trigger for same-route navigations** — nested VTs steal the mutation from the parent. Use `key` + `name` + `share` instead.
-- **Named VT in a reusable component** — if a component with a named VT is rendered in both a modal/popover *and* a page, both mount simultaneously and break the morph. Make the name conditional or move it to the specific consumer.
+- **Named VT in a reusable component** — if a component with a named VT is rendered in both a modal/popover _and_ a page, both mount simultaneously and break the morph. Make the name conditional or move it to the specific consumer.
 - **`router.back()` for back navigation** — `router.back()` triggers synchronous `popstate`, incompatible with view transitions. Use `router.push()` with an explicit URL.
 
 For Next.js-specific steps, see the Next.js section below.
@@ -485,24 +518,24 @@ For Next.js-specific steps, see the Next.js section below.
 ## Searchable Grid with `useDeferredValue`
 
 ```tsx
-'use client';
+'use client'
 
-import { useDeferredValue, useState, ViewTransition, Suspense } from 'react';
+import { useDeferredValue, useState, ViewTransition, Suspense } from 'react'
 
 export default function SearchableGrid({ itemsPromise }) {
-  const [search, setSearch] = useState('');
-  const deferredSearch = useDeferredValue(search);
+	const [search, setSearch] = useState('')
+	const deferredSearch = useDeferredValue(search)
 
-  return (
-    <>
-      <input value={search} onChange={(e) => setSearch(e.currentTarget.value)} />
-      <ViewTransition>
-        <Suspense fallback={<GridSkeleton />}>
-          <ItemGrid itemsPromise={itemsPromise} search={deferredSearch} />
-        </Suspense>
-      </ViewTransition>
-    </>
-  );
+	return (
+		<>
+			<input value={search} onChange={(e) => setSearch(e.currentTarget.value)} />
+			<ViewTransition>
+				<Suspense fallback={<GridSkeleton />}>
+					<ItemGrid itemsPromise={itemsPromise} search={deferredSearch} />
+				</Suspense>
+			</ViewTransition>
+		</>
+	)
 }
 ```
 
@@ -511,41 +544,41 @@ Per-item named VTs in deferred lists trigger cross-fades on every keystroke. Fix
 ## Card Expand/Collapse with `startTransition`
 
 ```tsx
-'use client';
+'use client'
 
-import { useState, useRef, startTransition, ViewTransition } from 'react';
+import { useState, useRef, startTransition, ViewTransition } from 'react'
 
 export default function ItemGrid({ items }) {
-  const [expandedId, setExpandedId] = useState(null);
-  const scrollRef = useRef(0);
+	const [expandedId, setExpandedId] = useState(null)
+	const scrollRef = useRef(0)
 
-  return expandedId ? (
-    <ViewTransition enter="slide-in" name={`item-${expandedId}`}>
-      <ItemDetail
-        item={items.find(i => i.id === expandedId)}
-        onClose={() => {
-          startTransition(() => {
-            setExpandedId(null);
-            setTimeout(() => window.scrollTo({ behavior: 'smooth', top: scrollRef.current }), 100);
-          });
-        }}
-      />
-    </ViewTransition>
-  ) : (
-    <div className="grid grid-cols-3 gap-4">
-      {items.map(item => (
-        <ViewTransition key={item.id} name={`item-${item.id}`}>
-          <ItemCard
-            item={item}
-            onSelect={() => {
-              scrollRef.current = window.scrollY;
-              startTransition(() => setExpandedId(item.id));
-            }}
-          />
-        </ViewTransition>
-      ))}
-    </div>
-  );
+	return expandedId ? (
+		<ViewTransition enter='slide-in' name={`item-${expandedId}`}>
+			<ItemDetail
+				item={items.find((i) => i.id === expandedId)}
+				onClose={() => {
+					startTransition(() => {
+						setExpandedId(null)
+						setTimeout(() => window.scrollTo({ behavior: 'smooth', top: scrollRef.current }), 100)
+					})
+				}}
+			/>
+		</ViewTransition>
+	) : (
+		<div className='grid grid-cols-3 gap-4'>
+			{items.map((item) => (
+				<ViewTransition key={item.id} name={`item-${item.id}`}>
+					<ItemCard
+						item={item}
+						onSelect={() => {
+							scrollRef.current = window.scrollY
+							startTransition(() => setExpandedId(item.id))
+						}}
+					/>
+				</ViewTransition>
+			))}
+		</div>
+	)
 }
 ```
 
@@ -554,7 +587,9 @@ export default function ItemGrid({ items }) {
 Omit `key` to trigger update (cross-fade) instead of exit + enter. Avoids Suspense remount:
 
 ```jsx
-<ViewTransition><TabPanel tab={activeTab} /></ViewTransition>
+<ViewTransition>
+	<TabPanel tab={activeTab} />
+</ViewTransition>
 ```
 
 ## Isolate Elements from Parent Animations
@@ -562,11 +597,14 @@ Omit `key` to trigger update (cross-fade) instead of exit + enter. Avoids Suspen
 Persistent elements get captured in page's transition snapshot. Fix with `viewTransitionName`:
 
 ```jsx
-<nav style={{ viewTransitionName: "persistent-nav" }}>{/* ... */}</nav>
+<nav style={{ viewTransitionName: 'persistent-nav' }}>{/* ... */}</nav>
 ```
 
 ```css
-::view-transition-group(persistent-nav) { animation: none; z-index: 100; }
+::view-transition-group(persistent-nav) {
+	animation: none;
+	z-index: 100;
+}
 ```
 
 Same for floating elements (popovers, tooltips). Global fix: `::view-transition-group(*) { z-index: 100; }`
@@ -579,8 +617,12 @@ Give matching controls the same `viewTransitionName`. Don't put manual `viewTran
 
 ```jsx
 function AnimatedCollapse({ open, children }) {
-  if (!open) return null;
-  return <ViewTransition enter="expand-in" exit="collapse-out">{children}</ViewTransition>;
+	if (!open) return null
+	return (
+		<ViewTransition enter='expand-in' exit='collapse-out'>
+			{children}
+		</ViewTransition>
+	)
 }
 ```
 
@@ -588,7 +630,9 @@ function AnimatedCollapse({ open, children }) {
 
 ```jsx
 <Activity mode={isVisible ? 'visible' : 'hidden'}>
-  <ViewTransition enter="slide-in" exit="slide-out"><Sidebar /></ViewTransition>
+	<ViewTransition enter='slide-in' exit='slide-out'>
+		<Sidebar />
+	</ViewTransition>
 </Activity>
 ```
 
@@ -604,15 +648,18 @@ Imperative control via `onEnter`, `onExit`, `onUpdate`, `onShare`. Always return
 
 ```jsx
 <ViewTransition
-  onEnter={(instance, types) => {
-    const anim = instance.new.animate(
-      [{ transform: 'scale(0.8)', opacity: 0 }, { transform: 'scale(1)', opacity: 1 }],
-      { duration: 300, easing: 'ease-out' }
-    );
-    return () => anim.cancel();
-  }}
+	onEnter={(instance, types) => {
+		const anim = instance.new.animate(
+			[
+				{ transform: 'scale(0.8)', opacity: 0 },
+				{ transform: 'scale(1)', opacity: 1 },
+			],
+			{ duration: 300, easing: 'ease-out' },
+		)
+		return () => anim.cancel()
+	}}
 >
-  <Component />
+	<Component />
 </ViewTransition>
 ```
 
@@ -622,11 +669,11 @@ Imperative control via `onEnter`, `onExit`, `onUpdate`, `onShare`. Always return
 
 ## Animation Timing
 
-| Interaction | Duration |
-|------------|----------|
-| Direct toggle | 100–200ms |
-| Route transition | 150–250ms |
-| Suspense reveal | 200–400ms |
+| Interaction          | Duration  |
+| -------------------- | --------- |
+| Direct toggle        | 100–200ms |
+| Route transition     | 150–250ms |
+| Suspense reveal      | 200–400ms |
 | Shared element morph | 300–500ms |
 
 ---
@@ -661,9 +708,9 @@ Ready-to-use CSS for `<ViewTransition>` props. Copy into global stylesheet.
 
 ```css
 :root {
-  --duration-exit: 150ms;
-  --duration-enter: 210ms;
-  --duration-move: 400ms;
+	--duration-exit: 150ms;
+	--duration-enter: 210ms;
+	--duration-move: 400ms;
 }
 ```
 
@@ -671,18 +718,32 @@ Ready-to-use CSS for `<ViewTransition>` props. Copy into global stylesheet.
 
 ```css
 @keyframes fade {
-  from { filter: blur(3px); opacity: 0; }
-  to { filter: blur(0); opacity: 1; }
+	from {
+		filter: blur(3px);
+		opacity: 0;
+	}
+	to {
+		filter: blur(0);
+		opacity: 1;
+	}
 }
 
 @keyframes slide {
-  from { translate: var(--slide-offset); }
-  to { translate: 0; }
+	from {
+		translate: var(--slide-offset);
+	}
+	to {
+		translate: 0;
+	}
 }
 
 @keyframes slide-y {
-  from { transform: translateY(var(--slide-y-offset, 10px)); }
-  to { transform: translateY(0); }
+	from {
+		transform: translateY(var(--slide-y-offset, 10px));
+	}
+	to {
+		transform: translateY(0);
+	}
 }
 ```
 
@@ -690,10 +751,10 @@ Ready-to-use CSS for `<ViewTransition>` props. Copy into global stylesheet.
 
 ```css
 ::view-transition-old(.fade-out) {
-  animation: var(--duration-exit) ease-in fade reverse;
+	animation: var(--duration-exit) ease-in fade reverse;
 }
 ::view-transition-new(.fade-in) {
-  animation: var(--duration-enter) ease-out var(--duration-exit) both fade;
+	animation: var(--duration-enter) ease-out var(--duration-exit) both fade;
 }
 ```
 
@@ -701,14 +762,14 @@ Ready-to-use CSS for `<ViewTransition>` props. Copy into global stylesheet.
 
 ```css
 ::view-transition-old(.slide-down) {
-  animation:
-    var(--duration-exit) ease-out both fade reverse,
-    var(--duration-exit) ease-out both slide-y reverse;
+	animation:
+		var(--duration-exit) ease-out both fade reverse,
+		var(--duration-exit) ease-out both slide-y reverse;
 }
 ::view-transition-new(.slide-up) {
-  animation:
-    var(--duration-enter) ease-in var(--duration-exit) both fade,
-    var(--duration-move) ease-in both slide-y;
+	animation:
+		var(--duration-enter) ease-in var(--duration-exit) both fade,
+		var(--duration-move) ease-in both slide-y;
 }
 ```
 
@@ -718,29 +779,29 @@ Ready-to-use CSS for `<ViewTransition>` props. Copy into global stylesheet.
 
 ```css
 ::view-transition-old(.nav-forward) {
-  --slide-offset: -60px;
-  animation:
-    var(--duration-exit) ease-in both fade reverse,
-    var(--duration-move) ease-in-out both slide reverse;
+	--slide-offset: -60px;
+	animation:
+		var(--duration-exit) ease-in both fade reverse,
+		var(--duration-move) ease-in-out both slide reverse;
 }
 ::view-transition-new(.nav-forward) {
-  --slide-offset: 60px;
-  animation:
-    var(--duration-enter) ease-out var(--duration-exit) both fade,
-    var(--duration-move) ease-in-out both slide;
+	--slide-offset: 60px;
+	animation:
+		var(--duration-enter) ease-out var(--duration-exit) both fade,
+		var(--duration-move) ease-in-out both slide;
 }
 
 ::view-transition-old(.nav-back) {
-  --slide-offset: 60px;
-  animation:
-    var(--duration-exit) ease-in both fade reverse,
-    var(--duration-move) ease-in-out both slide reverse;
+	--slide-offset: 60px;
+	animation:
+		var(--duration-exit) ease-in both fade reverse,
+		var(--duration-move) ease-in-out both slide reverse;
 }
 ::view-transition-new(.nav-back) {
-  --slide-offset: -60px;
-  animation:
-    var(--duration-enter) ease-out var(--duration-exit) both fade,
-    var(--duration-move) ease-in-out both slide;
+	--slide-offset: -60px;
+	animation:
+		var(--duration-enter) ease-out var(--duration-exit) both fade,
+		var(--duration-move) ease-in-out both slide;
 }
 ```
 
@@ -748,29 +809,29 @@ Ready-to-use CSS for `<ViewTransition>` props. Copy into global stylesheet.
 
 ```css
 ::view-transition-new(.slide-from-right) {
-  --slide-offset: 60px;
-  animation:
-    var(--duration-enter) ease-out var(--duration-exit) both fade,
-    var(--duration-move) ease-in-out both slide;
+	--slide-offset: 60px;
+	animation:
+		var(--duration-enter) ease-out var(--duration-exit) both fade,
+		var(--duration-move) ease-in-out both slide;
 }
 ::view-transition-old(.slide-to-left) {
-  --slide-offset: -60px;
-  animation:
-    var(--duration-exit) ease-in both fade reverse,
-    var(--duration-move) ease-in-out both slide reverse;
+	--slide-offset: -60px;
+	animation:
+		var(--duration-exit) ease-in both fade reverse,
+		var(--duration-move) ease-in-out both slide reverse;
 }
 
 ::view-transition-new(.slide-from-left) {
-  --slide-offset: -60px;
-  animation:
-    var(--duration-enter) ease-out var(--duration-exit) both fade,
-    var(--duration-move) ease-in-out both slide;
+	--slide-offset: -60px;
+	animation:
+		var(--duration-enter) ease-out var(--duration-exit) both fade,
+		var(--duration-move) ease-in-out both slide;
 }
 ::view-transition-old(.slide-to-right) {
-  --slide-offset: 60px;
-  animation:
-    var(--duration-exit) ease-in both fade reverse,
-    var(--duration-move) ease-in-out both slide reverse;
+	--slide-offset: 60px;
+	animation:
+		var(--duration-exit) ease-in both fade reverse,
+		var(--duration-move) ease-in-out both slide reverse;
 }
 ```
 
@@ -778,13 +839,15 @@ Ready-to-use CSS for `<ViewTransition>` props. Copy into global stylesheet.
 
 ```css
 ::view-transition-group(.morph) {
-  animation-duration: var(--duration-move);
+	animation-duration: var(--duration-move);
 }
 ::view-transition-image-pair(.morph) {
-  animation-name: via-blur;
+	animation-name: via-blur;
 }
 @keyframes via-blur {
-  30% { filter: blur(3px); }
+	30% {
+		filter: blur(3px);
+	}
 }
 ```
 
@@ -796,15 +859,15 @@ Avoids raster scaling artifacts on text by hiding the old snapshot and showing t
 
 ```css
 ::view-transition-group(.text-morph) {
-  animation-duration: var(--duration-move);
+	animation-duration: var(--duration-move);
 }
 ::view-transition-old(.text-morph) {
-  display: none;
+	display: none;
 }
 ::view-transition-new(.text-morph) {
-  animation: none;
-  object-fit: none;
-  object-position: left top;
+	animation: none;
+	object-fit: none;
+	object-position: left top;
 }
 ```
 
@@ -812,18 +875,30 @@ Avoids raster scaling artifacts on text by hiding the old snapshot and showing t
 
 ```css
 ::view-transition-old(.scale-out) {
-  animation: var(--duration-exit) ease-in scale-down;
+	animation: var(--duration-exit) ease-in scale-down;
 }
 ::view-transition-new(.scale-in) {
-  animation: var(--duration-enter) ease-out var(--duration-exit) both scale-up;
+	animation: var(--duration-enter) ease-out var(--duration-exit) both scale-up;
 }
 @keyframes scale-down {
-  from { transform: scale(1); opacity: 1; }
-  to { transform: scale(0.85); opacity: 0; }
+	from {
+		transform: scale(1);
+		opacity: 1;
+	}
+	to {
+		transform: scale(0.85);
+		opacity: 0;
+	}
 }
 @keyframes scale-up {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+	from {
+		transform: scale(0.85);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;
+	}
 }
 ```
 
@@ -831,28 +906,32 @@ Avoids raster scaling artifacts on text by hiding the old snapshot and showing t
 
 ```css
 ::view-transition-group(persistent-nav) {
-  animation: none;
-  z-index: 100;
+	animation: none;
+	z-index: 100;
 }
 ```
 
 ### Backdrop-Blur Workaround
 
 ```css
-::view-transition-old(persistent-nav) { display: none; }
-::view-transition-new(persistent-nav) { animation: none; }
+::view-transition-old(persistent-nav) {
+	display: none;
+}
+::view-transition-new(persistent-nav) {
+	animation: none;
+}
 ```
 
 ## Reduced Motion
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(*),
-  ::view-transition-new(*),
-  ::view-transition-group(*) {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
-  }
+	::view-transition-old(*),
+	::view-transition-new(*),
+	::view-transition-group(*) {
+		animation-duration: 0s !important;
+		animation-delay: 0s !important;
+	}
 }
 ```
 
@@ -864,7 +943,9 @@ Avoids raster scaling artifacts on text by hiding the old snapshot and showing t
 
 ```js
 // next.config.js
-experimental: { viewTransition: true }
+experimental: {
+	viewTransition: true
+}
 ```
 
 Wraps every `<Link>` navigation in `document.startViewTransition`. Use `default="none"` to prevent competing animations. Do **not** install `react@canary` — the App Router already bundles it.
@@ -874,6 +955,7 @@ Wraps every `<Link>` navigation in `document.startViewTransition`. Use `default=
 **After Step 2:** Enable the experimental flag.
 
 **Step 4:** Use `transitionTypes` on `<Link>` (if available — see availability note below):
+
 ```tsx
 <Link href="/photo/1" transitionTypes={["nav-forward"]}>View</Link>
 <Link href="/" transitionTypes={["nav-back"]}>Back</Link>
@@ -888,8 +970,11 @@ Don't add a layout-level VT wrapping `{children}` if pages have their own VTs �
 ## The `transitionTypes` Prop
 
 Works in Server Components, no wrapper needed:
+
 ```tsx
-<Link href="/products/1" transitionTypes={['nav-forward']}>View</Link>
+<Link href='/products/1' transitionTypes={['nav-forward']}>
+	View
+</Link>
 ```
 
 **Availability:** Requires `experimental.viewTransition: true`. Available in Next.js 15+ canary builds and Next.js 16+. If unavailable, use `startTransition` + `addTransitionType` + `router.push()`. To check: `grep -r "transitionTypes" node_modules/next/dist/`. Reserve manual `startTransition` for non-link interactions.
@@ -908,15 +993,23 @@ Directional slides + Suspense reveals coexist because they fire at different mom
 
 ```tsx
 <ViewTransition
-  enter={{ "nav-forward": "slide-from-right", default: "none" }}
-  exit={{ "nav-forward": "slide-to-left", default: "none" }}
-  default="none"
+	enter={{ 'nav-forward': 'slide-from-right', default: 'none' }}
+	exit={{ 'nav-forward': 'slide-to-left', default: 'none' }}
+	default='none'
 >
-  <div>
-    <Suspense fallback={<ViewTransition exit="slide-down"><Skeleton /></ViewTransition>}>
-      <ViewTransition enter="slide-up" default="none"><Content /></ViewTransition>
-    </Suspense>
-  </div>
+	<div>
+		<Suspense
+			fallback={
+				<ViewTransition exit='slide-down'>
+					<Skeleton />
+				</ViewTransition>
+			}
+		>
+			<ViewTransition enter='slide-up' default='none'>
+				<Content />
+			</ViewTransition>
+		</Suspense>
+	</div>
 </ViewTransition>
 ```
 
@@ -942,9 +1035,9 @@ Page stays mounted on dynamic segment change — enter/exit never fire. Use `key
 
 ```tsx
 <Suspense fallback={<Skeleton />}>
-  <ViewTransition key={slug} name={`collection-${slug}`} share="auto" default="none">
-    <Content slug={slug} />
-  </ViewTransition>
+	<ViewTransition key={slug} name={`collection-${slug}`} share='auto' default='none'>
+		<Content slug={slug} />
+	</ViewTransition>
 </Suspense>
 ```
 

@@ -14,14 +14,14 @@ Use React Context to provide store instances instead of global singletons. This 
 ```typescript
 // Global store - all tests share state
 const useCounterStore = create<CounterState>((set) => ({
-  count: 0,
-  increment: () => set((s) => ({ count: s.count + 1 })),
+	count: 0,
+	increment: () => set((s) => ({ count: s.count + 1 })),
 }))
 
 // Tests leak state between each other
 test('counter starts at 0', () => {
-  // Previous test's state might still be here
-  expect(useCounterStore.getState().count).toBe(0)
+	// Previous test's state might still be here
+	expect(useCounterStore.getState().count).toBe(0)
 })
 ```
 
@@ -85,11 +85,13 @@ function App() {
 ```
 
 **When NOT to use this pattern:**
+
 - Simple apps where global singleton behavior is desired
 - When you don't need multiple independent store instances
 - When Context provider overhead is not justified for your use case
 
 **Benefits:**
+
 - Easy testing with fresh store per test
 - Multiple independent store instances in one app
 - SSR: each request gets isolated state

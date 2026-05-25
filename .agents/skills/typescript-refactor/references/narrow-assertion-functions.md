@@ -13,17 +13,17 @@ Assertion functions combine runtime validation with compile-time narrowing. Afte
 
 ```typescript
 function processOrder(order: Order | null) {
-  if (order === null) {
-    throw new Error("Order is required")
-  }
-  sendConfirmation(order) // Narrowed, but pattern duplicated across functions
+	if (order === null) {
+		throw new Error('Order is required')
+	}
+	sendConfirmation(order) // Narrowed, but pattern duplicated across functions
 }
 
 function shipOrder(order: Order | null) {
-  if (order === null) {
-    throw new Error("Order is required")
-  }
-  createShipment(order) // Same check-and-throw copied again
+	if (order === null) {
+		throw new Error('Order is required')
+	}
+	createShipment(order) // Same check-and-throw copied again
 }
 ```
 
@@ -31,19 +31,19 @@ function shipOrder(order: Order | null) {
 
 ```typescript
 function assertDefined<T>(value: T | null | undefined, name: string): asserts value is T {
-  if (value === null || value === undefined) {
-    throw new Error(`${name} is required`)
-  }
+	if (value === null || value === undefined) {
+		throw new Error(`${name} is required`)
+	}
 }
 
 function processOrder(order: Order | null) {
-  assertDefined(order, "order")
-  sendConfirmation(order) // Narrowed to Order
+	assertDefined(order, 'order')
+	sendConfirmation(order) // Narrowed to Order
 }
 
 function shipOrder(order: Order | null) {
-  assertDefined(order, "order")
-  createShipment(order) // Same narrowing, no duplication
+	assertDefined(order, 'order')
+	createShipment(order) // Same narrowing, no duplication
 }
 ```
 

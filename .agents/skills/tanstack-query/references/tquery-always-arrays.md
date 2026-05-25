@@ -14,14 +14,14 @@ String query keys get converted to arrays internally, causing confusion when mix
 ```typescript
 // String key
 const { data: user } = useQuery({
-  queryKey: 'currentUser', // Internally becomes ['currentUser']
-  queryFn: fetchCurrentUser,
+	queryKey: 'currentUser', // Internally becomes ['currentUser']
+	queryFn: fetchCurrentUser,
 })
 
 // Array key elsewhere
 const { data: settings } = useQuery({
-  queryKey: ['currentUser', 'settings'],
-  queryFn: fetchUserSettings,
+	queryKey: ['currentUser', 'settings'],
+	queryFn: fetchUserSettings,
 })
 
 // Invalidation confusion - does this match the string key?
@@ -33,13 +33,13 @@ queryClient.invalidateQueries({ queryKey: ['currentUser'] }) // Yes, but not obv
 ```typescript
 // Always arrays, even for single elements
 const { data: user } = useQuery({
-  queryKey: ['currentUser'],
-  queryFn: fetchCurrentUser,
+	queryKey: ['currentUser'],
+	queryFn: fetchCurrentUser,
 })
 
 const { data: settings } = useQuery({
-  queryKey: ['currentUser', 'settings'],
-  queryFn: fetchUserSettings,
+	queryKey: ['currentUser', 'settings'],
+	queryFn: fetchUserSettings,
 })
 
 // Clear invalidation hierarchy

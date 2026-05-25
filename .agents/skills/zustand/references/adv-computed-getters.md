@@ -13,23 +13,24 @@ For computed values that need to be accessed within actions, implement getter fu
 
 ```typescript
 const useCartStore = create<CartState>((set) => ({
-  items: [],
-  subtotal: 0,      // Stored, must be kept in sync
-  tax: 0,           // Stored, must be kept in sync
-  total: 0,         // Stored, must be kept in sync
+	items: [],
+	subtotal: 0, // Stored, must be kept in sync
+	tax: 0, // Stored, must be kept in sync
+	total: 0, // Stored, must be kept in sync
 
-  addItem: (item) => set((s) => {
-    const newItems = [...s.items, item]
-    const subtotal = newItems.reduce((sum, i) => sum + i.price, 0)
-    const tax = subtotal * 0.1
-    // Must update all computed values manually
-    return {
-      items: newItems,
-      subtotal,
-      tax,
-      total: subtotal + tax,
-    }
-  }),
+	addItem: (item) =>
+		set((s) => {
+			const newItems = [...s.items, item]
+			const subtotal = newItems.reduce((sum, i) => sum + i.price, 0)
+			const tax = subtotal * 0.1
+			// Must update all computed values manually
+			return {
+				items: newItems,
+				subtotal,
+				tax,
+				total: subtotal + tax,
+			}
+		}),
 }))
 ```
 
@@ -78,10 +79,7 @@ const total = useCartStore((s) => s.getTotal())
 
 // This will re-render when items change
 const items = useCartStore((s) => s.items)
-const total = useMemo(
-  () => items.reduce((sum, i) => sum + i.price, 0),
-  [items]
-)
+const total = useMemo(() => items.reduce((sum, i) => sum + i.price, 0), [items])
 ```
 
 Reference: [Zustand Documentation](https://zustand.docs.pmnd.rs/)

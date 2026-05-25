@@ -13,11 +13,11 @@ Invalidating only in `onSuccess` leaves the cache inconsistent after failed muta
 
 ```typescript
 const mutation = useMutation({
-  mutationFn: createTodo,
-  onSuccess: () => {
-    // Only runs on success
-    queryClient.invalidateQueries({ queryKey: ['todos'] })
-  },
+	mutationFn: createTodo,
+	onSuccess: () => {
+		// Only runs on success
+		queryClient.invalidateQueries({ queryKey: ['todos'] })
+	},
 })
 
 // If mutation fails after optimistic update:
@@ -31,21 +31,21 @@ const mutation = useMutation({
 
 ```typescript
 const mutation = useMutation({
-  mutationFn: createTodo,
-  onMutate: async (newTodo) => {
-    await queryClient.cancelQueries({ queryKey: ['todos'] })
-    const previous = queryClient.getQueryData(['todos'])
-    queryClient.setQueryData(['todos'], (old: Todo[]) => [...old, newTodo])
-    return { previous }
-  },
-  onError: (err, newTodo, context) => {
-    queryClient.setQueryData(['todos'], context?.previous)
-  },
-  onSettled: () => {
-    // Runs after BOTH success AND error
-    // Ensures cache matches server state
-    queryClient.invalidateQueries({ queryKey: ['todos'] })
-  },
+	mutationFn: createTodo,
+	onMutate: async (newTodo) => {
+		await queryClient.cancelQueries({ queryKey: ['todos'] })
+		const previous = queryClient.getQueryData(['todos'])
+		queryClient.setQueryData(['todos'], (old: Todo[]) => [...old, newTodo])
+		return { previous }
+	},
+	onError: (err, newTodo, context) => {
+		queryClient.setQueryData(['todos'], context?.previous)
+	},
+	onSettled: () => {
+		// Runs after BOTH success AND error
+		// Ensures cache matches server state
+		queryClient.invalidateQueries({ queryKey: ['todos'] })
+	},
 })
 ```
 
@@ -53,18 +53,18 @@ const mutation = useMutation({
 
 ```typescript
 const mutation = useMutation({
-  mutationFn: createTodo,
-  onSuccess: (data) => {
-    // Use response data for something specific
-    toast.success(`Created: ${data.title}`)
-    router.push(`/todos/${data.id}`)
-  },
-  onError: (error) => {
-    toast.error(error.message)
-  },
-  onSettled: () => {
-    // Always invalidate here
-    queryClient.invalidateQueries({ queryKey: ['todos'] })
-  },
+	mutationFn: createTodo,
+	onSuccess: (data) => {
+		// Use response data for something specific
+		toast.success(`Created: ${data.title}`)
+		router.push(`/todos/${data.id}`)
+	},
+	onError: (error) => {
+		toast.error(error.message)
+	},
+	onSettled: () => {
+		// Always invalidate here
+		queryClient.invalidateQueries({ queryKey: ['todos'] })
+	},
 })
 ```

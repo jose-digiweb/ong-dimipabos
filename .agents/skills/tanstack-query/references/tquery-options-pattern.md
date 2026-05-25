@@ -14,14 +14,14 @@ When sharing query configuration between `useQuery`, `prefetchQuery`, and `getQu
 ```typescript
 // In component
 const { data } = useQuery({
-  queryKey: ['user', userId],
-  queryFn: () => fetchUser(userId),
+	queryKey: ['user', userId],
+	queryFn: () => fetchUser(userId),
 })
 
 // In prefetch - duplicated, no type link
 await queryClient.prefetchQuery({
-  queryKey: ['user', userId],
-  queryFn: () => fetchUser(userId),
+	queryKey: ['user', userId],
+	queryFn: () => fetchUser(userId),
 })
 
 // getQueryData returns unknown
@@ -34,10 +34,10 @@ const user = queryClient.getQueryData(['user', userId])
 ```typescript
 // Define once with queryOptions
 const userQueryOptions = (userId: string) =>
-  queryOptions({
-    queryKey: ['user', userId] as const,
-    queryFn: () => fetchUser(userId),
-  })
+	queryOptions({
+		queryKey: ['user', userId] as const,
+		queryFn: () => fetchUser(userId),
+	})
 
 // In component - fully typed
 const { data } = useQuery(userQueryOptions(userId))
@@ -54,16 +54,16 @@ const user = queryClient.getQueryData(userQueryOptions(userId).queryKey)
 
 ```typescript
 export const userQueries = {
-  detail: (userId: string) =>
-    queryOptions({
-      queryKey: userKeys.detail(userId),
-      queryFn: () => fetchUser(userId),
-    }),
-  list: (filters: UserFilters) =>
-    queryOptions({
-      queryKey: userKeys.list(filters),
-      queryFn: () => fetchUsers(filters),
-    }),
+	detail: (userId: string) =>
+		queryOptions({
+			queryKey: userKeys.detail(userId),
+			queryFn: () => fetchUser(userId),
+		}),
+	list: (filters: UserFilters) =>
+		queryOptions({
+			queryKey: userKeys.list(filters),
+			queryFn: () => fetchUsers(filters),
+		}),
 }
 
 // Usage

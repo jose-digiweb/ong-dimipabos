@@ -15,14 +15,14 @@ tags: org, skip, only, debugging, ci
 import { describe, it, expect } from 'vitest'
 
 describe('FeatureUnderDevelopment', () => {
-  // Focus on the test you're writing
-  it.only('should handle the new case', () => {
-    expect(newFeature()).toBe(true)
-  })
+	// Focus on the test you're writing
+	it.only('should handle the new case', () => {
+		expect(newFeature()).toBe(true)
+	})
 
-  it('other test that would slow you down', () => {
-    // This won't run while you focus on the above
-  })
+	it('other test that would slow you down', () => {
+		// This won't run while you focus on the above
+	})
 })
 ```
 
@@ -41,10 +41,10 @@ it.skip('broken test we ignore', () => {}) // Technical debt accumulating
 ```javascript
 // .eslintrc.js
 module.exports = {
-  rules: {
-    'vitest/no-focused-tests': 'error',  // Fails on .only
-    'vitest/no-disabled-tests': 'warn',  // Warns on .skip
-  },
+	rules: {
+		'vitest/no-focused-tests': 'error', // Fails on .only
+		'vitest/no-disabled-tests': 'warn', // Warns on .skip
+	},
 }
 ```
 
@@ -60,7 +60,7 @@ vitest run --allowOnly=false
 ```typescript
 // If you must skip, document why
 it.skip('should integrate with legacy API', () => {
-  // TODO: Re-enable when legacy API migration complete (JIRA-1234)
+	// TODO: Re-enable when legacy API migration complete (JIRA-1234)
 })
 
 // Or use todo for planned tests
@@ -68,6 +68,7 @@ it.todo('should handle rate limiting')
 ```
 
 **Benefits:**
+
 - Full test suite always runs in CI
 - Skipped tests don't accumulate silently
 - Clear tracking of incomplete tests

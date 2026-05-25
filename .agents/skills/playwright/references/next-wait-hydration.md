@@ -13,64 +13,64 @@ Next.js renders HTML on the server, then hydrates it with JavaScript. Interactin
 
 ```typescript
 test('submit form', async ({ page }) => {
-  await page.goto('/contact');
+	await page.goto('/contact')
 
-  // May interact with server-rendered HTML before JS loads
-  // Button might not have click handler attached yet
-  await page.getByRole('button', { name: 'Submit' }).click();
+	// May interact with server-rendered HTML before JS loads
+	// Button might not have click handler attached yet
+	await page.getByRole('button', { name: 'Submit' }).click()
 
-  // Nothing happens - JS wasn't ready
-});
+	// Nothing happens - JS wasn't ready
+})
 ```
 
 **Correct (wait for hydration indicators):**
 
 ```typescript
 test('submit form', async ({ page }) => {
-  await page.goto('/contact');
+	await page.goto('/contact')
 
-  // Wait for hydration - JavaScript has loaded and attached handlers
-  // Option 1: Wait for client-only element to appear
-  await expect(page.getByTestId('hydration-complete')).toBeVisible();
+	// Wait for hydration - JavaScript has loaded and attached handlers
+	// Option 1: Wait for client-only element to appear
+	await expect(page.getByTestId('hydration-complete')).toBeVisible()
 
-  // Option 2: Wait for interactive element state
-  await expect(page.getByRole('button', { name: 'Submit' })).toBeEnabled();
+	// Option 2: Wait for interactive element state
+	await expect(page.getByRole('button', { name: 'Submit' })).toBeEnabled()
 
-  // Now safe to interact
-  await page.getByRole('button', { name: 'Submit' }).click();
-});
+	// Now safe to interact
+	await page.getByRole('button', { name: 'Submit' }).click()
+})
 ```
 
 **Add hydration marker in your app:**
 
 ```tsx
 // components/HydrationMarker.tsx
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 export function HydrationMarker() {
-  const [hydrated, setHydrated] = useState(false);
+	const [hydrated, setHydrated] = useState(false)
 
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
+	useEffect(() => {
+		setHydrated(true)
+	}, [])
 
-  if (!hydrated) return null;
+	if (!hydrated) return null
 
-  return <div data-testid="hydration-complete" style={{ display: 'none' }} />;
+	return <div data-testid='hydration-complete' style={{ display: 'none' }} />
 }
 
 // app/layout.tsx
 export default function RootLayout({ children }) {
-  return (
-    <html>
-      <body>
-        {children}
-        <HydrationMarker />
-      </body>
-    </html>
-  );
+	return (
+		<html>
+			<body>
+				{children}
+				<HydrationMarker />
+			</body>
+		</html>
+	)
 }
 ```
 
@@ -78,29 +78,29 @@ export default function RootLayout({ children }) {
 
 ```typescript
 test('interactive dropdown works', async ({ page }) => {
-  await page.goto('/settings');
+	await page.goto('/settings')
 
-  const dropdown = page.getByRole('combobox', { name: 'Language' });
+	const dropdown = page.getByRole('combobox', { name: 'Language' })
 
-  // Wait for dropdown to be interactive (hydrated)
-  await dropdown.waitFor({ state: 'visible' });
+	// Wait for dropdown to be interactive (hydrated)
+	await dropdown.waitFor({ state: 'visible' })
 
-  // Verify it responds to click (JS attached)
-  await dropdown.click();
-  await expect(page.getByRole('option', { name: 'English' })).toBeVisible();
-});
+	// Verify it responds to click (JS attached)
+	await dropdown.click()
+	await expect(page.getByRole('option', { name: 'English' })).toBeVisible()
+})
 ```
 
 **Alternative: networkidle for full hydration:**
 
 ```typescript
 test('fully hydrated page', async ({ page }) => {
-  // networkidle waits for all JS to load and execute
-  await page.goto('/dashboard', { waitUntil: 'networkidle' });
+	// networkidle waits for all JS to load and execute
+	await page.goto('/dashboard', { waitUntil: 'networkidle' })
 
-  // Page is fully hydrated
-  await page.getByRole('button', { name: 'Action' }).click();
-});
+	// Page is fully hydrated
+	await page.getByRole('button', { name: 'Action' }).click()
+})
 ```
 
 Reference: [Next.js Hydration](https://nextjs.org/docs/messages/react-hydration-error)

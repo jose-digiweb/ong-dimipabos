@@ -13,9 +13,9 @@ Tailwind CSS v4 and its upgrade tool require Node.js 20 or higher. Older Node ve
 
 ```json
 {
-  "engines": {
-    "node": ">=16.0.0"
-  }
+	"engines": {
+		"node": ">=16.0.0"
+	}
 }
 ```
 
@@ -29,9 +29,9 @@ npx @tailwindcss/upgrade
 
 ```json
 {
-  "engines": {
-    "node": ">=20.0.0"
-  }
+	"engines": {
+		"node": ">=20.0.0"
+	}
 }
 ```
 
@@ -42,6 +42,7 @@ npx @tailwindcss/upgrade
 ```
 
 **Benefits:**
+
 - Full compatibility with Tailwind v4 tooling
 - Better performance from V8 engine improvements
 - Access to modern JavaScript features

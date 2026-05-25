@@ -72,6 +72,7 @@ function ExpensiveChart() {
 ```
 
 **When to use custom equality:**
+
 - Deep nested objects where shallow comparison isn't enough
 - Performance-critical components with complex state
 - When you need to ignore certain property changes

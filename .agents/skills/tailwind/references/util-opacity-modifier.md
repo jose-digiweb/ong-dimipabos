@@ -13,11 +13,11 @@ Tailwind CSS v4 removes the deprecated opacity utilities (`bg-opacity-*`, `text-
 
 ```html
 <div class="bg-blue-500 bg-opacity-50">
-  <!-- Deprecated in v4 -->
+	<!-- Deprecated in v4 -->
 </div>
 
 <p class="text-black text-opacity-75">
-  <!-- Two classes for one effect -->
+	<!-- Two classes for one effect -->
 </p>
 ```
 
@@ -25,11 +25,11 @@ Tailwind CSS v4 removes the deprecated opacity utilities (`bg-opacity-*`, `text-
 
 ```html
 <div class="bg-blue-500/50">
-  <!-- Single class with opacity -->
+	<!-- Single class with opacity -->
 </div>
 
 <p class="text-black/75">
-  <!-- Cleaner, more readable -->
+	<!-- Cleaner, more readable -->
 </p>
 ```
 
@@ -37,11 +37,12 @@ Tailwind CSS v4 removes the deprecated opacity utilities (`bg-opacity-*`, `text-
 
 ```html
 <div class="bg-(--brand-color)/50">
-  <!-- Works with custom properties too -->
+	<!-- Works with custom properties too -->
 </div>
 ```
 
 **Benefits:**
+
 - Single class instead of two
 - Works with any color utility
 - Compatible with CSS variables

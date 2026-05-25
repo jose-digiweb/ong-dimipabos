@@ -53,6 +53,7 @@ function BearStats() {
 ```
 
 **Benefits:**
+
 - Components only re-render when selected state changes
 - More predictable performance
 - Easier to optimize specific components

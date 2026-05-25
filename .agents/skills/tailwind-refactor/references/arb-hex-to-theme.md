@@ -13,7 +13,7 @@ Arbitrary hex values bypass the design system, cannot be found by searching for 
 
 ```html
 <div class="bg-[#3b82f6] text-[#1e293b]">
-  <p class="border-[#e2e8f0]">Hardcoded hex values scattered everywhere</p>
+	<p class="border-[#e2e8f0]">Hardcoded hex values scattered everywhere</p>
 </div>
 ```
 
@@ -22,14 +22,14 @@ Arbitrary hex values bypass the design system, cannot be found by searching for 
 ```css
 /* In your main CSS file */
 @theme {
-  --color-brand: #3b82f6;
-  --color-heading: #1e293b;
-  --color-border-subtle: #e2e8f0;
+	--color-brand: #3b82f6;
+	--color-heading: #1e293b;
+	--color-border-subtle: #e2e8f0;
 }
 ```
 
 ```html
 <div class="bg-brand text-heading">
-  <p class="border-border-subtle">Theme tokens are searchable and consistent</p>
+	<p class="border-border-subtle">Theme tokens are searchable and consistent</p>
 </div>
 ```

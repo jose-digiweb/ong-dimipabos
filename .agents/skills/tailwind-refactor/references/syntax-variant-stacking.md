@@ -14,7 +14,7 @@ Tailwind v4 applies stacked variants left-to-right, matching CSS nesting order. 
 ```html
 <!-- v3 right-to-left: "first child, then direct children" -->
 <ul class="first:*:pt-0 last:*:pb-0">
-  <li>Item</li>
+	<li>Item</li>
 </ul>
 ```
 
@@ -23,6 +23,6 @@ Tailwind v4 applies stacked variants left-to-right, matching CSS nesting order. 
 ```html
 <!-- v4 left-to-right: "direct children, then first/last" — reads naturally -->
 <ul class="*:first:pt-0 *:last:pb-0">
-  <li>Item</li>
+	<li>Item</li>
 </ul>
 ```

@@ -13,12 +13,12 @@ Queries run immediately by default. Use `enabled` to defer queries until depende
 
 ```typescript
 function UserProfile({ userId }: { userId?: string }) {
-  // Runs immediately, even when userId is undefined!
-  const { data } = useQuery({
-    queryKey: ['user', userId],
-    queryFn: () => fetchUser(userId!), // Dangerous assertion
-  })
-  // API receives: GET /users/undefined
+	// Runs immediately, even when userId is undefined!
+	const { data } = useQuery({
+		queryKey: ['user', userId],
+		queryFn: () => fetchUser(userId!), // Dangerous assertion
+	})
+	// API receives: GET /users/undefined
 }
 ```
 
@@ -42,18 +42,18 @@ function UserProfile({ userId }: { userId?: string }) {
 
 ```typescript
 function UserProjects({ userId }: { userId: string }) {
-  // First query: get user
-  const { data: user } = useQuery({
-    queryKey: ['user', userId],
-    queryFn: () => fetchUser(userId),
-  })
+	// First query: get user
+	const { data: user } = useQuery({
+		queryKey: ['user', userId],
+		queryFn: () => fetchUser(userId),
+	})
 
-  // Second query: depends on user's organizationId
-  const { data: projects } = useQuery({
-    queryKey: ['projects', user?.organizationId],
-    queryFn: () => fetchProjects(user!.organizationId),
-    enabled: !!user?.organizationId, // Wait for user data
-  })
+	// Second query: depends on user's organizationId
+	const { data: projects } = useQuery({
+		queryKey: ['projects', user?.organizationId],
+		queryFn: () => fetchProjects(user!.organizationId),
+		enabled: !!user?.organizationId, // Wait for user data
+	})
 }
 ```
 
@@ -61,13 +61,14 @@ function UserProjects({ userId }: { userId: string }) {
 
 ```typescript
 const { data: experiments } = useQuery({
-  queryKey: ['experiments'],
-  queryFn: fetchExperiments,
-  enabled: featureFlags.experimentsEnabled,
+	queryKey: ['experiments'],
+	queryFn: fetchExperiments,
+	enabled: featureFlags.experimentsEnabled,
 })
 ```
 
 **Note:** When `enabled` is false:
+
 - Query stays in `isPending` state
 - No network request is made
 - `data` remains undefined

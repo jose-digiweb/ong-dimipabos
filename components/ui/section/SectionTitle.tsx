@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils'
 // Types
 import type { ReactNode } from 'react'
 type Props = {
-  children: ReactNode
-  className?: string
+	children: ReactNode
+	className?: string
 }
 
 /**
@@ -16,14 +16,14 @@ type Props = {
  * @returns {JSX.Element} The SectionTitle component
  */
 export const SectionTitle = ({ children, className }: Props) => {
-  return (
-    <h2
-      className={cn(
-        'text-pretty font-bold text-3xl text-foreground tracking-tight sm:text-4xl',
-        className
-      )}
-    >
-      {children}
-    </h2>
-  )
+	return (
+		<h2
+			className={cn(
+				'text-pretty font-bold text-3xl text-foreground tracking-tight sm:text-4xl',
+				className,
+			)}
+		>
+			{children}
+		</h2>
+	)
 }

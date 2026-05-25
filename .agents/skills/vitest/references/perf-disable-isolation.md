@@ -14,10 +14,10 @@ By default, Vitest runs each test file in an isolated environment. This ensures 
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // Default - each file runs in fresh environment
-    isolate: true,
-  },
+	test: {
+		// Default - each file runs in fresh environment
+		isolate: true,
+	},
 })
 ```
 
@@ -26,10 +26,10 @@ export default defineConfig({
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // Faster - files share environment
-    isolate: false,
-  },
+	test: {
+		// Faster - files share environment
+		isolate: false,
+	},
 })
 ```
 
@@ -45,22 +45,22 @@ export default defineConfig({
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    projects: [
-      {
-        // Unit tests - safe to share environment
-        name: 'unit',
-        include: ['src/**/*.test.ts'],
-        isolate: false,
-      },
-      {
-        // Integration tests - need isolation
-        name: 'integration',
-        include: ['tests/integration/**/*.test.ts'],
-        isolate: true,
-      },
-    ],
-  },
+	test: {
+		projects: [
+			{
+				// Unit tests - safe to share environment
+				name: 'unit',
+				include: ['src/**/*.test.ts'],
+				isolate: false,
+			},
+			{
+				// Integration tests - need isolation
+				name: 'integration',
+				include: ['tests/integration/**/*.test.ts'],
+				isolate: true,
+			},
+		],
+	},
 })
 ```
 
@@ -75,11 +75,13 @@ vitest --no-isolate --reporter=verbose
 ```
 
 **When NOT to disable isolation:**
+
 - Tests modify global state without cleanup
 - Tests use `vi.mock` at the module level without `vi.resetModules`
 - Tests have known order dependencies
 
 **Benefits:**
+
 - Faster test suite execution
 - Reduced memory usage
 - Quicker feedback loops

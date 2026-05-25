@@ -14,9 +14,9 @@ Choose reporters that integrate with your CI system. GitHub Actions annotations,
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  // Default reporter only shows console output
-  // No CI integration, no artifacts
-});
+	// Default reporter only shows console output
+	// No CI integration, no artifacts
+})
 
 // CI output:
 // FAILED tests/login.spec.ts:15
@@ -31,17 +31,17 @@ export default defineConfig({
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  reporter: process.env.CI
-    ? [
-        ['github'], // GitHub Actions annotations
-        ['junit', { outputFile: 'test-results/junit.xml' }], // CI systems
-        ['html', { open: 'never' }], // Detailed HTML report
-      ]
-    : [
-        ['list'], // Console output
-        ['html', { open: 'on-failure' }], // Open HTML on failure
-      ],
-});
+	reporter: process.env.CI
+		? [
+				['github'], // GitHub Actions annotations
+				['junit', { outputFile: 'test-results/junit.xml' }], // CI systems
+				['html', { open: 'never' }], // Detailed HTML report
+			]
+		: [
+				['list'], // Console output
+				['html', { open: 'on-failure' }], // Open HTML on failure
+			],
+})
 
 // CI output now includes:
 // - Inline annotations on PR files
@@ -60,9 +60,9 @@ export default defineConfig({
   uses: dorny/test-reporter@v1
   if: always()
   with:
-    name: Playwright Tests
-    path: test-results/junit.xml
-    reporter: java-junit
+   name: Playwright Tests
+   path: test-results/junit.xml
+   reporter: java-junit
 ```
 
 **HTML report hosting:**
@@ -73,9 +73,9 @@ export default defineConfig({
   uses: actions/upload-artifact@v4
   if: always()
   with:
-    name: playwright-report
-    path: playwright-report/
-    retention-days: 14
+   name: playwright-report
+   path: playwright-report/
+   retention-days: 14
 ```
 
 Reference: [Playwright Reporters](https://playwright.dev/docs/test-reporters)

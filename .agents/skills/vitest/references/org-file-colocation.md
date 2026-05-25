@@ -49,10 +49,10 @@ src/
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // Match test files next to source
-    include: ['src/**/*.{test,spec}.{ts,tsx}'],
-  },
+	test: {
+		// Match test files next to source
+		include: ['src/**/*.{test,spec}.{ts,tsx}'],
+	},
 })
 ```
 
@@ -77,15 +77,16 @@ src/
 ```typescript
 // vite.config.ts
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      external: [/\.test\.tsx?$/], // Exclude test files from build
-    },
-  },
+	build: {
+		rollupOptions: {
+			external: [/\.test\.tsx?$/], // Exclude test files from build
+		},
+	},
 })
 ```
 
 **Benefits:**
+
 - Easy to find tests for any file
 - Missing tests are obvious
 - Related files stay together

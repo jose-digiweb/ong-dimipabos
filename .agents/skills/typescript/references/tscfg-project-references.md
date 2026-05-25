@@ -22,8 +22,8 @@ my-app/
 
 ```json
 {
-  "compilerOptions": { "outDir": "dist" },
-  "include": ["packages/*/src/**/*"]
+	"compilerOptions": { "outDir": "dist" },
+	"include": ["packages/*/src/**/*"]
 }
 ```
 
@@ -49,39 +49,37 @@ my-app/
 ```json
 // packages/shared/tsconfig.json
 {
-  "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "outDir": "dist"
-  },
-  "include": ["src/**/*"]
+	"compilerOptions": {
+		"composite": true,
+		"declaration": true,
+		"outDir": "dist"
+	},
+	"include": ["src/**/*"]
 }
 ```
 
 ```json
 // packages/api/tsconfig.json
 {
-  "compilerOptions": {
-    "composite": true,
-    "declaration": true,
-    "outDir": "dist"
-  },
-  "references": [
-    { "path": "../shared" }
-  ],
-  "include": ["src/**/*"]
+	"compilerOptions": {
+		"composite": true,
+		"declaration": true,
+		"outDir": "dist"
+	},
+	"references": [{ "path": "../shared" }],
+	"include": ["src/**/*"]
 }
 ```
 
 ```json
 // tsconfig.json (root)
 {
-  "files": [],
-  "references": [
-    { "path": "packages/shared" },
-    { "path": "packages/api" },
-    { "path": "packages/web" }
-  ]
+	"files": [],
+	"references": [
+		{ "path": "packages/shared" },
+		{ "path": "packages/api" },
+		{ "path": "packages/web" }
+	]
 }
 ```
 
@@ -90,6 +88,7 @@ tsc --build  # Builds only changed projects
 ```
 
 **Benefits:**
+
 - Parallel compilation of independent projects
 - Change in `shared/` only rebuilds dependents
 - Declaration files used as API boundaries

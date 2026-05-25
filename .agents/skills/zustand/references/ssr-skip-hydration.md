@@ -15,13 +15,13 @@ In SSR environments like Next.js, persisted stores can cause hydration mismatche
 import { persist } from 'zustand/middleware'
 
 const useThemeStore = create<ThemeState>()(
-  persist(
-    (set) => ({
-      theme: 'light',
-      setTheme: (theme) => set({ theme }),
-    }),
-    { name: 'theme-storage' }
-  )
+	persist(
+		(set) => ({
+			theme: 'light',
+			setTheme: (theme) => set({ theme }),
+		}),
+		{ name: 'theme-storage' },
+	),
 )
 
 // Server renders: theme='light'
@@ -35,16 +35,16 @@ const useThemeStore = create<ThemeState>()(
 import { persist } from 'zustand/middleware'
 
 const useThemeStore = create<ThemeState>()(
-  persist(
-    (set) => ({
-      theme: 'light',
-      setTheme: (theme) => set({ theme }),
-    }),
-    {
-      name: 'theme-storage',
-      skipHydration: true, // Disable automatic hydration
-    }
-  )
+	persist(
+		(set) => ({
+			theme: 'light',
+			setTheme: (theme) => set({ theme }),
+		}),
+		{
+			name: 'theme-storage',
+			skipHydration: true, // Disable automatic hydration
+		},
+	),
 )
 
 // Manually trigger hydration after client mount
@@ -52,11 +52,13 @@ const useThemeStore = create<ThemeState>()(
 ```
 
 **When to use:**
+
 - Any persisted store in Next.js/Remix/SSR apps
 - Stores that affect server-rendered content
 - Stores where initial state differs from persisted state
 
 **When NOT needed:**
+
 - Client-only apps (CRA, Vite without SSR)
 - Stores that don't use persist middleware
 - Persisted values not rendered on initial page load

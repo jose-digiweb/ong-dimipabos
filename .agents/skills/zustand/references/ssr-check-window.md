@@ -13,13 +13,13 @@ When stores use browser-only APIs like `localStorage`, `window`, or `document`, 
 
 ```typescript
 const useThemeStore = create<ThemeState>((set) => ({
-  // Crashes on server: localStorage is not defined
-  theme: localStorage.getItem('theme') || 'light',
+	// Crashes on server: localStorage is not defined
+	theme: localStorage.getItem('theme') || 'light',
 
-  setTheme: (theme) => {
-    localStorage.setItem('theme', theme)
-    set({ theme })
-  },
+	setTheme: (theme) => {
+		localStorage.setItem('theme', theme)
+		set({ theme })
+	},
 }))
 ```
 
@@ -27,21 +27,21 @@ const useThemeStore = create<ThemeState>((set) => ({
 
 ```typescript
 const getInitialTheme = (): Theme => {
-  if (typeof window === 'undefined') {
-    return 'light' // SSR default
-  }
-  return (localStorage.getItem('theme') as Theme) || 'light'
+	if (typeof window === 'undefined') {
+		return 'light' // SSR default
+	}
+	return (localStorage.getItem('theme') as Theme) || 'light'
 }
 
 const useThemeStore = create<ThemeState>((set) => ({
-  theme: getInitialTheme(),
+	theme: getInitialTheme(),
 
-  setTheme: (theme) => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('theme', theme)
-    }
-    set({ theme })
-  },
+	setTheme: (theme) => {
+		if (typeof window !== 'undefined') {
+			localStorage.setItem('theme', theme)
+		}
+		set({ theme })
+	},
 }))
 ```
 
@@ -51,22 +51,23 @@ const useThemeStore = create<ThemeState>((set) => ({
 import { persist, createJSONStorage } from 'zustand/middleware'
 
 const useThemeStore = create<ThemeState>()(
-  persist(
-    (set) => ({
-      theme: 'light',
-      setTheme: (theme) => set({ theme }),
-    }),
-    {
-      name: 'theme-storage',
-      // createJSONStorage handles SSR safely
-      storage: createJSONStorage(() => localStorage),
-      skipHydration: true,
-    }
-  )
+	persist(
+		(set) => ({
+			theme: 'light',
+			setTheme: (theme) => set({ theme }),
+		}),
+		{
+			name: 'theme-storage',
+			// createJSONStorage handles SSR safely
+			storage: createJSONStorage(() => localStorage),
+			skipHydration: true,
+		},
+	),
 )
 ```
 
 **Common browser APIs to guard:**
+
 - `localStorage` / `sessionStorage`
 - `window.matchMedia()`
 - `document.cookie`

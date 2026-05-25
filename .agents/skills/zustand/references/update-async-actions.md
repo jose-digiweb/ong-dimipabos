@@ -13,15 +13,15 @@ Async actions should track loading and error states in the store. This prevents 
 
 ```typescript
 const useUserStore = create<UserState>((set) => ({
-  user: null,
+	user: null,
 
-  fetchUser: async (id: string) => {
-    // No loading state, UI doesn't know fetch is in progress
-    const response = await fetch(`/api/users/${id}`)
-    const user = await response.json()
-    set({ user })
-    // Errors silently fail
-  },
+	fetchUser: async (id: string) => {
+		// No loading state, UI doesn't know fetch is in progress
+		const response = await fetch(`/api/users/${id}`)
+		const user = await response.json()
+		set({ user })
+		// Errors silently fail
+	},
 }))
 ```
 
@@ -81,29 +81,29 @@ function UserProfile({ id }: { id: string }) {
 
 ```typescript
 const useUserStore = create<UserState>((set, get) => ({
-  user: null,
-  isLoading: false,
-  abortController: null as AbortController | null,
+	user: null,
+	isLoading: false,
+	abortController: null as AbortController | null,
 
-  fetchUser: async (id: string) => {
-    // Abort any in-flight request
-    get().abortController?.abort()
+	fetchUser: async (id: string) => {
+		// Abort any in-flight request
+		get().abortController?.abort()
 
-    const abortController = new AbortController()
-    set({ isLoading: true, abortController })
+		const abortController = new AbortController()
+		set({ isLoading: true, abortController })
 
-    try {
-      const response = await fetch(`/api/users/${id}`, {
-        signal: abortController.signal,
-      })
-      const user = await response.json()
-      set({ user, isLoading: false })
-    } catch (error) {
-      if (error.name !== 'AbortError') {
-        set({ isLoading: false })
-      }
-    }
-  },
+		try {
+			const response = await fetch(`/api/users/${id}`, {
+				signal: abortController.signal,
+			})
+			const user = await response.json()
+			set({ user, isLoading: false })
+		} catch (error) {
+			if (error.name !== 'AbortError') {
+				set({ isLoading: false })
+			}
+		}
+	},
 }))
 ```
 

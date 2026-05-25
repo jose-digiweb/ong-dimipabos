@@ -13,11 +13,11 @@ Tailwind CSS v4 changes the syntax for referencing CSS variables in utility clas
 
 ```html
 <div class="bg-[--brand-color]">
-  <!-- v3 syntax - may not work in v4 -->
+	<!-- v3 syntax - may not work in v4 -->
 </div>
 
 <div class="text-[--heading-size]">
-  <!-- Square brackets for CSS variables -->
+	<!-- Square brackets for CSS variables -->
 </div>
 ```
 
@@ -25,11 +25,11 @@ Tailwind CSS v4 changes the syntax for referencing CSS variables in utility clas
 
 ```html
 <div class="bg-(--brand-color)">
-  <!-- v4 syntax for CSS variables -->
+	<!-- v4 syntax for CSS variables -->
 </div>
 
 <div class="text-(--heading-size)">
-  <!-- Parentheses indicate variable reference -->
+	<!-- Parentheses indicate variable reference -->
 </div>
 ```
 

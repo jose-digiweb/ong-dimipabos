@@ -14,10 +14,10 @@ Vitest supports different execution pools: `forks` (default), `threads`, and `vm
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // Default - most compatible, but can be slower
-    pool: 'forks',
-  },
+	test: {
+		// Default - most compatible, but can be slower
+		pool: 'forks',
+	},
 })
 ```
 
@@ -26,36 +26,36 @@ export default defineConfig({
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // Generally faster, but some edge cases may not work
-    pool: 'threads',
-  },
+	test: {
+		// Generally faster, but some edge cases may not work
+		pool: 'threads',
+	},
 })
 ```
 
 **Pool comparison:**
 
-| Pool | Speed | Isolation | Compatibility | Best For |
-|------|-------|-----------|---------------|----------|
-| `forks` | Slower | Full process | Highest | Default, native modules |
-| `threads` | Faster | Worker threads | High | Most projects |
-| `vmThreads` | Medium | VM contexts | Medium | Memory-constrained |
+| Pool        | Speed  | Isolation      | Compatibility | Best For                |
+| ----------- | ------ | -------------- | ------------- | ----------------------- |
+| `forks`     | Slower | Full process   | Highest       | Default, native modules |
+| `threads`   | Faster | Worker threads | High          | Most projects           |
+| `vmThreads` | Medium | VM contexts    | Medium        | Memory-constrained      |
 
 **Tuning thread count:**
 
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    pool: 'threads',
-    poolOptions: {
-      threads: {
-        // Match CPU cores for compute-bound tests
-        minThreads: 1,
-        maxThreads: 4,
-      },
-    },
-  },
+	test: {
+		pool: 'threads',
+		poolOptions: {
+			threads: {
+				// Match CPU cores for compute-bound tests
+				minThreads: 1,
+				maxThreads: 4,
+			},
+		},
+	},
 })
 ```
 
@@ -70,11 +70,13 @@ vitest --pool=threads --reporter=verbose
 ```
 
 **When to use forks:**
+
 - Tests use native modules that don't work with worker threads
 - Tests have compatibility issues with threads pool
 - You need full process isolation
 
 **Benefits:**
+
 - Significant speedup for large test suites
 - Better resource utilization
 - Faster CI/CD feedback

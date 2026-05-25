@@ -14,13 +14,13 @@ Styles defined in `@layer components` do not get automatic variant support in Ta
 ```css
 /* @layer components — no variant support */
 @layer components {
-  .scrollbar-hidden {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
-  }
+	.scrollbar-hidden {
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.scrollbar-hidden::-webkit-scrollbar {
+		display: none;
+	}
 }
 ```
 
@@ -34,11 +34,11 @@ Styles defined in `@layer components` do not get automatic variant support in Ta
 ```css
 /* @utility — full variant support */
 @utility scrollbar-hidden {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
 ```
 
@@ -48,5 +48,6 @@ Styles defined in `@layer components` do not get automatic variant support in Ta
 ```
 
 **When NOT to use this pattern:**
+
 - `@apply` cannot be used inside `@utility` blocks — use raw CSS properties only
 - Multi-property component compositions (cards, buttons, etc.) are better as framework components than as `@utility` definitions

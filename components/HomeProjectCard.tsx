@@ -8,23 +8,23 @@ import { type ReactNode, useMemo } from 'react'
 // Types
 type Icons = 'home' | 'reab' | 'edu'
 type Props = {
-  title: string
-  children: ReactNode
-  href: string
-  icon: Icons
-  className?: string
+	title: string
+	children: ReactNode
+	href: string
+	icon: Icons
+	className?: string
 }
 const getIcon = (icon: Icons) => {
-  switch (icon) {
-    case 'home':
-      return Home
-    case 'reab':
-      return Users
-    case 'edu':
-      return Heart
-    default:
-      return Home
-  }
+	switch (icon) {
+		case 'home':
+			return Home
+		case 'reab':
+			return Users
+		case 'edu':
+			return Heart
+		default:
+			return Home
+	}
 }
 
 /**
@@ -39,26 +39,26 @@ const getIcon = (icon: Icons) => {
  * @returns {JSX.Element} The HeroProjectCard component
  */
 export const HomeProjectCard = ({ icon, title, children, href, className }: Props) => {
-  const Icon = useMemo(() => getIcon(icon), [icon])
+	const Icon = useMemo(() => getIcon(icon), [icon])
 
-  return (
-    <Card className={cn('flex flex-col', className)}>
-      <CardHeader>
-        <CardTitle className='flex items-center gap-2'>
-          <Icon className='size-6 text-primary' />
-          <span>{title}</span>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className='text-muted-foreground'>{children}</p>
-        <Link
-          href={href}
-          className='mt-4 inline-flex items-center font-medium text-primary hover:text-secondary/90'
-        >
-          Saiba mais
-          <ArrowRight className='ml-1 size-4' />
-        </Link>
-      </CardContent>
-    </Card>
-  )
+	return (
+		<Card className={cn('flex flex-col', className)}>
+			<CardHeader>
+				<CardTitle className='flex items-center gap-2'>
+					<Icon className='size-6 text-primary' />
+					<span>{title}</span>
+				</CardTitle>
+			</CardHeader>
+			<CardContent>
+				<p className='text-muted-foreground'>{children}</p>
+				<Link
+					href={href}
+					className='mt-4 inline-flex items-center font-medium text-primary hover:text-secondary/90'
+				>
+					Saiba mais
+					<ArrowRight className='ml-1 size-4' />
+				</Link>
+			</CardContent>
+		</Card>
+	)
 }

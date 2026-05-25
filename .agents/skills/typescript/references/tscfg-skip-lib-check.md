@@ -13,11 +13,11 @@ The `skipLibCheck` option skips type-checking of declaration files (`.d.ts`). Si
 
 ```json
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "strict": true
-  }
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"strict": true
+	}
 }
 ```
 
@@ -30,12 +30,12 @@ The `skipLibCheck` option skips type-checking of declaration files (`.d.ts`). Si
 
 ```json
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "strict": true,
-    "skipLibCheck": true
-  }
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"strict": true,
+		"skipLibCheck": true
+	}
 }
 ```
 
@@ -48,15 +48,16 @@ The `skipLibCheck` option skips type-checking of declaration files (`.d.ts`). Si
 
 ```json
 {
-  "compilerOptions": {
-    "skipDefaultLibCheck": true
-  }
+	"compilerOptions": {
+		"skipDefaultLibCheck": true
+	}
 }
 ```
 
 This only skips checking the default library files (lib.d.ts), not third-party declarations.
 
 **When to disable skipLibCheck:**
+
 - Debugging type conflicts between declaration files
 - Publishing a library where you want to verify `.d.ts` output
 - Encountering mysterious type errors that might originate in declarations

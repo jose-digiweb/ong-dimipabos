@@ -12,15 +12,11 @@ In Tailwind CSS v4, `outline-none` now sets `outline-style: none`, which complet
 **Incorrect (what's wrong):**
 
 ```html
-<button class="focus:outline-none focus:ring-2 focus:ring-blue-500">
-  Click me
-</button>
+<button class="focus:outline-none focus:ring-2 focus:ring-blue-500">Click me</button>
 ```
 
 **Correct (what's right):**
 
 ```html
-<button class="focus:outline-hidden focus:ring-2 focus:ring-blue-500">
-  Click me
-</button>
+<button class="focus:outline-hidden focus:ring-2 focus:ring-blue-500">Click me</button>
 ```

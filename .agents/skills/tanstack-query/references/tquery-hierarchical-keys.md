@@ -14,13 +14,13 @@ Flat query keys prevent granular invalidation. Hierarchical keys from generic to
 ```typescript
 // Flat keys - can only invalidate exact matches
 const { data: todos } = useQuery({
-  queryKey: ['todos-list-active'],
-  queryFn: fetchActiveTodos,
+	queryKey: ['todos-list-active'],
+	queryFn: fetchActiveTodos,
 })
 
 const { data: todo } = useQuery({
-  queryKey: ['todo-detail-123'],
-  queryFn: () => fetchTodo('123'),
+	queryKey: ['todo-detail-123'],
+	queryFn: () => fetchTodo('123'),
 })
 
 // Cannot invalidate all todo queries at once
@@ -32,13 +32,13 @@ queryClient.invalidateQueries({ queryKey: ['todo'] }) // Matches nothing!
 ```typescript
 // Hierarchical: ['todos'] → ['todos', 'list'] → ['todos', 'list', { status }]
 const { data: todos } = useQuery({
-  queryKey: ['todos', 'list', { status: 'active' }],
-  queryFn: fetchActiveTodos,
+	queryKey: ['todos', 'list', { status: 'active' }],
+	queryFn: fetchActiveTodos,
 })
 
 const { data: todo } = useQuery({
-  queryKey: ['todos', 'detail', '123'],
-  queryFn: () => fetchTodo('123'),
+	queryKey: ['todos', 'detail', '123'],
+	queryFn: () => fetchTodo('123'),
 })
 
 // Invalidate ALL todo queries (lists + details)
@@ -52,6 +52,7 @@ queryClient.invalidateQueries({ queryKey: ['todos', 'list', { status: 'active' }
 ```
 
 **Common hierarchy patterns:**
+
 - `['entity']` - all queries for entity
 - `['entity', 'list']` - all list queries
 - `['entity', 'list', filters]` - specific filtered list

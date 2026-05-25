@@ -13,9 +13,7 @@ Tailwind v4 wraps the `hover:` variant inside `@media (hover: hover)`, which mea
 
 ```html
 <!-- hover: now only applies on devices with hover support (correct for most cases) -->
-<button class="hover:bg-blue-600">
-  Will not show hover feedback on touch-only devices in v4
-</button>
+<button class="hover:bg-blue-600">Will not show hover feedback on touch-only devices in v4</button>
 ```
 
 **Correct (hover + touch feedback):**
@@ -23,7 +21,7 @@ Tailwind v4 wraps the `hover:` variant inside `@media (hover: hover)`, which mea
 ```html
 <!-- Use active: for touch feedback alongside hover: for pointer devices -->
 <button class="hover:bg-blue-600 active:bg-blue-700">
-  Hover feedback on desktop, press feedback on touch
+	Hover feedback on desktop, press feedback on touch
 </button>
 ```
 
@@ -34,6 +32,7 @@ If you genuinely need hover behavior on all devices (rare), restore v3 behavior 
 ```
 
 **When NOT to apply this rule:**
+
 - Standard `hover:` usage is NOT incorrect in v4 — the default behavior is correct for most cases
 - Only add `active:` variants when touch feedback is important for the interaction (buttons, links, interactive cards)
 - Do not blanket-add `active:` to every `hover:` class in a codebase

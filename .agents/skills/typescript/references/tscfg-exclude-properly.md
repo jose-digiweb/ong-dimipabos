@@ -13,10 +13,10 @@ TypeScript walks through all included directories to discover files. Overly broa
 
 ```json
 {
-  "compilerOptions": {
-    "outDir": "dist"
-  },
-  "include": ["**/*"]
+	"compilerOptions": {
+		"outDir": "dist"
+	},
+	"include": ["**/*"]
 }
 ```
 
@@ -29,19 +29,12 @@ TypeScript walks through all included directories to discover files. Overly broa
 
 ```json
 {
-  "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src"
-  },
-  "include": ["src/**/*"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "coverage",
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    "**/__tests__/**"
-  ]
+	"compilerOptions": {
+		"outDir": "dist",
+		"rootDir": "src"
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist", "coverage", "**/*.test.ts", "**/*.spec.ts", "**/__tests__/**"]
 }
 ```
 
@@ -77,6 +70,7 @@ tsc --explainFiles
 ```
 
 **Common files to exclude:**
+
 - `node_modules` (always)
 - Build output directories (`dist`, `build`, `out`)
 - Test files for production builds

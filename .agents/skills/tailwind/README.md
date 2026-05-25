@@ -5,6 +5,7 @@ A comprehensive performance optimization and best practices guide for Tailwind C
 ## Overview
 
 This skill contains 42 rules across 8 categories, covering:
+
 - Build configuration and tooling optimization
 - CSS generation and @theme directive usage
 - Bundle size optimization
@@ -71,16 +72,16 @@ Reference this skill when working with Tailwind CSS v4 projects. The rules are o
 
 ### Prefix Reference
 
-| Category | Prefix | Impact |
-|----------|--------|--------|
-| Build Configuration | `build-` | CRITICAL |
-| CSS Generation | `gen-` | CRITICAL |
-| Bundle Optimization | `bundle-` | HIGH |
-| Utility Patterns | `util-` | HIGH |
-| Component Architecture | `comp-` | MEDIUM-HIGH |
-| Theming & Design Tokens | `theme-` | MEDIUM |
-| Responsive & Adaptive | `resp-` | MEDIUM |
-| Animation & Transitions | `anim-` | LOW-MEDIUM |
+| Category                | Prefix    | Impact      |
+| ----------------------- | --------- | ----------- |
+| Build Configuration     | `build-`  | CRITICAL    |
+| CSS Generation          | `gen-`    | CRITICAL    |
+| Bundle Optimization     | `bundle-` | HIGH        |
+| Utility Patterns        | `util-`   | HIGH        |
+| Component Architecture  | `comp-`   | MEDIUM-HIGH |
+| Theming & Design Tokens | `theme-`  | MEDIUM      |
+| Responsive & Adaptive   | `resp-`   | MEDIUM      |
+| Animation & Transitions | `anim-`   | LOW-MEDIUM  |
 
 ## Rule File Structure
 
@@ -116,20 +117,21 @@ Reference: [Title](URL)
 Rule files follow the pattern: `{prefix}-{descriptive-slug}.md`
 
 Examples:
+
 - `build-vite-plugin.md`
 - `gen-css-first-config.md`
 - `util-renamed-utilities.md`
 
 ## Impact Levels
 
-| Level | Description |
-|-------|-------------|
-| CRITICAL | Must fix immediately; 5-100× performance impact |
-| HIGH | Address in current sprint; 2-10× impact |
-| MEDIUM-HIGH | Address soon; measurable improvement |
-| MEDIUM | Address when convenient; noticeable improvement |
-| LOW-MEDIUM | Address if time permits; minor optimization |
-| LOW | Nice to have; minimal impact |
+| Level       | Description                                     |
+| ----------- | ----------------------------------------------- |
+| CRITICAL    | Must fix immediately; 5-100× performance impact |
+| HIGH        | Address in current sprint; 2-10× impact         |
+| MEDIUM-HIGH | Address soon; measurable improvement            |
+| MEDIUM      | Address when convenient; noticeable improvement |
+| LOW-MEDIUM  | Address if time permits; minor optimization     |
+| LOW         | Nice to have; minimal impact                    |
 
 ## Scripts
 
@@ -155,6 +157,7 @@ pnpm validate --strict
 ## Acknowledgments
 
 Based on official Tailwind CSS v4 documentation and best practices from:
+
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 - [Tailwind CSS v4.0 Release Blog](https://tailwindcss.com/blog/tailwindcss-v4)
 - [Tailwind CSS Upgrade Guide](https://tailwindcss.com/docs/upgrade-guide)

@@ -14,13 +14,13 @@ When your state shape changes, users with old persisted data will have issues. U
 ```typescript
 // Version 1: Original schema
 const useUserStore = create<UserState>()(
-  persist(
-    (set) => ({
-      username: '',           // Renamed to 'name' in v2
-      email: '',
-    }),
-    { name: 'user-storage' }
-  )
+	persist(
+		(set) => ({
+			username: '', // Renamed to 'name' in v2
+			email: '',
+		}),
+		{ name: 'user-storage' },
+	),
 )
 
 // Later, you rename username to name:
@@ -35,39 +35,40 @@ const useUserStore = create<UserState>()(
 import { persist } from 'zustand/middleware'
 
 interface UserStateV2 {
-  name: string        // Renamed from username
-  email: string
-  preferences: {      // New in v2
-    theme: string
-  }
+	name: string // Renamed from username
+	email: string
+	preferences: {
+		// New in v2
+		theme: string
+	}
 }
 
 const useUserStore = create<UserStateV2>()(
-  persist(
-    (set) => ({
-      name: '',
-      email: '',
-      preferences: { theme: 'light' },
-    }),
-    {
-      name: 'user-storage',
-      version: 2,
-      migrate: (persisted: unknown, version: number) => {
-        const state = persisted as Record<string, unknown>
+	persist(
+		(set) => ({
+			name: '',
+			email: '',
+			preferences: { theme: 'light' },
+		}),
+		{
+			name: 'user-storage',
+			version: 2,
+			migrate: (persisted: unknown, version: number) => {
+				const state = persisted as Record<string, unknown>
 
-        if (version === 0 || version === 1) {
-          // Migrate from v1 to v2
-          return {
-            name: state.username || state.name || '',
-            email: state.email || '',
-            preferences: state.preferences || { theme: 'light' },
-          }
-        }
+				if (version === 0 || version === 1) {
+					// Migrate from v1 to v2
+					return {
+						name: state.username || state.name || '',
+						email: state.email || '',
+						preferences: state.preferences || { theme: 'light' },
+					}
+				}
 
-        return state as UserStateV2
-      },
-    }
-  )
+				return state as UserStateV2
+			},
+		},
+	),
 )
 ```
 
@@ -75,32 +76,34 @@ const useUserStore = create<UserStateV2>()(
 
 ```typescript
 const migrations: Record<number, (state: unknown) => unknown> = {
-  1: (state: any) => ({
-    ...state,
-    name: state.username,
-    username: undefined,
-  }),
-  2: (state: any) => ({
-    ...state,
-    preferences: state.preferences || { theme: 'light' },
-  }),
+	1: (state: any) => ({
+		...state,
+		name: state.username,
+		username: undefined,
+	}),
+	2: (state: any) => ({
+		...state,
+		preferences: state.preferences || { theme: 'light' },
+	}),
 }
 
 const useUserStore = create<UserState>()(
-  persist(
-    (set) => ({ /* ... */ }),
-    {
-      name: 'user-storage',
-      version: 2,
-      migrate: (persisted, version) => {
-        let state = persisted
-        for (let v = version; v < 2; v++) {
-          state = migrations[v + 1]?.(state) || state
-        }
-        return state as UserState
-      },
-    }
-  )
+	persist(
+		(set) => ({
+			/* ... */
+		}),
+		{
+			name: 'user-storage',
+			version: 2,
+			migrate: (persisted, version) => {
+				let state = persisted
+				for (let v = version; v < 2; v++) {
+					state = migrations[v + 1]?.(state) || state
+				}
+				return state as UserState
+			},
+		},
+	),
 )
 ```
 

@@ -3,8 +3,8 @@ name: tanstack-query
 description: TanStack Query v5 performance optimization for data fetching, caching, mutations, and query patterns. This skill should be used when using useQuery, useMutation, queryClient, prefetch patterns, or TanStack Query caching. This skill does NOT cover generating query hooks from OpenAPI (use orval skill) or mocking API responses in tests (use test-msw skill).
 license: MIT
 metadata:
-  author: community
-  version: "1.0.0"
+ author: community
+ version: '1.0.0'
 ---
 
 # TanStack Query Best Practices
@@ -14,6 +14,7 @@ Comprehensive performance optimization guide for TanStack Query v5 applications.
 ## When to Apply
 
 Reference these guidelines when:
+
 - Writing new queries, mutations, or data fetching logic
 - Implementing caching strategies (staleTime, gcTime)
 - Reviewing code for performance issues or request waterfalls
@@ -22,16 +23,16 @@ Reference these guidelines when:
 
 ## Rule Categories by Priority
 
-| Priority | Category | Impact | Prefix |
-|----------|----------|--------|--------|
-| 1 | Query Key Structure | CRITICAL | `tquery-` |
-| 2 | Caching Configuration | CRITICAL | `cache-` |
-| 3 | Mutation Patterns | HIGH | `mutation-` |
-| 4 | Prefetching & Waterfalls | HIGH | `prefetch-` |
-| 5 | Infinite Queries | MEDIUM | `infinite-` |
-| 6 | Suspense Integration | MEDIUM | `suspense-` |
-| 7 | Error & Retry Handling | MEDIUM | `error-` |
-| 8 | Render Optimization | LOW-MEDIUM | `render-` |
+| Priority | Category                 | Impact     | Prefix      |
+| -------- | ------------------------ | ---------- | ----------- |
+| 1        | Query Key Structure      | CRITICAL   | `tquery-`   |
+| 2        | Caching Configuration    | CRITICAL   | `cache-`    |
+| 3        | Mutation Patterns        | HIGH       | `mutation-` |
+| 4        | Prefetching & Waterfalls | HIGH       | `prefetch-` |
+| 5        | Infinite Queries         | MEDIUM     | `infinite-` |
+| 6        | Suspense Integration     | MEDIUM     | `suspense-` |
+| 7        | Error & Retry Handling   | MEDIUM     | `error-`    |
+| 8        | Render Optimization      | LOW-MEDIUM | `render-`   |
 
 ## Quick Reference
 
@@ -107,6 +108,7 @@ Read individual reference files for detailed explanations and code examples:
 - Reference files: `references/{prefix}-{slug}.md`
 
 Each reference file contains:
+
 - Brief explanation of why it matters
 - Incorrect code example with explanation
 - Correct code example with explanation

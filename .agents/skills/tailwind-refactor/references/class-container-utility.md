@@ -14,20 +14,20 @@ Tailwind CSS v4 removed JavaScript-based container configuration from `tailwind.
 ```js
 // tailwind.config.js
 module.exports = {
-  theme: {
-    container: {
-      center: true,
-      padding: '2rem',
-    },
-  },
-};
+	theme: {
+		container: {
+			center: true,
+			padding: '2rem',
+		},
+	},
+}
 ```
 
 **Correct (what's right):**
 
 ```css
 @utility container {
-  margin-inline: auto;
-  padding-inline: 2rem;
+	margin-inline: auto;
+	padding-inline: 2rem;
 }
 ```

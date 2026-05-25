@@ -13,7 +13,7 @@ Nothing in the real world moves with perfect easing curves. Spring animations cr
 
 ```tsx
 function Counter({ value }) {
-  return <span>{value}</span>
+	return <span>{value}</span>
 }
 // Value jumps instantly, feels artificial
 ```
@@ -24,13 +24,14 @@ function Counter({ value }) {
 import { useSpring, motion } from 'framer-motion'
 
 function Counter({ value }) {
-  const spring = useSpring(value, { stiffness: 100, damping: 30 })
-  return <motion.span>{spring}</motion.span>
+	const spring = useSpring(value, { stiffness: 100, damping: 30 })
+	return <motion.span>{spring}</motion.span>
 }
 // Value animates with spring physics, feels natural
 ```
 
 **When NOT to use springs:**
+
 - Functional interfaces where speed matters (banking apps, data entry)
 - High-frequency interactions the user performs hundreds of times daily
 

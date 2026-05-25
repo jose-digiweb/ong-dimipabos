@@ -16,7 +16,7 @@ Barrel files (index.ts re-exports) defeat tree-shaking and force bundlers to loa
 export * from './string'
 export * from './date'
 export * from './validation'
-export * from './crypto'  // Heavy, rarely used
+export * from './crypto' // Heavy, rarely used
 
 // consumer.ts
 import { formatDate } from '@/utils'
@@ -49,20 +49,21 @@ import X from 'lucide-react/dist/esm/icons/x'
 ```javascript
 // next.config.js
 module.exports = {
-  experimental: {
-    optimizePackageImports: ['lucide-react', '@mui/material', 'lodash']
-  }
+	experimental: {
+		optimizePackageImports: ['lucide-react', '@mui/material', 'lodash'],
+	},
 }
 
 // vite.config.ts
 export default {
-  optimizeDeps: {
-    include: ['lucide-react']
-  }
+	optimizeDeps: {
+		include: ['lucide-react'],
+	},
 }
 ```
 
 **When barrels are acceptable:**
+
 - Internal modules with few exports (< 10)
 - Package entry points for library consumers
 - When bundler is configured to optimize them

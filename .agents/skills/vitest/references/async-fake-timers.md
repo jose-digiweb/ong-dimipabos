@@ -15,16 +15,16 @@ Real timers (setTimeout, setInterval) introduce non-determinism and slow tests. 
 import { describe, it, expect } from 'vitest'
 
 describe('Debounce', () => {
-  it('should call function after delay', async () => {
-    const callback = vi.fn()
-    const debounced = debounce(callback, 1000)
+	it('should call function after delay', async () => {
+		const callback = vi.fn()
+		const debounced = debounce(callback, 1000)
 
-    debounced()
-    // Actually waits 1 second - slow and can be flaky
-    await new Promise(r => setTimeout(r, 1100))
+		debounced()
+		// Actually waits 1 second - slow and can be flaky
+		await new Promise((r) => setTimeout(r, 1100))
 
-    expect(callback).toHaveBeenCalledOnce()
-  })
+		expect(callback).toHaveBeenCalledOnce()
+	})
 })
 ```
 
@@ -34,24 +34,24 @@ describe('Debounce', () => {
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 describe('Debounce', () => {
-  beforeEach(() => {
-    vi.useFakeTimers()
-  })
+	beforeEach(() => {
+		vi.useFakeTimers()
+	})
 
-  afterEach(() => {
-    vi.useRealTimers()
-  })
+	afterEach(() => {
+		vi.useRealTimers()
+	})
 
-  it('should call function after delay', () => {
-    const callback = vi.fn()
-    const debounced = debounce(callback, 1000)
+	it('should call function after delay', () => {
+		const callback = vi.fn()
+		const debounced = debounce(callback, 1000)
 
-    debounced()
-    expect(callback).not.toHaveBeenCalled()
+		debounced()
+		expect(callback).not.toHaveBeenCalled()
 
-    vi.advanceTimersByTime(1000)
-    expect(callback).toHaveBeenCalledOnce()
-  })
+		vi.advanceTimersByTime(1000)
+		expect(callback).toHaveBeenCalledOnce()
+	})
 })
 ```
 
@@ -75,6 +75,7 @@ vi.setSystemTime(new Date('2024-01-01'))
 ```
 
 **Benefits:**
+
 - Tests run instantly regardless of timer duration
 - Deterministic behavior - no flaky failures
 - Full control over time progression

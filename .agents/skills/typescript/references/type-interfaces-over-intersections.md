@@ -16,7 +16,7 @@ type UserWithPermissions = User & Permissions & AuditInfo
 // Compiler merges all properties on every reference
 
 type ExtendedOrder = Order & {
-  metadata: OrderMetadata
+	metadata: OrderMetadata
 } & Timestamps
 // Each intersection adds another layer of computation
 ```
@@ -28,12 +28,13 @@ interface UserWithPermissions extends User, Permissions, AuditInfo {}
 // Single flat type, computed once
 
 interface ExtendedOrder extends Order, Timestamps {
-  metadata: OrderMetadata
+	metadata: OrderMetadata
 }
 // Extends create efficient inheritance chain
 ```
 
 **When to use intersections:**
+
 - Combining function types or primitives (interfaces cannot extend these)
 - Creating mapped or conditional types
 - One-off type combinations not reused elsewhere

@@ -13,7 +13,7 @@ React dispatches its own `SyntheticEvent`, not the DOM `Event`. Typing a handler
 
 ```tsx
 function handleChange(event: any) {
-  setQuery(event.target.value) // value is any; typos go uncaught
+	setQuery(event.target.value) // value is any; typos go uncaught
 }
 
 return <input onChange={handleChange} />
@@ -23,18 +23,18 @@ return <input onChange={handleChange} />
 
 ```tsx
 function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-  setQuery(event.target.value) // value: string
+	setQuery(event.target.value) // value: string
 }
 
 function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  event.preventDefault()
+	event.preventDefault()
 }
 
 return (
-  <form onSubmit={handleSubmit}>
-    <input onChange={handleChange} />
-    <button onClick={(event) => console.log(event.currentTarget.name)}>Go</button>
-  </form>
+	<form onSubmit={handleSubmit}>
+		<input onChange={handleChange} />
+		<button onClick={(event) => console.log(event.currentTarget.name)}>Go</button>
+	</form>
 )
 ```
 

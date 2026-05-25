@@ -52,10 +52,10 @@ function UserPage() {
 
 ```typescript
 useQuery({
-  queryKey: ['user'],
-  queryFn: fetchUser,
-  // Only throw for server errors, handle 4xx locally
-  throwOnError: (error) => error instanceof ApiError && error.status >= 500,
+	queryKey: ['user'],
+	queryFn: fetchUser,
+	// Only throw for server errors, handle 4xx locally
+	throwOnError: (error) => error instanceof ApiError && error.status >= 500,
 })
 ```
 
@@ -87,10 +87,10 @@ function UserPage() {
 
 ```typescript
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      throwOnError: (error) => error instanceof ApiError && error.status >= 500,
-    },
-  },
+	defaultOptions: {
+		queries: {
+			throwOnError: (error) => error instanceof ApiError && error.status >= 500,
+		},
+	},
 })
 ```

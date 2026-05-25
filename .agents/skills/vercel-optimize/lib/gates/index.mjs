@@ -18,22 +18,22 @@ import * as usageSpikeTriage from './usage-spike-triage.mjs'
 //   - `oversized_memory`: Fluid Compute floor is 2GB; per-route memory right-sizing isn't a customer lever.
 //   - `deploy_regression`: overlaps Vercel Agent Investigations; `vercel inspect` 404s across teams. slow_route deep-dive already carries per-deployment p95 trend.
 export const gates = [
-  uncachedRoute,
-  slowRoute,
-  routeErrors,
-  coldStart,
-  isrOverrevalidation,
-  cwvPoor,
-  externalApiSlow,
-  scannerDriven,
-  // Account-scoped last so platform-scoped sort doesn't dilute code-scoped priority ordering during budget application.
-  platformFluidCompute,
-  platformBotProtection,
-  middlewareHeavy,
-  observabilityEventsAttribution,
-  usageSpikeTriage,
-  buildMinutesFanout,
-  regionMisconfig,
+	uncachedRoute,
+	slowRoute,
+	routeErrors,
+	coldStart,
+	isrOverrevalidation,
+	cwvPoor,
+	externalApiSlow,
+	scannerDriven,
+	// Account-scoped last so platform-scoped sort doesn't dilute code-scoped priority ordering during budget application.
+	platformFluidCompute,
+	platformBotProtection,
+	middlewareHeavy,
+	observabilityEventsAttribution,
+	usageSpikeTriage,
+	buildMinutesFanout,
+	regionMisconfig,
 ]
 
 // Overridable via `--max-candidates N` or `VERCEL_OPTIMIZE_MAX_CANDIDATES` (accepts `all`).

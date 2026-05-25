@@ -15,11 +15,11 @@ File-based snapshots require jumping between test files and `.snap` files. For s
 import { describe, it, expect } from 'vitest'
 
 describe('UserSerializer', () => {
-  it('should serialize user', () => {
-    const user = { id: 1, name: 'Alice', role: 'admin' }
-    // Have to open __snapshots__/user.test.ts.snap to see expected value
-    expect(serialize(user)).toMatchSnapshot()
-  })
+	it('should serialize user', () => {
+		const user = { id: 1, name: 'Alice', role: 'admin' }
+		// Have to open __snapshots__/user.test.ts.snap to see expected value
+		expect(serialize(user)).toMatchSnapshot()
+	})
 })
 ```
 
@@ -29,27 +29,29 @@ describe('UserSerializer', () => {
 import { describe, it, expect } from 'vitest'
 
 describe('UserSerializer', () => {
-  it('should serialize user', () => {
-    const user = { id: 1, name: 'Alice', role: 'admin' }
-    // Expected value visible directly in test
-    expect(serialize(user)).toMatchInlineSnapshot(`
+	it('should serialize user', () => {
+		const user = { id: 1, name: 'Alice', role: 'admin' }
+		// Expected value visible directly in test
+		expect(serialize(user)).toMatchInlineSnapshot(`
       {
         "id": 1,
         "name": "Alice",
         "role": "admin"
       }
     `)
-  })
+	})
 })
 ```
 
 **When to use file snapshots:**
+
 - Large objects (>15 lines)
 - Binary data or complex structures
 - HTML/JSX components with many elements
 - Generated code or documentation
 
 **When to use inline snapshots:**
+
 - Small objects and primitives
 - Error messages
 - Simple serialized data
@@ -66,6 +68,7 @@ vitest -u
 ```
 
 **Benefits:**
+
 - Test is self-documenting
 - Changes visible in code review diffs
 - No context switching to .snap files

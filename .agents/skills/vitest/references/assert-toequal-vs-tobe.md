@@ -15,20 +15,20 @@ tags: assert, toBe, toEqual, reference-equality, value-equality
 import { describe, it, expect } from 'vitest'
 
 describe('Equality', () => {
-  it('should compare objects', () => {
-    const a = { name: 'Alice' }
-    const b = { name: 'Alice' }
+	it('should compare objects', () => {
+		const a = { name: 'Alice' }
+		const b = { name: 'Alice' }
 
-    // FAILS - different object references
-    expect(a).toBe(b)
-  })
+		// FAILS - different object references
+		expect(a).toBe(b)
+	})
 
-  it('should compare arrays', () => {
-    const arr = [1, 2, 3]
+	it('should compare arrays', () => {
+		const arr = [1, 2, 3]
 
-    // FAILS - different array references
-    expect(arr).toBe([1, 2, 3])
-  })
+		// FAILS - different array references
+		expect(arr).toBe([1, 2, 3])
+	})
 })
 ```
 
@@ -38,40 +38,40 @@ describe('Equality', () => {
 import { describe, it, expect } from 'vitest'
 
 describe('Equality', () => {
-  it('should compare object values', () => {
-    const a = { name: 'Alice' }
-    const b = { name: 'Alice' }
+	it('should compare object values', () => {
+		const a = { name: 'Alice' }
+		const b = { name: 'Alice' }
 
-    // PASSES - same values
-    expect(a).toEqual(b)
-  })
+		// PASSES - same values
+		expect(a).toEqual(b)
+	})
 
-  it('should compare array values', () => {
-    const arr = [1, 2, 3]
+	it('should compare array values', () => {
+		const arr = [1, 2, 3]
 
-    // PASSES - same values
-    expect(arr).toEqual([1, 2, 3])
-  })
+		// PASSES - same values
+		expect(arr).toEqual([1, 2, 3])
+	})
 
-  it('should verify same reference', () => {
-    const obj = { name: 'Alice' }
-    const ref = obj
+	it('should verify same reference', () => {
+		const obj = { name: 'Alice' }
+		const ref = obj
 
-    // PASSES - same reference
-    expect(ref).toBe(obj)
-  })
+		// PASSES - same reference
+		expect(ref).toBe(obj)
+	})
 })
 ```
 
 **Matcher selection guide:**
 
-| Scenario | Use |
-|----------|-----|
-| Primitives (string, number, boolean) | `toBe` |
-| Same object reference | `toBe` |
-| Object/array value comparison | `toEqual` |
-| Object with subset of properties | `toMatchObject` |
-| Strict equality with undefined | `toStrictEqual` |
+| Scenario                             | Use             |
+| ------------------------------------ | --------------- |
+| Primitives (string, number, boolean) | `toBe`          |
+| Same object reference                | `toBe`          |
+| Object/array value comparison        | `toEqual`       |
+| Object with subset of properties     | `toMatchObject` |
+| Strict equality with undefined       | `toStrictEqual` |
 
 **toStrictEqual vs toEqual:**
 
@@ -84,6 +84,7 @@ expect({ a: 1 }).toStrictEqual({ a: 1, b: undefined }) // FAILS
 ```
 
 **Benefits:**
+
 - Correct comparison semantics
 - Clear test intentions
 - No mysterious failures

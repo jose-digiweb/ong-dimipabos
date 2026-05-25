@@ -30,9 +30,9 @@ npx vitest run --bail=1
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    bail: process.env.CI ? 1 : 0, // 0 means no bail
-  },
+	test: {
+		bail: process.env.CI ? 1 : 0, // 0 means no bail
+	},
 })
 ```
 
@@ -41,10 +41,10 @@ export default defineConfig({
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // Stop after 3 failures - catches multiple issues
-    bail: 3,
-  },
+	test: {
+		// Stop after 3 failures - catches multiple issues
+		bail: 3,
+	},
 })
 ```
 
@@ -53,13 +53,14 @@ export default defineConfig({
 ```yaml
 # .github/workflows/test.yml
 jobs:
-  test:
-    steps:
-      - run: npx vitest run --bail=1
-      # If tests fail, subsequent steps are skipped
+ test:
+  steps:
+   - run: npx vitest run --bail=1
+   # If tests fail, subsequent steps are skipped
 ```
 
 **When NOT to use bail:**
+
 - Running full test suite for comprehensive failure report
 - Debugging multiple related failures
 - Generating complete coverage reports
@@ -69,14 +70,15 @@ jobs:
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    bail: 1,
-    retry: 2, // Retry flaky tests before bailing
-  },
+	test: {
+		bail: 1,
+		retry: 2, // Retry flaky tests before bailing
+	},
 })
 ```
 
 **Benefits:**
+
 - Faster CI feedback
 - Reduced CI costs (fewer compute minutes)
 - Developers see failures immediately

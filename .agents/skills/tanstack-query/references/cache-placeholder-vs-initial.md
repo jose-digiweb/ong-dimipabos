@@ -17,10 +17,10 @@ tags: cache, placeholderData, initialData, loading, ux
 ```typescript
 // Using initialData for a preview - BAD!
 const { data } = useQuery({
-  queryKey: ['user', userId],
-  queryFn: fetchUser,
-  initialData: { name: 'Loading...', id: userId }, // Fake data in cache!
-  staleTime: 5 * 60 * 1000,
+	queryKey: ['user', userId],
+	queryFn: fetchUser,
+	initialData: { name: 'Loading...', id: userId }, // Fake data in cache!
+	staleTime: 5 * 60 * 1000,
 })
 // Problem: "Loading..." is now cached for 5 minutes!
 // If user navigates away and back, they see "Loading..." as real data
@@ -50,20 +50,21 @@ return (
 ```typescript
 // Cache-to-cache: use detail from list
 const { data: user } = useQuery({
-  queryKey: ['user', userId],
-  queryFn: () => fetchUser(userId),
-  initialData: () => {
-    // Get from cached list if available
-    const users = queryClient.getQueryData<User[]>(['users'])
-    return users?.find(u => u.id === userId)
-  },
-  initialDataUpdatedAt: () => {
-    // Use list's updatedAt for staleTime calculation
-    return queryClient.getQueryState(['users'])?.dataUpdatedAt
-  },
+	queryKey: ['user', userId],
+	queryFn: () => fetchUser(userId),
+	initialData: () => {
+		// Get from cached list if available
+		const users = queryClient.getQueryData<User[]>(['users'])
+		return users?.find((u) => u.id === userId)
+	},
+	initialDataUpdatedAt: () => {
+		// Use list's updatedAt for staleTime calculation
+		return queryClient.getQueryState(['users'])?.dataUpdatedAt
+	},
 })
 ```
 
 **Summary:**
+
 - `placeholderData`: Temporary UI, not cached, for skeletons/previews
 - `initialData`: Real data, cached, for cache-to-cache or server-provided data

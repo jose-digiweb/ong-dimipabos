@@ -14,23 +14,24 @@ The first-party Vite plugin provides tighter integration and better performance 
 ```typescript
 // postcss.config.js — works, but misses Vite-specific optimizations
 export default {
-  plugins: ["@tailwindcss/postcss"],
-};
+	plugins: ['@tailwindcss/postcss'],
+}
 ```
 
 **Correct (dedicated Vite plugin):**
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from "vite";
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [tailwindcss()],
-});
+	plugins: [tailwindcss()],
+})
 ```
 
 **When NOT to use this pattern:**
+
 - Projects not using Vite as their build tool
 - Projects using webpack, Parcel, or other bundlers (use `@tailwindcss/postcss` instead)
 

@@ -13,17 +13,19 @@ TypeScript only checks for extra properties when assigning object literals direc
 
 ```typescript
 interface CreateUserInput {
-  name: string
-  email: string
+	name: string
+	email: string
 }
 
 const input = {
-  name: "Alice",
-  email: "alice@example.com",
-  role: "admin", // Extra property — no error through intermediate variable
+	name: 'Alice',
+	email: 'alice@example.com',
+	role: 'admin', // Extra property — no error through intermediate variable
 }
 
-function createUser(input: CreateUserInput) { /* ... */ }
+function createUser(input: CreateUserInput) {
+	/* ... */
+}
 createUser(input) // Compiles — "role" silently ignored
 ```
 
@@ -31,16 +33,18 @@ createUser(input) // Compiles — "role" silently ignored
 
 ```typescript
 interface CreateUserInput {
-  name: string
-  email: string
+	name: string
+	email: string
 }
 
-function createUser(input: CreateUserInput) { /* ... */ }
+function createUser(input: CreateUserInput) {
+	/* ... */
+}
 
 createUser({
-  name: "Alice",
-  email: "alice@example.com",
-  role: "admin", // Compile error: 'role' does not exist in type 'CreateUserInput'
+	name: 'Alice',
+	email: 'alice@example.com',
+	role: 'admin', // Compile error: 'role' does not exist in type 'CreateUserInput'
 })
 ```
 
@@ -48,9 +52,9 @@ createUser({
 
 ```typescript
 const input = {
-  name: "Alice",
-  email: "alice@example.com",
-  role: "admin", // Error with satisfies
+	name: 'Alice',
+	email: 'alice@example.com',
+	role: 'admin', // Error with satisfies
 } satisfies CreateUserInput
 ```
 

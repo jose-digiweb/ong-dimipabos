@@ -13,26 +13,26 @@ Hand-listing `className`, `onClick`, `disabled`, `aria-*`, etc. on a wrapper com
 
 ```tsx
 interface ButtonProps {
-  onClick: () => void
-  className?: string
-  disabled?: boolean
-  // no type, name, form, aria-* … consumers cannot forward them
+	onClick: () => void
+	className?: string
+	disabled?: boolean
+	// no type, name, form, aria-* … consumers cannot forward them
 }
 
 function Button({ onClick, className, disabled }: ButtonProps) {
-  return <button onClick={onClick} className={className} disabled={disabled} />
+	return <button onClick={onClick} className={className} disabled={disabled} />
 }
 ```
 
 **Correct (inherit all native props, add your own):**
 
 ```tsx
-interface ButtonProps extends React.ComponentPropsWithRef<"button"> {
-  variant: "primary" | "secondary"
+interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
+	variant: 'primary' | 'secondary'
 }
 
 function Button({ variant, className, ...rest }: ButtonProps) {
-  return <button className={`btn-${variant} ${className ?? ""}`} {...rest} />
+	return <button className={`btn-${variant} ${className ?? ''}`} {...rest} />
 }
 ```
 

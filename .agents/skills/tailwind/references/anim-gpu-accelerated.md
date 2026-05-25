@@ -13,11 +13,11 @@ Animate `transform` and `opacity` properties instead of layout-triggering proper
 
 ```html
 <div class="transition-all duration-300 w-20 hover:w-40">
-  <!-- Animating width triggers layout on every frame -->
+	<!-- Animating width triggers layout on every frame -->
 </div>
 
 <div class="absolute top-0 hover:top-10 transition-all">
-  <!-- Animating top triggers layout recalculation -->
+	<!-- Animating top triggers layout recalculation -->
 </div>
 ```
 
@@ -25,20 +25,22 @@ Animate `transform` and `opacity` properties instead of layout-triggering proper
 
 ```html
 <div class="transition-transform duration-300 scale-100 hover:scale-x-150">
-  <!-- Transform is GPU-accelerated, no layout triggers -->
+	<!-- Transform is GPU-accelerated, no layout triggers -->
 </div>
 
 <div class="absolute transition-transform hover:translate-y-10">
-  <!-- Translate is GPU-accelerated -->
+	<!-- Translate is GPU-accelerated -->
 </div>
 ```
 
 **GPU-accelerated properties:**
+
 - `transform` (translate, rotate, scale, skew)
 - `opacity`
 - `filter` (blur, brightness, etc.)
 
 **Layout-triggering properties (avoid animating):**
+
 - `width`, `height`
 - `top`, `right`, `bottom`, `left`
 - `margin`, `padding`

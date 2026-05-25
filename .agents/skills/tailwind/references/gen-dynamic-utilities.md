@@ -13,11 +13,11 @@ Tailwind CSS v4 supports dynamic values for many utilities without arbitrary val
 
 ```html
 <div class="grid grid-cols-[repeat(15,minmax(0,1fr))]">
-  <!-- Verbose arbitrary value syntax for non-standard column count -->
+	<!-- Verbose arbitrary value syntax for non-standard column count -->
 </div>
 
 <div class="mt-[68px] w-[340px]">
-  <!-- Arbitrary pixel values -->
+	<!-- Arbitrary pixel values -->
 </div>
 ```
 
@@ -25,11 +25,11 @@ Tailwind CSS v4 supports dynamic values for many utilities without arbitrary val
 
 ```html
 <div class="grid grid-cols-15">
-  <!-- Any column count works natively -->
+	<!-- Any column count works natively -->
 </div>
 
 <div class="mt-17 w-85">
-  <!-- Calculated from spacing scale: var(--spacing) * N -->
+	<!-- Calculated from spacing scale: var(--spacing) * N -->
 </div>
 ```
 
@@ -37,12 +37,19 @@ Tailwind CSS v4 supports dynamic values for many utilities without arbitrary val
 
 ```css
 /* Generated CSS */
-.mt-17 { margin-top: calc(var(--spacing) * 17); }
-.w-85 { width: calc(var(--spacing) * 85); }
-.grid-cols-15 { grid-template-columns: repeat(15, minmax(0, 1fr)); }
+.mt-17 {
+	margin-top: calc(var(--spacing) * 17);
+}
+.w-85 {
+	width: calc(var(--spacing) * 85);
+}
+.grid-cols-15 {
+	grid-template-columns: repeat(15, minmax(0, 1fr));
+}
 ```
 
 **Benefits:**
+
 - Cleaner class names
 - Consistent spacing scale
 - Better readability

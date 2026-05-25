@@ -18,25 +18,25 @@ import { describe, it, expect, beforeAll } from 'vitest'
 const testUsers: User[] = []
 
 describe('UserRepository', () => {
-  beforeAll(() => {
-    testUsers.push({ id: 1, name: 'Alice' })
-  })
+	beforeAll(() => {
+		testUsers.push({ id: 1, name: 'Alice' })
+	})
 
-  it('should find user by id', () => {
-    const user = repository.find(testUsers, 1)
-    expect(user.name).toBe('Alice')
-  })
+	it('should find user by id', () => {
+		const user = repository.find(testUsers, 1)
+		expect(user.name).toBe('Alice')
+	})
 
-  it('should add new user', () => {
-    testUsers.push({ id: 2, name: 'Bob' })
-    expect(testUsers).toHaveLength(2)
-  })
+	it('should add new user', () => {
+		testUsers.push({ id: 2, name: 'Bob' })
+		expect(testUsers).toHaveLength(2)
+	})
 
-  it('should list all users', () => {
-    // FLAKY - depends on previous test running first
-    // May have 1 or 2 users depending on test order
-    expect(repository.list(testUsers)).toHaveLength(2)
-  })
+	it('should list all users', () => {
+		// FLAKY - depends on previous test running first
+		// May have 1 or 2 users depending on test order
+		expect(repository.list(testUsers)).toHaveLength(2)
+	})
 })
 ```
 
@@ -46,27 +46,27 @@ describe('UserRepository', () => {
 import { describe, it, expect, beforeEach } from 'vitest'
 
 describe('UserRepository', () => {
-  let testUsers: User[]
+	let testUsers: User[]
 
-  beforeEach(() => {
-    // Fresh state for each test
-    testUsers = [{ id: 1, name: 'Alice' }]
-  })
+	beforeEach(() => {
+		// Fresh state for each test
+		testUsers = [{ id: 1, name: 'Alice' }]
+	})
 
-  it('should find user by id', () => {
-    const user = repository.find(testUsers, 1)
-    expect(user.name).toBe('Alice')
-  })
+	it('should find user by id', () => {
+		const user = repository.find(testUsers, 1)
+		expect(user.name).toBe('Alice')
+	})
 
-  it('should add new user', () => {
-    testUsers.push({ id: 2, name: 'Bob' })
-    expect(testUsers).toHaveLength(2)
-  })
+	it('should add new user', () => {
+		testUsers.push({ id: 2, name: 'Bob' })
+		expect(testUsers).toHaveLength(2)
+	})
 
-  it('should list all users', () => {
-    // Always 1 user - independent of other tests
-    expect(repository.list(testUsers)).toHaveLength(1)
-  })
+	it('should list all users', () => {
+		// Always 1 user - independent of other tests
+		expect(repository.list(testUsers)).toHaveLength(1)
+	})
 })
 ```
 
@@ -74,23 +74,24 @@ describe('UserRepository', () => {
 
 ```typescript
 function createTestUser(overrides?: Partial<User>): User {
-  return {
-    id: Math.random(),
-    name: 'Test User',
-    email: 'test@example.com',
-    ...overrides,
-  }
+	return {
+		id: Math.random(),
+		name: 'Test User',
+		email: 'test@example.com',
+		...overrides,
+	}
 }
 
 describe('UserService', () => {
-  it('should validate user email', () => {
-    const user = createTestUser({ email: 'invalid' })
-    expect(service.validate(user)).toBe(false)
-  })
+	it('should validate user email', () => {
+		const user = createTestUser({ email: 'invalid' })
+		expect(service.validate(user)).toBe(false)
+	})
 })
 ```
 
 **Benefits:**
+
 - Tests can run in any order
 - Tests can run in parallel safely
 - Failures are isolated and easy to debug

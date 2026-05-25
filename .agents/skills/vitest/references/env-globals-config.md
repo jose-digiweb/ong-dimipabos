@@ -14,9 +14,9 @@ Vitest can inject test APIs (`describe`, `it`, `expect`) globally or require exp
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    globals: false, // Default
-  },
+	test: {
+		globals: false, // Default
+	},
 })
 ```
 
@@ -25,9 +25,9 @@ export default defineConfig({
 import { describe, it, expect, vi } from 'vitest'
 
 describe('Calculator', () => {
-  it('should add numbers', () => {
-    expect(add(1, 2)).toBe(3)
-  })
+	it('should add numbers', () => {
+		expect(add(1, 2)).toBe(3)
+	})
 })
 ```
 
@@ -36,9 +36,9 @@ describe('Calculator', () => {
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    globals: true,
-  },
+	test: {
+		globals: true,
+	},
 })
 ```
 
@@ -50,32 +50,33 @@ export default defineConfig({
 ```typescript
 // Tests use globals - no imports needed
 describe('Calculator', () => {
-  it('should add numbers', () => {
-    expect(add(1, 2)).toBe(3)
-  })
+	it('should add numbers', () => {
+		expect(add(1, 2)).toBe(3)
+	})
 })
 ```
 
 **Pros and cons:**
 
-| Approach | Pros | Cons |
-|----------|------|------|
-| Explicit imports | Clear dependencies, better IDE support, tree-shakeable | More boilerplate |
-| Globals | Less boilerplate, Jest-like | Implicit dependencies, needs type reference |
+| Approach         | Pros                                                   | Cons                                        |
+| ---------------- | ------------------------------------------------------ | ------------------------------------------- |
+| Explicit imports | Clear dependencies, better IDE support, tree-shakeable | More boilerplate                            |
+| Globals          | Less boilerplate, Jest-like                            | Implicit dependencies, needs type reference |
 
 **ESLint configuration for globals:**
 
 ```javascript
 // .eslintrc.js
 module.exports = {
-  env: {
-    'vitest-globals/env': true,
-  },
-  plugins: ['vitest-globals'],
+	env: {
+		'vitest-globals/env': true,
+	},
+	plugins: ['vitest-globals'],
 }
 ```
 
 **Benefits:**
+
 - Consistent codebase
 - No confusion about where APIs come from
 - Proper TypeScript support either way

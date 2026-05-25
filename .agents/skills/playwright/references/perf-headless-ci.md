@@ -14,10 +14,10 @@ Running browsers in headless mode (no visible UI) is faster and uses less memory
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  use: {
-    headless: false, // Shows browser UI - slow and resource-intensive
-  },
-});
+	use: {
+		headless: false, // Shows browser UI - slow and resource-intensive
+	},
+})
 ```
 
 **Correct (headless in CI, headed locally for debugging):**
@@ -25,11 +25,11 @@ export default defineConfig({
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  use: {
-    // Headless in CI, headed when debugging locally
-    headless: process.env.CI ? true : false,
-  },
-});
+	use: {
+		// Headless in CI, headed when debugging locally
+		headless: process.env.CI ? true : false,
+	},
+})
 ```
 
 **Or use CLI flag:**
@@ -50,26 +50,26 @@ npx playwright test --debug
 ```typescript
 // playwright.config.ts
 export default defineConfig({
-  projects: [
-    {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-        headless: true,
-      },
-    },
-    {
-      name: 'debug',
-      use: {
-        ...devices['Desktop Chrome'],
-        headless: false,
-        launchOptions: {
-          slowMo: 100, // Slow down for visual debugging
-        },
-      },
-    },
-  ],
-});
+	projects: [
+		{
+			name: 'chromium',
+			use: {
+				...devices['Desktop Chrome'],
+				headless: true,
+			},
+		},
+		{
+			name: 'debug',
+			use: {
+				...devices['Desktop Chrome'],
+				headless: false,
+				launchOptions: {
+					slowMo: 100, // Slow down for visual debugging
+				},
+			},
+		},
+	],
+})
 
 // Run headless
 // npx playwright test --project=chromium
@@ -80,10 +80,10 @@ export default defineConfig({
 
 **Performance comparison:**
 
-| Mode | Speed | Memory | Use Case |
-|------|-------|--------|----------|
-| Headless | 100% | ~100MB | CI, automated runs |
-| Headed | 60-70% | ~300MB | Debugging, demos |
+| Mode            | Speed  | Memory | Use Case               |
+| --------------- | ------ | ------ | ---------------------- |
+| Headless        | 100%   | ~100MB | CI, automated runs     |
+| Headed          | 60-70% | ~300MB | Debugging, demos       |
 | Headed + slowMo | 30-50% | ~300MB | Step-by-step debugging |
 
 **CI configuration example:**
@@ -93,8 +93,8 @@ export default defineConfig({
 - name: Run tests
   run: npx playwright test
   env:
-    CI: true
-    # Playwright automatically runs headless when CI=true
+   CI: true
+   # Playwright automatically runs headless when CI=true
 ```
 
 Reference: [Playwright Test Configuration](https://playwright.dev/docs/test-configuration#testing-options)

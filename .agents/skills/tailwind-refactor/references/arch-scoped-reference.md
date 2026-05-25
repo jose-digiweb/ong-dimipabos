@@ -15,7 +15,7 @@ In Tailwind v4, scoped stylesheets (Vue `<style scoped>`, Svelte `<style>`) do n
 <style scoped>
 /* Broken in v4 — scoped styles can't see Tailwind's theme */
 h1 {
-  @apply text-2xl font-bold text-red-500;
+	@apply text-2xl font-bold text-red-500;
 }
 </style>
 ```
@@ -27,7 +27,7 @@ h1 {
 @reference "../../app.css";
 
 h1 {
-  @apply text-2xl font-bold text-red-500;
+	@apply text-2xl font-bold text-red-500;
 }
 </style>
 ```
@@ -37,9 +37,9 @@ h1 {
 ```vue
 <style scoped>
 h1 {
-  color: var(--color-red-500);
-  font-size: var(--text-2xl);
-  font-weight: var(--font-weight-bold);
+	color: var(--color-red-500);
+	font-size: var(--text-2xl);
+	font-weight: var(--font-weight-bold);
 }
 </style>
 ```

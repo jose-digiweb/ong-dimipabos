@@ -5,8 +5,8 @@ import { cn } from '@/lib/utils'
 import type { ReactNode } from 'react'
 import { HeroBgColors } from './HeroBgColors'
 type Props = {
-  children: ReactNode
-  className?: string
+	children: ReactNode
+	className?: string
 }
 
 /**
@@ -17,11 +17,11 @@ type Props = {
  * @returns {JSX.Element} The HeroCardSection component
  */
 export const HeroCardSection = ({ children, className }: Props) => {
-  return (
-    <div className={cn('relative flex items-center justify-center', className)}>
-      <HeroBgColors />
+	return (
+		<div className={cn('relative flex items-center justify-center', className)}>
+			<HeroBgColors />
 
-      {children}
-    </div>
-  )
+			{children}
+		</div>
+	)
 }

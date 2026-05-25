@@ -13,8 +13,8 @@ Tooltips should have a delay before appearing to prevent accidental activation. 
 
 ```css
 .tooltip {
-  transition: opacity 200ms ease-out;
-  transition-delay: 300ms;
+	transition: opacity 200ms ease-out;
+	transition-delay: 300ms;
 }
 /* Every tooltip waits 300ms, feels slow when exploring */
 ```
@@ -23,13 +23,13 @@ Tooltips should have a delay before appearing to prevent accidental activation. 
 
 ```css
 .tooltip {
-  transition: opacity 200ms ease-out;
-  transition-delay: 300ms;
+	transition: opacity 200ms ease-out;
+	transition-delay: 300ms;
 }
 
 .tooltip[data-instant] {
-  transition-duration: 0ms;
-  transition-delay: 0ms;
+	transition-duration: 0ms;
+	transition-delay: 0ms;
 }
 ```
 

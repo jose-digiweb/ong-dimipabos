@@ -13,8 +13,8 @@ When users drag in the "wrong" direction (e.g., upward on a swipe-to-dismiss toa
 
 ```tsx
 const onDrag = (y) => {
-  if (y < 0) return // Block upward drag completely
-  setDragY(y)
+	if (y < 0) return // Block upward drag completely
+	setDragY(y)
 }
 // Feels rigid and unnatural
 ```
@@ -23,13 +23,13 @@ const onDrag = (y) => {
 
 ```tsx
 const onDrag = (y) => {
-  if (y < 0) {
-    // Allow upward drag with friction
-    const friction = 0.3
-    setDragY(y * friction)
-  } else {
-    setDragY(y)
-  }
+	if (y < 0) {
+		// Allow upward drag with friction
+		const friction = 0.3
+		setDragY(y * friction)
+	} else {
+		setDragY(y)
+	}
 }
 // Feels soft and natural, like pushing against resistance
 ```

@@ -14,19 +14,19 @@ Too-slow animations feel laggy; too-fast ones feel jarring. Proper duration and 
 ```css
 /* Too slow for microinteraction */
 .button:hover {
-  transition: background-color 1s linear;
+	transition: background-color 1s linear;
 }
 /* Feels sluggish, user waits for response */
 
 /* Too fast for modal */
 .modal {
-  transition: opacity 50ms linear;
+	transition: opacity 50ms linear;
 }
 /* Feels abrupt, jarring */
 
 /* Linear easing on movement */
 .dropdown {
-  transition: transform 0.3s linear;
+	transition: transform 0.3s linear;
 }
 /* Feels mechanical, robotic */
 ```
@@ -36,27 +36,28 @@ Too-slow animations feel laggy; too-fast ones feel jarring. Proper duration and 
 ```css
 /* Microinteractions: 100-200ms */
 .button {
-  transition: background-color 150ms ease-out;
+	transition: background-color 150ms ease-out;
 }
 
 .checkbox {
-  transition: transform 100ms ease-out;
+	transition: transform 100ms ease-out;
 }
 
 /* Expand/collapse: 200-300ms */
 .dropdown {
-  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+	transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Modal/overlay: 200-400ms */
 .modal {
-  transition: opacity 200ms ease-out,
-              transform 300ms cubic-bezier(0.32, 0.72, 0, 1);
+	transition:
+		opacity 200ms ease-out,
+		transform 300ms cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 /* Page transitions: 300-500ms */
 .page-transition {
-  transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+	transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 ```
 
@@ -70,6 +71,7 @@ Too-slow animations feel laggy; too-fast ones feel jarring. Proper duration and 
 | Page transitions | 300-500ms |
 
 **Common easing curves:**
+
 - `ease-out`: Fast start, slow end (entering)
 - `ease-in`: Slow start, fast end (exiting)
 - `cubic-bezier(0.4, 0, 0.2, 1)`: Material Design standard

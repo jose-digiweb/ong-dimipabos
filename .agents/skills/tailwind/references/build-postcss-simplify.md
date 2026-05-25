@@ -14,13 +14,13 @@ Tailwind CSS v4's `@tailwindcss/postcss` plugin includes functionality that prev
 ```javascript
 // postcss.config.js
 export default {
-  plugins: [
-    "postcss-import",           // Now built-in
-    "tailwindcss/nesting",      // Now built-in
-    "@tailwindcss/postcss",
-    "autoprefixer",             // Now built-in
-  ],
-};
+	plugins: [
+		'postcss-import', // Now built-in
+		'tailwindcss/nesting', // Now built-in
+		'@tailwindcss/postcss',
+		'autoprefixer', // Now built-in
+	],
+}
 ```
 
 **Correct (simplified configuration):**
@@ -28,11 +28,12 @@ export default {
 ```javascript
 // postcss.config.js
 export default {
-  plugins: ["@tailwindcss/postcss"],
-};
+	plugins: ['@tailwindcss/postcss'],
+}
 ```
 
 **Built-in functionality in v4:**
+
 - `@import` processing (no postcss-import needed)
 - CSS nesting (no tailwindcss/nesting needed)
 - Vendor prefixing (no autoprefixer needed)

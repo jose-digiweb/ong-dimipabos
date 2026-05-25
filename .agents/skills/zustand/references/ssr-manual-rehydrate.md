@@ -13,16 +13,16 @@ After disabling automatic hydration with `skipHydration`, trigger rehydration ma
 
 ```typescript
 const useThemeStore = create<ThemeState>()(
-  persist(
-    (set) => ({
-      theme: 'light',
-      setTheme: (theme) => set({ theme }),
-    }),
-    {
-      name: 'theme-storage',
-      skipHydration: true,
-    }
-  )
+	persist(
+		(set) => ({
+			theme: 'light',
+			setTheme: (theme) => set({ theme }),
+		}),
+		{
+			name: 'theme-storage',
+			skipHydration: true,
+		},
+	),
 )
 
 // Store never loads persisted state

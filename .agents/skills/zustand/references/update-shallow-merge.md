@@ -13,23 +13,24 @@ Zustand's `set` performs a shallow merge by default. It merges top-level propert
 
 ```typescript
 const useUserStore = create<UserState>((set) => ({
-  user: {
-    name: 'John',
-    email: 'john@example.com',
-    preferences: {
-      theme: 'dark',
-      notifications: true,
-    },
-  },
+	user: {
+		name: 'John',
+		email: 'john@example.com',
+		preferences: {
+			theme: 'dark',
+			notifications: true,
+		},
+	},
 
-  // Expects to only update theme, but replaces entire preferences
-  updateTheme: (theme) => set({
-    user: {
-      preferences: { theme },
-    },
-  }),
-  // Result: user = { preferences: { theme: 'light' } }
-  // name, email, and notifications are lost!
+	// Expects to only update theme, but replaces entire preferences
+	updateTheme: (theme) =>
+		set({
+			user: {
+				preferences: { theme },
+			},
+		}),
+	// Result: user = { preferences: { theme: 'light' } }
+	// name, email, and notifications are lost!
 }))
 ```
 
@@ -37,25 +38,26 @@ const useUserStore = create<UserState>((set) => ({
 
 ```typescript
 const useUserStore = create<UserState>((set) => ({
-  user: {
-    name: 'John',
-    email: 'john@example.com',
-    preferences: {
-      theme: 'dark',
-      notifications: true,
-    },
-  },
+	user: {
+		name: 'John',
+		email: 'john@example.com',
+		preferences: {
+			theme: 'dark',
+			notifications: true,
+		},
+	},
 
-  // Spread to preserve existing properties at each level
-  updateTheme: (theme) => set((state) => ({
-    user: {
-      ...state.user,
-      preferences: {
-        ...state.user.preferences,
-        theme,
-      },
-    },
-  })),
+	// Spread to preserve existing properties at each level
+	updateTheme: (theme) =>
+		set((state) => ({
+			user: {
+				...state.user,
+				preferences: {
+					...state.user.preferences,
+					theme,
+				},
+			},
+		})),
 }))
 ```
 
@@ -64,13 +66,13 @@ const useUserStore = create<UserState>((set) => ({
 ```typescript
 // Flatter state is easier to update
 const useUserStore = create<UserState>((set) => ({
-  userName: 'John',
-  userEmail: 'john@example.com',
-  prefTheme: 'dark',
-  prefNotifications: true,
+	userName: 'John',
+	userEmail: 'john@example.com',
+	prefTheme: 'dark',
+	prefNotifications: true,
 
-  // Simple top-level updates
-  updateTheme: (prefTheme) => set({ prefTheme }),
+	// Simple top-level updates
+	updateTheme: (prefTheme) => set({ prefTheme }),
 }))
 ```
 
@@ -80,13 +82,14 @@ const useUserStore = create<UserState>((set) => ({
 import { immer } from 'zustand/middleware/immer'
 
 const useUserStore = create<UserState>()(
-  immer((set) => ({
-    user: { name: 'John', preferences: { theme: 'dark' } },
+	immer((set) => ({
+		user: { name: 'John', preferences: { theme: 'dark' } },
 
-    updateTheme: (theme) => set((state) => {
-      state.user.preferences.theme = theme
-    }),
-  }))
+		updateTheme: (theme) =>
+			set((state) => {
+				state.user.preferences.theme = theme
+			}),
+	})),
 )
 ```
 

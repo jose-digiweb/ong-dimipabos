@@ -13,11 +13,11 @@ Plain `string` or `number` types allow accidental swaps between semantically dif
 
 ```typescript
 function assignOrder(userId: string, orderId: string) {
-  // ...
+	// ...
 }
 
-const userId = "usr_abc123"
-const orderId = "ord_xyz789"
+const userId = 'usr_abc123'
+const orderId = 'ord_xyz789'
 
 assignOrder(orderId, userId) // Swapped — compiles fine, fails silently
 ```
@@ -25,15 +25,15 @@ assignOrder(orderId, userId) // Swapped — compiles fine, fails silently
 **Correct (branded types catch swaps):**
 
 ```typescript
-type UserId = string & { readonly __brand: "UserId" }
-type OrderId = string & { readonly __brand: "OrderId" }
+type UserId = string & { readonly __brand: 'UserId' }
+type OrderId = string & { readonly __brand: 'OrderId' }
 
 function assignOrder(userId: UserId, orderId: OrderId) {
-  // ...
+	// ...
 }
 
-const userId = "usr_abc123" as UserId
-const orderId = "ord_xyz789" as OrderId
+const userId = 'usr_abc123' as UserId
+const orderId = 'ord_xyz789' as OrderId
 
 assignOrder(orderId, userId) // Compile error: OrderId not assignable to UserId
 ```
@@ -42,8 +42,8 @@ assignOrder(orderId, userId) // Compile error: OrderId not assignable to UserId
 
 ```typescript
 function createUserId(raw: string): UserId {
-  if (!raw.startsWith("usr_")) throw new Error("Invalid user ID")
-  return raw as UserId
+	if (!raw.startsWith('usr_')) throw new Error('Invalid user ID')
+	return raw as UserId
 }
 ```
 

@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils'
 // Types
 import type { ReactNode } from 'react'
 type Props = {
-  children: ReactNode
-  className?: string
+	children: ReactNode
+	className?: string
 }
 
 /**
@@ -17,14 +17,14 @@ type Props = {
  * @returns {JSX.Element} The HeroTitle component
  */
 export const HeroTitle = ({ children, className }: Props) => {
-  return (
-    <h1
-      className={cn(
-        'mt-6 text-pretty font-bold text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl',
-        className
-      )}
-    >
-      {children}
-    </h1>
-  )
+	return (
+		<h1
+			className={cn(
+				'mt-6 text-pretty font-bold text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl',
+				className,
+			)}
+		>
+			{children}
+		</h1>
+	)
 }

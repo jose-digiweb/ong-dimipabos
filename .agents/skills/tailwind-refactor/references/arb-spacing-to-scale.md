@@ -13,7 +13,7 @@ Tailwind v4 supports any integer spacing value dynamically from the `--spacing` 
 
 ```html
 <div class="p-[12px] mt-[28px] gap-[16px]">
-  <section class="mb-[32px] px-[24px]">Hardcoded pixel values</section>
+	<section class="mb-[32px] px-[24px]">Hardcoded pixel values</section>
 </div>
 ```
 
@@ -21,7 +21,7 @@ Tailwind v4 supports any integer spacing value dynamically from the `--spacing` 
 
 ```html
 <div class="p-3 mt-7 gap-4">
-  <section class="mb-8 px-6">Scale values from the spacing system</section>
+	<section class="mb-8 px-6">Scale values from the spacing system</section>
 </div>
 ```
 
@@ -31,8 +31,8 @@ For truly custom spacing that repeats across the project, define it in `@theme`:
 
 ```css
 @theme {
-  --spacing-header: 72px;
-  --spacing-sidebar: 280px;
+	--spacing-header: 72px;
+	--spacing-sidebar: 280px;
 }
 ```
 

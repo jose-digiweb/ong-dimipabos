@@ -13,7 +13,7 @@ Mutable types permit accidental mutation that causes subtle bugs — especially 
 
 ```typescript
 function sortUsersByAge(users: User[]) {
-  return users.sort((a, b) => a.age - b.age) // Mutates the original array
+	return users.sort((a, b) => a.age - b.age) // Mutates the original array
 }
 
 const activeUsers = getActiveUsers()
@@ -24,7 +24,7 @@ const sorted = sortUsersByAge(activeUsers) // activeUsers is now also sorted
 
 ```typescript
 function sortUsersByAge(users: readonly User[]) {
-  return [...users].sort((a, b) => a.age - b.age) // Copy first
+	return [...users].sort((a, b) => a.age - b.age) // Copy first
 }
 
 const activeUsers = getActiveUsers()

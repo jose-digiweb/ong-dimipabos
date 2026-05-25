@@ -23,11 +23,12 @@ Tailwind CSS v4 replaces the old `@tailwind` directives with a single CSS import
 
 ```css
 /* styles.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 /* Automatic content detection, zero configuration */
 ```
 
 **Benefits:**
+
 - Zero configuration required for most projects
 - Automatic template file detection
 - Built-in @import support without additional plugins

@@ -60,6 +60,7 @@ function Dashboard() {
 ```
 
 **Note:** React re-renders children by default. This is fine for most components. Only use `memo` when:
+
 - The child is expensive to render
 - The child doesn't need the parent's updated state
 - Profiling shows the re-renders are a bottleneck

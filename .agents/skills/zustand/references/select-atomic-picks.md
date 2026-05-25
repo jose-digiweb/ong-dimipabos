@@ -52,6 +52,7 @@ function UserProfile() {
 ```
 
 **When to use each approach:**
+
 - **Atomic selectors**: Default choice, best performance
 - **useShallow**: When you need 3+ values and want cleaner code
 

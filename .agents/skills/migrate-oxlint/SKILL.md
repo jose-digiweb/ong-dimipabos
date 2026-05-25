@@ -75,10 +75,10 @@ Oxlint groups rules into categories for bulk configuration, though only `correct
 
 ```json
 {
-  "categories": {
-    "correctness": "error",
-    "suspicious": "warn"
-  }
+	"categories": {
+		"correctness": "error",
+		"suspicious": "warn"
+	}
 }
 ```
 
@@ -129,10 +129,10 @@ If you have any custom ESLint rules in the project repo itself, you can migrate 
 
 ```json
 {
-  "jsPlugins": ["./path/to/my-plugin.js"],
-  "rules": {
-    "local-plugin/rule-name": "error"
-  }
+	"jsPlugins": ["./path/to/my-plugin.js"],
+	"rules": {
+		"local-plugin/rule-name": "error"
+	}
 }
 ```
 
@@ -142,10 +142,10 @@ For ESLint plugins without a built-in oxlint equivalent, use the `jsPlugins` fie
 
 ```json
 {
-  "jsPlugins": ["eslint-plugin-custom"],
-  "rules": {
-    "custom/my-rule": "warn"
-  }
+	"jsPlugins": ["eslint-plugin-custom"],
+	"rules": {
+		"custom/my-rule": "warn"
+	}
 }
 ```
 

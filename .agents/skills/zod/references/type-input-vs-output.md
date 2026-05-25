@@ -14,18 +14,18 @@ When schemas use `.transform()`, the input and output types differ. `z.infer` (s
 ```typescript
 import { z } from 'zod'
 
-const dateSchema = z.string().transform(s => new Date(s))
+const dateSchema = z.string().transform((s) => new Date(s))
 
 type DateOutput = z.infer<typeof dateSchema>
 // Date (post-transform)
 
 // Wrong! Expecting Date but should accept string
 function handleDate(input: DateOutput) {
-  return dateSchema.parse(input)  // Error: Argument of type 'Date' is not assignable to type 'string'
+	return dateSchema.parse(input) // Error: Argument of type 'Date' is not assignable to type 'string'
 }
 
 // Caller passes string, but type says Date
-handleDate('2024-01-15')  // TypeScript error
+handleDate('2024-01-15') // TypeScript error
 ```
 
 **Correct (using z.input for pre-transform type):**
@@ -33,7 +33,7 @@ handleDate('2024-01-15')  // TypeScript error
 ```typescript
 import { z } from 'zod'
 
-const dateSchema = z.string().transform(s => new Date(s))
+const dateSchema = z.string().transform((s) => new Date(s))
 
 // Input type = what parse() accepts
 type DateInput = z.input<typeof dateSchema>
@@ -45,22 +45,21 @@ type DateOutput = z.output<typeof dateSchema>
 
 // Use input type for function parameters
 function handleDate(input: DateInput) {
-  const parsed = dateSchema.parse(input)  // parsed is Date
-  return parsed
+	const parsed = dateSchema.parse(input) // parsed is Date
+	return parsed
 }
 
-handleDate('2024-01-15')  // Works - string input
+handleDate('2024-01-15') // Works - string input
 ```
 
 **Complex example with object transforms:**
 
 ```typescript
 const apiUserSchema = z.object({
-  id: z.string(),
-  created_at: z.string().transform(s => new Date(s)),
-  tags: z.string().transform(s => s.split(',')),
-  is_active: z.union([z.boolean(), z.literal(1), z.literal(0)])
-    .transform(v => Boolean(v)),
+	id: z.string(),
+	created_at: z.string().transform((s) => new Date(s)),
+	tags: z.string().transform((s) => s.split(',')),
+	is_active: z.union([z.boolean(), z.literal(1), z.literal(0)]).transform((v) => Boolean(v)),
 })
 
 // What the API sends
@@ -83,11 +82,11 @@ type ApiUser = z.infer<typeof apiUserSchema>
 
 // API response handler
 function handleApiResponse(rawData: ApiUserInput) {
-  const user = apiUserSchema.parse(rawData)
-  // user.created_at is Date
-  // user.tags is string[]
-  // user.is_active is boolean
-  return user
+	const user = apiUserSchema.parse(rawData)
+	// user.created_at is Date
+	// user.tags is string[]
+	// user.is_active is boolean
+	return user
 }
 ```
 
@@ -95,8 +94,8 @@ function handleApiResponse(rawData: ApiUserInput) {
 
 ```typescript
 const formSchema = z.object({
-  amount: z.string().transform(s => parseFloat(s)),
-  quantity: z.string().transform(s => parseInt(s, 10)),
+	amount: z.string().transform((s) => parseFloat(s)),
+	quantity: z.string().transform((s) => parseInt(s, 10)),
 })
 
 type FormInput = z.input<typeof formSchema>
@@ -110,6 +109,7 @@ type OrderProcessor = (order: FormOutput) => Promise<void>
 ```
 
 **When NOT to use this pattern:**
+
 - Schemas without transforms (input and output are identical)
 - When you only work with validated data (just use z.infer)
 

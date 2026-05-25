@@ -20,13 +20,13 @@ Tailwind CSS v4 removes the `@tailwind` directive entirely. The new CSS-first co
 **Correct (what's right):**
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 ```
 
 If your project needs prefixed classes to avoid collisions with existing CSS, use the prefix option:
 
 ```css
-@import "tailwindcss" prefix(tw);
+@import 'tailwindcss' prefix(tw);
 ```
 
 This produces classes like `tw:flex`, `tw:mt-4`, and `tw:text-red-500` instead of their unprefixed equivalents.

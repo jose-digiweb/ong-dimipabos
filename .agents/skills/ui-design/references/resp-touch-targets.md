@@ -13,18 +13,18 @@ Desktop hover states and small click targets don't work on touch devices. Mobile
 
 ```css
 .nav-link {
-  padding: 4px 8px;
-  font-size: 12px;
+	padding: 4px 8px;
+	font-size: 12px;
 }
 
 .icon-button {
-  width: 24px;
-  height: 24px;
+	width: 24px;
+	height: 24px;
 }
 
 .action-buttons {
-  display: flex;
-  gap: 4px;
+	display: flex;
+	gap: 4px;
 }
 /* 24px targets are nearly impossible to tap accurately */
 /* 4px gap means constant accidental taps on wrong button */
@@ -34,31 +34,32 @@ Desktop hover states and small click targets don't work on touch devices. Mobile
 
 ```css
 .nav-link {
-  padding: 12px 16px;
-  font-size: 16px;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
+	padding: 12px 16px;
+	font-size: 16px;
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
 }
 
 .icon-button {
-  min-width: 44px;
-  min-height: 44px;
-  padding: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+	min-width: 44px;
+	min-height: 44px;
+	padding: 10px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .action-buttons {
-  display: flex;
-  gap: 12px; /* Enough space to prevent mis-taps */
+	display: flex;
+	gap: 12px; /* Enough space to prevent mis-taps */
 }
 /* 44×44px minimum touch target */
 /* 12px gap provides safe spacing between actions */
 ```
 
 **Touch target guidelines:**
+
 - Minimum 44×44px (Apple HIG) or 48×48px (Material Design)
 - Minimum 8px spacing between adjacent targets
 - Padding counts toward target size, not just visible element

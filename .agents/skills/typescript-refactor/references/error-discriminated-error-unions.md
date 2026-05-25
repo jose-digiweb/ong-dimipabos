@@ -13,19 +13,19 @@ String-based error codes and generic `Error` subclasses lose type information ab
 
 ```typescript
 class AppError extends Error {
-  constructor(
-    public code: string,
-    message: string,
-    public details?: Record<string, unknown>
-  ) {
-    super(message)
-  }
+	constructor(
+		public code: string,
+		message: string,
+		public details?: Record<string, unknown>,
+	) {
+		super(message)
+	}
 }
 
 function handlePaymentError(error: AppError) {
-  if (error.code === "insufficient_funds") {
-    const shortfall = error.details?.shortfall as number // Unsafe cast
-  }
+	if (error.code === 'insufficient_funds') {
+		const shortfall = error.details?.shortfall as number // Unsafe cast
+	}
 }
 ```
 
@@ -33,13 +33,13 @@ function handlePaymentError(error: AppError) {
 
 ```typescript
 type PaymentError =
-  | { type: "insufficient_funds"; shortfall: number; currency: string }
-  | { type: "card_declined"; reason: string; retryable: boolean }
-  | { type: "fraud_detected"; transactionId: string }
+	| { type: 'insufficient_funds'; shortfall: number; currency: string }
+	| { type: 'card_declined'; reason: string; retryable: boolean }
+	| { type: 'fraud_detected'; transactionId: string }
 
 function handlePaymentError(error: PaymentError) {
-  if (error.type === "insufficient_funds") {
-    showShortfall(error.shortfall, error.currency) // Fully typed
-  }
+	if (error.type === 'insufficient_funds') {
+		showShortfall(error.shortfall, error.currency) // Fully typed
+	}
 }
 ```

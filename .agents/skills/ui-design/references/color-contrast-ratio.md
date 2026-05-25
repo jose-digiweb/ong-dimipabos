@@ -14,20 +14,20 @@ Low contrast text is unreadable for users with visual impairments and difficult 
 ```css
 /* Light gray on white: 2.5:1 ratio - FAILS */
 .subtle-text {
-  color: #999999;
-  background: #ffffff;
+	color: #999999;
+	background: #ffffff;
 }
 
 /* Orange on white: 2.9:1 ratio - FAILS for small text */
 .warning-text {
-  color: #ff9900;
-  background: #ffffff;
+	color: #ff9900;
+	background: #ffffff;
 }
 
 /* White on light blue: 3.8:1 ratio - FAILS AA */
 .hero-title {
-  color: #ffffff;
-  background: #5fa8d3;
+	color: #ffffff;
+	background: #5fa8d3;
 }
 /* Users in sunlight or with low vision cannot read */
 ```
@@ -37,20 +37,20 @@ Low contrast text is unreadable for users with visual impairments and difficult 
 ```css
 /* Dark gray on white: 7:1 ratio - PASSES AAA */
 .body-text {
-  color: #4a4a4a;
-  background: #ffffff;
+	color: #4a4a4a;
+	background: #ffffff;
 }
 
 /* Darker orange on white: 4.6:1 ratio - PASSES AA */
 .warning-text {
-  color: #b35900;
-  background: #ffffff;
+	color: #b35900;
+	background: #ffffff;
 }
 
 /* White on dark blue: 8.5:1 ratio - PASSES AAA */
 .hero-title {
-  color: #ffffff;
-  background: #1a365d;
+	color: #ffffff;
+	background: #1a365d;
 }
 /* Readable in all lighting conditions */
 ```

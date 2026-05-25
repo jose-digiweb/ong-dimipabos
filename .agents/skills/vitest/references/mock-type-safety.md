@@ -18,14 +18,14 @@ import { fetchUser } from './api'
 vi.mock('./api')
 
 describe('UserService', () => {
-  it('should fetch user', async () => {
-    // No type checking - could return anything
-    (fetchUser as any).mockResolvedValue({ name: 'Alice' })
-    // Missing 'id' field, but TypeScript doesn't catch it
+	it('should fetch user', async () => {
+		// No type checking - could return anything
+		;(fetchUser as any).mockResolvedValue({ name: 'Alice' })
+		// Missing 'id' field, but TypeScript doesn't catch it
 
-    const user = await fetchUser(1)
-    expect(user.name).toBe('Alice')
-  })
+		const user = await fetchUser(1)
+		expect(user.name).toBe('Alice')
+	})
 })
 ```
 
@@ -41,13 +41,13 @@ vi.mock('./api')
 const mockedFetchUser = fetchUser as MockedFunction<typeof fetchUser>
 
 describe('UserService', () => {
-  it('should fetch user', async () => {
-    // TypeScript enforces return type matches User
-    mockedFetchUser.mockResolvedValue({ id: 1, name: 'Alice', email: 'a@b.com' })
+	it('should fetch user', async () => {
+		// TypeScript enforces return type matches User
+		mockedFetchUser.mockResolvedValue({ id: 1, name: 'Alice', email: 'a@b.com' })
 
-    const user = await mockedFetchUser(1)
-    expect(user).toEqual({ id: 1, name: 'Alice', email: 'a@b.com' })
-  })
+		const user = await mockedFetchUser(1)
+		expect(user).toEqual({ id: 1, name: 'Alice', email: 'a@b.com' })
+	})
 })
 ```
 
@@ -60,17 +60,17 @@ import { fetchUser } from './api'
 vi.mock('./api')
 
 describe('UserService', () => {
-  it('should fetch user', async () => {
-    // vi.mocked provides proper typing automatically
-    vi.mocked(fetchUser).mockResolvedValue({
-      id: 1,
-      name: 'Alice',
-      email: 'alice@example.com',
-    })
+	it('should fetch user', async () => {
+		// vi.mocked provides proper typing automatically
+		vi.mocked(fetchUser).mockResolvedValue({
+			id: 1,
+			name: 'Alice',
+			email: 'alice@example.com',
+		})
 
-    const user = await fetchUser(1)
-    expect(user.name).toBe('Alice')
-  })
+		const user = await fetchUser(1)
+		expect(user.name).toBe('Alice')
+	})
 })
 ```
 
@@ -78,18 +78,19 @@ describe('UserService', () => {
 
 ```typescript
 function createMockUser(overrides?: Partial<User>): User {
-  return {
-    id: 1,
-    name: 'Test User',
-    email: 'test@example.com',
-    ...overrides,
-  }
+	return {
+		id: 1,
+		name: 'Test User',
+		email: 'test@example.com',
+		...overrides,
+	}
 }
 
 vi.mocked(fetchUser).mockResolvedValue(createMockUser({ name: 'Alice' }))
 ```
 
 **Benefits:**
+
 - Compile-time errors when mock returns wrong type
 - IDE autocomplete for mock methods
 - Mocks stay in sync with real implementations

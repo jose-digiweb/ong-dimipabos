@@ -13,21 +13,20 @@ Press and release often want different speeds. A hold-to-confirm control should 
 
 ```tsx
 // 2s on the way in AND on the way out: release feels broken
-<button className="transition-[clip-path] duration-[2000ms] ease-out">
-  Hold to delete
-</button>
+<button className='transition-[clip-path] duration-[2000ms] ease-out'>Hold to delete</button>
 ```
 
 **Correct (slow press, fast release):**
 
 ```tsx
 // active: applies 2s while held; base 200ms snaps it back on release
-<button className="transition-[clip-path] ease-out duration-200 active:duration-[2000ms]">
-  Hold to delete
+<button className='transition-[clip-path] ease-out duration-200 active:duration-[2000ms]'>
+	Hold to delete
 </button>
 ```
 
 **Notes:**
+
 - The same split works with `data-*` state variants when the open/close state is JS-driven, e.g. `duration-200 data-[open]:duration-500`.
 
 Reference: [Building a Hold to Delete Component](https://emilkowal.ski/ui/building-a-hold-to-delete-component)

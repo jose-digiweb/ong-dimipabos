@@ -14,10 +14,10 @@ Vitest's default watch mode is designed for development, continuously watching f
 ```yaml
 # .github/workflows/test.yml
 jobs:
-  test:
-    steps:
-      # Watch mode starts, hangs waiting for file changes
-      - run: npx vitest
+ test:
+  steps:
+   # Watch mode starts, hangs waiting for file changes
+   - run: npx vitest
 ```
 
 **Correct (run mode in CI):**
@@ -25,10 +25,10 @@ jobs:
 ```yaml
 # .github/workflows/test.yml
 jobs:
-  test:
-    steps:
-      # Runs tests once and exits
-      - run: npx vitest run
+ test:
+  steps:
+   # Runs tests once and exits
+   - run: npx vitest run
 ```
 
 **Automatic detection:**
@@ -36,11 +36,11 @@ jobs:
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    // Vitest automatically uses run mode when CI=true
-    // But explicit configuration is clearer
-    watch: !process.env.CI,
-  },
+	test: {
+		// Vitest automatically uses run mode when CI=true
+		// But explicit configuration is clearer
+		watch: !process.env.CI,
+	},
 })
 ```
 
@@ -48,11 +48,11 @@ export default defineConfig({
 
 ```yaml
 jobs:
-  test:
-    env:
-      CI: true
-    steps:
-      - run: npx vitest run --reporter=github-actions
+ test:
+  env:
+   CI: true
+  steps:
+   - run: npx vitest run --reporter=github-actions
 ```
 
 **CI-specific reporters:**
@@ -60,11 +60,9 @@ jobs:
 ```typescript
 // vitest.config.ts
 export default defineConfig({
-  test: {
-    reporters: process.env.CI
-      ? ['default', 'github-actions']
-      : ['default'],
-  },
+	test: {
+		reporters: process.env.CI ? ['default', 'github-actions'] : ['default'],
+	},
 })
 ```
 
@@ -72,14 +70,15 @@ export default defineConfig({
 
 ```json
 {
-  "scripts": {
-    "test": "vitest",
-    "test:ci": "vitest run --coverage"
-  }
+	"scripts": {
+		"test": "vitest",
+		"test:ci": "vitest run --coverage"
+	}
 }
 ```
 
 **Benefits:**
+
 - No hanging processes in CI
 - Faster startup without watch setup
 - Clear exit codes for CI systems

@@ -14,11 +14,11 @@ Tailwind CSS v4 ships its PostCSS integration as a separate package called `@tai
 ```js
 // postcss.config.js
 module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-};
+	plugins: {
+		tailwindcss: {},
+		autoprefixer: {},
+	},
+}
 ```
 
 **Correct (what's right):**
@@ -26,19 +26,19 @@ module.exports = {
 ```js
 // postcss.config.js
 module.exports = {
-  plugins: {
-    "@tailwindcss/postcss": {},
-  },
-};
+	plugins: {
+		'@tailwindcss/postcss': {},
+	},
+}
 ```
 
 For Vite projects, use the dedicated Vite plugin instead of PostCSS for better performance:
 
 ```js
 // vite.config.js
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite'
 
 export default {
-  plugins: [tailwindcss()],
-};
+	plugins: [tailwindcss()],
+}
 ```

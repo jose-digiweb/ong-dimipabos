@@ -14,25 +14,25 @@ Define separate interfaces for state properties and actions. This improves reada
 ```typescript
 // Hard to separate what's state vs actions
 interface BearStore {
-  bears: number
-  fish: number
-  honey: number
-  isHibernating: boolean
-  addBear: () => void
-  removeBear: () => void
-  eatFish: () => void
-  eatHoney: (amount: number) => void
-  startHibernation: () => void
-  endHibernation: () => void
+	bears: number
+	fish: number
+	honey: number
+	isHibernating: boolean
+	addBear: () => void
+	removeBear: () => void
+	eatFish: () => void
+	eatHoney: (amount: number) => void
+	startHibernation: () => void
+	endHibernation: () => void
 }
 
 // Can't easily partialize just state
 persist(storeCreator, {
-  partialize: (state) => ({
-    bears: state.bears,
-    fish: state.fish,
-    // Must list each property manually
-  }),
+	partialize: (state) => ({
+		bears: state.bears,
+		fish: state.fish,
+		// Must list each property manually
+	}),
 })
 ```
 
@@ -41,20 +41,20 @@ persist(storeCreator, {
 ```typescript
 // State properties
 interface BearState {
-  bears: number
-  fish: number
-  honey: number
-  isHibernating: boolean
+	bears: number
+	fish: number
+	honey: number
+	isHibernating: boolean
 }
 
 // Actions
 interface BearActions {
-  addBear: () => void
-  removeBear: () => void
-  eatFish: () => void
-  eatHoney: (amount: number) => void
-  startHibernation: () => void
-  endHibernation: () => void
+	addBear: () => void
+	removeBear: () => void
+	eatFish: () => void
+	eatHoney: (amount: number) => void
+	startHibernation: () => void
+	endHibernation: () => void
 }
 
 // Combined store type
@@ -62,12 +62,12 @@ type BearStore = BearState & BearActions
 
 // Now partialize is simple
 persist(storeCreator, {
-  partialize: (state): BearState => ({
-    bears: state.bears,
-    fish: state.fish,
-    honey: state.honey,
-    isHibernating: state.isHibernating,
-  }),
+	partialize: (state): BearState => ({
+		bears: state.bears,
+		fish: state.fish,
+		honey: state.honey,
+		isHibernating: state.isHibernating,
+	}),
 })
 ```
 
@@ -75,34 +75,34 @@ persist(storeCreator, {
 
 ```typescript
 interface BearState {
-  bears: number
-  fish: number
+	bears: number
+	fish: number
 }
 
 interface BearActions {
-  addBear: () => void
-  eatFish: () => void
+	addBear: () => void
+	eatFish: () => void
 }
 
 type BearStore = BearState & { actions: BearActions }
 
 // Actions in namespace, easy to partialize
 const useBearStore = create<BearStore>()(
-  persist(
-    (set) => ({
-      bears: 0,
-      fish: 10,
-      actions: {
-        addBear: () => set((s) => ({ bears: s.bears + 1 })),
-        eatFish: () => set((s) => ({ fish: s.fish - 1 })),
-      },
-    }),
-    {
-      name: 'bear-store',
-      // Exclude actions from persistence automatically
-      partialize: ({ actions, ...state }) => state,
-    }
-  )
+	persist(
+		(set) => ({
+			bears: 0,
+			fish: 10,
+			actions: {
+				addBear: () => set((s) => ({ bears: s.bears + 1 })),
+				eatFish: () => set((s) => ({ fish: s.fish - 1 })),
+			},
+		}),
+		{
+			name: 'bear-store',
+			// Exclude actions from persistence automatically
+			partialize: ({ actions, ...state }) => state,
+		},
+	),
 )
 ```
 

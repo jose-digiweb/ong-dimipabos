@@ -13,19 +13,19 @@ INP measures responsiveness to user interactions. Slow INP (over 200ms) makes bu
 
 ```javascript
 button.addEventListener('click', () => {
-  // Synchronous heavy computation blocks UI
-  const result = processLargeDataset(items); // 500ms blocking
-  renderResults(result);
-});
+	// Synchronous heavy computation blocks UI
+	const result = processLargeDataset(items) // 500ms blocking
+	renderResults(result)
+})
 // User sees no response for 500ms after click
 
 dropdown.addEventListener('change', (event) => {
-  // DOM thrashing during interaction
-  items.forEach(item => {
-    item.style.display = shouldShow(item) ? 'block' : 'none';
-    item.getBoundingClientRect(); // Forces reflow each iteration
-  });
-});
+	// DOM thrashing during interaction
+	items.forEach((item) => {
+		item.style.display = shouldShow(item) ? 'block' : 'none'
+		item.getBoundingClientRect() // Forces reflow each iteration
+	})
+})
 // Each dropdown change takes 300ms+
 ```
 
@@ -33,35 +33,36 @@ dropdown.addEventListener('change', (event) => {
 
 ```javascript
 button.addEventListener('click', async () => {
-  // Show immediate feedback
-  button.disabled = true;
-  showLoadingSpinner();
+	// Show immediate feedback
+	button.disabled = true
+	showLoadingSpinner()
 
-  // Defer heavy work
-  await scheduler.yield();
-  const result = await processLargeDatasetAsync(items);
-  renderResults(result);
-  button.disabled = false;
-});
+	// Defer heavy work
+	await scheduler.yield()
+	const result = await processLargeDatasetAsync(items)
+	renderResults(result)
+	button.disabled = false
+})
 // User sees spinner within 16ms
 
 dropdown.addEventListener('change', (event) => {
-  // Batch DOM updates
-  const updates = items.map(item => ({
-    element: item,
-    display: shouldShow(item) ? 'block' : 'none'
-  }));
+	// Batch DOM updates
+	const updates = items.map((item) => ({
+		element: item,
+		display: shouldShow(item) ? 'block' : 'none',
+	}))
 
-  requestAnimationFrame(() => {
-    updates.forEach(({ element, display }) => {
-      element.style.display = display;
-    });
-  });
-});
+	requestAnimationFrame(() => {
+		updates.forEach(({ element, display }) => {
+			element.style.display = display
+		})
+	})
+})
 // Single reflow, completes within 50ms
 ```
 
 **INP optimization strategies:**
+
 - Show immediate visual feedback on interaction
 - Use `requestAnimationFrame` for DOM updates
 - Break long tasks with `scheduler.yield()` or `setTimeout`

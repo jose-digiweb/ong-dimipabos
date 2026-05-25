@@ -27,12 +27,12 @@ npx @tailwindcss/cli -i input.css -o output.css
 
 ```json
 {
-  "scripts": {
-    "build:css": "tailwindcss -i ./src/input.css -o ./dist/output.css"
-  },
-  "devDependencies": {
-    "@tailwindcss/cli": "^4.0.0"
-  }
+	"scripts": {
+		"build:css": "tailwindcss -i ./src/input.css -o ./dist/output.css"
+	},
+	"devDependencies": {
+		"@tailwindcss/cli": "^4.0.0"
+	}
 }
 ```
 

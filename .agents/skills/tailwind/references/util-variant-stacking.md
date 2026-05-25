@@ -13,11 +13,11 @@ Tailwind CSS v4 changes variant stacking from right-to-left to left-to-right. Up
 
 ```html
 <ul class="*:py-2 first:*:pt-0 last:*:pb-0">
-  <!-- Child selector applied before first/last -->
+	<!-- Child selector applied before first/last -->
 </ul>
 
 <div class="group-hover:dark:bg-black">
-  <!-- dark applied before group-hover -->
+	<!-- dark applied before group-hover -->
 </div>
 ```
 
@@ -25,15 +25,16 @@ Tailwind CSS v4 changes variant stacking from right-to-left to left-to-right. Up
 
 ```html
 <ul class="*:py-2 *:first:pt-0 *:last:pb-0">
-  <!-- Child selector first, then first/last -->
+	<!-- Child selector first, then first/last -->
 </ul>
 
 <div class="dark:group-hover:bg-black">
-  <!-- dark first, then group-hover -->
+	<!-- dark first, then group-hover -->
 </div>
 ```
 
 **Reading order:**
+
 - Read variants left-to-right
 - Outer context first, inner context last
 - Matches natural language order: "in dark mode, on group hover, make background black"

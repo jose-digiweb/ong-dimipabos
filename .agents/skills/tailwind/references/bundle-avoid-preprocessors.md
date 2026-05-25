@@ -13,19 +13,19 @@ Tailwind CSS v4 is incompatible with Sass, Less, and Stylus preprocessors. Moder
 
 ```scss
 // styles.scss
-@import "tailwindcss"; // May fail with preprocessor
+@import 'tailwindcss'; // May fail with preprocessor
 
 .navigation {
-  $spacing: 1rem;
-  padding: $spacing;
+	$spacing: 1rem;
+	padding: $spacing;
 
-  &__item {
-    color: $brand-color;
+	&__item {
+		color: $brand-color;
 
-    &:hover {
-      color: darken($brand-color, 10%);
-    }
-  }
+		&:hover {
+			color: darken($brand-color, 10%);
+		}
+	}
 }
 ```
 
@@ -33,22 +33,23 @@ Tailwind CSS v4 is incompatible with Sass, Less, and Stylus preprocessors. Moder
 
 ```css
 /* styles.css */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 .navigation {
-  padding: var(--spacing-4);
+	padding: var(--spacing-4);
 
-  &__item {
-    color: var(--color-brand);
+	&__item {
+		color: var(--color-brand);
 
-    &:hover {
-      color: oklch(from var(--color-brand) calc(l - 0.1) c h);
-    }
-  }
+		&:hover {
+			color: oklch(from var(--color-brand) calc(l - 0.1) c h);
+		}
+	}
 }
 ```
 
 **Native CSS alternatives:**
+
 - CSS nesting (built into v4)
 - CSS custom properties (replace Sass variables)
 - `@theme` directive (replace Sass maps)

@@ -60,38 +60,39 @@ function CursorTracker() {
 import { subscribeWithSelector } from 'zustand/middleware'
 
 const useGameStore = create<GameState>()(
-  subscribeWithSelector((set) => ({
-    score: 0,
-    health: 100,
-    position: { x: 0, y: 0 },
-    // ...
-  }))
+	subscribeWithSelector((set) => ({
+		score: 0,
+		health: 100,
+		position: { x: 0, y: 0 },
+		// ...
+	})),
 )
 
 // Subscribe only to score changes
 useGameStore.subscribe(
-  (state) => state.score,
-  (score, prevScore) => {
-    if (score > prevScore) {
-      playSound('point')
-      showFloatingText(`+${score - prevScore}`)
-    }
-  }
+	(state) => state.score,
+	(score, prevScore) => {
+		if (score > prevScore) {
+			playSound('point')
+			showFloatingText(`+${score - prevScore}`)
+		}
+	},
 )
 
 // Subscribe to health with custom equality
 useGameStore.subscribe(
-  (state) => state.health,
-  (health) => {
-    if (health <= 0) {
-      triggerGameOver()
-    }
-  },
-  { equalityFn: (a, b) => Math.floor(a / 10) === Math.floor(b / 10) }
+	(state) => state.health,
+	(health) => {
+		if (health <= 0) {
+			triggerGameOver()
+		}
+	},
+	{ equalityFn: (a, b) => Math.floor(a / 10) === Math.floor(b / 10) },
 )
 ```
 
 **Use cases:**
+
 - Canvas/WebGL rendering
 - Audio engine updates
 - Analytics/logging

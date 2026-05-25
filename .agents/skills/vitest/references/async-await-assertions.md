@@ -15,11 +15,11 @@ Forgetting to await async assertions causes tests to pass before the assertion e
 import { describe, it, expect } from 'vitest'
 
 describe('UserService', () => {
-  it('should reject invalid users', () => {
-    const service = new UserService()
-    // Test passes immediately, assertion runs after test completes
-    expect(service.validate({ name: '' })).rejects.toThrow('Name required')
-  })
+	it('should reject invalid users', () => {
+		const service = new UserService()
+		// Test passes immediately, assertion runs after test completes
+		expect(service.validate({ name: '' })).rejects.toThrow('Name required')
+	})
 })
 ```
 
@@ -29,15 +29,16 @@ describe('UserService', () => {
 import { describe, it, expect } from 'vitest'
 
 describe('UserService', () => {
-  it('should reject invalid users', async () => {
-    const service = new UserService()
-    // Test waits for assertion to complete
-    await expect(service.validate({ name: '' })).rejects.toThrow('Name required')
-  })
+	it('should reject invalid users', async () => {
+		const service = new UserService()
+		// Test waits for assertion to complete
+		await expect(service.validate({ name: '' })).rejects.toThrow('Name required')
+	})
 })
 ```
 
 **Benefits:**
+
 - Tests fail when they should fail
 - No silent assertion failures
 - Accurate test results

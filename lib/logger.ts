@@ -4,196 +4,191 @@
  */
 
 export const LogLevel = {
-  ERROR: 0,
-  WARN: 1,
-  INFO: 2,
-  DEBUG: 3,
+	ERROR: 0,
+	WARN: 1,
+	INFO: 2,
+	DEBUG: 3,
 } as const
 
 export type LogLevel = (typeof LogLevel)[keyof typeof LogLevel]
 
 interface LogEntry {
-  timestamp: string
-  level: string
-  message: string
-  context?: string
-  error?: Error
-  metadata?: Record<string, unknown>
+	timestamp: string
+	level: string
+	message: string
+	context?: string
+	error?: Error
+	metadata?: Record<string, unknown>
 }
 
 class Logger {
-  private logLevel: LogLevel
-  private isDevelopment: boolean
+	private logLevel: LogLevel
+	private isDevelopment: boolean
 
-  constructor() {
-    this.isDevelopment = process.env.NODE_ENV === 'development'
-    this.logLevel = this.isDevelopment ? LogLevel.DEBUG : LogLevel.INFO
-  }
+	constructor() {
+		this.isDevelopment = process.env.NODE_ENV === 'development'
+		this.logLevel = this.isDevelopment ? LogLevel.DEBUG : LogLevel.INFO
+	}
 
-  private formatTimestamp(): string {
-    return new Date().toISOString()
-  }
+	private formatTimestamp(): string {
+		return new Date().toISOString()
+	}
 
-  private shouldLog(level: LogLevel): boolean {
-    return level <= this.logLevel
-  }
+	private shouldLog(level: LogLevel): boolean {
+		return level <= this.logLevel
+	}
 
-  private formatLogEntry(entry: LogEntry): string {
-    const { timestamp, level, message, context, error, metadata } = entry
+	private formatLogEntry(entry: LogEntry): string {
+		const { timestamp, level, message, context, error, metadata } = entry
 
-    let logMessage = `[${timestamp}] ${level.toUpperCase()}`
+		let logMessage = `[${timestamp}] ${level.toUpperCase()}`
 
-    if (context) {
-      logMessage += ` [${context}]`
-    }
+		if (context) {
+			logMessage += ` [${context}]`
+		}
 
-    logMessage += `: ${message}`
+		logMessage += `: ${message}`
 
-    if (error) {
-      logMessage += `\nError: ${error.message}`
-      if (this.isDevelopment && error.stack) {
-        logMessage += `\nStack: ${error.stack}`
-      }
-    }
+		if (error) {
+			logMessage += `\nError: ${error.message}`
+			if (this.isDevelopment && error.stack) {
+				logMessage += `\nStack: ${error.stack}`
+			}
+		}
 
-    if (metadata && Object.keys(metadata).length > 0) {
-      logMessage += `\nMetadata: ${JSON.stringify(metadata, null, 2)}`
-    }
+		if (metadata && Object.keys(metadata).length > 0) {
+			logMessage += `\nMetadata: ${JSON.stringify(metadata, null, 2)}`
+		}
 
-    return logMessage
-  }
+		return logMessage
+	}
 
-  private writeLog(entry: LogEntry): void {
-    const _formattedMessage = this.formatLogEntry(entry)
+	private writeLog(entry: LogEntry): void {
+		const _formattedMessage = this.formatLogEntry(entry)
 
-    // In development, use console for immediate feedback
-    if (this.isDevelopment) {
-      switch (entry.level) {
-        case 'error':
-          break
-        case 'warn':
-          break
-        case 'info':
-          break
-        case 'debug':
-          break
-        default:
-      }
-    }
-  }
+		// In development, use console for immediate feedback
+		if (this.isDevelopment) {
+			switch (entry.level) {
+				case 'error':
+					break
+				case 'warn':
+					break
+				case 'info':
+					break
+				case 'debug':
+					break
+				default:
+			}
+		}
+	}
 
-  error(
-    message: string,
-    context?: string,
-    error?: Error,
-    metadata?: Record<string, unknown>
-  ): void {
-    if (!this.shouldLog(LogLevel.ERROR)) {
-      return
-    }
+	error(message: string, context?: string, error?: Error, metadata?: Record<string, unknown>): void {
+		if (!this.shouldLog(LogLevel.ERROR)) {
+			return
+		}
 
-    this.writeLog({
-      timestamp: this.formatTimestamp(),
-      level: 'error',
-      message,
-      context,
-      error,
-      metadata,
-    })
-  }
+		this.writeLog({
+			timestamp: this.formatTimestamp(),
+			level: 'error',
+			message,
+			context,
+			error,
+			metadata,
+		})
+	}
 
-  warn(message: string, context?: string, metadata?: Record<string, unknown>): void {
-    if (!this.shouldLog(LogLevel.WARN)) {
-      return
-    }
+	warn(message: string, context?: string, metadata?: Record<string, unknown>): void {
+		if (!this.shouldLog(LogLevel.WARN)) {
+			return
+		}
 
-    this.writeLog({
-      timestamp: this.formatTimestamp(),
-      level: 'warn',
-      message,
-      context,
-      metadata,
-    })
-  }
+		this.writeLog({
+			timestamp: this.formatTimestamp(),
+			level: 'warn',
+			message,
+			context,
+			metadata,
+		})
+	}
 
-  info(message: string, context?: string, metadata?: Record<string, unknown>): void {
-    if (!this.shouldLog(LogLevel.INFO)) {
-      return
-    }
+	info(message: string, context?: string, metadata?: Record<string, unknown>): void {
+		if (!this.shouldLog(LogLevel.INFO)) {
+			return
+		}
 
-    this.writeLog({
-      timestamp: this.formatTimestamp(),
-      level: 'info',
-      message,
-      context,
-      metadata,
-    })
-  }
+		this.writeLog({
+			timestamp: this.formatTimestamp(),
+			level: 'info',
+			message,
+			context,
+			metadata,
+		})
+	}
 
-  debug(message: string, context?: string, metadata?: Record<string, unknown>): void {
-    if (!this.shouldLog(LogLevel.DEBUG)) {
-      return
-    }
+	debug(message: string, context?: string, metadata?: Record<string, unknown>): void {
+		if (!this.shouldLog(LogLevel.DEBUG)) {
+			return
+		}
 
-    this.writeLog({
-      timestamp: this.formatTimestamp(),
-      level: 'debug',
-      message,
-      context,
-      metadata,
-    })
-  }
+		this.writeLog({
+			timestamp: this.formatTimestamp(),
+			level: 'debug',
+			message,
+			context,
+			metadata,
+		})
+	}
 
-  /**
-   * Database-specific logging methods
-   */
-  database = {
-    error: (operation: string, error: Error, metadata?: Record<string, unknown>) => {
-      this.error(`Database operation failed: ${operation}`, 'DATABASE', error, metadata)
-    },
+	/**
+	 * Database-specific logging methods
+	 */
+	database = {
+		error: (operation: string, error: Error, metadata?: Record<string, unknown>) => {
+			this.error(`Database operation failed: ${operation}`, 'DATABASE', error, metadata)
+		},
 
-    info: (operation: string, metadata?: Record<string, unknown>) => {
-      this.info(`Database operation: ${operation}`, 'DATABASE', metadata)
-    },
+		info: (operation: string, metadata?: Record<string, unknown>) => {
+			this.info(`Database operation: ${operation}`, 'DATABASE', metadata)
+		},
 
-    debug: (operation: string, metadata?: Record<string, unknown>) => {
-      this.debug(`Database operation: ${operation}`, 'DATABASE', metadata)
-    },
-  }
+		debug: (operation: string, metadata?: Record<string, unknown>) => {
+			this.debug(`Database operation: ${operation}`, 'DATABASE', metadata)
+		},
+	}
 
-  /**
-   * API-specific logging methods
-   */
-  api = {
-    error: (endpoint: string, error: Error, metadata?: Record<string, unknown>) => {
-      this.error(`API error: ${endpoint}`, 'API', error, metadata)
-    },
+	/**
+	 * API-specific logging methods
+	 */
+	api = {
+		error: (endpoint: string, error: Error, metadata?: Record<string, unknown>) => {
+			this.error(`API error: ${endpoint}`, 'API', error, metadata)
+		},
 
-    info: (endpoint: string, method: string, metadata?: Record<string, unknown>) => {
-      this.info(`${method} ${endpoint}`, 'API', metadata)
-    },
+		info: (endpoint: string, method: string, metadata?: Record<string, unknown>) => {
+			this.info(`${method} ${endpoint}`, 'API', metadata)
+		},
 
-    debug: (endpoint: string, method: string, metadata?: Record<string, unknown>) => {
-      this.debug(`${method} ${endpoint}`, 'API', metadata)
-    },
-  }
+		debug: (endpoint: string, method: string, metadata?: Record<string, unknown>) => {
+			this.debug(`${method} ${endpoint}`, 'API', metadata)
+		},
+	}
 
-  /**
-   * Payment-specific logging methods
-   */
-  payment = {
-    error: (operation: string, error: Error, metadata?: Record<string, unknown>) => {
-      this.error(`Payment error: ${operation}`, 'PAYMENT', error, metadata)
-    },
+	/**
+	 * Payment-specific logging methods
+	 */
+	payment = {
+		error: (operation: string, error: Error, metadata?: Record<string, unknown>) => {
+			this.error(`Payment error: ${operation}`, 'PAYMENT', error, metadata)
+		},
 
-    info: (operation: string, metadata?: Record<string, unknown>) => {
-      this.info(`Payment operation: ${operation}`, 'PAYMENT', metadata)
-    },
+		info: (operation: string, metadata?: Record<string, unknown>) => {
+			this.info(`Payment operation: ${operation}`, 'PAYMENT', metadata)
+		},
 
-    debug: (operation: string, metadata?: Record<string, unknown>) => {
-      this.debug(`Payment operation: ${operation}`, 'PAYMENT', metadata)
-    },
-  }
+		debug: (operation: string, metadata?: Record<string, unknown>) => {
+			this.debug(`Payment operation: ${operation}`, 'PAYMENT', metadata)
+		},
+	}
 }
 
 // Export singleton instance

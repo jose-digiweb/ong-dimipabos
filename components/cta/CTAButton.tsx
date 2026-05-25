@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { Button, type ButtonProps } from '../ui/button'
 
 type Props = {
-  text?: string
-  onClick?: () => void
+	text?: string
+	onClick?: () => void
 } & Omit<ButtonProps, 'variant'>
 
 /**
@@ -17,19 +17,17 @@ type Props = {
  * @returns {JSX.Element} The CATButton component
  */
 export const CTAButton = ({ text, onClick, size = 'lg', className }: Props) => {
-  return (
-    <Button
-      render={
-        <Link href='/como-ajudar' className={cn('group flex items-center gap-4', className)} />
-      }
-      nativeButton={false}
-      size={size}
-      variant='CTA'
-      onClick={onClick}
-    >
-      <span>{text ? text : 'Doe Agora'}</span>
+	return (
+		<Button
+			render={<Link href='/como-ajudar' className={cn('group flex items-center gap-4', className)} />}
+			nativeButton={false}
+			size={size}
+			variant='CTA'
+			onClick={onClick}
+		>
+			<span>{text ? text : 'Doe Agora'}</span>
 
-      <HeartHandshake className='size-6 group-hover:animate-pulse' />
-    </Button>
-  )
+			<HeartHandshake className='size-6 group-hover:animate-pulse' />
+		</Button>
+	)
 }
