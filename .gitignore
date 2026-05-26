@@ -9,6 +9,7 @@
 .dev.vars
 .wrangler
 .open-next
+*env*
 
 # testing
 /coverage
