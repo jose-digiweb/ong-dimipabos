@@ -1,0 +1,12 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/images/route": "/api/images",
+  "/como-ajudar/page": "/como-ajudar",
+  "/contato/page": "/contato",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/",
+  "/projetos/[slug]/page": "/projetos/[slug]",
+  "/projetos/page": "/projetos",
+  "/sobre/page": "/sobre"
+}

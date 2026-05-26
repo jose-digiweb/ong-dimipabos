@@ -1,0 +1,12 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/images/route": "app/api/images/route.js",
+  "/como-ajudar/page": "app/como-ajudar/page.js",
+  "/contato/page": "app/contato/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js",
+  "/projetos/[slug]/page": "app/projetos/[slug]/page.js",
+  "/projetos/page": "app/projetos/page.js",
+  "/sobre/page": "app/sobre/page.js"
+}
