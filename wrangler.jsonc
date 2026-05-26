@@ -21,6 +21,9 @@
 			"bucket_name": "dimipabos",
 		},
 	],
+	"vars": {
+		"R2_PUBLIC_URL": "https://storage.ongdimipabos.org",
+	},
 	"observability": {
 		"enabled": true,
 	},
