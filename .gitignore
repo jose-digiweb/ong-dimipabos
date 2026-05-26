@@ -8,6 +8,7 @@
 
 .dev.vars
 .wrangler
+.open-next
 
 # testing
 /coverage
