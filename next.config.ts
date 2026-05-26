@@ -1,4 +1,7 @@
+import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
 import type { NextConfig } from 'next'
+
+initOpenNextCloudflareForDev()
 
 const nextConfig: NextConfig = {
 	images: {
@@ -6,12 +9,13 @@ const nextConfig: NextConfig = {
 			{
 				protocol: 'https',
 				hostname: 'res.cloudinary.com',
-				port: '',
 				pathname: '/**',
 			},
+			// R2 public bucket URL — update once you enable public access on the bucket
+			// Format: pub-<hash>.r2.dev — add the specific hostname once known
 			{
 				protocol: 'https',
-				hostname: 'dimipabos.199b6cc24673b9eeccbff632eefdafd7.r2.cloudflarestorage.com',
+				hostname: '*.r2.dev',
 				pathname: '/**',
 			},
 		],

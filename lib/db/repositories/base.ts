@@ -1,26 +1,22 @@
-import type { PgTable } from 'drizzle-orm/pg-core'
+import type { SQLiteTable } from 'drizzle-orm/sqlite-core'
 import { logger } from '../../logger'
-import { db } from '../index'
+import { getDb } from '../index'
 
-/**
- * Base repository class providing common database operations
- */
-export abstract class BaseRepository<T extends PgTable> {
+export abstract class BaseRepository<T extends SQLiteTable> {
 	protected table: T
-	protected db = db
 
 	constructor(table: T) {
 		this.table = table
 	}
 
-	/**
-	 * Handle database errors with proper logging and user-friendly messages
-	 */
+	protected get db() {
+		return getDb()
+	}
+
 	protected handleError(error: Error, operation: string): never {
 		logger.error(`Database error in ${operation}:`, '', error)
 
 		if (error instanceof Error) {
-			// Handle specific database errors
 			if (error.message.includes('unique constraint')) {
 				throw new Error('A record with this information already exists')
 			}
@@ -35,9 +31,6 @@ export abstract class BaseRepository<T extends PgTable> {
 		throw new Error(`Failed to ${operation}. Please try again.`)
 	}
 
-	/**
-	 * Execute a database operation with error handling
-	 */
 	protected async executeQuery<R>(operation: string, query: () => Promise<R>): Promise<R> {
 		try {
 			return await query()

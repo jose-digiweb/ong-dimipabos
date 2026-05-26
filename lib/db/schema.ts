@@ -1,94 +1,83 @@
 import { relations } from 'drizzle-orm'
-import {
-	boolean,
-	integer,
-	jsonb,
-	pgTable,
-	text,
-	timestamp,
-	uuid,
-	varchar,
-} from 'drizzle-orm/pg-core'
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 // Donors table
-export const donors = pgTable('donors', {
-	id: uuid('id').primaryKey().defaultRandom(),
-	email: varchar('email', { length: 255 }).unique().notNull(),
-	firstName: varchar('first_name', { length: 100 }).notNull(),
-	lastName: varchar('last_name', { length: 100 }).notNull(),
-	phone: varchar('phone', { length: 20 }),
-	addressLine1: varchar('address_line1', { length: 255 }),
-	addressLine2: varchar('address_line2', { length: 255 }),
-	city: varchar('city', { length: 100 }),
-	state: varchar('state', { length: 100 }),
-	postalCode: varchar('postal_code', { length: 20 }),
-	country: varchar('country', { length: 2 }).notNull(),
-	stripeCustomerId: varchar('stripe_customer_id', { length: 255 }).unique(),
-	emailOptIn: boolean('email_opt_in').default(false),
-	createdAt: timestamp('created_at').defaultNow(),
-	updatedAt: timestamp('updated_at').defaultNow(),
+export const donors = sqliteTable('donors', {
+	id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+	email: text('email').unique().notNull(),
+	firstName: text('first_name').notNull(),
+	lastName: text('last_name').notNull(),
+	phone: text('phone'),
+	addressLine1: text('address_line1'),
+	addressLine2: text('address_line2'),
+	city: text('city'),
+	state: text('state'),
+	postalCode: text('postal_code'),
+	country: text('country').notNull(),
+	stripeCustomerId: text('stripe_customer_id').unique(),
+	emailOptIn: integer('email_opt_in', { mode: 'boolean' }).default(false),
+	createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+	updatedAt: integer('updated_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
 })
 
 // Donations table
-export const donations = pgTable('donations', {
-	id: uuid('id').primaryKey().defaultRandom(),
-	donorId: uuid('donor_id').references(() => donors.id),
-	stripePaymentIntentId: varchar('stripe_payment_intent_id', { length: 255 }).unique(),
+export const donations = sqliteTable('donations', {
+	id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+	donorId: text('donor_id').references(() => donors.id),
+	stripePaymentIntentId: text('stripe_payment_intent_id').unique(),
 	amount: integer('amount').notNull(), // Amount in cents
-	currency: varchar('currency', { length: 3 }).notNull().default('EUR'),
-	status: varchar('status', { length: 20 }).notNull(), // pending, succeeded, failed, canceled
-	paymentMethod: varchar('payment_method', { length: 50 }), // card, sepa, bank_transfer
-	isRecurring: boolean('is_recurring').default(false),
-	stripeSubscriptionId: varchar('stripe_subscription_id', { length: 255 }),
-	campaignId: uuid('campaign_id').references(() => campaigns.id),
-	metadata: jsonb('metadata'),
-	createdAt: timestamp('created_at').defaultNow(),
-	updatedAt: timestamp('updated_at').defaultNow(),
+	currency: text('currency').notNull().default('EUR'),
+	status: text('status').notNull(), // pending, succeeded, failed, canceled
+	paymentMethod: text('payment_method'), // card, sepa, bank_transfer
+	isRecurring: integer('is_recurring', { mode: 'boolean' }).default(false),
+	stripeSubscriptionId: text('stripe_subscription_id'),
+	campaignId: text('campaign_id').references(() => campaigns.id),
+	metadata: text('metadata', { mode: 'json' }),
+	createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+	updatedAt: integer('updated_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
 })
 
 // Project progress table
-export const projectProgress = pgTable('project_progress', {
-	id: uuid('id').primaryKey().defaultRandom(),
-	title: varchar('title', { length: 255 }).notNull(),
-	description: text('description'),
-	targetAmount: integer('target_amount').notNull(), // Amount in cents
-	currentAmount: integer('current_amount').default(0), // Amount in cents
-	percentageComplete: integer('percentage_complete').default(0),
-	isActive: boolean('is_active').default(true),
-	createdAt: timestamp('created_at').defaultNow(),
-	updatedAt: timestamp('updated_at').defaultNow(),
-})
-
-// Donation campaigns table
-export const campaigns = pgTable('campaigns', {
-	id: uuid('id').primaryKey().defaultRandom(),
-	name: varchar('name', { length: 255 }).notNull(),
+export const projectProgress = sqliteTable('project_progress', {
+	id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+	title: text('title').notNull(),
 	description: text('description'),
 	targetAmount: integer('target_amount').notNull(),
 	currentAmount: integer('current_amount').default(0),
-	startDate: timestamp('start_date'),
-	endDate: timestamp('end_date'),
-	isActive: boolean('is_active').default(true),
-	createdAt: timestamp('created_at').defaultNow(),
-	updatedAt: timestamp('updated_at').defaultNow(),
+	percentageComplete: integer('percentage_complete').default(0),
+	isActive: integer('is_active', { mode: 'boolean' }).default(true),
+	createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+	updatedAt: integer('updated_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+})
+
+// Donation campaigns table
+export const campaigns = sqliteTable('campaigns', {
+	id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+	name: text('name').notNull(),
+	description: text('description'),
+	targetAmount: integer('target_amount').notNull(),
+	currentAmount: integer('current_amount').default(0),
+	startDate: integer('start_date', { mode: 'timestamp' }),
+	endDate: integer('end_date', { mode: 'timestamp' }),
+	isActive: integer('is_active', { mode: 'boolean' }).default(true),
+	createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+	updatedAt: integer('updated_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
 })
 
 // Donor preferences table
-export const donorPreferences = pgTable('donor_preferences', {
-	id: uuid('id').primaryKey().defaultRandom(),
-	donorId: uuid('donor_id')
-		.references(() => donors.id)
-		.notNull(),
-	emailUpdates: boolean('email_updates').default(true),
-	emailNewsletter: boolean('email_newsletter').default(false),
-	emailReceipts: boolean('email_receipts').default(true),
-	preferredCurrency: varchar('preferred_currency', { length: 3 }).default('EUR'),
-	preferredLanguage: varchar('preferred_language', { length: 2 }).default('pt'),
-	createdAt: timestamp('created_at').defaultNow(),
-	updatedAt: timestamp('updated_at').defaultNow(),
+export const donorPreferences = sqliteTable('donor_preferences', {
+	id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+	donorId: text('donor_id').references(() => donors.id).notNull(),
+	emailUpdates: integer('email_updates', { mode: 'boolean' }).default(true),
+	emailNewsletter: integer('email_newsletter', { mode: 'boolean' }).default(false),
+	emailReceipts: integer('email_receipts', { mode: 'boolean' }).default(true),
+	preferredCurrency: text('preferred_currency').default('EUR'),
+	preferredLanguage: text('preferred_language').default('pt'),
+	createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+	updatedAt: integer('updated_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
 })
 
-// Define relations
+// Relations
 export const donorsRelations = relations(donors, ({ many, one }) => ({
 	donations: many(donations),
 	preferences: one(donorPreferences, {
@@ -98,14 +87,8 @@ export const donorsRelations = relations(donors, ({ many, one }) => ({
 }))
 
 export const donationsRelations = relations(donations, ({ one }) => ({
-	donor: one(donors, {
-		fields: [donations.donorId],
-		references: [donors.id],
-	}),
-	campaign: one(campaigns, {
-		fields: [donations.campaignId],
-		references: [campaigns.id],
-	}),
+	donor: one(donors, { fields: [donations.donorId], references: [donors.id] }),
+	campaign: one(campaigns, { fields: [donations.campaignId], references: [campaigns.id] }),
 }))
 
 export const campaignsRelations = relations(campaigns, ({ many }) => ({
@@ -113,13 +96,10 @@ export const campaignsRelations = relations(campaigns, ({ many }) => ({
 }))
 
 export const donorPreferencesRelations = relations(donorPreferences, ({ one }) => ({
-	donor: one(donors, {
-		fields: [donorPreferences.donorId],
-		references: [donors.id],
-	}),
+	donor: one(donors, { fields: [donorPreferences.donorId], references: [donors.id] }),
 }))
 
-// Export types
+// Exported types
 export type Donor = typeof donors.$inferSelect
 export type NewDonor = typeof donors.$inferInsert
 export type Donation = typeof donations.$inferSelect

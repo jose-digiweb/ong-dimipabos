@@ -17,6 +17,8 @@ import { SectionDescription, SectionTitle } from '@/components/ui/section'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
+export const dynamic = 'force-dynamic'
+
 export default function Page() {
 	return (
 		<div className='flex min-h-screen flex-col'>

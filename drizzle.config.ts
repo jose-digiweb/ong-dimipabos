@@ -3,12 +3,11 @@ import { defineConfig } from 'drizzle-kit'
 export default defineConfig({
 	schema: './lib/db/schema.ts',
 	out: './drizzle',
-	dialect: 'postgresql',
+	dialect: 'sqlite',
+	driver: 'd1-http',
 	dbCredentials: {
-		url:
-			process.env.DATABASE_URL ??
-			(() => {
-				throw new Error('DATABASE_URL is required')
-			})(),
+		accountId: process.env.CLOUDFLARE_ACCOUNT_ID ?? '',
+		databaseId: process.env.CLOUDFLARE_D1_DATABASE_ID ?? '',
+		token: process.env.CLOUDFLARE_D1_TOKEN ?? '',
 	},
 })

@@ -1,4 +1,4 @@
-import { and, desc, eq, ilike } from 'drizzle-orm'
+import { and, desc, eq, like } from 'drizzle-orm'
 import { donations, donorPreferences, donors } from '../schema'
 import type { Donor, DonorPreferences, NewDonor, NewDonorPreferences } from '../schema'
 import { BaseRepository } from './base'
@@ -125,9 +125,9 @@ export class DonorRepository extends BaseRepository<typeof donors> {
 				.from(this.table)
 				.where(
 					and(
-						ilike(this.table.firstName, searchTerm),
-						ilike(this.table.lastName, searchTerm),
-						ilike(this.table.email, searchTerm),
+						like(this.table.firstName, searchTerm),
+						like(this.table.lastName, searchTerm),
+						like(this.table.email, searchTerm),
 					),
 				)
 				.limit(limit)

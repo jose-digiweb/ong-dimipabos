@@ -1,4 +1,4 @@
-import { db } from './index'
+import { getDb } from './index'
 
 /**
  * Database utility functions for common operations
@@ -9,7 +9,7 @@ import { db } from './index'
  */
 export async function testConnection(): Promise<boolean> {
 	try {
-		await db.execute('SELECT 1')
+		await getDb().$client.exec('SELECT 1')
 		return true
 	} catch (_error) {
 		return false
