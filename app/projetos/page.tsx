@@ -13,7 +13,7 @@ import {
 } from '@/components/heroSection'
 import { ProjectCard } from '@/components/projects'
 import { Button } from '@/components/ui/button'
-import { SectionDescription, SectionTitle } from '@/components/ui/section'
+import { SectionDescription, SectionTitle } from '@/components/section'
 import { projects } from '@/lib/data'
 
 /**

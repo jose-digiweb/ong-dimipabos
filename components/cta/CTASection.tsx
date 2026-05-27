@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 import { Button } from '../ui/button'
-import { SectionDescription, SectionTitle } from '../ui/section'
+import { SectionDescription, SectionTitle } from '../section'
 import { CTAButton } from './CTAButton'
 import { ctaCopy, ctaRoute } from './constants'
 import type { CTASectionProps } from './types'

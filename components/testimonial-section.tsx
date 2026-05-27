@@ -4,8 +4,8 @@ import Image from 'next/image'
 import testimonialImage from '@/assets/testimonial/testimonial.jpg'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
-import { SectionDescription } from './ui/section/SectionDescription'
-import { SectionTitle } from './ui/section/SectionTitle'
+import { SectionDescription } from './section/SectionDescription'
+import { SectionTitle } from './section/SectionTitle'
 
 /**
  * The {@link testimonialCopy} constant

@@ -17,7 +17,7 @@ import {
 import { TeamSection } from '@/components/team-section'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { SectionTitle } from '@/components/ui/section'
+import { SectionTitle } from '@/components/section'
 
 /**
  * The {@link aboutCopy} constant

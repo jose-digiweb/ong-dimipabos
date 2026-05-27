@@ -18,7 +18,7 @@ import {
 import { HomeProjectCard } from '@/components/HomeProjectCard'
 import { ImageCarousel } from '@/components/image-carousel'
 import { Button } from '@/components/ui/button'
-import { SectionDescription, SectionTitle } from '@/components/ui/section'
+import { SectionDescription, SectionTitle } from '@/components/section'
 
 /**
  * The dynamic export

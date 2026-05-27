@@ -3,8 +3,8 @@ import Image from 'next/image'
 import cesaltinaImage from '@/assets/team/cesaltina.jpeg'
 import { Card, CardContent } from '@/components/ui/card'
 
-import { SectionDescription } from './ui/section/SectionDescription'
-import { SectionTitle } from './ui/section/SectionTitle'
+import { SectionDescription } from './section/SectionDescription'
+import { SectionTitle } from './section/SectionTitle'
 
 /**
  * The {@link teamSectionCopy} constant

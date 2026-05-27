@@ -13,8 +13,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 import { CTAButton } from './cta'
-import { SectionDescription } from './ui/section/SectionDescription'
-import { SectionTitle } from './ui/section/SectionTitle'
+import { SectionDescription } from './section/SectionDescription'
+import { SectionTitle } from './section/SectionTitle'
 
 /**
  * The {@link donationFrequency} constant

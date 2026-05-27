@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-import { SectionDescription } from './ui/section/SectionDescription'
-import { SectionTitle } from './ui/section/SectionTitle'
+import { SectionDescription } from './section/SectionDescription'
+import { SectionTitle } from './section/SectionTitle'
 
 /**
  * The {@link impactStatsCopy} constant

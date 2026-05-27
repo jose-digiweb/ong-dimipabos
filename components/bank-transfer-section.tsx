@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { SectionDescription, SectionTitle } from '@/components/ui/section'
+import { SectionDescription, SectionTitle } from '@/components/section'
 
 /**
  * The {@link bankTransferCopy} constant

@@ -24,8 +24,8 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 
-import { SectionDescription } from './ui/section/SectionDescription'
-import { SectionTitle } from './ui/section/SectionTitle'
+import { SectionDescription } from './section/SectionDescription'
+import { SectionTitle } from './section/SectionTitle'
 
 /**
  * The {@link volunteerArea} constant
