@@ -14,15 +14,8 @@ export const projects: ProjectType[] = [
     description:
       'O primeiro centro especializado em tratamento e reabilitação para pessoas em situação de dependência química na Guiné-Bissau.',
     shortDescription: 'Tratamento especializado com equipe multidisciplinar.',
-    longDescription: `Nosso projeto principal consiste na construção de um centro de tratamento moderno e humanizado. 
-      Com o terreno já adquirido em 2023, estamos na fase de captação de recursos para iniciar a construção.
-      
-      O centro será equipado com:
-      • Dormitórios para até 20 pessoas
-      • Áreas de convivência e lazer
-      • Salas para atendimento individual e em grupo
-      • Refeitório e cozinha industrial
-      • Espaço para atividades terapêuticas`,
+    longDescription:
+      'Nosso projeto principal consiste na construção de um centro de tratamento moderno e humanizado. Com o terreno já adquirido em 2023, estamos na fase de captação de recursos para iniciar a construção.\n\nO centro será equipado com:\n• Dormitórios para até 20 pessoas\n• Áreas de convivência e lazer\n• Salas para atendimento individual e em grupo\n• Refeitório e cozinha industrial\n• Espaço para atividades terapêuticas',
     location: 'Bissau, Guiné-Bissau',
     startDate: '2023',
     capacity: '20 pessoas',

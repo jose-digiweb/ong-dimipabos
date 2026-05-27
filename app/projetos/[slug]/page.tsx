@@ -1,4 +1,5 @@
-import { ArrowLeft, Calendar, MapPin, Users } from 'lucide-react'
+import { ArrowLeft, Calendar, Mail, MapPin, Phone, Users } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -20,13 +21,16 @@ const projectPageCopy = {
   BADGE_PLANEJAMENTO: 'Em Planejamento',
   BADGE_ANDAMENTO: 'Em Andamento',
   BADGE_CONCLUIDO: 'Concluído',
-  START_LABEL: 'Início:',
-  CAPACITY_LABEL: 'Capacidade:',
+  LOCATION_LABEL: 'Localização',
+  START_LABEL: 'Início',
+  CAPACITY_LABEL: 'Capacidade',
   TAB_ABOUT: 'Sobre o Projeto',
   TAB_GALLERY: 'Galeria',
   DETAILS_TITLE: 'Detalhes do Projeto',
   TEAM_TITLE: 'Equipe do Projeto',
   CONTACT_TITLE: 'Contato',
+  EMAIL_LABEL: 'E-mail',
+  PHONE_LABEL: 'Telefone',
   EMPTY_GALLERY: 'Nenhuma imagem disponível no momento.',
 } as const
 
@@ -43,13 +47,13 @@ const projectsRoute = {
  * @description Status-to-badge presentation map
  */
 const projectStatusBadge = {
-  captacao: { label: projectPageCopy.BADGE_CAPTACAO, className: 'mb-6 bg-yellow-500 text-white' },
+  captacao: { label: projectPageCopy.BADGE_CAPTACAO, className: 'bg-yellow-500 text-white' },
   planejamento: {
     label: projectPageCopy.BADGE_PLANEJAMENTO,
-    className: 'mb-6 bg-blue-500 text-white',
+    className: 'bg-blue-500 text-white',
   },
-  andamento: { label: projectPageCopy.BADGE_ANDAMENTO, className: 'mb-6 bg-green-500 text-white' },
-  concluido: { label: projectPageCopy.BADGE_CONCLUIDO, className: 'mb-6 bg-green-500 text-white' },
+  andamento: { label: projectPageCopy.BADGE_ANDAMENTO, className: 'bg-green-500 text-white' },
+  concluido: { label: projectPageCopy.BADGE_CONCLUIDO, className: 'bg-green-500 text-white' },
 } as const satisfies Record<ProjectStatus, { label: string; className: string }>
 
 /**
@@ -96,78 +100,108 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   // Render the project detail layout
   return (
     <div className='min-h-screen'>
-      <section className='relative overflow-hidden bg-linear-to-b from-primary/5 to-primary/10 py-24'>
-        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-          <div className='flex flex-col items-center text-center'>
-            <Link
-              href={projectsRoute.LIST}
-              className='mb-4 inline-flex items-center text-muted-foreground text-sm hover:text-foreground'
-            >
-              <ArrowLeft className='mr-2 size-4' />
-              {projectPageCopy.BACK_TO_PROJECTS}
-            </Link>
+      <section className='relative overflow-hidden bg-linear-to-b from-primary/5 to-primary/10'>
+        <div className='mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-20'>
+          <Link
+            href={projectsRoute.LIST}
+            className='inline-flex items-center text-muted-foreground text-sm hover:text-foreground'
+          >
+            <ArrowLeft className='mr-2 size-4' />
+            {projectPageCopy.BACK_TO_PROJECTS}
+          </Link>
 
-            <Badge className={statusBadge.className}>{statusBadge.label}</Badge>
+          <div className='mt-6 grid gap-8 lg:mt-10 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-12'>
+            <div className='order-2 lg:order-1'>
+              <Badge className={statusBadge.className}>{statusBadge.label}</Badge>
 
-            <h1 className='font-bold text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl'>
-              {project.title}
-            </h1>
-            <p className='mt-6 max-w-2xl text-lg text-muted-foreground'>{project.description}</p>
-            <div className='mt-8 flex flex-wrap items-center justify-center gap-4 text-muted-foreground text-sm'>
-              {project.location && (
-                <div className='flex items-center gap-2'>
-                  <MapPin className='size-4' />
-                  {project.location}
-                </div>
-              )}
-              {project.startDate && (
-                <div className='flex items-center gap-2'>
-                  <Calendar className='size-4' />
-                  {projectPageCopy.START_LABEL} {project.startDate}
-                </div>
-              )}
-              {project.capacity && (
-                <div className='flex items-center gap-2'>
-                  <Users className='size-4' />
-                  {projectPageCopy.CAPACITY_LABEL} {project.capacity}
-                </div>
-              )}
+              <h1 className='mt-4 text-balance font-bold text-3xl text-foreground tracking-tight sm:text-4xl lg:text-5xl'>
+                {project.title}
+              </h1>
+
+              <p className='mt-4 max-w-prose text-pretty text-base text-muted-foreground sm:mt-6 sm:text-lg'>
+                {project.description}
+              </p>
+
+              <dl className='mt-6 flex flex-wrap gap-x-5 gap-y-3 text-muted-foreground text-sm sm:mt-8'>
+                {project.location && (
+                  <div className='flex items-center gap-2'>
+                    <MapPin className='size-4 shrink-0 text-primary' aria-hidden />
+                    <dt className='sr-only'>{projectPageCopy.LOCATION_LABEL}</dt>
+                    <dd>{project.location}</dd>
+                  </div>
+                )}
+                {project.startDate && (
+                  <div className='flex items-center gap-2'>
+                    <Calendar className='size-4 shrink-0 text-primary' aria-hidden />
+                    <dt className='sr-only'>{projectPageCopy.START_LABEL}</dt>
+                    <dd>
+                      <span className='font-medium text-foreground'>
+                        {projectPageCopy.START_LABEL}:
+                      </span>{' '}
+                      {project.startDate}
+                    </dd>
+                  </div>
+                )}
+                {project.capacity && (
+                  <div className='flex items-center gap-2'>
+                    <Users className='size-4 shrink-0 text-primary' aria-hidden />
+                    <dt className='sr-only'>{projectPageCopy.CAPACITY_LABEL}</dt>
+                    <dd>
+                      <span className='font-medium text-foreground'>
+                        {projectPageCopy.CAPACITY_LABEL}:
+                      </span>{' '}
+                      {project.capacity}
+                    </dd>
+                  </div>
+                )}
+              </dl>
             </div>
+
+            {project.image && (
+              <div className='relative order-1 aspect-video w-full overflow-hidden rounded-2xl bg-muted shadow-lg lg:order-2 lg:aspect-4/3'>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  priority
+                  sizes='(min-width: 1024px) 45vw, 100vw'
+                  className='object-cover'
+                />
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      <section className='py-16'>
+      <section className='py-10 sm:py-16'>
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-          <Tabs defaultValue='sobre' className='space-y-8'>
-            <TabsList className='grid w-full grid-cols-2 lg:w-[400px]'>
+          <Tabs defaultValue='sobre' className='space-y-6 sm:space-y-8'>
+            <TabsList className='grid w-full grid-cols-2 sm:w-[400px]'>
               <TabsTrigger value='sobre'>{projectPageCopy.TAB_ABOUT}</TabsTrigger>
               <TabsTrigger value='galeria'>{projectPageCopy.TAB_GALLERY}</TabsTrigger>
             </TabsList>
 
-            <TabsContent value='sobre' className='space-y-8'>
-              <div className='grid gap-8 lg:grid-cols-3'>
-                <div className='lg:col-span-2'>
-                  <Card>
-                    <CardContent className='p-6'>
-                      <h2 className='font-bold text-2xl'>{projectPageCopy.DETAILS_TITLE}</h2>
-                      <div className='mt-4 whitespace-pre-line text-muted-foreground'>
-                        {project.longDescription}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
+            <TabsContent value='sobre'>
+              <div className='grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-8'>
+                <Card>
+                  <CardContent className='p-5 sm:p-7'>
+                    <h2 className='font-bold text-xl sm:text-2xl'>
+                      {projectPageCopy.DETAILS_TITLE}
+                    </h2>
+                    <div className='mt-4 whitespace-pre-line text-pretty text-[15px] text-muted-foreground leading-relaxed sm:text-base'>
+                      {project.longDescription}
+                    </div>
+                  </CardContent>
+                </Card>
 
-                <div className='space-y-8'>
+                <aside className='space-y-6 lg:sticky lg:top-6 lg:self-start'>
                   {project.team && project.team.length > 0 && (
                     <Card>
-                      <CardContent className='p-6'>
+                      <CardContent className='p-5 sm:p-6'>
                         <h3 className='font-bold text-lg'>{projectPageCopy.TEAM_TITLE}</h3>
-                        <ul className='mt-4 space-y-2'>
+                        <ul className='mt-4 list-disc space-y-2 pl-5 text-muted-foreground text-sm marker:text-primary/60'>
                           {project.team.map((member) => (
-                            <li key={member} className='text-muted-foreground'>
-                              • {member}
-                            </li>
+                            <li key={member}>{member}</li>
                           ))}
                         </ul>
                       </CardContent>
@@ -176,18 +210,36 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
                   {project.contact && (
                     <Card>
-                      <CardContent className='p-6'>
+                      <CardContent className='p-5 sm:p-6'>
                         <h3 className='font-bold text-lg'>{projectPageCopy.CONTACT_TITLE}</h3>
-                        <div className='mt-4 space-y-2 text-sm'>
-                          <p className='font-medium'>{project.contact.name}</p>
-                          <p className='text-muted-foreground'>{project.contact.role}</p>
-                          <p className='text-muted-foreground'>{project.contact.email}</p>
-                          <p className='text-muted-foreground'>{project.contact.phone}</p>
+                        <div className='mt-4 space-y-3 text-sm'>
+                          <div>
+                            <p className='font-medium text-foreground'>{project.contact.name}</p>
+                            <p className='text-muted-foreground'>{project.contact.role}</p>
+                          </div>
+                          {project.contact.email && (
+                            <a
+                              href={`mailto:${project.contact.email}`}
+                              className='flex items-start gap-2 break-all text-primary hover:underline'
+                            >
+                              <Mail className='mt-0.5 size-4 shrink-0' aria-hidden />
+                              <span>{project.contact.email}</span>
+                            </a>
+                          )}
+                          {project.contact.phone && (
+                            <a
+                              href={`tel:${project.contact.phone.replace(/\s/g, '')}`}
+                              className='flex items-center gap-2 text-primary hover:underline'
+                            >
+                              <Phone className='size-4 shrink-0' aria-hidden />
+                              <span>{project.contact.phone}</span>
+                            </a>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
                   )}
-                </div>
+                </aside>
               </div>
             </TabsContent>
 

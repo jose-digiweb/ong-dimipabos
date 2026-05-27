@@ -39,7 +39,7 @@ export const CTASection = ({ className }: CTASectionProps) => {
             render={<Link href={ctaRoute.VOLUNTEER} />}
             nativeButton={false}
             size='lg'
-            variant='outline'
+            variant='outlineInverse'
           >
             {ctaCopy.VOLUNTEER_BUTTON_TEXT}
           </Button>
