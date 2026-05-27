@@ -1,7 +1,9 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
 import cardImage from '@/assets/dimipabos_logo_2.png'
+import heroImage from '@/assets/heroSection/hero_image.jpg'
 import { CTAButton, CTASection } from '@/components/cta'
 import {
   HeroCard,
@@ -50,6 +52,7 @@ const homeCopy = {
   CARD_TITLE: 'Nossa Essência',
   CARD_BODY:
     'Trabalhamos incansavelmente para construir um espaço de acolhimento e recuperação, onde cada pessoa possa encontrar apoio para recomeçar.',
+  HERO_IMAGE_ALT: 'Crianças e jovens acolhidos pela DI MI PA BÔS na Guiné-Bissau.',
   CAROUSEL_TITLE: 'Nossa caminhada',
   CAROUSEL_DESCRIPTION: 'Algumas fotos do que representam nossa luta e esperança.',
   CENTRE_TITLE: 'O Centro de Reabilitação',
@@ -104,6 +107,18 @@ export default function Page() {
   return (
     <div className='flex min-h-screen flex-col'>
       <HeroWrapper>
+        <div className='relative aspect-4/3 w-full overflow-hidden rounded-3xl shadow-xl md:hidden'>
+          <Image
+            src={heroImage}
+            alt={homeCopy.HERO_IMAGE_ALT}
+            fill
+            priority
+            sizes='100vw'
+            className='object-cover'
+          />
+          <div className='absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-primary/60 to-transparent' />
+        </div>
+
         <div className='flex flex-col justify-center'>
           <HeroTopText>{homeCopy.HERO_TOP}</HeroTopText>
 
@@ -135,7 +150,7 @@ export default function Page() {
           </div>
         </div>
 
-        <HeroCardSection>
+        <HeroCardSection className='hidden md:flex'>
           <HeroCard
             variant='home'
             title={homeCopy.CARD_TITLE}
