@@ -49,7 +49,13 @@ export const ProjectCard = ({ project, className }: ProjectCardProps) => {
 
       <CardFooter className=''>
         <Button
-          render={<Link href={href} className='group inline-flex items-center' />}
+          render={
+            <Link
+              href={href}
+              className='group inline-flex items-center'
+              aria-label={`${projectCardCopy.READ_MORE} sobre ${project.title}`}
+            />
+          }
           nativeButton={false}
           variant='CTA'
           className='group'

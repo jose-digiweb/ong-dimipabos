@@ -96,6 +96,7 @@ export const HomeProjectCard = ({
         <Link
           href={href}
           className='mt-4 inline-flex items-center font-medium text-primary hover:text-secondary/90'
+          aria-label={`${homeProjectCopy.LEARN_MORE} sobre ${title}`}
         >
           {homeProjectCopy.LEARN_MORE}
           <ArrowRight className='ml-1 size-4' />

@@ -21,7 +21,8 @@ const footerRoute = {
  */
 const footerContact = {
   LOCATION: 'Bissau, Guiné-Bissau',
-  PHONE: '+31 631 791 165',
+  PHONE_DISPLAY: '+31 631 791 165',
+  PHONE_TEL: '+31631791165',
   EMAIL: 'contact@ongdimipabos.org',
   FACEBOOK_URL: 'https://www.facebook.com/profile.php?id=100090763747200',
   WHATSAPP_URL: 'https://wa.me/31631791165',
@@ -111,20 +112,32 @@ export function Footer() {
           </div>
           <div>
             <h3 className='font-semibold text-lg'>{footerCopy.CONTACT_TITLE}</h3>
-            <ul className='mt-4 space-y-4 text-sm'>
-              <li className='flex items-center gap-4'>
-                <MapPin className='size-5' />
-                {footerContact.LOCATION}
-              </li>
-              <li className='flex items-center gap-4'>
-                <Phone className='size-5' />
-                {footerContact.PHONE}
-              </li>
-              <li className='flex items-center gap-4'>
-                <Mail className='size-5' />
-                {footerContact.EMAIL}
-              </li>
-            </ul>
+            <address className='mt-4 not-italic'>
+              <ul className='space-y-4 text-sm'>
+                <li className='flex items-center gap-4'>
+                  <MapPin className='size-5' />
+                  <span>{footerContact.LOCATION}</span>
+                </li>
+                <li className='flex items-center gap-4'>
+                  <Phone className='size-5' />
+                  <a
+                    href={`tel:${footerContact.PHONE_TEL}`}
+                    className='hover:text-primary-foreground'
+                  >
+                    {footerContact.PHONE_DISPLAY}
+                  </a>
+                </li>
+                <li className='flex items-center gap-4'>
+                  <Mail className='size-5' />
+                  <a
+                    href={`mailto:${footerContact.EMAIL}`}
+                    className='hover:text-primary-foreground'
+                  >
+                    {footerContact.EMAIL}
+                  </a>
+                </li>
+              </ul>
+            </address>
             <div className='mt-6 flex space-x-4'>
               <Link
                 target='_blank'
