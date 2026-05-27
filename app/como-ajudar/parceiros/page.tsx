@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import projReab from '@/assets/projectos/proj_reab.jpeg'
 import { CTASection } from '@/components/cta'
 import {
@@ -11,6 +13,18 @@ import {
   HeroWrapper,
 } from '@/components/heroSection'
 import { PartnershipForm } from '@/components/partnership-form'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * The {@link metadata} constant
+ * @description Per-route SEO metadata for the partners page
+ */
+export const metadata: Metadata = buildMetadata({
+  title: 'Parcerias',
+  description:
+    'Construa uma parceria com a DI MI PA BÔS e amplie o impacto da reabilitação e reintegração social na Guiné-Bissau.',
+  path: '/como-ajudar/parceiros',
+})
 
 /**
  * The {@link partnersPageCopy} constant

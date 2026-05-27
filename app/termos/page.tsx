@@ -1,6 +1,18 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { HeroDescription, HeroTitle, HeroTopText, HeroWrapper } from '@/components/heroSection'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * The {@link metadata} constant
+ * @description Per-route SEO metadata for the terms page
+ */
+export const metadata: Metadata = buildMetadata({
+  title: 'Termos e Condições',
+  description: 'Termos de utilização do website da DI MI PA BÔS e condições aplicáveis às doações.',
+  path: '/termos',
+})
 
 /**
  * The {@link termsCopy} constant

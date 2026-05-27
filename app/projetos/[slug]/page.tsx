@@ -1,4 +1,5 @@
 import { ArrowLeft, Calendar, Mail, MapPin, Phone, Users } from 'lucide-react'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -10,6 +11,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { projects } from '@/lib/data'
 import type { ProjectStatus, ProjectType } from '@/lib/data'
+import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
  * The {@link projectPageCopy} constant
@@ -73,6 +75,45 @@ type ProjectPageProps = {
 const getProject = async (slug: string): Promise<ProjectType | undefined> => {
   // Look up the project by slug in the static list
   return projects.find((project) => project.slug === slug)
+}
+
+/**
+ * The {@link generateStaticParams} export
+ * @description Pre-renders every project detail page at build time
+ * @returns {Promise<{ slug: string }[]>} The list of slug params for static generation
+ */
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  // Map every project to its slug param
+  return projects.map((project) => ({ slug: project.slug }))
+}
+
+/**
+ * The {@link generateMetadata} export
+ * @description Builds per-project SEO metadata including canonical URL and Open Graph image
+ * @param {ProjectPageProps} props - The route props
+ * @param {Promise<{ slug: string }>} props.params - The dynamic route params
+ * @returns {Promise<Metadata>} The metadata for the resolved project, or empty when missing
+ */
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  // Resolve the slug from the dynamic params
+  const slug = (await params).slug
+
+  // Look up the matching project
+  const project = await getProject(slug)
+
+  // Return empty metadata when the project does not exist so notFound takes over rendering
+  if (!project) {
+    return {}
+  }
+
+  // Build per-project metadata with canonical URL and project image as the OG card
+  return buildMetadata({
+    title: project.title,
+    description: project.shortDescription,
+    path: `/projetos/${project.slug}`,
+    image: project.image,
+    ogType: 'article',
+  })
 }
 
 /**

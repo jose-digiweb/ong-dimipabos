@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import projHabitacao from '@/assets/projectos/proj_habitacao.jpeg'
 import { BankTransferSection } from '@/components/bank-transfer-section'
 import { CTASection } from '@/components/cta'
@@ -10,6 +12,18 @@ import {
   HeroTopText,
   HeroWrapper,
 } from '@/components/heroSection'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * The {@link metadata} constant
+ * @description Per-route SEO metadata for the donate page
+ */
+export const metadata: Metadata = buildMetadata({
+  title: 'Como Doar',
+  description:
+    'Apoie a construção do Centro de Tratamento e Reabilitação da DI MI PA BÔS através de uma doação por transferência bancária.',
+  path: '/como-ajudar/doar',
+})
 
 /**
  * The {@link donatePageCopy} constant

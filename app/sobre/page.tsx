@@ -1,4 +1,5 @@
 import { Eye, HandshakeIcon, Heart, type LucideIcon } from 'lucide-react'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -18,6 +19,18 @@ import { TeamSection } from '@/components/team-section'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { SectionTitle } from '@/components/section'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * The {@link metadata} constant
+ * @description Per-route SEO metadata for the sobre page
+ */
+export const metadata: Metadata = buildMetadata({
+  title: 'Sobre Nós',
+  description:
+    'Conheça a história, missão e equipa da ONG DI MI PA BÔS, dedicada a transformar vidas na Guiné-Bissau.',
+  path: '/sobre',
+})
 
 /**
  * The {@link aboutCopy} constant

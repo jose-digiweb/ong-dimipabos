@@ -1,6 +1,19 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { HeroDescription, HeroTitle, HeroTopText, HeroWrapper } from '@/components/heroSection'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * The {@link metadata} constant
+ * @description Per-route SEO metadata for the privacy policy page
+ */
+export const metadata: Metadata = buildMetadata({
+  title: 'Política de Privacidade',
+  description:
+    'Como a ONG DI MI PA BÔS recolhe, utiliza e protege os dados pessoais dos visitantes deste website.',
+  path: '/politica-de-privacidade',
+})
 
 /**
  * The {@link privacyCopy} constant

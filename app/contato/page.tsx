@@ -7,6 +7,7 @@ import {
   Phone,
   type LucideIcon,
 } from 'lucide-react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { ContactForm } from '@/components/contact-form'
@@ -21,6 +22,18 @@ import {
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { SectionDescription, SectionTitle } from '@/components/section'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * The {@link metadata} constant
+ * @description Per-route SEO metadata for the contact page
+ */
+export const metadata: Metadata = buildMetadata({
+  title: 'Contacto',
+  description:
+    'Entre em contacto com a ONG DI MI PA BÔS para saber mais sobre os nossos projetos ou colaborar com a missão.',
+  path: '/contato',
+})
 
 /**
  * The {@link contactCopy} constant

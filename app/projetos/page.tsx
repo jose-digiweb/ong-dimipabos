@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import projReab from '@/assets/projectos/proj_reab.jpeg'
@@ -15,6 +16,18 @@ import { ProjectCard } from '@/components/projects'
 import { Button } from '@/components/ui/button'
 import { SectionDescription, SectionTitle } from '@/components/section'
 import { projects } from '@/lib/data'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * The {@link metadata} constant
+ * @description Per-route SEO metadata for the projects index page
+ */
+export const metadata: Metadata = buildMetadata({
+  title: 'Projetos',
+  description:
+    'Conheça os projetos da DI MI PA BÔS, incluindo o Centro de Tratamento e Reabilitação na Guiné-Bissau.',
+  path: '/projetos',
+})
 
 /**
  * The {@link projectsPageCopy} constant

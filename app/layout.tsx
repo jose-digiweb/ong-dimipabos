@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
+import { SITE_DESCRIPTION, SITE_LOCALE, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/seo/constants'
 
 import './globals.css'
 
@@ -11,32 +12,7 @@ import './globals.css'
  * The {@link inter} font instance
  * @description Inter font with the latin subset, applied to the document body
  */
-const inter = Inter({ subsets: ['latin'] })
-
-/**
- * The {@link SITE_URL} constant
- * @description Canonical production URL used to resolve absolute metadata URLs
- */
-const SITE_URL = 'https://ongdimipabos.org'
-
-/**
- * The {@link SITE_NAME} constant
- * @description Public site name used in social share cards
- */
-const SITE_NAME = 'DI MI PA BÔS'
-
-/**
- * The {@link SITE_TITLE} constant
- * @description Default browser tab and social card title
- */
-const SITE_TITLE = 'DI MI PA BÔS - Transformando vidas na Guiné-Bissau'
-
-/**
- * The {@link SITE_DESCRIPTION} constant
- * @description Default meta description and social card subtitle
- */
-const SITE_DESCRIPTION =
-  'ONG dedicada a transformar vidas através de habitação, cuidado e serviços essenciais na Guiné-Bissau'
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
 /**
  * The {@link metadata} constant
@@ -49,9 +25,12 @@ export const metadata: Metadata = {
     template: `%s · ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
     type: 'website',
-    locale: 'pt_PT',
+    locale: SITE_LOCALE,
     url: SITE_URL,
     siteName: SITE_NAME,
     title: SITE_TITLE,

@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import projEducacao from '@/assets/projectos/proj_educacao.jpeg'
 import { CTASection } from '@/components/cta'
 import {
@@ -12,6 +14,18 @@ import {
 } from '@/components/heroSection'
 import { TestimonialSection } from '@/components/testimonial-section'
 import { VolunteerForm } from '@/components/volunteer-form'
+import { buildMetadata } from '@/lib/seo/metadata'
+
+/**
+ * The {@link metadata} constant
+ * @description Per-route SEO metadata for the volunteer page
+ */
+export const metadata: Metadata = buildMetadata({
+  title: 'Seja Voluntário',
+  description:
+    'Doe o seu tempo e talento como voluntário da DI MI PA BÔS e ajude a transformar vidas na Guiné-Bissau.',
+  path: '/como-ajudar/voluntario',
+})
 
 /**
  * The {@link volunteerPageCopy} constant
