@@ -119,15 +119,15 @@ export function Header() {
                 <span className='sr-only'>{headerCopy.MENU_TOGGLE_LABEL}</span>
                 <Menu className='size-10' aria-hidden='true' />
               </SheetTrigger>
-              <SheetContent side='right' className='w-full bg-slate-50 backdrop-blur-xs'>
+              <SheetContent side='right' className='w-full bg-slate-50 px-6 py-6 backdrop-blur-xs'>
                 <div className='mt-6 flow-root'>
                   <SheetTitle className='sr-only'>{headerCopy.MOBILE_MENU_TITLE}</SheetTitle>
                   <SheetDescription className='sr-only'>
                     {headerCopy.MOBILE_MENU_DESCRIPTION}
                   </SheetDescription>
 
-                  <div className='-my-6 divide-y'>
-                    <div className='space-y-2 py-6'>
+                  <div className='divide-y'>
+                    <div className='space-y-2 pb-6'>
                       {navigationItems.map((item) => (
                         <Link
                           key={item.name}
