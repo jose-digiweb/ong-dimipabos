@@ -22,7 +22,7 @@ import { SectionDescription, SectionTitle } from '@/components/section'
 
 /**
  * The dynamic export
- * @description Forces dynamic rendering — the homepage reads R2 images at request time
+ * @description Forces dynamic rendering — the homepage reads R2 images at request time via `getCloudflareContext()`
  */
 export const dynamic = 'force-dynamic'
 

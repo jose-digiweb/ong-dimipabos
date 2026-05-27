@@ -3,6 +3,12 @@ import type { NextConfig } from 'next'
 
 initOpenNextCloudflareForDev()
 
+/**
+ * The {@link IMMUTABLE_CACHE_CONTROL} constant
+ * @description Long-lived cache header applied to hashed/static assets
+ */
+const IMMUTABLE_CACHE_CONTROL = 'public, max-age=31536000, immutable'
+
 const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
@@ -20,6 +26,16 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+  },
+  async headers() {
+    // Long-cache the static file-convention icons and OG images (Next already handles `/_next/static/`)
+    return [
+      {
+        source:
+          '/:file(icon\\.png|apple-icon\\.png|opengraph-image\\.jpg|twitter-image\\.jpg|favicon\\.ico)',
+        headers: [{ key: 'Cache-Control', value: IMMUTABLE_CACHE_CONTROL }],
+      },
+    ]
   },
 }
 

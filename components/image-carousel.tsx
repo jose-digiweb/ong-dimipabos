@@ -22,9 +22,9 @@ const carouselOptions = {
 
 /**
  * The {@link CAROUSEL_PRIORITY_COUNT} constant
- * @description Number of leading images to mark with `priority` for LCP
+ * @description Number of leading images to mark with `priority` for LCP — carousel is below the fold, so eager loading is enough
  */
-const CAROUSEL_PRIORITY_COUNT = 3
+const CAROUSEL_PRIORITY_COUNT = 0
 
 /**
  * The {@link CAROUSEL_IMAGE_SIZES} constant

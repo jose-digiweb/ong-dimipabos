@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { projects } from '@/lib/data'
 import type { ProjectStatus, ProjectType } from '@/lib/data'
 import { JsonLd } from '@/components/seo/JsonLd'
+import { cloudinaryImage } from '@/lib/img'
 import { buildArticleSchema, buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
@@ -113,7 +114,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     title: project.title,
     description: project.shortDescription,
     path: `/projetos/${project.slug}`,
-    image: project.image,
+    image: cloudinaryImage(project.image, { width: 1200, height: 630, crop: 'fill' }),
     ogType: 'article',
   })
 }
@@ -151,7 +152,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       title: project.title,
       description: project.shortDescription,
       path: `/projetos/${project.slug}`,
-      image: project.image,
+      image: cloudinaryImage(project.image, { width: 1200, height: 630, crop: 'fill' }),
     }),
   ]
 
@@ -219,7 +220,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {project.image && (
               <div className='relative order-1 aspect-video w-full overflow-hidden rounded-2xl bg-muted shadow-lg lg:order-2 lg:aspect-4/3'>
                 <Image
-                  src={project.image}
+                  src={cloudinaryImage(project.image, { width: 1200, crop: 'fill' })}
                   alt={project.title}
                   fill
                   priority
