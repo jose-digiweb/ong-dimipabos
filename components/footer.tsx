@@ -11,6 +11,8 @@ const footerRoute = {
   DOAR: '/como-ajudar/doar',
   VOLUNTARIO: '/como-ajudar/voluntario',
   PARCEIROS: '/como-ajudar/parceiros',
+  PRIVACY: '/politica-de-privacidade',
+  TERMS: '/termos',
 } as const
 
 /**
@@ -18,11 +20,21 @@ const footerRoute = {
  * @description Contact details surfaced in the footer
  */
 const footerContact = {
-  LOCATION: 'Guiné-Bissau',
+  LOCATION: 'Bissau, Guiné-Bissau',
   PHONE: '+31 631 791 165',
-  EMAIL: 'contato@ongdimipabos.org',
+  EMAIL: 'contact@ongdimipabos.org',
   FACEBOOK_URL: 'https://www.facebook.com/profile.php?id=100090763747200',
   WHATSAPP_URL: 'https://wa.me/31631791165',
+} as const
+
+/**
+ * The {@link footerLegal} constant
+ * @description Legal identification of the organization surfaced in the footer
+ */
+const footerLegal = {
+  LEGAL_NAME: 'ONG DI MI PA BÔS',
+  NIPC_LABEL: 'NIPC:',
+  NIPC_VALUE: '910324840',
 } as const
 
 /**
@@ -40,6 +52,9 @@ const footerCopy = {
   LINK_VOLUNTARIO: 'Seja Voluntário',
   LINK_PARCEIROS: 'Seja Parceiro',
   CONTACT_TITLE: 'Contato',
+  LEGAL_TITLE: 'Legal',
+  LINK_PRIVACY: 'Política de Privacidade',
+  LINK_TERMS: 'Termos e Condições',
   FACEBOOK_LABEL: 'Facebook',
   WHATSAPP_LABEL: 'WhatsApp',
   ORG_NAME: 'DI MI PA BÔS',
@@ -59,7 +74,7 @@ export function Footer() {
   return (
     <footer className='bg-primary text-primary-foreground'>
       <div className='mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8'>
-        <div className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'>
+        <div className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4'>
           <div>
             <h3 className='font-semibold text-lg'>{footerCopy.ABOUT_TITLE}</h3>
             <p className='mt-4 text-primary-foreground text-sm'>{footerCopy.ABOUT_BODY}</p>
@@ -131,8 +146,27 @@ export function Footer() {
               </Link>
             </div>
           </div>
+          <div>
+            <h3 className='font-semibold text-lg'>{footerCopy.LEGAL_TITLE}</h3>
+            <ul className='mt-4 space-y-2 text-sm'>
+              <li>
+                <Link href={footerRoute.PRIVACY} className='hover:text-primary-foreground'>
+                  {footerCopy.LINK_PRIVACY}
+                </Link>
+              </li>
+              <li>
+                <Link href={footerRoute.TERMS} className='hover:text-primary-foreground'>
+                  {footerCopy.LINK_TERMS}
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className='mt-8 border-primary-foreground/10 border-t pt-8 text-center text-sm'>
+        <div className='mt-8 flex flex-col items-center gap-2 border-primary-foreground/10 border-t pt-8 text-center text-sm'>
+          <p>
+            {footerLegal.LEGAL_NAME} · {footerLegal.NIPC_LABEL} {footerLegal.NIPC_VALUE} ·{' '}
+            {footerContact.LOCATION}
+          </p>
           <p>
             &copy; {currentYear} {footerCopy.ORG_NAME}. {footerCopy.RIGHTS_RESERVED}
           </p>

@@ -1,6 +1,6 @@
 import projHabitacao from '@/assets/projectos/proj_habitacao.jpeg'
+import { BankTransferSection } from '@/components/bank-transfer-section'
 import { CTASection } from '@/components/cta'
-import { DonationSection } from '@/components/donation-section'
 import {
   HeroCard,
   HeroCardSection,
@@ -53,7 +53,7 @@ export default function DonatePage() {
       </HeroWrapper>
 
       <section className='py-16'>
-        <DonationSection />
+        <BankTransferSection />
       </section>
 
       <CTASection className='border-b' />
