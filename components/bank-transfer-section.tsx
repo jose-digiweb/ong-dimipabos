@@ -4,7 +4,7 @@ import { Check, Copy, Landmark, Mail, ShieldCheck } from 'lucide-react'
 import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
 import { SectionDescription, SectionTitle } from '@/components/section'
 
 /**
@@ -120,7 +120,9 @@ export function BankTransferSection() {
                 <Landmark className='size-5' />
               </span>
               <div>
-                <CardTitle>{bankTransferCopy.CARD_TITLE}</CardTitle>
+                <h3 className='font-medium text-base leading-snug'>
+                  {bankTransferCopy.CARD_TITLE}
+                </h3>
                 <CardDescription>{bankTransferCopy.CARD_DESCRIPTION}</CardDescription>
               </div>
             </div>

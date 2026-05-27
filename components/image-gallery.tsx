@@ -13,7 +13,10 @@ import { Card } from '@/components/ui/card'
  */
 const galleryFallback = {
   PLACEHOLDER_SRC: '/placeholder.svg',
-  IMAGE_ALT_PREFIX: 'Imagem',
+  IMAGE_ALT: 'Fotografia da galeria do projeto',
+  CLOSE_LABEL: 'Fechar visualização da imagem',
+  PREVIOUS_LABEL: 'Imagem anterior',
+  NEXT_LABEL: 'Imagem seguinte',
 } as const
 
 /**
@@ -22,6 +25,7 @@ const galleryFallback = {
  */
 type ImageGalleryProps = {
   images: string[]
+  alt?: string
 }
 
 /**
@@ -29,9 +33,12 @@ type ImageGalleryProps = {
  * @description Responsive image grid with a lightbox for full-size viewing
  * @param {ImageGalleryProps} props - The component props
  * @param {string[]} props.images - The list of image URLs to render
+ * @param {string} [props.alt] - Descriptive alt text shared by every image in the gallery
  * @returns The rendered gallery
  */
-export function ImageGallery({ images }: ImageGalleryProps) {
+export function ImageGallery({ images, alt }: ImageGalleryProps) {
+  // Resolve the alt text used by every image in the gallery
+  const imageAlt = alt ?? galleryFallback.IMAGE_ALT
   // Index of the image currently shown in the lightbox
   const [currentImage, setCurrentImage] = useState(0)
 
@@ -63,7 +70,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
           >
             <Image
               src={image || galleryFallback.PLACEHOLDER_SRC}
-              alt={`${galleryFallback.IMAGE_ALT_PREFIX} ${index + 1}`}
+              alt={imageAlt}
               fill
               className='object-cover transition-transform duration-300 group-hover:scale-105'
             />
@@ -79,13 +86,14 @@ export function ImageGallery({ images }: ImageGalleryProps) {
               size='icon'
               className='absolute top-4 right-4 text-white hover:bg-white/20'
               onClick={() => setShowLightbox(false)}
+              aria-label={galleryFallback.CLOSE_LABEL}
             >
               <X className='h-6 w-6' />
             </Button>
             <div className='relative aspect-4/3 min-h-[300px] w-full min-w-[300px] md:min-h-[500px] md:min-w-[500px]'>
               <Image
                 src={images[currentImage] || galleryFallback.PLACEHOLDER_SRC}
-                alt={`${galleryFallback.IMAGE_ALT_PREFIX} ${currentImage + 1}`}
+                alt={imageAlt}
                 fill
                 className='object-contain'
               />
@@ -99,6 +107,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
                   e.stopPropagation()
                   previousImage()
                 }}
+                aria-label={galleryFallback.PREVIOUS_LABEL}
               >
                 <ChevronLeft className='h-8 w-8' />
               </Button>
@@ -112,6 +121,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
                   e.stopPropagation()
                   nextImage()
                 }}
+                aria-label={galleryFallback.NEXT_LABEL}
               >
                 <ChevronRight className='h-8 w-8' />
               </Button>

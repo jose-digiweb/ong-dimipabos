@@ -33,6 +33,30 @@ const CAROUSEL_PRIORITY_COUNT = 3
 const CAROUSEL_IMAGE_SIZES = '(max-width: 768px) 100vw, 50vw'
 
 /**
+ * The {@link CAROUSEL_ALT_PREFIX} constant
+ * @description Descriptive prefix prepended to the humanized R2 key for accessibility
+ */
+const CAROUSEL_ALT_PREFIX = 'Momento dos projetos da DI MI PA BÔS na Guiné-Bissau'
+
+/**
+ * The {@link humanizeKey} helper
+ * @description Turns an R2 object key into a human-readable label for `alt` text
+ * @param {string} key - The R2 object key
+ * @returns {string} The humanized label
+ */
+const humanizeKey = (key: string): string => {
+  // Strip any folder prefix and the file extension
+  const base =
+    key
+      .split('/')
+      .pop()
+      ?.replace(/\.[^.]+$/, '') ?? key
+
+  // Replace separators with spaces and collapse whitespace
+  return base.replace(/[-_]+/g, ' ').trim()
+}
+
+/**
  * The {@link ImageCarousel} component
  * @description Server component that loads R2 images and renders them as a centred carousel
  * @returns The rendered carousel
@@ -53,7 +77,11 @@ export const ImageCarousel = async () => {
             <Image
               fill
               priority={index < CAROUSEL_PRIORITY_COUNT}
-              alt={image.key ?? ''}
+              alt={
+                image.key
+                  ? `${CAROUSEL_ALT_PREFIX} — ${humanizeKey(image.key)}`
+                  : CAROUSEL_ALT_PREFIX
+              }
               src={image.url}
               sizes={CAROUSEL_IMAGE_SIZES}
               className='object-cover object-top'

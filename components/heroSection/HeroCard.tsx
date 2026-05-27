@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 import { AjudarIcons } from './AjudarIcons'
-import { heroCardCopy, heroCardVariant } from './constants'
+import { heroCardImageAlt, heroCardVariant } from './constants'
 import { HomeIcons } from './HomeIcons'
 import { ProjetosIcons } from './ProjetosIcons'
 import { SobreIcons } from './SobreIcons'
@@ -37,7 +37,7 @@ export const HeroCard = ({
           fill
           priority
           src={image}
-          alt={heroCardCopy.IMAGE_ALT}
+          alt={heroCardImageAlt[variant]}
           className={cn('h-full w-full object-cover', imageClassName)}
         />
       </div>

@@ -17,9 +17,14 @@ export const heroCardVariant = {
 export type HeroCardVariant = (typeof heroCardVariant)[keyof typeof heroCardVariant]
 
 /**
- * The {@link heroCardCopy} constant
- * @description Static copy used by the {@link HeroCard} component
+ * The {@link heroCardImageAlt} constant
+ * @description Per-variant alt text for the {@link HeroCard} cover image
  */
-export const heroCardCopy = {
-  IMAGE_ALT: 'Impacto na comunidade',
-} as const
+export const heroCardImageAlt = {
+  [heroCardVariant.HOME]:
+    'Crianças e jovens da Guiné-Bissau apoiados pelos projetos da DI MI PA BÔS',
+  [heroCardVariant.SOBRE]: 'Equipa da DI MI PA BÔS em missão na Guiné-Bissau',
+  [heroCardVariant.PROJETOS]: 'Beneficiários dos projetos sociais da DI MI PA BÔS na Guiné-Bissau',
+  [heroCardVariant.CONTATO]: 'Voluntários da DI MI PA BÔS em contacto com a comunidade local',
+  [heroCardVariant.AJUDAR]: 'Comunidade transformada pelo apoio dos doadores da DI MI PA BÔS',
+} as const satisfies Record<HeroCardVariant, string>
