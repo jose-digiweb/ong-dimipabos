@@ -1,27 +1,22 @@
-// Dependencies
 import { cn } from '@/lib/utils'
 
-// Types
-import type { ReactNode } from 'react'
 import { HeroBgColors } from './HeroBgColors'
-type Props = {
-	children: ReactNode
-	className?: string
-}
+import type { ChildrenWithClassName } from './types'
 
 /**
- * The HeroCardSection component
- * @description Will render the HeroCardSection
- * @param {Props} props The component props
- * @param {string} props.className The component class name
- * @returns {JSX.Element} The HeroCardSection component
+ * The {@link HeroCardSection} component
+ * @description Layout wrapper that centres the hero card on top of the decorative {@link HeroBgColors}
+ * @param {ChildrenWithClassName} props - The component props
+ * @param {ReactNode} props.children - The card or content to centre
+ * @param {string} [props.className] - Optional extra class names for the wrapper
+ * @returns The rendered section
  */
-export const HeroCardSection = ({ children, className }: Props) => {
-	return (
-		<div className={cn('relative flex items-center justify-center', className)}>
-			<HeroBgColors />
-
-			{children}
-		</div>
-	)
+export const HeroCardSection = ({ children, className }: ChildrenWithClassName) => {
+  // Render the relative wrapper with the background blobs behind the children
+  return (
+    <div className={cn('relative flex items-center justify-center', className)}>
+      <HeroBgColors />
+      {children}
+    </div>
+  )
 }

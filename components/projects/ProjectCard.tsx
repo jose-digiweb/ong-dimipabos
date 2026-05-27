@@ -1,57 +1,61 @@
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-// Dependencies
-import { cn } from '@/lib/utils'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
-import { Button } from '../ui/button'
-
-// Types
-import type { ProjectType } from '@/lib/data'
 import Link from 'next/link'
-type Props = {
-	project: ProjectType
-	className?: string
-}
+
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
+
+import { Button } from '../ui/button'
+import { buildProjectHref, projectCardCopy } from './constants'
+import type { ProjectCardProps } from './types'
 
 /**
- * The ProjectCard component
- * @description Will render the ProjectCard
- * @param {Props} props The component props
- * @param {Project} props.project The component project
- * @param {string} props.className The component class name
- * @returns {JSX.Element} The ProjectCard component
+ * The {@link ProjectCard} component
+ * @description Renders a project preview card with cover image, title, description and CTA button
+ * @param {ProjectCardProps} props - The component props
+ * @param {ProjectType} props.project - The project data to render
+ * @param {string} [props.className] - Optional extra class names for the card wrapper
+ * @returns The rendered project card
  */
-export const ProjectCard = ({ project, className }: Props) => {
-	return (
-		<Card
-			className={cn(
-				'hover:-translate-y-1 overflow-hidden rounded-lg bg-white shadow-lg transition-transform',
-				className,
-			)}
-		>
-			<CardHeader className='relative aspect-video w-full overflow-hidden'>
-				<Image fill src={project.image} alt={project.title} className='h-full w-full object-cover' />
-			</CardHeader>
+export const ProjectCard = ({ project, className }: ProjectCardProps) => {
+  // Pre-compute the href for the project detail page
+  const href = buildProjectHref(project.slug)
 
-			<CardContent className='p-0'>
-				<div className='p-6'>
-					<h3 className='font-bold text-foreground text-xl'>{project.title}</h3>
+  // Render the card with header image, body copy and footer CTA
+  return (
+    <Card
+      className={cn(
+        'hover:-translate-y-1 overflow-hidden rounded-lg bg-white shadow-lg transition-transform',
+        className,
+      )}
+    >
+      <CardHeader className='relative aspect-video w-full overflow-hidden'>
+        <Image
+          fill
+          src={project.image}
+          alt={project.title}
+          className='h-full w-full object-cover'
+        />
+      </CardHeader>
 
-					<p className='mt-2 text-pretty text-muted-foreground'>{project.description}</p>
-				</div>
-			</CardContent>
+      <CardContent className='p-0'>
+        <div className='p-6'>
+          <h3 className='font-bold text-foreground text-xl'>{project.title}</h3>
+          <p className='mt-2 text-pretty text-muted-foreground'>{project.description}</p>
+        </div>
+      </CardContent>
 
-			<CardFooter className=''>
-				<Button
-					render={<Link href={`/projetos/${project.slug}`} className='group inline-flex items-center' />}
-					nativeButton={false}
-					variant='CTA'
-					className='group'
-				>
-					Leia Mais
-					<ArrowRight className='ml-2 size-4 transition-all group-hover:translate-x-1 group-hover:scale-125' />
-				</Button>
-			</CardFooter>
-		</Card>
-	)
+      <CardFooter className=''>
+        <Button
+          render={<Link href={href} className='group inline-flex items-center' />}
+          nativeButton={false}
+          variant='CTA'
+          className='group'
+        >
+          {projectCardCopy.READ_MORE}
+          <ArrowRight className='ml-2 size-4 transition-all group-hover:translate-x-1 group-hover:scale-125' />
+        </Button>
+      </CardFooter>
+    </Card>
+  )
 }

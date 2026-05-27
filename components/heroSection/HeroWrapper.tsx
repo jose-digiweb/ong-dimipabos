@@ -1,32 +1,29 @@
-// Dependencies
 import { cn } from '@/lib/utils'
 
-// Types
-import type { ReactNode } from 'react'
-type Props = {
-	children: ReactNode
-	className?: string
-}
+import type { ChildrenWithClassName } from './types'
 
 /**
- * The HeroWrapper component
- * @description Will render the HeroWrapper
- * @param {Props} props The component props
- * @param {ReactNode} props.children The component children
- * @param {VariantUnion} props.variant The component variant
- * @param {string} props.className The component class name
- * @returns {JSX.Element} The HeroWrapper component
+ * The {@link HeroWrapper} component
+ * @description Outer hero section wrapper that lays out a responsive 2-column grid
+ * @param {ChildrenWithClassName} props - The component props
+ * @param {ReactNode} props.children - The hero columns (text + card)
+ * @param {string} [props.className] - Optional extra class names
+ * @returns The rendered hero wrapper
  */
-export const HeroWrapper = ({ children, className }: Props) => {
-	return (
-		<section
-			className={cn('relative overflow-hidden bg-linear-to-b from-primary/5 to-primary/10', className)}
-		>
-			<div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-				<div className='grid min-h-[600px] items-center gap-12 pt-8 pb-16 md:grid-cols-2 lg:min-h-[700px] lg:gap-16'>
-					{children}
-				</div>
-			</div>
-		</section>
-	)
+export const HeroWrapper = ({ children, className }: ChildrenWithClassName) => {
+  // Render the section with the responsive 2-column grid layout
+  return (
+    <section
+      className={cn(
+        'relative overflow-hidden bg-linear-to-b from-primary/5 to-primary/10',
+        className,
+      )}
+    >
+      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+        <div className='grid min-h-[600px] items-center gap-12 pt-8 pb-16 md:grid-cols-2 lg:min-h-[700px] lg:gap-16'>
+          {children}
+        </div>
+      </div>
+    </section>
+  )
 }

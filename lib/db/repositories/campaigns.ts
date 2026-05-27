@@ -1,265 +1,397 @@
 import { and, count, desc, eq, sum } from 'drizzle-orm'
-import { campaigns, donations, projectProgress } from '../schema'
-import type { Campaign, NewCampaign, NewProjectProgress, ProjectProgress } from '../schema'
+
+import { dbError, donationStatus, mainCampaignSeed } from '../constants'
+import {
+  type Campaign,
+  type NewCampaign,
+  type NewProjectProgress,
+  type ProjectProgress,
+  campaigns,
+  donations,
+  projectProgress,
+} from '../schema'
 import { BaseRepository } from './base'
 
+/**
+ * The {@link campaignOperation} constant
+ * @description Human-readable operation labels for the campaign repository
+ */
+const campaignOperation = {
+  CREATE: 'create campaign',
+  FIND_BY_ID: 'find campaign by ID',
+  GET_ACTIVE: 'get active campaigns',
+  UPDATE: 'update campaign',
+  GET_WITH_STATS: 'get campaign with stats',
+  UPDATE_CURRENT_AMOUNT: 'update campaign current amount',
+  GET_MAIN: 'get main campaign',
+  UPDATE_PROGRESS: 'update project progress',
+  GET_CURRENT_PROGRESS: 'get current progress',
+  CALCULATE_PROGRESS: 'calculate progress',
+  GET_METRICS: 'get campaign metrics',
+} as const
+
+/**
+ * The {@link RECENT_DONATIONS_LIMIT} constant
+ * @description How many recent donations to include in {@link CampaignRepository.getCampaignWithStats}
+ */
+const RECENT_DONATIONS_LIMIT = 10
+
+/**
+ * The {@link DEFAULT_METRICS_DAYS} constant
+ * @description Default sliding-window in days used by {@link CampaignRepository.getCampaignMetrics}
+ */
+const DEFAULT_METRICS_DAYS = 30
+
+/**
+ * The {@link MAX_PERCENTAGE} constant
+ * @description Upper bound applied when computing completion percentages
+ */
+const MAX_PERCENTAGE = 100
+
+/**
+ * The {@link CampaignRepository} class
+ * @description Repository exposing CRUD and aggregation queries over the campaigns and project_progress tables
+ */
 export class CampaignRepository extends BaseRepository<typeof campaigns> {
-	constructor() {
-		super(campaigns)
-	}
+  /**
+   * @description Binds the repository to the campaigns table
+   */
+  constructor() {
+    super(campaigns)
+  }
 
-	/**
-	 * Create a new campaign
-	 */
-	create(campaignData: NewCampaign): Promise<Campaign> {
-		return this.executeQuery('create campaign', async () => {
-			const [campaign] = await this.db.insert(this.table).values(campaignData).returning()
+  /**
+   * @description Creates a new campaign row
+   * @param {NewCampaign} campaignData - The campaign fields to insert
+   * @returns {Promise<Campaign>} The created campaign
+   */
+  create(campaignData: NewCampaign): Promise<Campaign> {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.CREATE, async () => {
+      // Insert and return the new row
+      const [campaign] = await this.db.insert(this.table).values(campaignData).returning()
 
-			return campaign
-		})
-	}
+      // Return the inserted campaign
+      return campaign
+    })
+  }
 
-	/**
-	 * Find campaign by ID
-	 */
-	findById(id: string): Promise<Campaign | null> {
-		return this.executeQuery('find campaign by ID', async () => {
-			const [campaign] = await this.db.select().from(this.table).where(eq(this.table.id, id)).limit(1)
+  /**
+   * @description Looks up a campaign by primary key
+   * @param {string} id - The campaign id
+   * @returns {Promise<Campaign | null>} The campaign or null when none matches
+   */
+  findById(id: string): Promise<Campaign | null> {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.FIND_BY_ID, async () => {
+      // Select the first row matching the id
+      const [campaign] = await this.db
+        .select()
+        .from(this.table)
+        .where(eq(this.table.id, id))
+        .limit(1)
 
-			return campaign || null
-		})
-	}
+      // Return the campaign or null when no row was found
+      return campaign || null
+    })
+  }
 
-	/**
-	 * Get all active campaigns
-	 */
-	getActiveCampaigns(): Promise<Campaign[]> {
-		return this.executeQuery('get active campaigns', async () => {
-			return await this.db
-				.select()
-				.from(this.table)
-				.where(eq(this.table.isActive, true))
-				.orderBy(desc(this.table.createdAt))
-		})
-	}
+  /**
+   * @description Returns all currently active campaigns, newest first
+   * @returns {Promise<Campaign[]>} The active campaigns
+   */
+  getActiveCampaigns(): Promise<Campaign[]> {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.GET_ACTIVE, async () => {
+      // Select active campaigns ordered by creation date descending
+      return await this.db
+        .select()
+        .from(this.table)
+        .where(eq(this.table.isActive, true))
+        .orderBy(desc(this.table.createdAt))
+    })
+  }
 
-	/**
-	 * Update campaign
-	 */
-	update(id: string, updates: Partial<NewCampaign>): Promise<Campaign> {
-		return this.executeQuery('update campaign', async () => {
-			const [campaign] = await this.db
-				.update(this.table)
-				.set({ ...updates, updatedAt: new Date() })
-				.where(eq(this.table.id, id))
-				.returning()
+  /**
+   * @description Updates an existing campaign row
+   * @param {string} id - The campaign id
+   * @param {Partial<NewCampaign>} updates - The fields to update
+   * @returns {Promise<Campaign>} The updated campaign row
+   */
+  update(id: string, updates: Partial<NewCampaign>): Promise<Campaign> {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.UPDATE, async () => {
+      // Update the row and return the new state
+      const [campaign] = await this.db
+        .update(this.table)
+        .set({ ...updates, updatedAt: new Date() })
+        .where(eq(this.table.id, id))
+        .returning()
 
-			if (!campaign) {
-				throw new Error('Campaign not found')
-			}
+      // Throw a typed error when no row was updated
+      if (!campaign) {
+        throw new Error(dbError.CAMPAIGN_NOT_FOUND)
+      }
 
-			return campaign
-		})
-	}
+      // Return the updated campaign
+      return campaign
+    })
+  }
 
-	/**
-	 * Get campaign with donation statistics
-	 */
-	getCampaignWithStats(id: string) {
-		return this.executeQuery('get campaign with stats', async () => {
-			const campaign = await this.findById(id)
-			if (!campaign) {
-				return null
-			}
+  /**
+   * @description Returns a campaign together with donation aggregates and recent donations
+   * @param {string} id - The campaign id
+   * @returns The campaign with stats, or null when the campaign does not exist
+   */
+  getCampaignWithStats(id: string) {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.GET_WITH_STATS, async () => {
+      // Resolve the campaign first
+      const campaign = await this.findById(id)
 
-			const [stats] = await this.db
-				.select({
-					totalRaised: sum(donations.amount),
-					donationCount: count(donations.id),
-				})
-				.from(donations)
-				.where(and(eq(donations.campaignId, id), eq(donations.status, 'succeeded')))
+      // Bail out when the campaign was not found
+      if (!campaign) {
+        return null
+      }
 
-			const totalRaised = Number(stats.totalRaised) || 0
-			const donationCount = Number(stats.donationCount) || 0
-			const progressPercentage =
-				campaign.targetAmount > 0 ? Math.round((totalRaised / campaign.targetAmount) * 100) : 0
+      // Aggregate the successful donations for the campaign
+      const [stats] = await this.db
+        .select({
+          totalRaised: sum(donations.amount),
+          donationCount: count(donations.id),
+        })
+        .from(donations)
+        .where(and(eq(donations.campaignId, id), eq(donations.status, donationStatus.SUCCEEDED)))
 
-			// Get recent donations for this campaign
-			const recentDonations = await this.db
-				.select()
-				.from(donations)
-				.where(and(eq(donations.campaignId, id), eq(donations.status, 'succeeded')))
-				.orderBy(desc(donations.createdAt))
-				.limit(10)
+      // Normalise the totals as numbers with safe fallbacks
+      const totalRaised = Number(stats.totalRaised) || 0
+      const donationCount = Number(stats.donationCount) || 0
 
-			return {
-				campaign,
-				stats: {
-					totalRaised,
-					donationCount,
-					progressPercentage,
-					recentDonations,
-				},
-			}
-		})
-	}
+      // Compute the completion percentage when a target amount is configured
+      const progressPercentage =
+        campaign.targetAmount > 0
+          ? Math.round((totalRaised / campaign.targetAmount) * MAX_PERCENTAGE)
+          : 0
 
-	/**
-	 * Update campaign current amount based on successful donations
-	 */
-	updateCurrentAmount(id: string): Promise<Campaign> {
-		return this.executeQuery('update campaign current amount', async () => {
-			const [stats] = await this.db
-				.select({
-					totalAmount: sum(donations.amount),
-				})
-				.from(donations)
-				.where(and(eq(donations.campaignId, id), eq(donations.status, 'succeeded')))
+      // Load the latest successful donations for the campaign
+      const recentDonations = await this.db
+        .select()
+        .from(donations)
+        .where(and(eq(donations.campaignId, id), eq(donations.status, donationStatus.SUCCEEDED)))
+        .orderBy(desc(donations.createdAt))
+        .limit(RECENT_DONATIONS_LIMIT)
 
-			const currentAmount = Number(stats.totalAmount) || 0
+      // Return the aggregated campaign view
+      return {
+        campaign,
+        stats: {
+          totalRaised,
+          donationCount,
+          progressPercentage,
+          recentDonations,
+        },
+      }
+    })
+  }
 
-			const [campaign] = await this.db
-				.update(this.table)
-				.set({
-					currentAmount,
-					updatedAt: new Date(),
-				})
-				.where(eq(this.table.id, id))
-				.returning()
+  /**
+   * @description Recomputes the cached currentAmount on a campaign based on successful donations
+   * @param {string} id - The campaign id
+   * @returns {Promise<Campaign>} The updated campaign row
+   */
+  updateCurrentAmount(id: string): Promise<Campaign> {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.UPDATE_CURRENT_AMOUNT, async () => {
+      // Sum the successful donations for the campaign
+      const [stats] = await this.db
+        .select({
+          totalAmount: sum(donations.amount),
+        })
+        .from(donations)
+        .where(and(eq(donations.campaignId, id), eq(donations.status, donationStatus.SUCCEEDED)))
 
-			if (!campaign) {
-				throw new Error('Campaign not found')
-			}
+      // Normalise the total as a number with a safe fallback
+      const currentAmount = Number(stats.totalAmount) || 0
 
-			return campaign
-		})
-	}
+      // Persist the new currentAmount on the campaign
+      const [campaign] = await this.db
+        .update(this.table)
+        .set({
+          currentAmount,
+          updatedAt: new Date(),
+        })
+        .where(eq(this.table.id, id))
+        .returning()
 
-	/**
-	 * Get the main construction campaign (default campaign)
-	 */
-	getMainCampaign(): Promise<Campaign | null> {
-		return this.executeQuery('get main campaign', async () => {
-			const [campaign] = await this.db
-				.select()
-				.from(this.table)
-				.where(eq(this.table.isActive, true))
-				.orderBy(this.table.createdAt) // Get the first/oldest active campaign
-				.limit(1)
+      // Throw a typed error when no row was updated
+      if (!campaign) {
+        throw new Error(dbError.CAMPAIGN_NOT_FOUND)
+      }
 
-			return campaign || null
-		})
-	}
+      // Return the updated campaign
+      return campaign
+    })
+  }
 
-	/**
-	 * Create or update project progress
-	 */
-	updateProjectProgress(progressData: NewProjectProgress): Promise<ProjectProgress> {
-		return this.executeQuery('update project progress', async () => {
-			// Check if there's an existing active progress record
-			const [existing] = await this.db
-				.select()
-				.from(projectProgress)
-				.where(eq(projectProgress.isActive, true))
-				.limit(1)
+  /**
+   * @description Returns the oldest active campaign, treated as the "main" campaign
+   * @returns {Promise<Campaign | null>} The main campaign or null when none exists
+   */
+  getMainCampaign(): Promise<Campaign | null> {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.GET_MAIN, async () => {
+      // Select the first active campaign ordered by creation date ascending
+      const [campaign] = await this.db
+        .select()
+        .from(this.table)
+        .where(eq(this.table.isActive, true))
+        .orderBy(this.table.createdAt)
+        .limit(1)
 
-			if (existing) {
-				const [updated] = await this.db
-					.update(projectProgress)
-					.set({ ...progressData, updatedAt: new Date() })
-					.where(eq(projectProgress.id, existing.id))
-					.returning()
+      // Return the campaign or null when no row was found
+      return campaign || null
+    })
+  }
 
-				return updated
-			}
-			const [created] = await this.db.insert(projectProgress).values(progressData).returning()
+  /**
+   * @description Upserts the active project progress row
+   * @param {NewProjectProgress} progressData - The progress fields to persist
+   * @returns {Promise<ProjectProgress>} The persisted progress row
+   */
+  updateProjectProgress(progressData: NewProjectProgress): Promise<ProjectProgress> {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.UPDATE_PROGRESS, async () => {
+      // Find the current active progress row when present
+      const [existing] = await this.db
+        .select()
+        .from(projectProgress)
+        .where(eq(projectProgress.isActive, true))
+        .limit(1)
 
-			return created
-		})
-	}
+      // Update the existing row when found
+      if (existing) {
+        const [updated] = await this.db
+          .update(projectProgress)
+          .set({ ...progressData, updatedAt: new Date() })
+          .where(eq(projectProgress.id, existing.id))
+          .returning()
 
-	/**
-	 * Get current project progress
-	 */
-	getCurrentProgress(): Promise<ProjectProgress | null> {
-		return this.executeQuery('get current progress', async () => {
-			const [progress] = await this.db
-				.select()
-				.from(projectProgress)
-				.where(eq(projectProgress.isActive, true))
-				.limit(1)
+        return updated
+      }
 
-			return progress || null
-		})
-	}
+      // Otherwise insert a fresh progress row
+      const [created] = await this.db.insert(projectProgress).values(progressData).returning()
 
-	/**
-	 * Calculate and update project progress based on donations
-	 */
-	calculateProgress(): Promise<ProjectProgress | null> {
-		return this.executeQuery('calculate progress', async () => {
-			const mainCampaign = await this.getMainCampaign()
-			if (!mainCampaign) {
-				return null
-			}
+      // Return the newly inserted row
+      return created
+    })
+  }
 
-			const [stats] = await this.db
-				.select({
-					totalRaised: sum(donations.amount),
-				})
-				.from(donations)
-				.where(eq(donations.status, 'succeeded'))
+  /**
+   * @description Loads the currently active project progress row
+   * @returns {Promise<ProjectProgress | null>} The progress row or null when none exists
+   */
+  getCurrentProgress(): Promise<ProjectProgress | null> {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.GET_CURRENT_PROGRESS, async () => {
+      // Select the first active progress row
+      const [progress] = await this.db
+        .select()
+        .from(projectProgress)
+        .where(eq(projectProgress.isActive, true))
+        .limit(1)
 
-			const totalRaised = Number(stats.totalRaised) || 0
-			const targetAmount = mainCampaign.targetAmount
-			const percentageComplete =
-				targetAmount > 0 ? Math.min(Math.round((totalRaised / targetAmount) * 100), 100) : 0
+      // Return the progress row or null when none exists
+      return progress || null
+    })
+  }
 
-			return await this.updateProjectProgress({
-				title: 'Centro de Tratamento e Reabilitação',
-				description:
-					'Construção do primeiro centro especializado em tratamento e reabilitação para pessoas em situação de dependência química na Guiné-Bissau.',
-				targetAmount,
-				currentAmount: totalRaised,
-				percentageComplete,
-				isActive: true,
-			})
-		})
-	}
+  /**
+   * @description Recomputes and persists project progress based on the main campaign and successful donations
+   * @returns {Promise<ProjectProgress | null>} The updated progress row, or null when no main campaign exists
+   */
+  calculateProgress(): Promise<ProjectProgress | null> {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.CALCULATE_PROGRESS, async () => {
+      // Resolve the main campaign first
+      const mainCampaign = await this.getMainCampaign()
 
-	/**
-	 * Get campaign performance metrics
-	 */
-	getCampaignMetrics(id: string, days = 30) {
-		return this.executeQuery('get campaign metrics', async () => {
-			const startDate = new Date()
-			startDate.setDate(startDate.getDate() - days)
+      // Bail out when there is no main campaign to anchor progress against
+      if (!mainCampaign) {
+        return null
+      }
 
-			const [metrics] = await this.db
-				.select({
-					totalDonations: count(donations.id),
-					totalAmount: sum(donations.amount),
-					uniqueDonors: count(donations.donorId), // This is approximate
-				})
-				.from(donations)
-				.where(
-					and(
-						eq(donations.campaignId, id),
-						eq(donations.status, 'succeeded'),
-						eq(donations.createdAt, startDate),
-					),
-				)
+      // Aggregate all successful donations across the system
+      const [stats] = await this.db
+        .select({
+          totalRaised: sum(donations.amount),
+        })
+        .from(donations)
+        .where(eq(donations.status, donationStatus.SUCCEEDED))
 
-			return {
-				totalDonations: Number(metrics.totalDonations) || 0,
-				totalAmount: Number(metrics.totalAmount) || 0,
-				uniqueDonors: Number(metrics.uniqueDonors) || 0,
-				averageDonation:
-					metrics.totalDonations > 0
-						? Math.round(Number(metrics.totalAmount) / Number(metrics.totalDonations))
-						: 0,
-			}
-		})
-	}
+      // Normalise the total raised as a number with a safe fallback
+      const totalRaised = Number(stats.totalRaised) || 0
+
+      // Capture the target amount once for clarity
+      const targetAmount = mainCampaign.targetAmount
+
+      // Compute the bounded completion percentage
+      const percentageComplete =
+        targetAmount > 0
+          ? Math.min(Math.round((totalRaised / targetAmount) * MAX_PERCENTAGE), MAX_PERCENTAGE)
+          : 0
+
+      // Persist the recomputed progress snapshot
+      return await this.updateProjectProgress({
+        title: mainCampaignSeed.NAME,
+        description: mainCampaignSeed.DESCRIPTION,
+        targetAmount,
+        currentAmount: totalRaised,
+        percentageComplete,
+        isActive: true,
+      })
+    })
+  }
+
+  /**
+   * @description Returns headline donation metrics for a campaign over a sliding window
+   * @param {string} id - The campaign id
+   * @param {number} [days] - The window size in days
+   * @returns The metrics object including derived average donation
+   */
+  getCampaignMetrics(id: string, days = DEFAULT_METRICS_DAYS) {
+    // Defer to executeQuery so any error is normalised
+    return this.executeQuery(campaignOperation.GET_METRICS, async () => {
+      // Compute the window start date relative to now
+      const startDate = new Date()
+      startDate.setDate(startDate.getDate() - days)
+
+      // Aggregate metrics for the campaign within the window
+      const [metrics] = await this.db
+        .select({
+          totalDonations: count(donations.id),
+          totalAmount: sum(donations.amount),
+          uniqueDonors: count(donations.donorId),
+        })
+        .from(donations)
+        .where(
+          and(
+            eq(donations.campaignId, id),
+            eq(donations.status, donationStatus.SUCCEEDED),
+            eq(donations.createdAt, startDate),
+          ),
+        )
+
+      // Normalise the aggregates and derive the average donation
+      return {
+        totalDonations: Number(metrics.totalDonations) || 0,
+        totalAmount: Number(metrics.totalAmount) || 0,
+        uniqueDonors: Number(metrics.uniqueDonors) || 0,
+        averageDonation:
+          metrics.totalDonations > 0
+            ? Math.round(Number(metrics.totalAmount) / Number(metrics.totalDonations))
+            : 0,
+      }
+    })
+  }
 }

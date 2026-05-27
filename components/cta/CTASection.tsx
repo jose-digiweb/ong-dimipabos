@@ -1,52 +1,50 @@
-// Dependencies
-import { cn } from '@/lib/utils'
 import Link from 'next/link'
+
+import { cn } from '@/lib/utils'
+
 import { Button } from '../ui/button'
 import { SectionDescription, SectionTitle } from '../ui/section'
 import { CTAButton } from './CTAButton'
-
-// Types
-type Props = {
-	className?: string
-}
+import { ctaCopy, ctaRoute } from './constants'
+import type { CTASectionProps } from './types'
 
 /**
- * The CTASection component
- * @description Will render the CTASection
- * @param {Props} props The component props
- * @param {string} props.className The component class name
- * @returns {JSX.Element} The CTASection component
+ * The {@link CTASection} component
+ * @description Highlighted section that combines the donation CTA and a volunteer button
+ * @param {CTASectionProps} props - The component props
+ * @param {string} [props.className] - Optional extra class names for the wrapping section
+ * @returns The rendered CTA section
  */
-export const CTASection = ({ className }: Props) => {
-	return (
-		<section className={cn('bg-primary py-16 text-primary-foreground', className)}>
-			<div className='mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8'>
-				<div className='mb-4 inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 font-medium text-sm text-white'>
-					<span className='relative mr-2 flex h-3 w-3'>
-						<span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75' />
-						<span className='relative inline-flex h-3 w-3 rounded-full bg-secondary' />
-					</span>
-					Faça Parte Desta Construção
-				</div>
+export const CTASection = ({ className }: CTASectionProps) => {
+  // Render the section composed of a badge, headline, copy and dual CTAs
+  return (
+    <section className={cn('bg-primary py-16 text-primary-foreground', className)}>
+      <div className='mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8'>
+        <div className='mb-4 inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 font-medium text-sm text-white'>
+          <span className='relative mr-2 flex h-3 w-3'>
+            <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75' />
+            <span className='relative inline-flex h-3 w-3 rounded-full bg-secondary' />
+          </span>
+          {ctaCopy.BADGE_LABEL}
+        </div>
 
-				<SectionTitle className='text-primary-foreground'>Ajude a Construir Esperança</SectionTitle>
-				<SectionDescription className='text-primary-foreground'>
-					Sua contribuição é fundamental para concluirmos a construção do centro e começarmos a
-					transformar vidas. Cada tijolo conta, cada ajuda importa.
-				</SectionDescription>
+        <SectionTitle className='text-primary-foreground'>{ctaCopy.SECTION_TITLE}</SectionTitle>
+        <SectionDescription className='text-primary-foreground'>
+          {ctaCopy.SECTION_DESCRIPTION}
+        </SectionDescription>
 
-				<div className='mt-8 flex justify-center gap-4'>
-					<CTAButton />
-					<Button
-						render={<Link href='/como-ajudar#voluntario' />}
-						nativeButton={false}
-						size='lg'
-						variant='outline'
-					>
-						Seja Voluntário
-					</Button>
-				</div>
-			</div>
-		</section>
-	)
+        <div className='mt-8 flex justify-center gap-4'>
+          <CTAButton />
+          <Button
+            render={<Link href={ctaRoute.VOLUNTEER} />}
+            nativeButton={false}
+            size='lg'
+            variant='outline'
+          >
+            {ctaCopy.VOLUNTEER_BUTTON_TEXT}
+          </Button>
+        </div>
+      </div>
+    </section>
+  )
 }

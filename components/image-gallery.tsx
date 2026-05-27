@@ -7,92 +7,118 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
-interface ImageGalleryProps {
-	images: string[]
+/**
+ * The {@link galleryFallback} constant
+ * @description Fallback assets and labels for the gallery
+ */
+const galleryFallback = {
+  PLACEHOLDER_SRC: '/placeholder.svg',
+  IMAGE_ALT_PREFIX: 'Imagem',
+} as const
+
+/**
+ * The {@link ImageGalleryProps} type
+ * @description Props for the {@link ImageGallery} component
+ */
+type ImageGalleryProps = {
+  images: string[]
 }
 
+/**
+ * The {@link ImageGallery} component
+ * @description Responsive image grid with a lightbox for full-size viewing
+ * @param {ImageGalleryProps} props - The component props
+ * @param {string[]} props.images - The list of image URLs to render
+ * @returns The rendered gallery
+ */
 export function ImageGallery({ images }: ImageGalleryProps) {
-	const [currentImage, setCurrentImage] = useState(0)
-	const [showLightbox, setShowLightbox] = useState(false)
+  // Index of the image currently shown in the lightbox
+  const [currentImage, setCurrentImage] = useState(0)
 
-	const nextImage = () => {
-		setCurrentImage((prev) => (prev + 1) % images.length)
-	}
+  // Whether the lightbox overlay is visible
+  const [showLightbox, setShowLightbox] = useState(false)
 
-	const previousImage = () => {
-		setCurrentImage((prev) => (prev - 1 + images.length) % images.length)
-	}
+  // Advance to the next image, wrapping around the end of the list
+  const nextImage = () => {
+    setCurrentImage((prev) => (prev + 1) % images.length)
+  }
 
-	return (
-		<>
-			<div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-				{images.map((image, index) => (
-					<Card
-						key={index}
-						className='group relative aspect-4/3 cursor-pointer overflow-hidden'
-						onClick={() => {
-							setCurrentImage(index)
-							setShowLightbox(true)
-						}}
-					>
-						<Image
-							src={image || '/placeholder.svg'}
-							alt={`Imagem ${index + 1}`}
-							fill
-							className='object-cover transition-transform duration-300 group-hover:scale-105'
-						/>
-					</Card>
-				))}
-			</div>
+  // Go to the previous image, wrapping around the start of the list
+  const previousImage = () => {
+    setCurrentImage((prev) => (prev - 1 + images.length) % images.length)
+  }
 
-			{showLightbox && (
-				<div className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4'>
-					<div className='relative max-h-[90vh] max-w-[90vw]'>
-						<Button
-							variant='ghost'
-							size='icon'
-							className='absolute top-4 right-4 text-white hover:bg-white/20'
-							onClick={() => setShowLightbox(false)}
-						>
-							<X className='h-6 w-6' />
-						</Button>
-						<div className='relative aspect-4/3 min-h-[300px] w-full min-w-[300px] md:min-h-[500px] md:min-w-[500px]'>
-							<Image
-								src={images[currentImage] || '/placeholder.svg'}
-								alt={`Imagem ${currentImage + 1}`}
-								fill
-								className='object-contain'
-							/>
-						</div>
-						<div className='absolute inset-y-0 left-4 flex items-center'>
-							<Button
-								variant='ghost'
-								size='icon'
-								className='text-white hover:bg-white/20'
-								onClick={(e) => {
-									e.stopPropagation()
-									previousImage()
-								}}
-							>
-								<ChevronLeft className='h-8 w-8' />
-							</Button>
-						</div>
-						<div className='absolute inset-y-0 right-4 flex items-center'>
-							<Button
-								variant='ghost'
-								size='icon'
-								className='text-white hover:bg-white/20'
-								onClick={(e) => {
-									e.stopPropagation()
-									nextImage()
-								}}
-							>
-								<ChevronRight className='h-8 w-8' />
-							</Button>
-						</div>
-					</div>
-				</div>
-			)}
-		</>
-	)
+  // Render the gallery grid and (conditionally) the lightbox overlay
+  return (
+    <>
+      <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+        {images.map((image, index) => (
+          <Card
+            key={image}
+            className='group relative aspect-4/3 cursor-pointer overflow-hidden'
+            onClick={() => {
+              setCurrentImage(index)
+              setShowLightbox(true)
+            }}
+          >
+            <Image
+              src={image || galleryFallback.PLACEHOLDER_SRC}
+              alt={`${galleryFallback.IMAGE_ALT_PREFIX} ${index + 1}`}
+              fill
+              className='object-cover transition-transform duration-300 group-hover:scale-105'
+            />
+          </Card>
+        ))}
+      </div>
+
+      {showLightbox && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4'>
+          <div className='relative max-h-[90vh] max-w-[90vw]'>
+            <Button
+              variant='ghost'
+              size='icon'
+              className='absolute top-4 right-4 text-white hover:bg-white/20'
+              onClick={() => setShowLightbox(false)}
+            >
+              <X className='h-6 w-6' />
+            </Button>
+            <div className='relative aspect-4/3 min-h-[300px] w-full min-w-[300px] md:min-h-[500px] md:min-w-[500px]'>
+              <Image
+                src={images[currentImage] || galleryFallback.PLACEHOLDER_SRC}
+                alt={`${galleryFallback.IMAGE_ALT_PREFIX} ${currentImage + 1}`}
+                fill
+                className='object-contain'
+              />
+            </div>
+            <div className='absolute inset-y-0 left-4 flex items-center'>
+              <Button
+                variant='ghost'
+                size='icon'
+                className='text-white hover:bg-white/20'
+                onClick={(e) => {
+                  e.stopPropagation()
+                  previousImage()
+                }}
+              >
+                <ChevronLeft className='h-8 w-8' />
+              </Button>
+            </div>
+            <div className='absolute inset-y-0 right-4 flex items-center'>
+              <Button
+                variant='ghost'
+                size='icon'
+                className='text-white hover:bg-white/20'
+                onClick={(e) => {
+                  e.stopPropagation()
+                  nextImage()
+                }}
+              >
+                <ChevronRight className='h-8 w-8' />
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
 }

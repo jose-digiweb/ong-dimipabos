@@ -1,26 +1,26 @@
 {
-	"[javascript]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
-	},
-	"[json]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
-	},
-	"[jsonc]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
-	},
-	"[typescript]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
-	},
-	"[typescriptreact]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
-	},
-	"editor.codeActionsOnSave": {
-		"source.fixAll.oxc": "always"
-	},
-	"editor.defaultFormatter": "oxc.oxc-vscode",
-	"editor.formatOnSave": true,
-	"editor.formatOnSaveMode": "file",
-	"editor.formatOnPaste": true,
-	"oxc.fmt.configPath": ".oxfmtrc.json",
-	"prettier.enable": false
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "always"
+  },
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.formatOnPaste": true,
+  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "prettier.enable": false
 }

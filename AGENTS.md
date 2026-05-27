@@ -170,12 +170,12 @@ For return values, only one comment for the entire return statement is needed, n
 
 ```ts
 function example(a: number) {
-	// Return the result
-	return {
-		a,
-		b,
-		c,
-	}
+  // Return the result
+  return {
+    a,
+    b,
+    c,
+  }
 }
 ```
 

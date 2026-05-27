@@ -1,146 +1,55 @@
-// Dependencies
-import { cn } from '@/lib/utils'
-import {
-	Building,
-	Eye,
-	GraduationCap,
-	Hammer,
-	HandshakeIcon,
-	Heart,
-	HeartHandshake,
-	Home,
-	UserPlus,
-	Users,
-	Wallet,
-} from 'lucide-react'
-import Image, { type ImageProps } from 'next/image'
+import Image from 'next/image'
 
-// Types
-import type { ReactNode } from 'react'
-type Props = {
-	title: string
-	children: ReactNode
-	image: ImageProps['src']
-	variant: 'home' | 'sobre' | 'projetos' | 'contato' | 'ajudar'
-	className?: string
-	imageClassName?: string
-}
+import { cn } from '@/lib/utils'
+
+import { AjudarIcons } from './AjudarIcons'
+import { heroCardCopy, heroCardVariant } from './constants'
+import { HomeIcons } from './HomeIcons'
+import { ProjetosIcons } from './ProjetosIcons'
+import { SobreIcons } from './SobreIcons'
+import type { HeroCardProps } from './types'
 
 /**
- * The HeroCard component
- * @description Will render the HeroCard
- * @param {Props} props The component props
- * @param {string} props.className The component class name
- * @returns {JSX.Element} The HeroCard component
+ * The {@link HeroCard} component
+ * @description Hero card featuring a cover image, title, description and a variant-specific icon trio
+ * @param {HeroCardProps} props - The component props
+ * @param {string} props.title - The card title
+ * @param {ReactNode} props.children - The card description text
+ * @param {ImageProps['src']} props.image - The cover image source
+ * @param {HeroCardVariant} [props.variant] - Which icon trio to render (defaults to `home`)
+ * @param {string} [props.className] - Optional extra class names for the card wrapper
+ * @param {string} [props.imageClassName] - Optional extra class names for the cover image
+ * @returns The rendered hero card
  */
 export const HeroCard = ({
-	variant = 'home',
-	title,
-	image,
-	children,
-	className,
-	imageClassName,
-}: Props) => {
-	return (
-		<div className={cn('z-10 max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl', className)}>
-			<div className='relative aspect-video w-full'>
-				<Image
-					fill
-					priority
-					src={image}
-					alt='Impacto na comunidade'
-					className={cn('h-full w-full object-cover', imageClassName)}
-				/>
-			</div>
-			<div className='p-8'>
-				<h2 className='font-bold text-xl'>{title}</h2>
-				<p className='mt-2 text-muted-foreground'>{children}</p>
+  variant = heroCardVariant.HOME,
+  title,
+  image,
+  children,
+  className,
+  imageClassName,
+}: HeroCardProps) => {
+  // Render the card scaffold with image, copy and the chosen icon trio
+  return (
+    <div className={cn('z-10 max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl', className)}>
+      <div className='relative aspect-video w-full'>
+        <Image
+          fill
+          priority
+          src={image}
+          alt={heroCardCopy.IMAGE_ALT}
+          className={cn('h-full w-full object-cover', imageClassName)}
+        />
+      </div>
+      <div className='p-8'>
+        <h2 className='font-bold text-xl'>{title}</h2>
+        <p className='mt-2 text-muted-foreground'>{children}</p>
 
-				{variant === 'home' && <HomeIcons />}
-				{variant === 'sobre' && <SobreIcons />}
-				{variant === 'projetos' && <ProjetosIcons />}
-				{variant === 'ajudar' && <AjudarIcons />}
-			</div>
-		</div>
-	)
-}
-
-function IconWrapper({ children, className }: { className?: string; children: ReactNode }) {
-	return (
-		<div className={cn('flex size-12 items-center justify-center rounded-full', className)}>
-			{children}
-		</div>
-	)
-}
-
-function HomeIcons() {
-	return (
-		<div className='mt-6 flex gap-4'>
-			<IconWrapper className='bg-primary/10'>
-				<Home className='size-6 text-primary' />
-			</IconWrapper>
-
-			<IconWrapper className='bg-secondary/10'>
-				<Heart className='size-6 text-secondary' />
-			</IconWrapper>
-
-			<IconWrapper className='bg-accent/10'>
-				<Users className='size-6 text-accent-foreground' />
-			</IconWrapper>
-		</div>
-	)
-}
-
-function SobreIcons() {
-	return (
-		<div className='mt-6 flex gap-4'>
-			<IconWrapper className='bg-primary/10'>
-				<Heart className='size-6 text-primary' />
-			</IconWrapper>
-
-			<IconWrapper className='bg-secondary/10'>
-				<HandshakeIcon className='size-6 text-secondary' />
-			</IconWrapper>
-
-			<IconWrapper className='bg-accent/10'>
-				<Eye className='size-6 text-accent-foreground' />
-			</IconWrapper>
-		</div>
-	)
-}
-
-function ProjetosIcons() {
-	return (
-		<div className='mt-6 flex gap-4'>
-			<IconWrapper className='bg-primary/10'>
-				<Hammer className='size-6 text-primary' />
-			</IconWrapper>
-
-			<IconWrapper className='bg-secondary/10'>
-				<HeartHandshake className='size-6 text-secondary' />
-			</IconWrapper>
-
-			<IconWrapper className='bg-accent/10'>
-				<GraduationCap className='size-6 text-accent-foreground' />
-			</IconWrapper>
-		</div>
-	)
-}
-
-function AjudarIcons() {
-	return (
-		<div className='mt-6 flex gap-4'>
-			<IconWrapper className='bg-primary/10'>
-				<Wallet className='size-6 text-primary' />
-			</IconWrapper>
-
-			<IconWrapper className='bg-secondary/10'>
-				<UserPlus className='size-6 text-secondary' />
-			</IconWrapper>
-
-			<IconWrapper className='bg-accent/10'>
-				<Building className='size-6 text-accent-foreground' />
-			</IconWrapper>
-		</div>
-	)
+        {variant === heroCardVariant.HOME && <HomeIcons />}
+        {variant === heroCardVariant.SOBRE && <SobreIcons />}
+        {variant === heroCardVariant.PROJETOS && <ProjetosIcons />}
+        {variant === heroCardVariant.AJUDAR && <AjudarIcons />}
+      </div>
+    </div>
+  )
 }
