@@ -14,13 +14,54 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 /**
+ * The {@link SITE_URL} constant
+ * @description Canonical production URL used to resolve absolute metadata URLs
+ */
+const SITE_URL = 'https://ongdimipabos.org'
+
+/**
+ * The {@link SITE_NAME} constant
+ * @description Public site name used in social share cards
+ */
+const SITE_NAME = 'DI MI PA BÔS'
+
+/**
+ * The {@link SITE_TITLE} constant
+ * @description Default browser tab and social card title
+ */
+const SITE_TITLE = 'DI MI PA BÔS - Transformando vidas na Guiné-Bissau'
+
+/**
+ * The {@link SITE_DESCRIPTION} constant
+ * @description Default meta description and social card subtitle
+ */
+const SITE_DESCRIPTION =
+  'ONG dedicada a transformar vidas através de habitação, cuidado e serviços essenciais na Guiné-Bissau'
+
+/**
  * The {@link metadata} constant
- * @description Default site metadata applied to every route
+ * @description Default site metadata applied to every route, including Open Graph and Twitter cards
  */
 export const metadata: Metadata = {
-  title: 'DI MI PA BÔS - Transformando vidas na Guiné-Bissau',
-  description:
-    'ONG dedicada a transformar vidas através de habitação, cuidado e serviços essenciais na Guiné-Bissau',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_TITLE,
+    template: `%s · ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: 'website',
+    locale: 'pt_PT',
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
 }
 
 /**
