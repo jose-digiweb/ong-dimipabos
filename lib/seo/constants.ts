@@ -21,7 +21,7 @@ export const SITE_TITLE = 'DI MI PA BÔS - Transformando vidas na Guiné-Bissau'
  * @description Default meta description used as fallback when a page does not provide its own
  */
 export const SITE_DESCRIPTION =
-  'ONG dedicada a transformar vidas através de habitação, cuidado e serviços essenciais na Guiné-Bissau'
+  'ONG portuguesa que constrói o primeiro centro de tratamento e reabilitação na Guiné-Bissau. Apoie projetos de saúde, acolhimento e esperança.'
 
 /**
  * The {@link SITE_LOCALE} constant
