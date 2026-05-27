@@ -1,8 +1,7 @@
 import Image from 'next/image'
 
-import avatarPlaceholder from '@/assets/team/avatar_placeholder.jpg'
 import cesaltinaImage from '@/assets/team/cesaltina.jpeg'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 
 import { SectionDescription } from './ui/section/SectionDescription'
 import { SectionTitle } from './ui/section/SectionTitle'
@@ -28,18 +27,6 @@ const teamMembers = [
     description: 'Apaixonada por ajudar pessoas em situação de vulnerabilidade.',
     image: cesaltinaImage,
   },
-  {
-    name: 'Por completar',
-    role: 'Diretor de Operações',
-    description: 'Dedicado a criar soluções eficientes para maximizar nosso impacto.',
-    image: avatarPlaceholder,
-  },
-  {
-    name: 'Por completar',
-    role: 'Coordenadora de Voluntários',
-    description: 'Especialista em mobilizar pessoas para causas sociais.',
-    image: avatarPlaceholder,
-  },
 ] as const
 
 /**
@@ -48,7 +35,7 @@ const teamMembers = [
  * @returns The rendered team section
  */
 export function TeamSection() {
-  // Render the centred section title plus the three team cards
+  // Render the centred section title plus the team cards
   return (
     <section className='bg-slate-50 py-16'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
@@ -57,29 +44,27 @@ export function TeamSection() {
           <SectionDescription>{teamSectionCopy.SECTION_DESCRIPTION}</SectionDescription>
         </div>
 
-        <div className='mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3'>
-          {teamMembers.map((member, index) => (
-            <Card key={`${member.name}-${index}`}>
-              <CardContent className='pt-6'>
-                <div className='flex flex-col items-center'>
-                  <div className='relative mb-4 size-32 overflow-hidden rounded-full'>
-                    <Image
-                      fill
-                      src={member.image}
-                      alt={member.name}
-                      className='h-full w-full object-cover'
-                    />
-                  </div>
-
-                  <CardHeader className='p-0 text-center'>
-                    <CardTitle className='text-xl'>{member.name}</CardTitle>
-
-                    <p className='font-medium text-primary text-sm'>{member.role}</p>
-                  </CardHeader>
-                  <p className='mt-2 text-pretty text-center text-muted-foreground text-sm'>
-                    {member.description}
-                  </p>
+        <div className='mt-16 flex flex-wrap justify-center gap-8'>
+          {teamMembers.map((member) => (
+            <Card key={member.name} className='w-full max-w-sm'>
+              <CardContent className='flex flex-col items-center px-6 py-8 text-center'>
+                <div className='relative mb-6 size-36 overflow-hidden rounded-full ring-4 ring-primary/10'>
+                  <Image
+                    fill
+                    src={member.image}
+                    alt={member.name}
+                    sizes='144px'
+                    className='object-cover'
+                  />
                 </div>
+
+                <h3 className='font-bold text-foreground text-xl'>{member.name}</h3>
+                <p className='mt-1 font-medium text-primary text-sm uppercase tracking-wide'>
+                  {member.role}
+                </p>
+                <p className='mt-4 text-pretty text-muted-foreground text-sm leading-relaxed'>
+                  {member.description}
+                </p>
               </CardContent>
             </Card>
           ))}

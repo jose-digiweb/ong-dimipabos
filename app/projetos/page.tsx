@@ -11,7 +11,6 @@ import {
   HeroTopText,
   HeroWrapper,
 } from '@/components/heroSection'
-import { ImpactNumbers } from '@/components/impact-numbers'
 import { ProjectCard } from '@/components/projects'
 import { Button } from '@/components/ui/button'
 import { SectionDescription, SectionTitle } from '@/components/ui/section'
@@ -98,8 +97,6 @@ export default function ProjectsPage() {
           </div>
         </div>
       </section>
-
-      <ImpactNumbers />
 
       <CTASection className='border-b' />
     </div>

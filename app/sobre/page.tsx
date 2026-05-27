@@ -14,7 +14,6 @@ import {
   HeroTopText,
   HeroWrapper,
 } from '@/components/heroSection'
-import { ImpactNumbers } from '@/components/impact-numbers'
 import { TeamSection } from '@/components/team-section'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -257,8 +256,6 @@ export default function SobrePage() {
       </section>
 
       <TeamSection />
-
-      <ImpactNumbers />
 
       <section className='py-16'>
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
