@@ -12,6 +12,8 @@ import {
   HeroTopText,
   HeroWrapper,
 } from '@/components/heroSection'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -46,9 +48,16 @@ const donatePageCopy = {
  * @returns The rendered donate page
  */
 export default function DonatePage() {
+  // Build the breadcrumb schema for this route
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Início', path: '/' },
+    { name: 'Como Doar', path: '/como-ajudar/doar' },
+  ])
+
   // Render the full donate page layout
   return (
     <div className='flex min-h-dvh flex-col'>
+      <JsonLd data={breadcrumbSchema} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
           <HeroTopText>{donatePageCopy.HERO_TOP}</HeroTopText>

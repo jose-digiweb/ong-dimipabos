@@ -22,6 +22,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { SectionDescription, SectionTitle } from '@/components/section'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { buildBreadcrumbSchema, buildContactPageSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -165,9 +167,24 @@ const otherContactItems = [
  * @returns The rendered contact page
  */
 export default function ContactPage() {
+  // Build the breadcrumb + ContactPage schemas for this route
+  const jsonLdData = [
+    buildBreadcrumbSchema([
+      { name: 'Início', path: '/' },
+      { name: 'Contacto', path: '/contato' },
+    ]),
+    buildContactPageSchema({
+      name: 'Contacto',
+      description:
+        'Entre em contacto com a ONG DI MI PA BÔS para saber mais sobre os nossos projetos ou colaborar com a missão.',
+      path: '/contato',
+    }),
+  ]
+
   // Render the full contact page layout
   return (
     <div className='flex min-h-screen flex-col'>
+      <JsonLd data={jsonLdData} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
           <HeroTopText>{contactCopy.HERO_TOP}</HeroTopText>

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { HeroDescription, HeroTitle, HeroTopText, HeroWrapper } from '@/components/heroSection'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -141,9 +143,16 @@ const termsSections: readonly TermsSection[] = [
  * @returns The rendered terms page
  */
 export default function TermsPage() {
+  // Build the breadcrumb schema for this route
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Início', path: '/' },
+    { name: 'Termos e Condições', path: '/termos' },
+  ])
+
   // Render the full terms page layout
   return (
     <div className='flex min-h-screen flex-col'>
+      <JsonLd data={breadcrumbSchema} />
       <HeroWrapper className='min-h-0'>
         <div className='flex flex-col justify-center md:col-span-2'>
           <HeroTopText>{termsCopy.HERO_TOP}</HeroTopText>

@@ -11,6 +11,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { projects } from '@/lib/data'
 import type { ProjectStatus, ProjectType } from '@/lib/data'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { buildArticleSchema, buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -138,9 +140,25 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   // Resolve the badge presentation for the project status
   const statusBadge = projectStatusBadge[project.status]
 
+  // Build the breadcrumb + Article schemas for this project
+  const jsonLdData = [
+    buildBreadcrumbSchema([
+      { name: 'Início', path: '/' },
+      { name: 'Projetos', path: '/projetos' },
+      { name: project.title, path: `/projetos/${project.slug}` },
+    ]),
+    buildArticleSchema({
+      title: project.title,
+      description: project.shortDescription,
+      path: `/projetos/${project.slug}`,
+      image: project.image,
+    }),
+  ]
+
   // Render the project detail layout
   return (
     <div className='min-h-screen'>
+      <JsonLd data={jsonLdData} />
       <section className='relative overflow-hidden bg-linear-to-b from-primary/5 to-primary/10'>
         <div className='mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-20'>
           <Link

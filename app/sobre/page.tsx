@@ -19,6 +19,8 @@ import { TeamSection } from '@/components/team-section'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { SectionTitle } from '@/components/section'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -149,9 +151,16 @@ const commitments = [
  * @returns The rendered sobre page
  */
 export default function SobrePage() {
+  // Build the breadcrumb schema for this route
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Início', path: '/' },
+    { name: 'Sobre Nós', path: '/sobre' },
+  ])
+
   // Render the full sobre page layout
   return (
     <div className='flex min-h-screen flex-col'>
+      <JsonLd data={breadcrumbSchema} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
           <HeroTopText>{aboutCopy.HERO_TOP}</HeroTopText>

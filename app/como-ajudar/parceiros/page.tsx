@@ -13,6 +13,8 @@ import {
   HeroWrapper,
 } from '@/components/heroSection'
 import { PartnershipForm } from '@/components/partnership-form'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -56,9 +58,16 @@ const partnersStats = {
  * @returns The rendered partners page
  */
 export default function PartnersPage() {
+  // Build the breadcrumb schema for this route
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Início', path: '/' },
+    { name: 'Parcerias', path: '/como-ajudar/parceiros' },
+  ])
+
   // Render the full partners page layout
   return (
     <div className='flex min-h-dvh flex-col'>
+      <JsonLd data={breadcrumbSchema} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
           <HeroTopText>{partnersPageCopy.HERO_TOP}</HeroTopText>

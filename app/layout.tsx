@@ -4,7 +4,9 @@ import type { ReactNode } from 'react'
 
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { SITE_DESCRIPTION, SITE_LOCALE, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/seo/constants'
+import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo/jsonLd'
 
 import './globals.css'
 
@@ -65,10 +67,14 @@ type RootLayoutProps = {
  * @returns The rendered HTML document
  */
 export default function RootLayout({ children }: RootLayoutProps) {
+  // Build site-wide JSON-LD nodes once per render
+  const jsonLdData = [buildOrganizationSchema(), buildWebsiteSchema()]
+
   // Render the full document shell
   return (
     <html lang={HTML_LANG}>
       <body className={inter.className}>
+        <JsonLd data={jsonLdData} />
         <Header />
         <main className='overflow-hidden'>{children}</main>
         <Footer />

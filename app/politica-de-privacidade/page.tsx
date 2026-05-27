@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { HeroDescription, HeroTitle, HeroTopText, HeroWrapper } from '@/components/heroSection'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -155,9 +157,16 @@ const privacySections: readonly PrivacySection[] = [
  * @returns The rendered privacy policy page
  */
 export default function PrivacyPolicyPage() {
+  // Build the breadcrumb schema for this route
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Início', path: '/' },
+    { name: 'Política de Privacidade', path: '/politica-de-privacidade' },
+  ])
+
   // Render the full privacy policy layout
   return (
     <div className='flex min-h-screen flex-col'>
+      <JsonLd data={breadcrumbSchema} />
       <HeroWrapper className='min-h-0'>
         <div className='flex flex-col justify-center md:col-span-2'>
           <HeroTopText>{privacyCopy.HERO_TOP}</HeroTopText>

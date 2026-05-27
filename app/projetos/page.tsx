@@ -16,6 +16,8 @@ import { ProjectCard } from '@/components/projects'
 import { Button } from '@/components/ui/button'
 import { SectionDescription, SectionTitle } from '@/components/section'
 import { projects } from '@/lib/data'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -62,9 +64,16 @@ const projectsPageRoute = {
  * @returns The rendered projects index page
  */
 export default function ProjectsPage() {
+  // Build the breadcrumb schema for this route
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Início', path: '/' },
+    { name: 'Projetos', path: '/projetos' },
+  ])
+
   // Render the full projects index layout
   return (
     <div className='flex min-h-screen flex-col'>
+      <JsonLd data={breadcrumbSchema} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
           <HeroTopText>{projectsPageCopy.HERO_TOP}</HeroTopText>

@@ -14,6 +14,8 @@ import {
 } from '@/components/heroSection'
 import { TestimonialSection } from '@/components/testimonial-section'
 import { VolunteerForm } from '@/components/volunteer-form'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
@@ -57,9 +59,16 @@ const volunteerStats = {
  * @returns The rendered volunteer page
  */
 export default function VolunteerPage() {
+  // Build the breadcrumb schema for this route
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Início', path: '/' },
+    { name: 'Seja Voluntário', path: '/como-ajudar/voluntario' },
+  ])
+
   // Render the full volunteer page layout
   return (
     <div className='flex min-h-dvh flex-col'>
+      <JsonLd data={breadcrumbSchema} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
           <HeroTopText>{volunteerPageCopy.HERO_TOP}</HeroTopText>
