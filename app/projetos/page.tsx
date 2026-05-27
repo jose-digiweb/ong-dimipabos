@@ -41,7 +41,7 @@ const projectsPageCopy = {
  * @description Internal links surfaced from the projects index page
  */
 const projectsPageRoute = {
-  VOLUNTEER: '/como-ajudar#voluntario',
+  VOLUNTEER: '/como-ajudar/voluntario',
 } as const
 
 /**

@@ -8,7 +8,9 @@ import Link from 'next/link'
 const footerRoute = {
   SOBRE: '/sobre',
   PROJETOS: '/projetos',
-  COMO_AJUDAR: '/como-ajudar',
+  DOAR: '/como-ajudar/doar',
+  VOLUNTARIO: '/como-ajudar/voluntario',
+  PARCEIROS: '/como-ajudar/parceiros',
 } as const
 
 /**
@@ -34,7 +36,9 @@ const footerCopy = {
   QUICK_LINKS_TITLE: 'Links Rápidos',
   LINK_SOBRE: 'Nossa História',
   LINK_PROJETOS: 'Projetos',
-  LINK_COMO_AJUDAR: 'Como Ajudar',
+  LINK_DOAR: 'Doe',
+  LINK_VOLUNTARIO: 'Seja Voluntário',
+  LINK_PARCEIROS: 'Seja Parceiro',
   CONTACT_TITLE: 'Contato',
   FACEBOOK_LABEL: 'Facebook',
   WHATSAPP_LABEL: 'WhatsApp',
@@ -74,8 +78,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href={footerRoute.COMO_AJUDAR} className='hover:text-primary-foreground'>
-                  {footerCopy.LINK_COMO_AJUDAR}
+                <Link href={footerRoute.DOAR} className='hover:text-primary-foreground'>
+                  {footerCopy.LINK_DOAR}
+                </Link>
+              </li>
+              <li>
+                <Link href={footerRoute.VOLUNTARIO} className='hover:text-primary-foreground'>
+                  {footerCopy.LINK_VOLUNTARIO}
+                </Link>
+              </li>
+              <li>
+                <Link href={footerRoute.PARCEIROS} className='hover:text-primary-foreground'>
+                  {footerCopy.LINK_PARCEIROS}
                 </Link>
               </li>
             </ul>
