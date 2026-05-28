@@ -422,7 +422,16 @@
     "contactError": "O nome do contato deve ter pelo menos 2 caracteres.",
     "emailError": "Digite um e-mail válido.",
     "phoneError": "Digite um número de telefone válido.",
-    "messageError": "A mensagem deve ter pelo menos 10 caracteres."
+    "messageError": "A mensagem deve ter pelo menos 10 caracteres.",
+    "successTitle": "Mensagem enviada com sucesso!",
+    "successBody": "Obrigado pelo seu interesse. Entraremos em contato em breve.",
+    "errorValidation": "Verifique os campos do formulário e tente novamente.",
+    "errorTurnstile": "Falha na verificação de segurança. Por favor, tente novamente.",
+    "errorRateLimit": "Demasiadas mensagens. Tente novamente mais tarde.",
+    "errorEmailFailed": "Não conseguimos enviar a sua mensagem agora. Tente novamente em instantes.",
+    "errorStorageFailed": "Não conseguimos guardar a sua mensagem. Tente novamente em instantes.",
+    "errorNetwork": "Não foi possível contactar o servidor. Verifique a sua ligação e tente novamente.",
+    "errorUnknown": "Ocorreu um erro inesperado. Tente novamente em instantes."
   },
   "privacyPolicy": {
     "metaTitle": "Política de Privacidade",

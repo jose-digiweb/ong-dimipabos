@@ -422,7 +422,16 @@
     "contactError": "Contact name must be at least 2 characters.",
     "emailError": "Please enter a valid email.",
     "phoneError": "Please enter a valid phone number.",
-    "messageError": "Message must be at least 10 characters."
+    "messageError": "Message must be at least 10 characters.",
+    "successTitle": "Message sent successfully!",
+    "successBody": "Thank you for your interest. We will be in touch soon.",
+    "errorValidation": "Please check the form fields and try again.",
+    "errorTurnstile": "Security check failed. Please try again.",
+    "errorRateLimit": "Too many messages. Please try again later.",
+    "errorEmailFailed": "We couldn't send your message right now. Please try again shortly.",
+    "errorStorageFailed": "We couldn't save your message. Please try again shortly.",
+    "errorNetwork": "Couldn't reach the server. Check your connection and try again.",
+    "errorUnknown": "An unexpected error occurred. Please try again shortly."
   },
   "privacyPolicy": {
     "metaTitle": "Privacy Policy",

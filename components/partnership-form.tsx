@@ -1,11 +1,11 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslations } from 'next-intl'
-import { useEffect, useMemo } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import { useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 
+import { Turnstile, type TurnstileHandle } from '@/components/turnstile'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -17,74 +17,48 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import type { Locale } from '@/i18n/config'
+import {
+  PARTNERSHIP_LIMITS,
+  type PartnershipErrorCode,
+  type PartnershipPayload,
+  type PartnershipResponse,
+  buildPartnershipSchema,
+  partnershipErrorCode,
+} from '@/lib/forms/partnership-schema'
 
 import { SectionDescription } from './section/SectionDescription'
 import { SectionTitle } from './section/SectionTitle'
 
 /**
- * The {@link MIN_NAME_LENGTH} constant
- * @description Minimum length for company and contact name fields
+ * The {@link PARTNERSHIP_API_PATH} constant
+ * @description Endpoint the form submits to
  */
-const MIN_NAME_LENGTH = 2
-
-/**
- * The {@link MIN_PHONE_LENGTH} constant
- * @description Minimum length for the phone field
- */
-const MIN_PHONE_LENGTH = 8
-
-/**
- * The {@link MIN_MESSAGE_LENGTH} constant
- * @description Minimum length for the message field
- */
-const MIN_MESSAGE_LENGTH = 10
-
-/**
- * The {@link MAX_NAME_LENGTH} constant
- * @description Maximum length for company and contact name fields
- */
-const MAX_NAME_LENGTH = 120
-
-/**
- * The {@link MAX_EMAIL_LENGTH} constant
- * @description Maximum length for the email field
- */
-const MAX_EMAIL_LENGTH = 254
-
-/**
- * The {@link MAX_PHONE_LENGTH} constant
- * @description Maximum length for the phone field
- */
-const MAX_PHONE_LENGTH = 32
-
-/**
- * The {@link MAX_MESSAGE_LENGTH} constant
- * @description Maximum length for the message field
- */
-const MAX_MESSAGE_LENGTH = 2000
-
-/**
- * The {@link PartnershipFormValues} type
- * @description Shape of the partnership form values
- */
-type PartnershipFormValues = {
-  companyName: string
-  contactName: string
-  email: string
-  phone: string
-  message: string
-}
+const PARTNERSHIP_API_PATH = '/api/forms/partnership'
 
 /**
  * The {@link PARTNERSHIP_DEFAULTS} constant
  * @description Empty initial values for every controlled field
  */
-const PARTNERSHIP_DEFAULTS: PartnershipFormValues = {
+const PARTNERSHIP_DEFAULTS: PartnershipPayload = {
   companyName: '',
   contactName: '',
   email: '',
   phone: '',
   message: '',
+}
+
+/**
+ * The {@link errorCodeToMessageKey} constant
+ * @description Maps wire-level error codes to translation keys under `partnershipForm`
+ */
+const errorCodeToMessageKey: Record<PartnershipErrorCode, string> = {
+  [partnershipErrorCode.VALIDATION]: 'errorValidation',
+  [partnershipErrorCode.TURNSTILE]: 'errorTurnstile',
+  [partnershipErrorCode.RATE_LIMIT]: 'errorRateLimit',
+  [partnershipErrorCode.EMAIL_FAILED]: 'errorEmailFailed',
+  [partnershipErrorCode.STORAGE_FAILED]: 'errorStorageFailed',
+  [partnershipErrorCode.UNKNOWN]: 'errorUnknown',
 }
 
 /**
@@ -98,35 +72,30 @@ const toStringList = (value: unknown): readonly string[] =>
 
 /**
  * The {@link PartnershipForm} component
- * @description Renders the partnership pitch alongside its contact form in the
- * active locale. Submission is not yet wired to a backend; the handler surfaces
- * a friendly notice via `setError('root.serverError', ...)`.
+ * @description Renders the partnership pitch alongside its contact form. Validates
+ * with a locale-aware zod schema, verifies a Cloudflare Turnstile token, then
+ * POSTs to `/api/forms/partnership` which persists the submission and dispatches
+ * an email notification.
  * @returns The rendered partnership section
  */
 export function PartnershipForm() {
   // Read the locale-aware copy
   const t = useTranslations('partnershipForm')
   const tCommon = useTranslations('common')
+  const locale = useLocale() as Locale
 
   // Read the benefits and types as typed string arrays
   const benefits = toStringList(t.raw('benefits'))
   const types = toStringList(t.raw('types'))
 
-  // Build the schema bound to the active locale messages
-  const partnershipSchema = useMemo(
-    () =>
-      z.object({
-        companyName: z.string().min(MIN_NAME_LENGTH, { message: t('companyError') }),
-        contactName: z.string().min(MIN_NAME_LENGTH, { message: t('contactError') }),
-        email: z.string().email({ message: t('emailError') }),
-        phone: z.string().min(MIN_PHONE_LENGTH, { message: t('phoneError') }),
-        message: z.string().min(MIN_MESSAGE_LENGTH, { message: t('messageError') }),
-      }),
-    [t],
-  )
+  // Public Turnstile site key (Next.js inlines NEXT_PUBLIC_* at build time)
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
+
+  // Build the zod schema bound to the active locale messages
+  const partnershipSchema = useMemo(() => buildPartnershipSchema(t), [t])
 
   // Initialise the form with empty defaults
-  const form = useForm<PartnershipFormValues>({
+  const form = useForm<PartnershipPayload>({
     resolver: zodResolver(partnershipSchema),
     defaultValues: PARTNERSHIP_DEFAULTS,
   })
@@ -136,19 +105,60 @@ export function PartnershipForm() {
     setError,
     clearErrors,
     reset,
-    formState: { isSubmitting, isSubmitSuccessful, errors },
+    formState: { isSubmitting, errors },
   } = form
 
-  // Stub submit handler — surfaces the unavailable banner until the backend lands
-  const onSubmit = async () => {
-    clearErrors('root.serverError')
-    setError('root.serverError', { type: 'unavailable', message: tCommon('formUnavailable') })
-  }
+  // Turnstile token state — required before submission can proceed
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileHandle>(null)
 
-  // Reset the form once the backend wiring lands and a real success is reported
-  useEffect(() => {
-    if (isSubmitSuccessful) reset()
-  }, [isSubmitSuccessful, reset])
+  // Success banner state — separate from RHF's isSubmitSuccessful so we can keep
+  // it visible across the reset() that clears form values
+  const [submitted, setSubmitted] = useState(false)
+
+  // Submit handler — verifies Turnstile, POSTs payload, maps error codes
+  const onSubmit = async (values: PartnershipPayload) => {
+    clearErrors('root.serverError')
+    setSubmitted(false)
+
+    // Guard: Turnstile widget must have produced a token
+    if (!turnstileToken) {
+      setError('root.serverError', { type: 'turnstile', message: t('errorTurnstile') })
+      return
+    }
+
+    // POST the validated payload + token + active locale
+    let body: PartnershipResponse
+    try {
+      const res = await fetch(PARTNERSHIP_API_PATH, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...values, locale, turnstileToken }),
+      })
+      body = (await res.json()) as PartnershipResponse
+    } catch {
+      setError('root.serverError', { type: 'network', message: t('errorNetwork') })
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
+      return
+    }
+
+    // Branch on the discriminated response
+    if (body.ok) {
+      setSubmitted(true)
+      reset()
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
+      return
+    }
+
+    setError('root.serverError', {
+      type: 'server',
+      message: t(errorCodeToMessageKey[body.code]),
+    })
+    turnstileRef.current?.reset()
+    setTurnstileToken(null)
+  }
 
   // Render the two-column partnership pitch and form
   return (
@@ -186,6 +196,16 @@ export function PartnershipForm() {
         <div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8' noValidate>
+              {submitted ? (
+                <div
+                  role='status'
+                  className='rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-900 text-sm'
+                >
+                  <p className='font-semibold'>{t('successTitle')}</p>
+                  <p className='mt-1'>{t('successBody')}</p>
+                </div>
+              ) : null}
+
               {errors.root?.serverError ? (
                 <div
                   role='alert'
@@ -205,7 +225,7 @@ export function PartnershipForm() {
                       <Input
                         placeholder={t('companyPlaceholder')}
                         autoComplete='organization'
-                        maxLength={MAX_NAME_LENGTH}
+                        maxLength={PARTNERSHIP_LIMITS.COMPANY_MAX}
                         {...field}
                       />
                     </FormControl>
@@ -224,7 +244,7 @@ export function PartnershipForm() {
                       <Input
                         placeholder={t('contactPlaceholder')}
                         autoComplete='name'
-                        maxLength={MAX_NAME_LENGTH}
+                        maxLength={PARTNERSHIP_LIMITS.CONTACT_MAX}
                         {...field}
                       />
                     </FormControl>
@@ -246,7 +266,7 @@ export function PartnershipForm() {
                           type='email'
                           inputMode='email'
                           autoComplete='email'
-                          maxLength={MAX_EMAIL_LENGTH}
+                          maxLength={PARTNERSHIP_LIMITS.EMAIL_MAX}
                           {...field}
                         />
                       </FormControl>
@@ -267,7 +287,7 @@ export function PartnershipForm() {
                           type='tel'
                           inputMode='tel'
                           autoComplete='tel'
-                          maxLength={MAX_PHONE_LENGTH}
+                          maxLength={PARTNERSHIP_LIMITS.PHONE_MAX}
                           {...field}
                         />
                       </FormControl>
@@ -287,7 +307,7 @@ export function PartnershipForm() {
                       <Textarea
                         placeholder={t('messagePlaceholder')}
                         className='resize-none'
-                        maxLength={MAX_MESSAGE_LENGTH}
+                        maxLength={PARTNERSHIP_LIMITS.MESSAGE_MAX}
                         {...field}
                       />
                     </FormControl>
@@ -295,6 +315,16 @@ export function PartnershipForm() {
                   </FormItem>
                 )}
               />
+
+              {siteKey ? (
+                <Turnstile
+                  ref={turnstileRef}
+                  siteKey={siteKey}
+                  onVerify={(token) => setTurnstileToken(token)}
+                  onExpire={() => setTurnstileToken(null)}
+                  onError={() => setTurnstileToken(null)}
+                />
+              ) : null}
 
               <Button type='submit' variant='secondary' disabled={isSubmitting}>
                 {isSubmitting ? tCommon('formSubmitting') : t('submitLabel')}

@@ -6,6 +6,7 @@ import { CampaignRepository } from './repositories/campaigns'
 import { ContactSubmissionRepository } from './repositories/contact-submissions'
 import { DonationRepository } from './repositories/donations'
 import { DonorRepository } from './repositories/donors'
+import { PartnershipSubmissionRepository } from './repositories/partnership-submissions'
 import { VolunteerSubmissionRepository } from './repositories/volunteer-submissions'
 import * as schema from './schema'
 
@@ -51,6 +52,12 @@ export const contactSubmissionRepository = new ContactSubmissionRepository()
  * @description Shared volunteer submission repository instance
  */
 export const volunteerSubmissionRepository = new VolunteerSubmissionRepository()
+
+/**
+ * The {@link partnershipSubmissionRepository} singleton
+ * @description Shared partnership submission repository instance
+ */
+export const partnershipSubmissionRepository = new PartnershipSubmissionRepository()
 
 export * from './constants'
 export * from './schema'
