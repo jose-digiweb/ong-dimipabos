@@ -1,6 +1,7 @@
 'use client'
 
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -8,16 +9,10 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
 /**
- * The {@link galleryFallback} constant
- * @description Fallback assets and labels for the gallery
+ * The {@link GALLERY_PLACEHOLDER_SRC} constant
+ * @description Fallback image source used when an image URL is missing
  */
-const galleryFallback = {
-  PLACEHOLDER_SRC: '/placeholder.svg',
-  IMAGE_ALT: 'Fotografia da galeria do projeto',
-  CLOSE_LABEL: 'Fechar visualização da imagem',
-  PREVIOUS_LABEL: 'Imagem anterior',
-  NEXT_LABEL: 'Imagem seguinte',
-} as const
+const GALLERY_PLACEHOLDER_SRC = '/placeholder.svg'
 
 /**
  * The {@link ImageGalleryProps} type
@@ -37,8 +32,11 @@ type ImageGalleryProps = {
  * @returns The rendered gallery
  */
 export function ImageGallery({ images, alt }: ImageGalleryProps) {
+  // Read the locale-aware gallery translations
+  const t = useTranslations('imageGallery')
+
   // Resolve the alt text used by every image in the gallery
-  const imageAlt = alt ?? galleryFallback.IMAGE_ALT
+  const imageAlt = alt ?? t('imageAlt')
   // Index of the image currently shown in the lightbox
   const [currentImage, setCurrentImage] = useState(0)
 
@@ -69,7 +67,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
             }}
           >
             <Image
-              src={image || galleryFallback.PLACEHOLDER_SRC}
+              src={image || GALLERY_PLACEHOLDER_SRC}
               alt={imageAlt}
               fill
               className='object-cover transition-transform duration-300 group-hover:scale-105'
@@ -86,13 +84,13 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
               size='icon'
               className='absolute top-4 right-4 text-white hover:bg-white/20'
               onClick={() => setShowLightbox(false)}
-              aria-label={galleryFallback.CLOSE_LABEL}
+              aria-label={t('closeLabel')}
             >
               <X className='h-6 w-6' />
             </Button>
             <div className='relative aspect-4/3 min-h-75 w-full min-w-75 md:min-h-125 md:min-w-125'>
               <Image
-                src={images[currentImage] || galleryFallback.PLACEHOLDER_SRC}
+                src={images[currentImage] || GALLERY_PLACEHOLDER_SRC}
                 alt={imageAlt}
                 fill
                 className='object-contain'
@@ -107,7 +105,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
                   e.stopPropagation()
                   previousImage()
                 }}
-                aria-label={galleryFallback.PREVIOUS_LABEL}
+                aria-label={t('previousLabel')}
               >
                 <ChevronLeft className='h-8 w-8' />
               </Button>
@@ -121,7 +119,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
                   e.stopPropagation()
                   nextImage()
                 }}
-                aria-label={galleryFallback.NEXT_LABEL}
+                aria-label={t('nextLabel')}
               >
                 <ChevronRight className='h-8 w-8' />
               </Button>

@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 
 import { cfImage } from '@/lib/img'
@@ -34,12 +35,6 @@ const CAROUSEL_PRIORITY_COUNT = 0
 const CAROUSEL_IMAGE_SIZES = '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 34vw'
 
 /**
- * The {@link CAROUSEL_ALT_PREFIX} constant
- * @description Descriptive prefix prepended to the humanized R2 key for accessibility
- */
-const CAROUSEL_ALT_PREFIX = 'Momento dos projetos da DI MI PA BÔS na Guiné-Bissau'
-
-/**
  * The {@link humanizeKey} helper
  * @description Turns an R2 object key into a human-readable label for `alt` text
  * @param {string} key - The R2 object key
@@ -66,6 +61,12 @@ export const ImageCarousel = async () => {
   // Fetch the list of R2 images at request time
   const images = await getR2Images()
 
+  // Read the locale-aware carousel translations
+  const t = await getTranslations('imageCarousel')
+
+  // Resolve the descriptive alt prefix for the active locale
+  const altPrefix = t('altPrefix')
+
   // Render the carousel with the loaded images
   return (
     <Carousel opts={carouselOptions} className='relative'>
@@ -80,8 +81,8 @@ export const ImageCarousel = async () => {
               priority={index < CAROUSEL_PRIORITY_COUNT}
               alt={
                 image.key
-                  ? `${CAROUSEL_ALT_PREFIX} — ${humanizeKey(image.key)}`
-                  : CAROUSEL_ALT_PREFIX
+                  ? `${altPrefix} — ${humanizeKey(image.key)}`
+                  : altPrefix
               }
               src={cfImage(image.url, { width: 800 })}
               sizes={CAROUSEL_IMAGE_SIZES}

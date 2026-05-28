@@ -596,5 +596,14 @@
         ]
       }
     ]
+  },
+  "imageCarousel": {
+    "altPrefix": "Moment from DI MI PA BÔS projects in Guinea-Bissau"
+  },
+  "imageGallery": {
+    "imageAlt": "Project gallery photograph",
+    "closeLabel": "Close image preview",
+    "previousLabel": "Previous image",
+    "nextLabel": "Next image"
   }
 }

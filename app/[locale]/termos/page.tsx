@@ -81,8 +81,7 @@ export default async function TermsPage({ params }: TermsRouteProps) {
           <HeroDescription>{t('heroDescription')}</HeroDescription>
 
           <p className='mt-6 text-muted-foreground text-sm'>
-            <span className='font-semibold'>{t('lastUpdatedLabel')}</span>{' '}
-            {t('lastUpdatedValue')}
+            <span className='font-semibold'>{t('lastUpdatedLabel')}</span> {t('lastUpdatedValue')}
           </p>
         </div>
       </HeroWrapper>

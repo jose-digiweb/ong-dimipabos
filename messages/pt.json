@@ -596,5 +596,14 @@
         ]
       }
     ]
+  },
+  "imageCarousel": {
+    "altPrefix": "Momento dos projetos da DI MI PA BÔS na Guiné-Bissau"
+  },
+  "imageGallery": {
+    "imageAlt": "Fotografia da galeria do projeto",
+    "closeLabel": "Fechar visualização da imagem",
+    "previousLabel": "Imagem anterior",
+    "nextLabel": "Imagem seguinte"
   }
 }
