@@ -234,3 +234,37 @@ export type ContactSubmission = typeof contactSubmissions.$inferSelect
  * @description Insert shape accepted by {@link contactSubmissions}
  */
 export type NewContactSubmission = typeof contactSubmissions.$inferInsert
+
+/**
+ * The {@link volunteerSubmissions} table
+ * @description Inbound volunteer application submissions
+ */
+export const volunteerSubmissions = sqliteTable('volunteer_submissions', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text('name').notNull(),
+  email: text('email').notNull(),
+  phone: text('phone').notNull(),
+  area: text('area').notNull(),
+  availability: text('availability').notNull(),
+  experience: text('experience').notNull().default(''),
+  locale: text('locale').notNull().default(languageCode.PT),
+  status: text('status').notNull().default('received'),
+  emailError: text('email_error'),
+  ipHash: text('ip_hash'),
+  userAgent: text('user_agent'),
+  createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+})
+
+/**
+ * The {@link VolunteerSubmission} type
+ * @description Row shape returned when selecting from {@link volunteerSubmissions}
+ */
+export type VolunteerSubmission = typeof volunteerSubmissions.$inferSelect
+
+/**
+ * The {@link NewVolunteerSubmission} type
+ * @description Insert shape accepted by {@link volunteerSubmissions}
+ */
+export type NewVolunteerSubmission = typeof volunteerSubmissions.$inferInsert

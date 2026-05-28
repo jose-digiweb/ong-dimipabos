@@ -379,7 +379,16 @@
     "phoneError": "Please enter a valid phone number.",
     "areaError": "Select an area of interest.",
     "availabilityError": "Please describe your availability.",
-    "termsError": "You must accept the terms."
+    "termsError": "You must accept the terms.",
+    "successTitle": "Application sent successfully!",
+    "successBody": "Thank you for your interest. We will be in touch soon.",
+    "errorValidation": "Please check the form fields and try again.",
+    "errorTurnstile": "Security check failed. Please try again.",
+    "errorRateLimit": "Too many applications. Please try again later.",
+    "errorEmailFailed": "We couldn't send your application right now. Please try again shortly.",
+    "errorStorageFailed": "We couldn't save your application. Please try again shortly.",
+    "errorNetwork": "Couldn't reach the server. Check your connection and try again.",
+    "errorUnknown": "An unexpected error occurred. Please try again shortly."
   },
   "partnershipForm": {
     "sectionTitle": "Become Our Partner",

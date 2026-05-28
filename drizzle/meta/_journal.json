@@ -15,6 +15,13 @@
       "when": 1779995107984,
       "tag": "0001_classy_screwball",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1780001701832,
+      "tag": "0002_easy_exiles",
+      "breakpoints": true
     }
   ]
 }

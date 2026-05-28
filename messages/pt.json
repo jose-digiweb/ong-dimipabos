@@ -379,7 +379,16 @@
     "phoneError": "Digite um número de telefone válido.",
     "areaError": "Selecione uma área de interesse.",
     "availabilityError": "Descreva sua disponibilidade.",
-    "termsError": "Você deve aceitar os termos."
+    "termsError": "Você deve aceitar os termos.",
+    "successTitle": "Inscrição enviada com sucesso!",
+    "successBody": "Obrigado pelo seu interesse. Entraremos em contato em breve.",
+    "errorValidation": "Verifique os campos do formulário e tente novamente.",
+    "errorTurnstile": "Falha na verificação de segurança. Por favor, tente novamente.",
+    "errorRateLimit": "Demasiadas inscrições. Tente novamente mais tarde.",
+    "errorEmailFailed": "Não conseguimos enviar a sua inscrição agora. Tente novamente em instantes.",
+    "errorStorageFailed": "Não conseguimos guardar a sua inscrição. Tente novamente em instantes.",
+    "errorNetwork": "Não foi possível contactar o servidor. Verifique a sua ligação e tente novamente.",
+    "errorUnknown": "Ocorreu um erro inesperado. Tente novamente em instantes."
   },
   "partnershipForm": {
     "sectionTitle": "Seja Nosso Parceiro",
