@@ -271,7 +271,16 @@
     "emailError": "Please enter a valid email.",
     "subjectError": "Subject must be at least 2 characters.",
     "messageError": "Message must be at least 10 characters.",
-    "consentError": "You must authorise the use of your data."
+    "consentError": "You must authorise the use of your data.",
+    "successTitle": "Message sent successfully!",
+    "successBody": "Thank you for reaching out. We will reply shortly.",
+    "errorValidation": "Please review the form fields and try again.",
+    "errorTurnstile": "We couldn’t verify your session. Reload the page and try again.",
+    "errorRateLimit": "We’re receiving too many messages right now. Please try again in a few minutes.",
+    "errorEmailFailed": "We couldn’t send your message right now. Please try again shortly.",
+    "errorStorageFailed": "There was a problem saving your message. Please try again.",
+    "errorNetwork": "Network unavailable. Check your connection and try again.",
+    "errorUnknown": "Something went wrong. Please try again shortly."
   },
   "donatePage": {
     "metaTitle": "How to Donate",

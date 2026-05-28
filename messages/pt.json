@@ -271,7 +271,16 @@
     "emailError": "Digite um e-mail válido.",
     "subjectError": "O assunto deve ter pelo menos 2 caracteres.",
     "messageError": "A mensagem deve ter pelo menos 10 caracteres.",
-    "consentError": "Você deve autorizar o uso dos seus dados."
+    "consentError": "Você deve autorizar o uso dos seus dados.",
+    "successTitle": "Mensagem enviada com sucesso!",
+    "successBody": "Obrigado pelo contato. Responderemos em breve.",
+    "errorValidation": "Verifique os campos do formulário e tente novamente.",
+    "errorTurnstile": "Não foi possível verificar a sua sessão. Recarregue a página e tente novamente.",
+    "errorRateLimit": "Recebemos muitas mensagens neste momento. Tente novamente em alguns minutos.",
+    "errorEmailFailed": "Não conseguimos enviar a sua mensagem agora. Tente novamente em instantes.",
+    "errorStorageFailed": "Houve um problema ao salvar a sua mensagem. Tente novamente.",
+    "errorNetwork": "Sem conexão. Verifique a sua internet e tente novamente.",
+    "errorUnknown": "Algo deu errado. Tente novamente em instantes."
   },
   "donatePage": {
     "metaTitle": "Como Doar",

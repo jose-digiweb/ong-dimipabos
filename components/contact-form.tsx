@@ -1,11 +1,11 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslations } from 'next-intl'
-import { useEffect, useMemo } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import { useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 
+import { Turnstile, type TurnstileHandle } from '@/components/turnstile'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import {
@@ -18,54 +18,27 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import type { Locale } from '@/i18n/config'
+import {
+  CONTACT_LIMITS,
+  type ContactErrorCode,
+  type ContactPayload,
+  type ContactResponse,
+  buildContactSchema,
+  contactErrorCode,
+} from '@/lib/forms/contact-schema'
 
 /**
- * The {@link MIN_NAME_LENGTH} constant
- * @description Minimum length for the name and subject fields
+ * The {@link CONTACT_API_PATH} constant
+ * @description Endpoint the form submits to
  */
-const MIN_NAME_LENGTH = 2
-
-/**
- * The {@link MIN_MESSAGE_LENGTH} constant
- * @description Minimum length for the message field
- */
-const MIN_MESSAGE_LENGTH = 10
-
-/**
- * The {@link MAX_NAME_LENGTH} constant
- * @description Maximum length for the name and subject fields
- */
-const MAX_NAME_LENGTH = 120
-
-/**
- * The {@link MAX_EMAIL_LENGTH} constant
- * @description Maximum length for the email field
- */
-const MAX_EMAIL_LENGTH = 254
-
-/**
- * The {@link MAX_MESSAGE_LENGTH} constant
- * @description Maximum length for the message field
- */
-const MAX_MESSAGE_LENGTH = 2000
-
-/**
- * The {@link ContactFormValues} type
- * @description Shape of the contact form values
- */
-type ContactFormValues = {
-  name: string
-  email: string
-  subject: string
-  message: string
-  consent: boolean
-}
+const CONTACT_API_PATH = '/api/forms/contact'
 
 /**
  * The {@link CONTACT_DEFAULTS} constant
  * @description Empty initial values for every controlled field
  */
-const CONTACT_DEFAULTS: ContactFormValues = {
+const CONTACT_DEFAULTS: ContactPayload = {
   name: '',
   email: '',
   subject: '',
@@ -74,32 +47,39 @@ const CONTACT_DEFAULTS: ContactFormValues = {
 }
 
 /**
+ * The {@link errorCodeToMessageKey} constant
+ * @description Maps wire-level error codes to translation keys under `contactForm`
+ */
+const errorCodeToMessageKey: Record<ContactErrorCode, string> = {
+  [contactErrorCode.VALIDATION]: 'errorValidation',
+  [contactErrorCode.TURNSTILE]: 'errorTurnstile',
+  [contactErrorCode.RATE_LIMIT]: 'errorRateLimit',
+  [contactErrorCode.EMAIL_FAILED]: 'errorEmailFailed',
+  [contactErrorCode.STORAGE_FAILED]: 'errorStorageFailed',
+  [contactErrorCode.UNKNOWN]: 'errorUnknown',
+}
+
+/**
  * The {@link ContactForm} component
- * @description Renders the public contact form using locale-aware copy and
- * validation messages. Submission is not yet wired to a backend; the handler
- * surfaces a friendly notice via `setError('root.serverError', ...)`.
+ * @description Public contact form. Validates with a locale-aware zod schema,
+ * verifies a Cloudflare Turnstile token, then POSTs to `/api/forms/contact`
+ * which persists the submission and dispatches an email notification.
  * @returns The rendered contact form
  */
 export function ContactForm() {
   // Read the locale-aware copy
   const t = useTranslations('contactForm')
   const tCommon = useTranslations('common')
+  const locale = useLocale() as Locale
+
+  // Public Turnstile site key (Next.js inlines NEXT_PUBLIC_* at build time)
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
 
   // Build the zod schema bound to the active locale messages
-  const contactSchema = useMemo(
-    () =>
-      z.object({
-        name: z.string().min(MIN_NAME_LENGTH, { message: t('nameError') }),
-        email: z.string().email({ message: t('emailError') }),
-        subject: z.string().min(MIN_NAME_LENGTH, { message: t('subjectError') }),
-        message: z.string().min(MIN_MESSAGE_LENGTH, { message: t('messageError') }),
-        consent: z.boolean().refine((val) => val === true, { message: t('consentError') }),
-      }),
-    [t],
-  )
+  const contactSchema = useMemo(() => buildContactSchema(t), [t])
 
   // Initialise the form with empty defaults
-  const form = useForm<ContactFormValues>({
+  const form = useForm<ContactPayload>({
     resolver: zodResolver(contactSchema),
     defaultValues: CONTACT_DEFAULTS,
   })
@@ -109,24 +89,75 @@ export function ContactForm() {
     setError,
     clearErrors,
     reset,
-    formState: { isSubmitting, isSubmitSuccessful, errors },
+    formState: { isSubmitting, errors },
   } = form
 
-  // Stub submit handler — surfaces the unavailable banner until the backend lands
-  const onSubmit = async () => {
-    clearErrors('root.serverError')
-    setError('root.serverError', { type: 'unavailable', message: tCommon('formUnavailable') })
-  }
+  // Turnstile token state — required before submission can proceed
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileHandle>(null)
 
-  // Reset the form once the backend wiring lands and a real success is reported
-  useEffect(() => {
-    if (isSubmitSuccessful) reset()
-  }, [isSubmitSuccessful, reset])
+  // Success banner state — separate from RHF's isSubmitSuccessful so we can keep
+  // it visible across the reset() that clears form values
+  const [submitted, setSubmitted] = useState(false)
+
+  // Submit handler — verifies Turnstile, POSTs payload, maps error codes
+  const onSubmit = async (values: ContactPayload) => {
+    clearErrors('root.serverError')
+    setSubmitted(false)
+
+    // Guard: Turnstile widget must have produced a token
+    if (!turnstileToken) {
+      setError('root.serverError', { type: 'turnstile', message: t('errorTurnstile') })
+      return
+    }
+
+    // POST the validated payload + token + active locale
+    let body: ContactResponse
+    try {
+      const res = await fetch(CONTACT_API_PATH, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...values, locale, turnstileToken }),
+      })
+      body = (await res.json()) as ContactResponse
+    } catch {
+      setError('root.serverError', { type: 'network', message: t('errorNetwork') })
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
+      return
+    }
+
+    // Branch on the discriminated response
+    if (body.ok) {
+      setSubmitted(true)
+      reset()
+      turnstileRef.current?.reset()
+      setTurnstileToken(null)
+      return
+    }
+
+    setError('root.serverError', {
+      type: 'server',
+      message: t(errorCodeToMessageKey[body.code]),
+    })
+    turnstileRef.current?.reset()
+    setTurnstileToken(null)
+  }
 
   // Render the contact form fields
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8' noValidate>
+        {submitted ? (
+          <div
+            role='status'
+            className='rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-900 text-sm'
+          >
+            <p className='font-semibold'>{t('successTitle')}</p>
+            <p className='mt-1'>{t('successBody')}</p>
+          </div>
+        ) : null}
+
         {errors.root?.serverError ? (
           <div
             role='alert'
@@ -146,7 +177,7 @@ export function ContactForm() {
                 <Input
                   placeholder={t('namePlaceholder')}
                   autoComplete='name'
-                  maxLength={MAX_NAME_LENGTH}
+                  maxLength={CONTACT_LIMITS.NAME_MAX}
                   {...field}
                 />
               </FormControl>
@@ -167,7 +198,7 @@ export function ContactForm() {
                   type='email'
                   inputMode='email'
                   autoComplete='email'
-                  maxLength={MAX_EMAIL_LENGTH}
+                  maxLength={CONTACT_LIMITS.EMAIL_MAX}
                   {...field}
                 />
               </FormControl>
@@ -186,7 +217,7 @@ export function ContactForm() {
                 <Input
                   placeholder={t('subjectPlaceholder')}
                   autoComplete='off'
-                  maxLength={MAX_NAME_LENGTH}
+                  maxLength={CONTACT_LIMITS.SUBJECT_MAX}
                   {...field}
                 />
               </FormControl>
@@ -205,7 +236,7 @@ export function ContactForm() {
                 <Textarea
                   placeholder={t('messagePlaceholder')}
                   className='min-h-30 resize-none'
-                  maxLength={MAX_MESSAGE_LENGTH}
+                  maxLength={CONTACT_LIMITS.MESSAGE_MAX}
                   {...field}
                 />
               </FormControl>
@@ -229,6 +260,16 @@ export function ContactForm() {
             </FormItem>
           )}
         />
+
+        {siteKey ? (
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={siteKey}
+            onVerify={(token) => setTurnstileToken(token)}
+            onExpire={() => setTurnstileToken(null)}
+            onError={() => setTurnstileToken(null)}
+          />
+        ) : null}
 
         <Button type='submit' variant='secondary' disabled={isSubmitting}>
           {isSubmitting ? tCommon('formSubmitting') : t('submitLabel')}

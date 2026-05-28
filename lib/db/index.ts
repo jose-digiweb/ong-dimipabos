@@ -3,6 +3,7 @@ import { drizzle } from 'drizzle-orm/d1'
 import { cache } from 'react'
 
 import { CampaignRepository } from './repositories/campaigns'
+import { ContactSubmissionRepository } from './repositories/contact-submissions'
 import { DonationRepository } from './repositories/donations'
 import { DonorRepository } from './repositories/donors'
 import * as schema from './schema'
@@ -37,6 +38,12 @@ export const donationRepository = new DonationRepository()
  * @description Shared campaign repository instance
  */
 export const campaignRepository = new CampaignRepository()
+
+/**
+ * The {@link contactSubmissionRepository} singleton
+ * @description Shared contact submission repository instance
+ */
+export const contactSubmissionRepository = new ContactSubmissionRepository()
 
 export * from './constants'
 export * from './schema'

@@ -202,3 +202,35 @@ export type DonorPreferences = typeof donorPreferences.$inferSelect
  * @description Insert shape accepted by {@link donorPreferences}
  */
 export type NewDonorPreferences = typeof donorPreferences.$inferInsert
+
+/**
+ * The {@link contactSubmissions} table
+ * @description Inbound public contact form submissions
+ */
+export const contactSubmissions = sqliteTable('contact_submissions', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text('name').notNull(),
+  email: text('email').notNull(),
+  subject: text('subject').notNull(),
+  message: text('message').notNull(),
+  locale: text('locale').notNull().default(languageCode.PT),
+  status: text('status').notNull().default('received'),
+  emailError: text('email_error'),
+  ipHash: text('ip_hash'),
+  userAgent: text('user_agent'),
+  createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+})
+
+/**
+ * The {@link ContactSubmission} type
+ * @description Row shape returned when selecting from {@link contactSubmissions}
+ */
+export type ContactSubmission = typeof contactSubmissions.$inferSelect
+
+/**
+ * The {@link NewContactSubmission} type
+ * @description Insert shape accepted by {@link contactSubmissions}
+ */
+export type NewContactSubmission = typeof contactSubmissions.$inferInsert
