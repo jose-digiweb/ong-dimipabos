@@ -24,14 +24,14 @@
   "send_email": [
     {
       "name": "EMAIL",
-      "allowed_destination_addresses": ["contact@ongdimipabos.org"],
+      "allowed_destination_addresses": ["josefurtado.digital@gmail.com"],
     },
   ],
   "vars": {
     "R2_PUBLIC_URL": "https://storage.ongdimipabos.org",
     "CONTACT_FROM_ADDRESS": "noreply@ongdimipabos.org",
     "CONTACT_FROM_NAME": "DI MI PA BÔS",
-    "CONTACT_TO_ADDRESS": "contact@ongdimipabos.org",
+    "CONTACT_TO_ADDRESS": "josefurtado.digital@gmail.com",
     "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAADX_maCjLdoRjeSa",
   },
   "observability": {
