@@ -89,5 +89,76 @@
         "description": "Suporte pós-tratamento com monitoramento e apoio para prevenir recaídas e garantir uma recuperação duradoura."
       }
     }
+  },
+  "about": {
+    "metaTitle": "Sobre Nós",
+    "metaDescription": "Conheça a história, missão e equipa da ONG DI MI PA BÔS, dedicada a transformar vidas na Guiné-Bissau.",
+    "breadcrumbHome": "Início",
+    "breadcrumbAbout": "Sobre Nós",
+    "heroTop": "Nossa História",
+    "heroTitle": "Quem Somos",
+    "heroSubtitle": "Construindo um futuro de esperança",
+    "heroDescription": "A DI MI PA BÔS (também conhecida como dimipabos) é uma ONG na Guiné-Bissau, sediada em Bissau. Nascemos da urgente necessidade de oferecer tratamento adequado e humanizado para pessoas em situação de dependência química, e nossa missão é construir e operar o primeiro centro especializado do país.",
+    "ctaSupport": "Apoie Nossa Causa",
+    "ctaProjects": "Conheça o Projeto",
+    "statFoundedLabel": "Ano de Fundação",
+    "statConstructionValue": "10%",
+    "statConstructionLabel": "Da Construção Concluída",
+    "statVolunteersValue": "5",
+    "statVolunteersLabel": "Voluntários Ativos",
+    "cardTitle": "Nossa Essência",
+    "cardBody": "Trabalhamos incansavelmente para construir um espaço de acolhimento e recuperação, onde cada pessoa possa encontrar apoio para recomeçar.",
+    "historyTitle": "Nossa História",
+    "historyImageAlt": "Fundação da ONG",
+    "historyParagraphs": [
+      "A ONG DI MI PA BÔS nasceu em 2021 com um propósito simples, mas essencial: levar ajuda a quem mais precisa. Inicialmente, nosso foco estava em doações, fornecendo apoio básico para pessoas em situação de vulnerabilidade na Guiné-Bissau. No entanto, ao longo do nosso trabalho, percebemos uma necessidade ainda maior — um espaço seguro e estruturado para acolher e tratar pessoas que lutam contra a dependência química.",
+      "Dessa constatação, surgiu o nosso grande projeto: a construção de um centro de acolhimento e tratamento para pessoas que enfrentam desafios com o uso de substâncias. Esse centro será um lugar onde elas poderão se recuperar com dignidade, recebendo tratamento adequado e um acompanhamento contínuo para garantir sua reabilitação e reintegração à sociedade.",
+      "Ainda estamos em fase de construção, mas cada passo que damos é movido pelo compromisso de transformar vidas. Com o apoio da comunidade, parceiros e doadores, estamos construindo um futuro onde mais pessoas tenham a chance de recomeçar.",
+      "Junte-se a nós nessa missão e ajude a tornar esse sonho realidade! 💙✨"
+    ],
+    "mvvTitle": "Missão, Visão e Valores",
+    "mission": {
+      "title": "Missão",
+      "body": "Construir e operar o primeiro centro especializado em tratamento e reabilitação para pessoas em situação de dependência química na Guiné-Bissau, oferecendo acolhimento e cuidado humanizado."
+    },
+    "vision": {
+      "title": "Visão",
+      "body": "Ser referência em tratamento e reabilitação na Guiné-Bissau, proporcionando um espaço de acolhimento, recuperação e renovação para quem precisa."
+    },
+    "values": {
+      "title": "Valores",
+      "items": [
+        "Empatia e Respeito no acolhimento",
+        "Transparência em nossas ações",
+        "Compromisso com a recuperação"
+      ]
+    },
+    "commitmentsTitle": "Nossos Compromissos",
+    "commitments": {
+      "transparency": {
+        "title": "Transparência",
+        "description": "Prestação de contas clara sobre o uso dos recursos e andamento da construção."
+      },
+      "quality": {
+        "title": "Qualidade",
+        "description": "Construção e implementação de um centro com estrutura adequada e equipe capacitada."
+      },
+      "impact": {
+        "title": "Impacto Social",
+        "description": "Compromisso com a transformação efetiva de vidas através do tratamento especializado."
+      }
+    },
+    "commitmentsFooter": "Acreditamos que a recuperação é possível quando há estrutura adequada, tratamento especializado e apoio contínuo. É por isso que trabalhamos incansavelmente na construção do nosso centro.",
+    "ctaCommitments": "Apoie essa causa"
+  },
+  "team": {
+    "sectionTitle": "Nossa Equipe",
+    "sectionDescription": "Conheça as pessoas dedicadas que trabalham para tornar o centro de tratamento uma realidade.",
+    "members": {
+      "cesaltina": {
+        "role": "Coordenadora Geral",
+        "description": "Apaixonada por ajudar pessoas em situação de vulnerabilidade."
+      }
+    }
   }
 }

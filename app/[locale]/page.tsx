@@ -120,10 +120,7 @@ export default async function Page({ params }: PageProps) {
           </div>
 
           <div className='mt-10 flex items-center gap-4'>
-            <HeroStats
-              value={t('statConstructionValue')}
-              label={t('statConstructionLabel')}
-            />
+            <HeroStats value={t('statConstructionValue')} label={t('statConstructionLabel')} />
 
             <HeroStats value={VOLUNTEERS_COUNT} label={t('statVolunteersLabel')} />
           </div>

@@ -89,5 +89,76 @@
         "description": "Post-treatment support with follow-up and care to prevent relapse and ensure lasting recovery."
       }
     }
+  },
+  "about": {
+    "metaTitle": "About Us",
+    "metaDescription": "Get to know the story, mission and team of NGO DI MI PA BÔS, dedicated to transforming lives in Guinea-Bissau.",
+    "breadcrumbHome": "Home",
+    "breadcrumbAbout": "About Us",
+    "heroTop": "Our Story",
+    "heroTitle": "Who We Are",
+    "heroSubtitle": "Building a future of hope",
+    "heroDescription": "DI MI PA BÔS (also known as dimipabos) is an NGO in Guinea-Bissau, based in Bissau. We were born from the urgent need to offer adequate, humane treatment to people facing chemical dependency, and our mission is to build and operate the country's first specialised centre.",
+    "ctaSupport": "Support Our Cause",
+    "ctaProjects": "Discover the Project",
+    "statFoundedLabel": "Founded",
+    "statConstructionValue": "10%",
+    "statConstructionLabel": "Construction Complete",
+    "statVolunteersValue": "5",
+    "statVolunteersLabel": "Active Volunteers",
+    "cardTitle": "Our Essence",
+    "cardBody": "We work tirelessly to build a space of shelter and recovery, where every person can find the support they need to start again.",
+    "historyTitle": "Our Story",
+    "historyImageAlt": "NGO founding",
+    "historyParagraphs": [
+      "NGO DI MI PA BÔS was founded in 2021 with a simple, essential purpose: to bring help to those who need it most. At first our focus was on donations, providing basic support to vulnerable people in Guinea-Bissau. Along the way, however, we recognised an even greater need — a safe, structured space to welcome and treat people struggling with chemical dependency.",
+      "From that realisation our flagship project was born: building a shelter and treatment centre for people facing challenges with substance use. The centre will be a place where they can recover with dignity, receiving appropriate treatment and continuous follow-up to ensure their rehabilitation and reintegration into society.",
+      "We are still in the construction phase, but every step we take is driven by our commitment to transforming lives. With the support of our community, partners and donors, we are building a future where more people get the chance to start over.",
+      "Join us on this mission and help make this dream a reality! 💙✨"
+    ],
+    "mvvTitle": "Mission, Vision and Values",
+    "mission": {
+      "title": "Mission",
+      "body": "Build and operate the first specialised treatment and rehabilitation centre for people facing chemical dependency in Guinea-Bissau, offering humane shelter and care."
+    },
+    "vision": {
+      "title": "Vision",
+      "body": "To be a reference in treatment and rehabilitation in Guinea-Bissau, providing a space of shelter, recovery and renewal for those in need."
+    },
+    "values": {
+      "title": "Values",
+      "items": [
+        "Empathy and respect in our care",
+        "Transparency in our actions",
+        "Commitment to recovery"
+      ]
+    },
+    "commitmentsTitle": "Our Commitments",
+    "commitments": {
+      "transparency": {
+        "title": "Transparency",
+        "description": "Clear accountability for how resources are used and how construction is progressing."
+      },
+      "quality": {
+        "title": "Quality",
+        "description": "Building and running a centre with the right facilities and a skilled team."
+      },
+      "impact": {
+        "title": "Social Impact",
+        "description": "A commitment to genuinely transforming lives through specialised treatment."
+      }
+    },
+    "commitmentsFooter": "We believe recovery is possible when there is the right structure, specialised treatment and continuous support. That is why we work tirelessly on building our centre.",
+    "ctaCommitments": "Support this cause"
+  },
+  "team": {
+    "sectionTitle": "Our Team",
+    "sectionDescription": "Meet the dedicated people working to make the treatment centre a reality.",
+    "members": {
+      "cesaltina": {
+        "role": "General Coordinator",
+        "description": "Passionate about helping people in vulnerable situations."
+      }
+    }
   }
 }

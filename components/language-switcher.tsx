@@ -2,7 +2,13 @@
 
 import { useTransition } from 'react'
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import type { Locale } from '@/i18n/config'
 import { localeFlags, localeLabels, locales } from '@/i18n/config'
 import { usePathname, useRouter } from '@/i18n/navigation'
