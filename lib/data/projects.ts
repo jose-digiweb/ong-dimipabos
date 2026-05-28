@@ -19,7 +19,7 @@ export const projects: ProjectType[] = [
     location: 'Bissau, Guiné-Bissau',
     startDate: '2023',
     capacity: '20 pessoas',
-    image: 'https://res.cloudinary.com/dg0lp0ga7/image/upload/v1738606249/recup_utpsyv.jpg',
+    image: 'https://storage.ongdimipabos.org/org/29.jpeg',
     images: [],
     team: [
       'Equipe médica especializada',

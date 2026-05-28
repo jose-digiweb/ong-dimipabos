@@ -15,11 +15,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'res.cloudinary.com',
+        hostname: 'storage.ongdimipabos.org',
         pathname: '/**',
       },
-      // R2 public bucket URL — update once you enable public access on the bucket
-      // Format: pub-<hash>.r2.dev — add the specific hostname once known
+      // R2 public bucket URL — kept for fallback access when public bucket is used directly
       {
         protocol: 'https',
         hostname: '*.r2.dev',

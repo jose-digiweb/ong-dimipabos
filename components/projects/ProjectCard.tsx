@@ -3,7 +3,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-import { cloudinaryImage } from '@/lib/img'
 import { cn } from '@/lib/utils'
 
 import { Button } from '../ui/button'
@@ -33,7 +32,7 @@ export const ProjectCard = ({ project, className }: ProjectCardProps) => {
       <CardHeader className='relative aspect-video w-full overflow-hidden'>
         <Image
           fill
-          src={cloudinaryImage(project.image, { width: 800, crop: 'fill' })}
+          src={project.image}
           alt={project.title}
           sizes='(min-width: 768px) 50vw, 100vw'
           className='h-full w-full object-cover'
