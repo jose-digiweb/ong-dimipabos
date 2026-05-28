@@ -57,5 +57,37 @@
   "common": {
     "loading": "Carregando…",
     "backToHome": "Voltar ao início"
+  },
+  "home": {
+    "heroTop": "Construindo Esperança",
+    "heroTitle": "DI MI PA BÔS",
+    "heroSubtitle": "Um lugar de acolhimento e recuperação",
+    "heroDescription": "A DI MI PA BÔS (dimipabos) é uma ONG na Guiné-Bissau a construir o primeiro centro especializado em tratamento e reabilitação para pessoas em situação de dependência química. Um espaço de acolhimento, cuidado e renovação em Bissau.",
+    "heroImageAlt": "Crianças e jovens acolhidos pela DI MI PA BÔS na Guiné-Bissau.",
+    "ctaSupport": "Apoie a Construção",
+    "ctaLearn": "Conheça o Projeto",
+    "statConstructionValue": "10%",
+    "statConstructionLabel": "da Construção Concluída",
+    "statVolunteersLabel": "Voluntários Ativos",
+    "cardTitle": "Nossa Essência",
+    "cardBody": "Trabalhamos incansavelmente para construir um espaço de acolhimento e recuperação, onde cada pessoa possa encontrar apoio para recomeçar.",
+    "carouselTitle": "Nossa caminhada",
+    "carouselDescription": "Algumas fotos do que representam nossa luta e esperança.",
+    "centreTitle": "O Centro de Reabilitação",
+    "centreDescription": "Conheça o projeto que vai transformar o tratamento da dependência química na Guiné-Bissau.",
+    "projects": {
+      "shelter": {
+        "title": "Acolhimento",
+        "description": "Instalações completas com dormitórios, refeitório, salas de atendimento e espaços de convivência para até 20 pessoas."
+      },
+      "rehab": {
+        "title": "Reabilitação",
+        "description": "Equipe multidisciplinar preparada para oferecer acompanhamento médico, psicológico e terapêutico especializado."
+      },
+      "reintegration": {
+        "title": "Reintegração",
+        "description": "Suporte pós-tratamento com monitoramento e apoio para prevenir recaídas e garantir uma recuperação duradoura."
+      }
+    }
   }
 }

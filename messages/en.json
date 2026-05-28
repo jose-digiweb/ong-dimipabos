@@ -57,5 +57,37 @@
   "common": {
     "loading": "Loading…",
     "backToHome": "Back to home"
+  },
+  "home": {
+    "heroTop": "Building Hope",
+    "heroTitle": "DI MI PA BÔS",
+    "heroSubtitle": "A place of shelter and recovery",
+    "heroDescription": "DI MI PA BÔS (dimipabos) is an NGO in Guinea-Bissau building the first specialised treatment and rehabilitation centre for people facing chemical dependency. A space of shelter, care and renewal in Bissau.",
+    "heroImageAlt": "Children and young people supported by DI MI PA BÔS in Guinea-Bissau.",
+    "ctaSupport": "Support the Build",
+    "ctaLearn": "Discover the Project",
+    "statConstructionValue": "10%",
+    "statConstructionLabel": "Construction Complete",
+    "statVolunteersLabel": "Active Volunteers",
+    "cardTitle": "Our Essence",
+    "cardBody": "We work tirelessly to build a space of shelter and recovery, where every person can find the support they need to start again.",
+    "carouselTitle": "Our Journey",
+    "carouselDescription": "A few photos of what our struggle and hope look like.",
+    "centreTitle": "The Rehabilitation Centre",
+    "centreDescription": "Discover the project that will transform addiction treatment in Guinea-Bissau.",
+    "projects": {
+      "shelter": {
+        "title": "Shelter",
+        "description": "Full facilities with dormitories, dining hall, consultation rooms and shared living spaces for up to 20 people."
+      },
+      "rehab": {
+        "title": "Rehabilitation",
+        "description": "A multidisciplinary team providing specialised medical, psychological and therapeutic support."
+      },
+      "reintegration": {
+        "title": "Reintegration",
+        "description": "Post-treatment support with follow-up and care to prevent relapse and ensure lasting recovery."
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Image from 'next/image'
-import { Link } from '@/i18n/navigation'
 import { Suspense } from 'react'
 
 import cardImage from '@/assets/dimipabos_logo_2.png'
@@ -17,8 +17,9 @@ import {
 } from '@/components/heroSection'
 import { HomeProjectCard } from '@/components/HomeProjectCard'
 import { ImageCarousel } from '@/components/image-carousel'
-import { Button } from '@/components/ui/button'
 import { SectionDescription, SectionTitle } from '@/components/section'
+import { Button } from '@/components/ui/button'
+import { Link } from '@/i18n/navigation'
 
 /**
  * The revalidate export
@@ -37,32 +38,6 @@ const homeRoute = {
 } as const
 
 /**
- * The {@link homeCopy} constant
- * @description Static Portuguese copy used by the homepage
- */
-const homeCopy = {
-  HERO_TOP: 'Construindo Esperança',
-  HERO_TITLE: 'DI MI PA BÔS',
-  HERO_SUBTITLE: 'Um lugar de acolhimento e recuperação',
-  HERO_DESCRIPTION:
-    'A DI MI PA BÔS (dimipabos) é uma ONG na Guiné-Bissau a construir o primeiro centro especializado em tratamento e reabilitação para pessoas em situação de dependência química. Um espaço de acolhimento, cuidado e renovação em Bissau.',
-  CTA_SUPPORT: 'Apoie a Construção',
-  CTA_LEARN: 'Conheça o Projeto',
-  STAT_CONSTRUCTION_VALUE: '10%',
-  STAT_CONSTRUCTION_LABEL: 'da Construção Concluída',
-  STAT_VOLUNTEERS_LABEL: 'Voluntários Ativos',
-  CARD_TITLE: 'Nossa Essência',
-  CARD_BODY:
-    'Trabalhamos incansavelmente para construir um espaço de acolhimento e recuperação, onde cada pessoa possa encontrar apoio para recomeçar.',
-  HERO_IMAGE_ALT: 'Crianças e jovens acolhidos pela DI MI PA BÔS na Guiné-Bissau.',
-  CAROUSEL_TITLE: 'Nossa caminhada',
-  CAROUSEL_DESCRIPTION: 'Algumas fotos do que representam nossa luta e esperança.',
-  CENTRE_TITLE: 'O Centro de Reabilitação',
-  CENTRE_DESCRIPTION:
-    'Conheça o projeto que vai transformar o tratamento da dependência química na Guiné-Bissau.',
-} as const
-
-/**
  * The {@link VOLUNTEERS_COUNT} constant
  * @description Active volunteers shown on the homepage hero
  */
@@ -75,36 +50,38 @@ const VOLUNTEERS_COUNT = 5
 const CAROUSEL_SKELETON_SLOTS = [1, 2, 3] as const
 
 /**
- * The {@link homeProjects} constant
- * @description The three feature cards shown in the "Centre" section
+ * The {@link homeProjectIcons} constant
+ * @description Maps the project namespace keys to their illustrative icons
  */
-const homeProjects = [
-  {
-    icon: 'home',
-    title: 'Acolhimento',
-    description:
-      'Instalações completas com dormitórios, refeitório, salas de atendimento e espaços de convivência para até 20 pessoas.',
-  },
-  {
-    icon: 'reab',
-    title: 'Reabilitação',
-    description:
-      'Equipe multidisciplinar preparada para oferecer acompanhamento médico, psicológico e terapêutico especializado.',
-  },
-  {
-    icon: 'edu',
-    title: 'Reintegração',
-    description:
-      'Suporte pós-tratamento com monitoramento e apoio para prevenir recaídas e garantir uma recuperação duradoura.',
-  },
+const homeProjectIcons = [
+  { key: 'shelter', icon: 'home' },
+  { key: 'rehab', icon: 'reab' },
+  { key: 'reintegration', icon: 'edu' },
 ] as const
 
 /**
+ * The {@link PageProps} type
+ * @description Props for the homepage server component
+ */
+type PageProps = {
+  params: Promise<{ locale: string }>
+}
+
+/**
  * The {@link Page} component
- * @description Renders the public homepage
+ * @description Renders the public homepage in the active locale
+ * @param {PageProps} props - The route props
+ * @param {Promise} props.params - The dynamic route params containing the locale
  * @returns The rendered homepage
  */
-export default function Page() {
+export default async function Page({ params }: PageProps) {
+  // Opt this route into static rendering for the active locale
+  const { locale } = await params
+  setRequestLocale(locale)
+
+  // Read the locale-aware homepage translations
+  const t = await getTranslations('home')
+
   // Render the full homepage layout
   return (
     <div className='flex min-h-screen flex-col'>
@@ -112,7 +89,7 @@ export default function Page() {
         <div className='relative aspect-4/3 w-full overflow-hidden rounded-3xl shadow-xl md:hidden'>
           <Image
             src={heroImage}
-            alt={homeCopy.HERO_IMAGE_ALT}
+            alt={t('heroImageAlt')}
             fill
             priority
             sizes='100vw'
@@ -122,15 +99,15 @@ export default function Page() {
         </div>
 
         <div className='flex flex-col justify-center'>
-          <HeroTopText>{homeCopy.HERO_TOP}</HeroTopText>
+          <HeroTopText>{t('heroTop')}</HeroTopText>
 
-          <HeroTitle>{homeCopy.HERO_TITLE}</HeroTitle>
-          <HeroSubtitle>{homeCopy.HERO_SUBTITLE}</HeroSubtitle>
+          <HeroTitle>{t('heroTitle')}</HeroTitle>
+          <HeroSubtitle>{t('heroSubtitle')}</HeroSubtitle>
 
-          <HeroDescription>{homeCopy.HERO_DESCRIPTION}</HeroDescription>
+          <HeroDescription>{t('heroDescription')}</HeroDescription>
 
           <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
-            <CTAButton text={homeCopy.CTA_SUPPORT} />
+            <CTAButton text={t('ctaSupport')} />
             <Button
               render={<Link href={homeRoute.PROJECTS} />}
               nativeButton={false}
@@ -138,37 +115,37 @@ export default function Page() {
               variant='outline'
               className='bg-white'
             >
-              {homeCopy.CTA_LEARN}
+              {t('ctaLearn')}
             </Button>
           </div>
 
           <div className='mt-10 flex items-center gap-4'>
             <HeroStats
-              value={homeCopy.STAT_CONSTRUCTION_VALUE}
-              label={homeCopy.STAT_CONSTRUCTION_LABEL}
+              value={t('statConstructionValue')}
+              label={t('statConstructionLabel')}
             />
 
-            <HeroStats value={VOLUNTEERS_COUNT} label={homeCopy.STAT_VOLUNTEERS_LABEL} />
+            <HeroStats value={VOLUNTEERS_COUNT} label={t('statVolunteersLabel')} />
           </div>
         </div>
 
         <HeroCardSection className='hidden md:flex'>
           <HeroCard
             variant='home'
-            title={homeCopy.CARD_TITLE}
+            title={t('cardTitle')}
             image={cardImage}
             imageClassName='object-contain'
           >
-            {homeCopy.CARD_BODY}
+            {t('cardBody')}
           </HeroCard>
         </HeroCardSection>
       </HeroWrapper>
 
       <section className='py-16'>
         <div className='mb-12 text-center'>
-          <SectionTitle>{homeCopy.CAROUSEL_TITLE}</SectionTitle>
+          <SectionTitle>{t('carouselTitle')}</SectionTitle>
 
-          <SectionDescription>{homeCopy.CAROUSEL_DESCRIPTION}</SectionDescription>
+          <SectionDescription>{t('carouselDescription')}</SectionDescription>
         </div>
 
         <Suspense
@@ -189,20 +166,20 @@ export default function Page() {
       <section className='bg-slate-50 py-16'>
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <div className='text-center'>
-            <SectionTitle>{homeCopy.CENTRE_TITLE}</SectionTitle>
+            <SectionTitle>{t('centreTitle')}</SectionTitle>
 
-            <SectionDescription>{homeCopy.CENTRE_DESCRIPTION}</SectionDescription>
+            <SectionDescription>{t('centreDescription')}</SectionDescription>
           </div>
 
           <div className='mt-16 grid gap-8 md:grid-cols-3'>
-            {homeProjects.map((project) => (
+            {homeProjectIcons.map(({ key, icon }) => (
               <HomeProjectCard
-                key={project.title}
-                icon={project.icon}
-                title={project.title}
+                key={key}
+                icon={icon}
+                title={t(`projects.${key}.title`)}
                 href={homeRoute.PROJECTS}
               >
-                {project.description}
+                {t(`projects.${key}.description`)}
               </HomeProjectCard>
             ))}
           </div>
