@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useLocale, useTranslations } from 'next-intl'
+import posthog from 'posthog-js'
 import { useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -159,6 +160,7 @@ export function VolunteerForm() {
 
     // Branch on the discriminated response
     if (body.ok) {
+      posthog.capture('form_submitted', { form: 'volunteer', locale, area: values.area })
       setSubmitted(true)
       reset()
       turnstileRef.current?.reset()

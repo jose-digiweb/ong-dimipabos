@@ -1,0 +1,28 @@
+[
+  {
+    "event": "form_submitted",
+    "description": "User successfully submitted a form (contact, volunteer, or partnership). Already implemented.",
+    "file": "components/contact-form.tsx, components/volunteer-form.tsx, components/partnership-form.tsx",
+    "status": "exists"
+  },
+  {
+    "event": "donation_cta_clicked",
+    "description": "User clicked the primary CTA button that links to the donation page.",
+    "file": "components/cta/CTAButton.tsx"
+  },
+  {
+    "event": "bank_transfer_details_copied",
+    "description": "User copied a bank account field (IBAN, BIC, reference, etc.) on the donate page.",
+    "file": "components/bank-transfer-section.tsx"
+  },
+  {
+    "event": "language_switched",
+    "description": "User switched the site language using the language switcher.",
+    "file": "components/language-switcher.tsx"
+  },
+  {
+    "event": "donation_amount_set",
+    "description": "User clicked proceed to payment on the donation section, capturing amount and frequency.",
+    "file": "components/donation-section.tsx"
+  }
+]

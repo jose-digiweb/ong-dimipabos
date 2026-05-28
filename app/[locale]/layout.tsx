@@ -7,6 +7,7 @@ import type { ReactNode } from 'react'
 
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
+import { PostHogProvider } from '@/components/analytics/PostHogProvider'
 import { JsonLd } from '@/components/seo/JsonLd'
 import type { Locale } from '@/i18n/config'
 import { localeOgCodes } from '@/i18n/config'
@@ -103,11 +104,13 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <html lang={locale satisfies Locale}>
       <body className={inter.className}>
         <JsonLd data={jsonLdData} />
-        <NextIntlClientProvider>
-          <Header />
-          <main className='overflow-hidden'>{children}</main>
-          <Footer />
-        </NextIntlClientProvider>
+        <PostHogProvider>
+          <NextIntlClientProvider>
+            <Header />
+            <main className='overflow-hidden'>{children}</main>
+            <Footer />
+          </NextIntlClientProvider>
+        </PostHogProvider>
       </body>
     </html>
   )
