@@ -56,7 +56,9 @@
   },
   "common": {
     "loading": "Carregando…",
-    "backToHome": "Voltar ao início"
+    "backToHome": "Voltar ao início",
+    "formSubmitting": "A enviar…",
+    "formUnavailable": "O envio do formulário ainda não está ativo. Por favor, contacte-nos diretamente em contact@ongdimipabos.org."
   },
   "home": {
     "metaTitle": "DI MI PA BÔS - Transformando vidas na Guiné-Bissau",

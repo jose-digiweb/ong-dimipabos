@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -40,6 +40,30 @@ const MIN_PHONE_LENGTH = 8
 const MIN_MESSAGE_LENGTH = 10
 
 /**
+ * The {@link MAX_NAME_LENGTH} constant
+ * @description Maximum length for company and contact name fields
+ */
+const MAX_NAME_LENGTH = 120
+
+/**
+ * The {@link MAX_EMAIL_LENGTH} constant
+ * @description Maximum length for the email field
+ */
+const MAX_EMAIL_LENGTH = 254
+
+/**
+ * The {@link MAX_PHONE_LENGTH} constant
+ * @description Maximum length for the phone field
+ */
+const MAX_PHONE_LENGTH = 32
+
+/**
+ * The {@link MAX_MESSAGE_LENGTH} constant
+ * @description Maximum length for the message field
+ */
+const MAX_MESSAGE_LENGTH = 2000
+
+/**
  * The {@link PartnershipFormValues} type
  * @description Shape of the partnership form values
  */
@@ -52,18 +76,41 @@ type PartnershipFormValues = {
 }
 
 /**
+ * The {@link PARTNERSHIP_DEFAULTS} constant
+ * @description Empty initial values for every controlled field
+ */
+const PARTNERSHIP_DEFAULTS: PartnershipFormValues = {
+  companyName: '',
+  contactName: '',
+  email: '',
+  phone: '',
+  message: '',
+}
+
+/**
+ * The {@link toStringList} helper
+ * @description Narrows an unknown value returned by `t.raw` into a string array
+ * @param {unknown} value - The raw translation payload
+ * @returns {readonly string[]} A filtered list of string entries
+ */
+const toStringList = (value: unknown): readonly string[] =>
+  Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : []
+
+/**
  * The {@link PartnershipForm} component
  * @description Renders the partnership pitch alongside its contact form in the
- * active locale
+ * active locale. Submission is not yet wired to a backend; the handler surfaces
+ * a friendly notice via `setError('root.serverError', ...)`.
  * @returns The rendered partnership section
  */
 export function PartnershipForm() {
-  // Read the locale-aware partnership form translations
+  // Read the locale-aware copy
   const t = useTranslations('partnershipForm')
+  const tCommon = useTranslations('common')
 
   // Read the benefits and types as typed string arrays
-  const benefits = t.raw('benefits') as readonly string[]
-  const types = t.raw('types') as readonly string[]
+  const benefits = toStringList(t.raw('benefits'))
+  const types = toStringList(t.raw('types'))
 
   // Build the schema bound to the active locale messages
   const partnershipSchema = useMemo(
@@ -81,8 +128,27 @@ export function PartnershipForm() {
   // Initialise the form with empty defaults
   const form = useForm<PartnershipFormValues>({
     resolver: zodResolver(partnershipSchema),
-    defaultValues: { companyName: '', contactName: '', email: '', phone: '', message: '' },
+    defaultValues: PARTNERSHIP_DEFAULTS,
   })
+
+  // Destructure for proxy-friendly subscriptions
+  const {
+    setError,
+    clearErrors,
+    reset,
+    formState: { isSubmitting, isSubmitSuccessful, errors },
+  } = form
+
+  // Stub submit handler — surfaces the unavailable banner until the backend lands
+  const onSubmit = async () => {
+    clearErrors('root.serverError')
+    setError('root.serverError', { type: 'unavailable', message: tCommon('formUnavailable') })
+  }
+
+  // Reset the form once the backend wiring lands and a real success is reported
+  useEffect(() => {
+    if (isSubmitSuccessful) reset()
+  }, [isSubmitSuccessful, reset])
 
   // Render the two-column partnership pitch and form
   return (
@@ -97,8 +163,8 @@ export function PartnershipForm() {
           <h3 className='font-bold text-xl'>{t('whyTitle')}</h3>
 
           <ul className='mt-6 space-y-4'>
-            {benefits.map((benefit) => (
-              <li key={benefit} className='flex items-start'>
+            {benefits.map((benefit, index) => (
+              <li key={`benefit-${index}`} className='flex items-start'>
                 <span className='mr-2 text-primary'>•</span>
                 <span>{benefit}</span>
               </li>
@@ -108,8 +174,8 @@ export function PartnershipForm() {
           <h3 className='mt-12 font-bold text-xl'>{t('typesTitle')}</h3>
 
           <ul className='mt-6 space-y-4'>
-            {types.map((type) => (
-              <li key={type} className='flex items-start'>
+            {types.map((type, index) => (
+              <li key={`type-${index}`} className='flex items-start'>
                 <span className='mr-2 text-primary'>•</span>
                 <span>{type}</span>
               </li>
@@ -119,7 +185,16 @@ export function PartnershipForm() {
 
         <div>
           <Form {...form}>
-            <form className='space-y-8'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8' noValidate>
+              {errors.root?.serverError ? (
+                <div
+                  role='alert'
+                  className='rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-amber-900 text-sm'
+                >
+                  {errors.root.serverError.message}
+                </div>
+              ) : null}
+
               <FormField
                 control={form.control}
                 name='companyName'
@@ -127,7 +202,12 @@ export function PartnershipForm() {
                   <FormItem>
                     <FormLabel>{t('companyLabel')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t('companyPlaceholder')} {...field} />
+                      <Input
+                        placeholder={t('companyPlaceholder')}
+                        autoComplete='organization'
+                        maxLength={MAX_NAME_LENGTH}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -141,7 +221,12 @@ export function PartnershipForm() {
                   <FormItem>
                     <FormLabel>{t('contactLabel')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t('contactPlaceholder')} {...field} />
+                      <Input
+                        placeholder={t('contactPlaceholder')}
+                        autoComplete='name'
+                        maxLength={MAX_NAME_LENGTH}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -156,7 +241,14 @@ export function PartnershipForm() {
                     <FormItem>
                       <FormLabel>{t('emailLabel')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('emailPlaceholder')} {...field} />
+                        <Input
+                          placeholder={t('emailPlaceholder')}
+                          type='email'
+                          inputMode='email'
+                          autoComplete='email'
+                          maxLength={MAX_EMAIL_LENGTH}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -170,7 +262,14 @@ export function PartnershipForm() {
                     <FormItem>
                       <FormLabel>{t('phoneLabel')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={t('phonePlaceholder')} {...field} />
+                        <Input
+                          placeholder={t('phonePlaceholder')}
+                          type='tel'
+                          inputMode='tel'
+                          autoComplete='tel'
+                          maxLength={MAX_PHONE_LENGTH}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -188,6 +287,7 @@ export function PartnershipForm() {
                       <Textarea
                         placeholder={t('messagePlaceholder')}
                         className='resize-none'
+                        maxLength={MAX_MESSAGE_LENGTH}
                         {...field}
                       />
                     </FormControl>
@@ -196,8 +296,8 @@ export function PartnershipForm() {
                 )}
               />
 
-              <Button type='submit' variant='secondary'>
-                {t('submitLabel')}
+              <Button type='submit' variant='secondary' disabled={isSubmitting}>
+                {isSubmitting ? tCommon('formSubmitting') : t('submitLabel')}
               </Button>
             </form>
           </Form>

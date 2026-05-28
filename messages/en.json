@@ -56,7 +56,9 @@
   },
   "common": {
     "loading": "Loading…",
-    "backToHome": "Back to home"
+    "backToHome": "Back to home",
+    "formSubmitting": "Sending…",
+    "formUnavailable": "Form submission is not yet active. Please reach us directly at contact@ongdimipabos.org."
   },
   "home": {
     "metaTitle": "DI MI PA BÔS - Transforming lives in Guinea-Bissau",
