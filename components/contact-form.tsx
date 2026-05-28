@@ -1,6 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -18,28 +20,6 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 
 /**
- * The {@link contactCopy} constant
- * @description Static Portuguese copy used by the contact form
- */
-const contactCopy = {
-  NAME_LABEL: 'Nome Completo',
-  NAME_PLACEHOLDER: 'Digite seu nome',
-  EMAIL_LABEL: 'E-mail',
-  EMAIL_PLACEHOLDER: 'Digite seu e-mail',
-  SUBJECT_LABEL: 'Assunto',
-  SUBJECT_PLACEHOLDER: 'Digite o assunto',
-  MESSAGE_LABEL: 'Mensagem',
-  MESSAGE_PLACEHOLDER: 'Digite sua mensagem',
-  CONSENT_LABEL: 'Eu autorizo o uso dos meus dados para resposta da mensagem.',
-  SUBMIT_LABEL: 'Enviar Mensagem',
-  NAME_ERROR: 'O nome deve ter pelo menos 2 caracteres.',
-  EMAIL_ERROR: 'Digite um e-mail válido.',
-  SUBJECT_ERROR: 'O assunto deve ter pelo menos 2 caracteres.',
-  MESSAGE_ERROR: 'A mensagem deve ter pelo menos 10 caracteres.',
-  CONSENT_ERROR: 'Você deve autorizar o uso dos seus dados.',
-} as const
-
-/**
  * The {@link MIN_NAME_LENGTH} constant
  * @description Minimum length for the name and subject fields
  */
@@ -52,29 +32,42 @@ const MIN_NAME_LENGTH = 2
 const MIN_MESSAGE_LENGTH = 10
 
 /**
- * The {@link contactSchema} constant
- * @description Zod schema for the contact form payload
- */
-const contactSchema = z.object({
-  name: z.string().min(MIN_NAME_LENGTH, { message: contactCopy.NAME_ERROR }),
-  email: z.string().email({ message: contactCopy.EMAIL_ERROR }),
-  subject: z.string().min(MIN_NAME_LENGTH, { message: contactCopy.SUBJECT_ERROR }),
-  message: z.string().min(MIN_MESSAGE_LENGTH, { message: contactCopy.MESSAGE_ERROR }),
-  consent: z.boolean().refine((val) => val === true, { message: contactCopy.CONSENT_ERROR }),
-})
-
-/**
  * The {@link ContactFormValues} type
- * @description Inferred shape of the contact form values
+ * @description Shape of the contact form values
  */
-type ContactFormValues = z.infer<typeof contactSchema>
+type ContactFormValues = {
+  name: string
+  email: string
+  subject: string
+  message: string
+  consent: boolean
+}
 
 /**
  * The {@link ContactForm} component
- * @description Renders the public contact form
+ * @description Renders the public contact form using locale-aware copy and
+ * validation messages
  * @returns The rendered contact form
  */
 export function ContactForm() {
+  // Read the locale-aware contact form translations
+  const t = useTranslations('contactForm')
+
+  // Build the zod schema bound to the active locale messages
+  const contactSchema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(MIN_NAME_LENGTH, { message: t('nameError') }),
+        email: z.string().email({ message: t('emailError') }),
+        subject: z.string().min(MIN_NAME_LENGTH, { message: t('subjectError') }),
+        message: z.string().min(MIN_MESSAGE_LENGTH, { message: t('messageError') }),
+        consent: z
+          .boolean()
+          .refine((val) => val === true, { message: t('consentError') }),
+      }),
+    [t],
+  )
+
   // Initialise the form with empty defaults
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -95,9 +88,9 @@ export function ContactForm() {
           name='name'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{contactCopy.NAME_LABEL}</FormLabel>
+              <FormLabel>{t('nameLabel')}</FormLabel>
               <FormControl>
-                <Input placeholder={contactCopy.NAME_PLACEHOLDER} {...field} />
+                <Input placeholder={t('namePlaceholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -109,9 +102,9 @@ export function ContactForm() {
           name='email'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{contactCopy.EMAIL_LABEL}</FormLabel>
+              <FormLabel>{t('emailLabel')}</FormLabel>
               <FormControl>
-                <Input placeholder={contactCopy.EMAIL_PLACEHOLDER} type='email' {...field} />
+                <Input placeholder={t('emailPlaceholder')} type='email' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -123,9 +116,9 @@ export function ContactForm() {
           name='subject'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{contactCopy.SUBJECT_LABEL}</FormLabel>
+              <FormLabel>{t('subjectLabel')}</FormLabel>
               <FormControl>
-                <Input placeholder={contactCopy.SUBJECT_PLACEHOLDER} {...field} />
+                <Input placeholder={t('subjectPlaceholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -137,10 +130,10 @@ export function ContactForm() {
           name='message'
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{contactCopy.MESSAGE_LABEL}</FormLabel>
+              <FormLabel>{t('messageLabel')}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder={contactCopy.MESSAGE_PLACEHOLDER}
+                  placeholder={t('messagePlaceholder')}
                   className='min-h-30 resize-none'
                   {...field}
                 />
@@ -159,7 +152,7 @@ export function ContactForm() {
                 <Checkbox checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>
               <div className='space-y-1 leading-none'>
-                <FormLabel>{contactCopy.CONSENT_LABEL}</FormLabel>
+                <FormLabel>{t('consentLabel')}</FormLabel>
                 <FormMessage />
               </div>
             </FormItem>
@@ -167,7 +160,7 @@ export function ContactForm() {
         />
 
         <Button type='submit' variant='secondary'>
-          {contactCopy.SUBMIT_LABEL}
+          {t('submitLabel')}
         </Button>
       </form>
     </Form>

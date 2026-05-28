@@ -35,9 +35,7 @@ type ProjectsHubRouteProps = {
  * @param {ProjectsHubRouteProps} props - The route props
  * @returns {Promise<Metadata>} The metadata for the active locale
  */
-export async function generateMetadata({
-  params,
-}: ProjectsHubRouteProps): Promise<Metadata> {
+export async function generateMetadata({ params }: ProjectsHubRouteProps): Promise<Metadata> {
   // Resolve the locale and read the SEO copy from the projectsHub namespace
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'projectsHub' })

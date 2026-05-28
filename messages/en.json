@@ -225,5 +225,48 @@
         ]
       }
     }
+  },
+  "contact": {
+    "metaTitle": "Contact",
+    "metaDescription": "Get in touch with NGO DI MI PA BÔS to learn more about our projects or to collaborate with our mission.",
+    "breadcrumbHome": "Home",
+    "breadcrumbContact": "Contact",
+    "heroTop": "Get in Touch",
+    "heroTitlePrefix": "Contact",
+    "heroTitleHighlight": "Us",
+    "heroDescription": "We are here to help. Our team is ready to answer your questions and listen to your suggestions.",
+    "ctaMessage": "Send a Message",
+    "ctaWhatsapp": "WhatsApp",
+    "heroEmailLabel": "Email",
+    "heroPhoneLabel": "Phone",
+    "heroAddressLabel": "Address",
+    "heroAddressValue": "Bissau, Guinea-Bissau",
+    "formTitle": "Send a Message",
+    "formDescription": "Fill in the form below to get in touch with us. We will reply as soon as possible.",
+    "otherTitle": "Other Ways to Reach Us",
+    "emailTitle": "Email",
+    "phoneTitle": "Phone",
+    "addressTitle": "Address",
+    "addressValue": "Guinea-Bissau",
+    "socialTitle": "Social Media",
+    "ariaFacebook": "Facebook",
+    "ariaWhatsapp": "WhatsApp"
+  },
+  "contactForm": {
+    "nameLabel": "Full Name",
+    "namePlaceholder": "Enter your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "Enter the subject",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Enter your message",
+    "consentLabel": "I authorise the use of my data to reply to this message.",
+    "submitLabel": "Send Message",
+    "nameError": "Name must be at least 2 characters.",
+    "emailError": "Please enter a valid email.",
+    "subjectError": "Subject must be at least 2 characters.",
+    "messageError": "Message must be at least 10 characters.",
+    "consentError": "You must authorise the use of your data."
   }
 }

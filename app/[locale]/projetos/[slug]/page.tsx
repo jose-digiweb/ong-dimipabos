@@ -189,9 +189,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <Calendar className='size-4 shrink-0 text-primary' aria-hidden />
                     <dt className='sr-only'>{tDetail('startLabel')}</dt>
                     <dd>
-                      <span className='font-medium text-foreground'>
-                        {tDetail('startLabel')}:
-                      </span>{' '}
+                      <span className='font-medium text-foreground'>{tDetail('startLabel')}:</span>{' '}
                       {project.startDate}
                     </dd>
                   </div>
@@ -239,9 +237,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <div className='grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-8'>
                 <Card>
                   <CardContent className='p-5 sm:p-7'>
-                    <h2 className='font-bold text-xl sm:text-2xl'>
-                      {tDetail('detailsTitle')}
-                    </h2>
+                    <h2 className='font-bold text-xl sm:text-2xl'>{tDetail('detailsTitle')}</h2>
                     <div className='mt-4 whitespace-pre-line text-pretty text-[15px] text-muted-foreground leading-relaxed sm:text-base'>
                       {longDescription}
                     </div>
@@ -301,9 +297,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               {project.images && project.images.length > 0 ? (
                 <ImageGallery images={project.images} />
               ) : (
-                <p className='text-center text-muted-foreground'>
-                  {tDetail('emptyGallery')}
-                </p>
+                <p className='text-center text-muted-foreground'>{tDetail('emptyGallery')}</p>
               )}
             </TabsContent>
           </Tabs>

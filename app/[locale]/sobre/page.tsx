@@ -153,15 +153,9 @@ export default async function SobrePage({ params }: SobreRouteProps) {
           <div className='mt-10 flex items-center gap-4'>
             <HeroStats value={FOUNDED_YEAR} label={t('statFoundedLabel')} />
 
-            <HeroStats
-              value={t('statConstructionValue')}
-              label={t('statConstructionLabel')}
-            />
+            <HeroStats value={t('statConstructionValue')} label={t('statConstructionLabel')} />
 
-            <HeroStats
-              value={t('statVolunteersValue')}
-              label={t('statVolunteersLabel')}
-            />
+            <HeroStats value={t('statVolunteersValue')} label={t('statVolunteersLabel')} />
           </div>
         </div>
 
@@ -234,9 +228,7 @@ export default async function SobrePage({ params }: SobreRouteProps) {
                         ))}
                       </ul>
                     ) : (
-                      <p className='text-pretty text-muted-foreground'>
-                        {t(`${item.key}.body`)}
-                      </p>
+                      <p className='text-pretty text-muted-foreground'>{t(`${item.key}.body`)}</p>
                     )}
                   </CardContent>
                 </Card>

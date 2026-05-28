@@ -1,14 +1,14 @@
 import {
   ArrowRight,
   Facebook,
+  type LucideIcon,
   Mail,
   MapPin,
   MessageCircle,
   Phone,
-  type LucideIcon,
 } from 'lucide-react'
 import type { Metadata } from 'next'
-import { Link } from '@/i18n/navigation'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import { ContactForm } from '@/components/contact-form'
 import { CTASection } from '@/components/cta'
@@ -19,56 +19,44 @@ import {
   HeroTopText,
   HeroWrapper,
 } from '@/components/heroSection'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { SectionDescription, SectionTitle } from '@/components/section'
 import { JsonLd } from '@/components/seo/JsonLd'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Link } from '@/i18n/navigation'
 import { buildBreadcrumbSchema, buildContactPageSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
- * The {@link metadata} constant
- * @description Per-route SEO metadata for the contact page
+ * The {@link ContactRouteProps} type
+ * @description Route props for the contact page
  */
-export const metadata: Metadata = buildMetadata({
-  title: 'Contacto',
-  description:
-    'Entre em contacto com a ONG DI MI PA BÔS para saber mais sobre os nossos projetos ou colaborar com a missão.',
-  path: '/contato',
-})
+type ContactRouteProps = {
+  params: Promise<{ locale: string }>
+}
 
 /**
- * The {@link contactCopy} constant
- * @description Static Portuguese copy used by the contact page
+ * The {@link generateMetadata} export
+ * @description Locale-aware SEO metadata for the contact page
+ * @param {ContactRouteProps} props - The route props
+ * @returns {Promise<Metadata>} The metadata for the active locale
  */
-const contactCopy = {
-  HERO_TOP: 'Fale Conosco',
-  HERO_TITLE_PREFIX: 'Entre em Contato',
-  HERO_TITLE_HIGHLIGHT: 'Conosco',
-  HERO_DESCRIPTION:
-    'Estamos aqui para ajudar. Nossa equipe está pronta para responder suas dúvidas e ouvir suas sugestões.',
-  CTA_MESSAGE: 'Enviar Mensagem',
-  CTA_WHATSAPP: 'WhatsApp',
-  HERO_EMAIL_LABEL: 'Email',
-  HERO_PHONE_LABEL: 'Telefone',
-  HERO_ADDRESS_LABEL: 'Endereço',
-  HERO_ADDRESS_VALUE: 'Bissau, Guiné-Bissau',
-  FORM_TITLE: 'Envie uma Mensagem',
-  FORM_DESCRIPTION:
-    'Preencha o formulário abaixo para entrar em contato conosco. Responderemos o mais breve possível.',
-  OTHER_TITLE: 'Outras Formas de Contato',
-  EMAIL_TITLE: 'E-mail',
-  PHONE_TITLE: 'Telefone',
-  ADDRESS_TITLE: 'Endereço',
-  ADDRESS_VALUE: 'Guiné-Bissau',
-  SOCIAL_TITLE: 'Redes Sociais',
-  ARIA_FACEBOOK: 'Facebook',
-  ARIA_WHATSAPP: 'WhatsApp',
-} as const
+export async function generateMetadata({ params }: ContactRouteProps): Promise<Metadata> {
+  // Resolve the locale and read the SEO copy from the contact namespace
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'contact' })
+
+  // Build the metadata with the localised title and description
+  return buildMetadata({
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+    path: '/contato',
+  })
+}
 
 /**
  * The {@link contactDetails} constant
- * @description Shared contact information values
+ * @description Shared, locale-independent contact information values
  */
 const contactDetails = {
   EMAIL: 'contato@dimipabos.org',
@@ -86,97 +74,112 @@ const contactLink = {
 } as const
 
 /**
- * The {@link HeroContactItem} type
- * @description Shape of an entry in {@link heroContactItems}
+ * The {@link HeroContactEntry} type
+ * @description Shape of an entry in the hero contact list
  */
-type HeroContactItem = {
+type HeroContactEntry = {
+  key: 'email' | 'phone' | 'address'
   icon: LucideIcon
   iconBg: string
   iconColor: string
-  label: string
   value: string
 }
 
 /**
- * The {@link heroContactItems} constant
- * @description Quick contact items rendered in the hero card
+ * The {@link OtherContactEntry} type
+ * @description Shape of an entry in the "other contact" list
  */
-const heroContactItems = [
-  {
-    icon: Mail,
-    iconBg: 'bg-primary/10',
-    iconColor: 'text-primary',
-    label: contactCopy.HERO_EMAIL_LABEL,
-    value: contactDetails.EMAIL,
-  },
-  {
-    icon: Phone,
-    iconBg: 'bg-secondary/10',
-    iconColor: 'text-secondary',
-    label: contactCopy.HERO_PHONE_LABEL,
-    value: contactDetails.PHONE,
-  },
-  {
-    icon: MapPin,
-    iconBg: 'bg-accent/10',
-    iconColor: 'text-accent-foreground',
-    label: contactCopy.HERO_ADDRESS_LABEL,
-    value: contactCopy.HERO_ADDRESS_VALUE,
-  },
-] as const satisfies readonly HeroContactItem[]
-
-/**
- * The {@link OtherContactItem} type
- * @description Shape of an entry in {@link otherContactItems}
- */
-type OtherContactItem = {
+type OtherContactEntry = {
+  key: 'email' | 'phone' | 'address'
   icon: LucideIcon
   iconClassName: string
-  title: string
   value: string
 }
-
-/**
- * The {@link otherContactItems} constant
- * @description Detailed contact cards rendered in the "other forms" section
- */
-const otherContactItems = [
-  {
-    icon: Mail,
-    iconClassName: 'size text-secondary',
-    title: contactCopy.EMAIL_TITLE,
-    value: contactDetails.EMAIL,
-  },
-  {
-    icon: Phone,
-    iconClassName: 'size text-secondary',
-    title: contactCopy.PHONE_TITLE,
-    value: contactDetails.PHONE,
-  },
-  {
-    icon: MapPin,
-    iconClassName: 'size-6 text-secondary',
-    title: contactCopy.ADDRESS_TITLE,
-    value: contactCopy.ADDRESS_VALUE,
-  },
-] as const satisfies readonly OtherContactItem[]
 
 /**
  * The {@link ContactPage} component
- * @description Renders the public contact page
+ * @description Renders the public contact page in the active locale
+ * @param {ContactRouteProps} props - The route props
  * @returns The rendered contact page
  */
-export default function ContactPage() {
+export default async function ContactPage({ params }: ContactRouteProps) {
+  // Opt this route into static rendering for the active locale
+  const { locale } = await params
+  setRequestLocale(locale)
+
+  // Read the locale-aware contact translations
+  const t = await getTranslations('contact')
+
+  // Build the locale-independent hero contact entries (values + presentation)
+  const heroContactEntries = [
+    {
+      key: 'email',
+      icon: Mail,
+      iconBg: 'bg-primary/10',
+      iconColor: 'text-primary',
+      value: contactDetails.EMAIL,
+    },
+    {
+      key: 'phone',
+      icon: Phone,
+      iconBg: 'bg-secondary/10',
+      iconColor: 'text-secondary',
+      value: contactDetails.PHONE,
+    },
+    {
+      key: 'address',
+      icon: MapPin,
+      iconBg: 'bg-accent/10',
+      iconColor: 'text-accent-foreground',
+      value: t('heroAddressValue'),
+    },
+  ] as const satisfies readonly HeroContactEntry[]
+
+  // Build the locale-independent "other contact" entries
+  const otherContactEntries = [
+    {
+      key: 'email',
+      icon: Mail,
+      iconClassName: 'size text-secondary',
+      value: contactDetails.EMAIL,
+    },
+    {
+      key: 'phone',
+      icon: Phone,
+      iconClassName: 'size text-secondary',
+      value: contactDetails.PHONE,
+    },
+    {
+      key: 'address',
+      icon: MapPin,
+      iconClassName: 'size-6 text-secondary',
+      value: t('addressValue'),
+    },
+  ] as const satisfies readonly OtherContactEntry[]
+
+  // Resolve the labels keyed by hero entry key
+  const heroLabels = {
+    email: t('heroEmailLabel'),
+    phone: t('heroPhoneLabel'),
+    address: t('heroAddressLabel'),
+  } as const
+
+  // Resolve the titles keyed by other-contact entry key
+  const otherTitles = {
+    email: t('emailTitle'),
+    phone: t('phoneTitle'),
+    address: t('addressTitle'),
+  } as const
+
   // Build the breadcrumb + ContactPage schemas for this route
   const jsonLdData = [
     buildBreadcrumbSchema([
-      { name: 'Início', path: '/' },
-      { name: 'Contacto', path: '/contato' },
+      { name: t('breadcrumbHome'), path: '/' },
+      { name: t('breadcrumbContact'), path: '/contato' },
     ]),
     buildContactPageSchema({
-      name: 'Contacto',
-      description:
-        'Entre em contacto com a ONG DI MI PA BÔS para saber mais sobre os nossos projetos ou colaborar com a missão.',
+      name: t('breadcrumbContact'),
+      description: t('metaDescription'),
       path: '/contato',
     }),
   ]
@@ -187,16 +190,16 @@ export default function ContactPage() {
       <JsonLd data={jsonLdData} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
-          <HeroTopText>{contactCopy.HERO_TOP}</HeroTopText>
+          <HeroTopText>{t('heroTop')}</HeroTopText>
 
           <HeroTitle>
-            {contactCopy.HERO_TITLE_PREFIX}{' '}
+            {t('heroTitlePrefix')}{' '}
             <span className='relative whitespace-nowrap'>
-              <span className='relative text-primary'>{contactCopy.HERO_TITLE_HIGHLIGHT}</span>
+              <span className='relative text-primary'>{t('heroTitleHighlight')}</span>
             </span>
           </HeroTitle>
 
-          <HeroDescription>{contactCopy.HERO_DESCRIPTION}</HeroDescription>
+          <HeroDescription>{t('heroDescription')}</HeroDescription>
 
           <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
             <Button
@@ -205,14 +208,14 @@ export default function ContactPage() {
               size='lg'
               variant='CTA'
             >
-              {contactCopy.CTA_MESSAGE}
+              {t('ctaMessage')}
               <ArrowRight className='ml-2 size-4' />
             </Button>
 
             <Button
               render={
                 <a
-                  aria-label={contactCopy.ARIA_WHATSAPP}
+                  aria-label={t('ariaWhatsapp')}
                   target='_blank'
                   rel='noopener noreferrer'
                   href={contactLink.WHATSAPP}
@@ -223,7 +226,7 @@ export default function ContactPage() {
               size='lg'
               variant='outline'
             >
-              {contactCopy.CTA_WHATSAPP}
+              {t('ctaWhatsapp')}
             </Button>
           </div>
         </div>
@@ -231,21 +234,21 @@ export default function ContactPage() {
         <HeroCardSection>
           <div className='relative rounded-2xl bg-white p-8 shadow-2xl'>
             <div className='grid gap-6'>
-              {heroContactItems.map((item) => {
-                // Resolve the item icon component
-                const Icon = item.icon
+              {heroContactEntries.map((entry) => {
+                // Resolve the entry icon component
+                const Icon = entry.icon
 
                 // Render the hero contact entry
                 return (
-                  <div key={item.label} className='flex items-center gap-4'>
+                  <div key={entry.key} className='flex items-center gap-4'>
                     <div
-                      className={`flex size-12 items-center justify-center rounded-full ${item.iconBg}`}
+                      className={`flex size-12 items-center justify-center rounded-full ${entry.iconBg}`}
                     >
-                      <Icon className={`size-6 ${item.iconColor}`} />
+                      <Icon className={`size-6 ${entry.iconColor}`} />
                     </div>
                     <div>
-                      <p className='font-medium'>{item.label}</p>
-                      <p className='text-muted-foreground text-sm'>{item.value}</p>
+                      <p className='font-medium'>{heroLabels[entry.key]}</p>
+                      <p className='text-muted-foreground text-sm'>{entry.value}</p>
                     </div>
                   </div>
                 )
@@ -259,10 +262,10 @@ export default function ContactPage() {
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <div className='grid gap-12 lg:grid-cols-2'>
             <div>
-              <SectionTitle>{contactCopy.FORM_TITLE}</SectionTitle>
+              <SectionTitle>{t('formTitle')}</SectionTitle>
 
               <SectionDescription className='mx-0'>
-                {contactCopy.FORM_DESCRIPTION}
+                {t('formDescription')}
               </SectionDescription>
 
               <div className='mt-8'>
@@ -272,21 +275,21 @@ export default function ContactPage() {
 
             <div>
               <h2 className='font-bold text-2xl text-foreground tracking-tight'>
-                {contactCopy.OTHER_TITLE}
+                {t('otherTitle')}
               </h2>
               <div className='mt-8 space-y-8'>
-                {otherContactItems.map((item) => {
-                  // Resolve the item icon component
-                  const Icon = item.icon
+                {otherContactEntries.map((entry) => {
+                  // Resolve the entry icon component
+                  const Icon = entry.icon
 
                   // Render the detailed contact card
                   return (
-                    <Card key={item.title}>
+                    <Card key={entry.key}>
                       <CardContent className='flex items-start gap-4 p-6'>
-                        <Icon className={item.iconClassName} />
+                        <Icon className={entry.iconClassName} />
                         <div>
-                          <h3 className='font-semibold'>{item.title}</h3>
-                          <p className='mt-1 text-muted-foreground'>{item.value}</p>
+                          <h3 className='font-semibold'>{otherTitles[entry.key]}</h3>
+                          <p className='mt-1 text-muted-foreground'>{entry.value}</p>
                         </div>
                       </CardContent>
                     </Card>
@@ -294,12 +297,12 @@ export default function ContactPage() {
                 })}
 
                 <div className='space-y-4'>
-                  <h3 className='font-semibold'>{contactCopy.SOCIAL_TITLE}</h3>
+                  <h3 className='font-semibold'>{t('socialTitle')}</h3>
                   <div className='flex gap-4'>
                     <Button
                       render={
                         <a
-                          aria-label={contactCopy.ARIA_FACEBOOK}
+                          aria-label={t('ariaFacebook')}
                           target='_blank'
                           rel='noopener noreferrer'
                           href={contactLink.FACEBOOK}
@@ -311,12 +314,12 @@ export default function ContactPage() {
                       size='icon'
                     >
                       <Facebook className='size-6' />
-                      <span className='sr-only'>{contactCopy.ARIA_FACEBOOK}</span>
+                      <span className='sr-only'>{t('ariaFacebook')}</span>
                     </Button>
                     <Button
                       render={
                         <a
-                          aria-label={contactCopy.ARIA_WHATSAPP}
+                          aria-label={t('ariaWhatsapp')}
                           target='_blank'
                           rel='noopener noreferrer'
                           href={contactLink.WHATSAPP}
@@ -328,7 +331,7 @@ export default function ContactPage() {
                       size='icon'
                     >
                       <MessageCircle className='size-6' />
-                      <span className='sr-only'>{contactCopy.ARIA_WHATSAPP}</span>
+                      <span className='sr-only'>{t('ariaWhatsapp')}</span>
                     </Button>
                   </div>
                 </div>

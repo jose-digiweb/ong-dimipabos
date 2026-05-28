@@ -225,5 +225,48 @@
         ]
       }
     }
+  },
+  "contact": {
+    "metaTitle": "Contacto",
+    "metaDescription": "Entre em contacto com a ONG DI MI PA BÔS para saber mais sobre os nossos projetos ou colaborar com a missão.",
+    "breadcrumbHome": "Início",
+    "breadcrumbContact": "Contacto",
+    "heroTop": "Fale Conosco",
+    "heroTitlePrefix": "Entre em Contato",
+    "heroTitleHighlight": "Conosco",
+    "heroDescription": "Estamos aqui para ajudar. Nossa equipe está pronta para responder suas dúvidas e ouvir suas sugestões.",
+    "ctaMessage": "Enviar Mensagem",
+    "ctaWhatsapp": "WhatsApp",
+    "heroEmailLabel": "Email",
+    "heroPhoneLabel": "Telefone",
+    "heroAddressLabel": "Endereço",
+    "heroAddressValue": "Bissau, Guiné-Bissau",
+    "formTitle": "Envie uma Mensagem",
+    "formDescription": "Preencha o formulário abaixo para entrar em contato conosco. Responderemos o mais breve possível.",
+    "otherTitle": "Outras Formas de Contato",
+    "emailTitle": "E-mail",
+    "phoneTitle": "Telefone",
+    "addressTitle": "Endereço",
+    "addressValue": "Guiné-Bissau",
+    "socialTitle": "Redes Sociais",
+    "ariaFacebook": "Facebook",
+    "ariaWhatsapp": "WhatsApp"
+  },
+  "contactForm": {
+    "nameLabel": "Nome Completo",
+    "namePlaceholder": "Digite seu nome",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "Digite seu e-mail",
+    "subjectLabel": "Assunto",
+    "subjectPlaceholder": "Digite o assunto",
+    "messageLabel": "Mensagem",
+    "messagePlaceholder": "Digite sua mensagem",
+    "consentLabel": "Eu autorizo o uso dos meus dados para resposta da mensagem.",
+    "submitLabel": "Enviar Mensagem",
+    "nameError": "O nome deve ter pelo menos 2 caracteres.",
+    "emailError": "Digite um e-mail válido.",
+    "subjectError": "O assunto deve ter pelo menos 2 caracteres.",
+    "messageError": "A mensagem deve ter pelo menos 10 caracteres.",
+    "consentError": "Você deve autorizar o uso dos seus dados."
   }
 }
