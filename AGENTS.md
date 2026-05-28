@@ -103,6 +103,9 @@ Before any Next.js work, find and read the relevant doc in `/node_modules/next/d
 - **Maintainability:** Write code that is easy to maintain and extend. Use modular design principles. Keep functions and classes focused on a single responsibility. Avoid tightly coupling components.
 - **No Multiple Components/hooks in One File:** Each file should contain only one component or hook. This promotes separation of concerns and makes it easier to find and manage.
 - **Separate Types, Utils, Constants, and Helpers:** Keep types, utility functions, constants, and helper functions in separate (helpers.ts, types.ts, constants.ts, utils.ts) files. Meaning every helper function should be in a helpers.ts file, every type in a types.ts file, and so on. If a helper function is too large or complex, consider breaking it into smaller functions or moving it to its own file, in this case the helper file should become a folder with an index.ts that exports the helper functions and the individual helper files. Same goes for the other categories. This promotes better organization and maintainability of the codebase.
+
+* **Separation of Concerns:** Keep different concerns separated. For example, keep UI components separate from business logic and data fetching. This promotes modularity and makes it easier to manage and test different parts of the codebase. Also very important, keep component body as minimal as possible, all the logic should be outside of the component body, in the helpers files, hooks, apis, utils, and so on. This promotes better readability and maintainability of the codebase.
+
 - **Avoid hardcoded literal strings:** Prefer using constants for literal strings, and enums for sets of related constants, and derive the types from those constants and enums. This promotes consistency and makes it easier to manage and update values across the codebase. For example:
 
 ```ts
