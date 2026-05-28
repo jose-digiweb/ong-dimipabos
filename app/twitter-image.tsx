@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+
 import { renderOgImage } from '@/lib/seo/og-image'
 
 /**
@@ -23,11 +26,19 @@ export const size = {
 export const contentType = 'image/png'
 
 /**
+ * The {@link BACKGROUND_DATA_URI} constant
+ * @description Pre-read background photograph encoded as a base64 data URI for Satori
+ */
+const BACKGROUND_DATA_URI = `data:image/jpeg;base64,${readFileSync(
+  join(process.cwd(), 'app', 'og-background.jpg'),
+).toString('base64')}`
+
+/**
  * The default {@link Image} route
  * @description Generates the Twitter social card via {@link renderOgImage}
  * @returns The composed image response
  */
 export default function Image() {
-  // Delegate to the shared OG renderer with the Twitter dimensions
-  return renderOgImage(size)
+  // Delegate to the shared OG renderer with the Twitter dimensions and bundled background
+  return renderOgImage({ ...size, backgroundImage: BACKGROUND_DATA_URI })
 }
