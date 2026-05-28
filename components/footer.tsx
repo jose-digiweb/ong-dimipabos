@@ -1,5 +1,5 @@
 import { Facebook, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 /**
  * The {@link footerRoute} constant

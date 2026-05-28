@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "projects": "Projetos",
+    "help": "Como Ajudar",
+    "contact": "Contato",
+    "switcher": {
+      "label": "Idioma",
+      "select": "Selecionar idioma"
+    }
+  },
+  "common": {
+    "loading": "Carregando…",
+    "backToHome": "Voltar ao início"
+  }
+}

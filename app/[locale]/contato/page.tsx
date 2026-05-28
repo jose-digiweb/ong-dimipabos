@@ -8,7 +8,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 import { ContactForm } from '@/components/contact-form'
 import { CTASection } from '@/components/cta'

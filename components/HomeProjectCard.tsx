@@ -1,5 +1,5 @@
 import { ArrowRight, Heart, Home, Users } from 'lucide-react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { type ReactNode, useMemo } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'

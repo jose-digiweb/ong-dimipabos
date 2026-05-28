@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "help": "How to Help",
+    "contact": "Contact",
+    "switcher": {
+      "label": "Language",
+      "select": "Select language"
+    }
+  },
+  "common": {
+    "loading": "Loading…",
+    "backToHome": "Back to home"
+  }
+}

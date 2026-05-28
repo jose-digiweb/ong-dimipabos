@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 
 import projReab from '@/assets/projectos/proj_reab.jpeg'
 import { CTAButton, CTASection } from '@/components/cta'

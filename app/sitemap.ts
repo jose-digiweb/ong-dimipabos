@@ -1,14 +1,16 @@
 import type { MetadataRoute } from 'next'
 
+import { defaultLocale, locales } from '@/i18n/config'
 import { projects } from '@/lib/data'
 import { SITE_URL } from '@/lib/seo/constants'
 
 /**
  * The {@link staticRoute} constant
- * @description Static, publicly indexable routes plus their crawl hints
+ * @description Static, publicly indexable routes plus their crawl hints. Paths
+ * are locale-less here and combined with each supported locale at build time.
  */
 const staticRoute = [
-  { path: '/', changeFrequency: 'monthly', priority: 1 },
+  { path: '', changeFrequency: 'monthly', priority: 1 },
   { path: '/sobre', changeFrequency: 'monthly', priority: 0.8 },
   { path: '/projetos', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/contato', changeFrequency: 'yearly', priority: 0.6 },
@@ -24,29 +26,53 @@ const staticRoute = [
 }[]
 
 /**
+ * The {@link buildAlternates} helper
+ * @description Produces the `alternates.languages` map for a given locale-less path
+ * @param {string} path - The locale-less path (may be empty for the homepage)
+ * @returns {Record<string, string>} The map of locale codes to absolute URLs
+ */
+const buildAlternates = (path: string): Record<string, string> => {
+  // Build one entry per supported locale
+  const languages = Object.fromEntries(
+    locales.map((locale) => [locale, `${SITE_URL}/${locale}${path}`]),
+  )
+
+  // Include an x-default pointing at the default locale
+  return { ...languages, 'x-default': `${SITE_URL}/${defaultLocale}${path}` }
+}
+
+/**
  * The {@link sitemap} route handler
- * @description Emits the sitemap.xml entries for static routes plus every project detail page
+ * @description Emits sitemap.xml entries for every static route in every locale,
+ * plus every project detail page in every locale, with `alternates.languages`
+ * hreflang links between them.
  * @returns {MetadataRoute.Sitemap} The sitemap entries consumed by Next.js
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   // Compute a single timestamp so every entry shares the build time
   const lastModified = new Date()
 
-  // Build sitemap entries for the static routes
-  const staticEntries: MetadataRoute.Sitemap = staticRoute.map((route) => ({
-    url: `${SITE_URL}${route.path}`,
-    lastModified,
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }))
+  // Build sitemap entries for the static routes across every locale
+  const staticEntries: MetadataRoute.Sitemap = staticRoute.flatMap((route) =>
+    locales.map((locale) => ({
+      url: `${SITE_URL}/${locale}${route.path}`,
+      lastModified,
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+      alternates: { languages: buildAlternates(route.path) },
+    })),
+  )
 
-  // Build sitemap entries for the dynamic project routes
-  const projectEntries: MetadataRoute.Sitemap = projects.map((project) => ({
-    url: `${SITE_URL}/projetos/${project.slug}`,
-    lastModified,
-    changeFrequency: 'monthly',
-    priority: 0.7,
-  }))
+  // Build sitemap entries for the dynamic project routes across every locale
+  const projectEntries: MetadataRoute.Sitemap = projects.flatMap((project) =>
+    locales.map((locale) => ({
+      url: `${SITE_URL}/${locale}/projetos/${project.slug}`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+      alternates: { languages: buildAlternates(`/projetos/${project.slug}`) },
+    })),
+  )
 
   // Return the combined sitemap
   return [...staticEntries, ...projectEntries]

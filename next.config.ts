@@ -1,7 +1,14 @@
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
 import type { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
 
 initOpenNextCloudflareForDev()
+
+/**
+ * The {@link withNextIntl} plugin
+ * @description Loads the request-scoped i18n config from `./i18n/request.ts`
+ */
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts')
 
 /**
  * The {@link IMMUTABLE_CACHE_CONTROL} constant
@@ -43,4 +50,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+export default withNextIntl(nextConfig)

@@ -1,7 +1,7 @@
 import { ArrowLeft, Calendar, Mail, MapPin, Phone, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { notFound } from 'next/navigation'
 
 import { CTASection } from '@/components/cta'
@@ -15,6 +15,7 @@ import { JsonLd } from '@/components/seo/JsonLd'
 import { cfImage } from '@/lib/img'
 import { buildArticleSchema, buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
+import { routing } from '@/i18n/routing'
 
 /**
  * The {@link projectPageCopy} constant
@@ -66,7 +67,7 @@ const projectStatusBadge = {
  * @description Props for the {@link ProjectPage} component
  */
 type ProjectPageProps = {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }
 
 /**
@@ -82,12 +83,14 @@ const getProject = async (slug: string): Promise<ProjectType | undefined> => {
 
 /**
  * The {@link generateStaticParams} export
- * @description Pre-renders every project detail page at build time
- * @returns {Promise<{ slug: string }[]>} The list of slug params for static generation
+ * @description Pre-renders every project detail page at build time, one branch per locale
+ * @returns {Promise<{ locale: string; slug: string }[]>} The combined locale/slug params
  */
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  // Map every project to its slug param
-  return projects.map((project) => ({ slug: project.slug }))
+export async function generateStaticParams(): Promise<{ locale: string; slug: string }[]> {
+  // Cross-join every supported locale with every project slug
+  return routing.locales.flatMap((locale) =>
+    projects.map((project) => ({ locale, slug: project.slug })),
+  )
 }
 
 /**
