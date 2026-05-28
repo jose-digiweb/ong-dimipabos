@@ -5,10 +5,54 @@
     "projects": "Projects",
     "help": "How to Help",
     "contact": "Contact",
-    "switcher": {
-      "label": "Language",
-      "select": "Select language"
+    "donate": {
+      "label": "Donate",
+      "description": "Support the construction of the centre financially."
+    },
+    "volunteer": {
+      "label": "Volunteer",
+      "description": "Give your time and talent to our programmes."
+    },
+    "partner": {
+      "label": "Become a Partner",
+      "description": "Join our mission as a company or institution."
     }
+  },
+  "header": {
+    "logoAlt": "DI MI PA BÔS",
+    "menuToggle": "Open main menu",
+    "mobileMenuTitle": "Mobile menu",
+    "mobileMenuDescription": "The mobile navigation menu"
+  },
+  "footer": {
+    "aboutTitle": "About Us",
+    "aboutBody": "DI MI PA BÔS (dimipabos) is an NGO in Guinea-Bissau, based in Bissau, dedicated to transforming lives through shelter, care and essential services.",
+    "quickLinks": "Quick Links",
+    "linkAbout": "Our Story",
+    "linkProjects": "Projects",
+    "linkDonate": "Donate",
+    "linkVolunteer": "Volunteer",
+    "linkPartner": "Partner",
+    "contactTitle": "Contact",
+    "legalTitle": "Legal",
+    "linkPrivacy": "Privacy Policy",
+    "linkTerms": "Terms & Conditions",
+    "facebookLabel": "Facebook",
+    "whatsappLabel": "WhatsApp",
+    "orgName": "DI MI PA BÔS",
+    "rightsReserved": "All rights reserved.",
+    "location": "Bissau, Guinea-Bissau"
+  },
+  "cta": {
+    "defaultButton": "Donate Now",
+    "badge": "Be Part of This Build",
+    "title": "Help Us Build Hope",
+    "description": "Your contribution is essential to finishing the centre and starting to transform lives. Every brick counts, every bit of help matters.",
+    "volunteerButton": "Volunteer"
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "select": "Select language"
   },
   "common": {
     "loading": "Loading…",

@@ -1,4 +1,6 @@
 import { Facebook, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
 import { Link } from '@/i18n/navigation'
 
 /**
@@ -17,10 +19,9 @@ const footerRoute = {
 
 /**
  * The {@link footerContact} constant
- * @description Contact details surfaced in the footer
+ * @description Contact details surfaced in the footer (locale-independent)
  */
 const footerContact = {
-  LOCATION: 'Bissau, Guiné-Bissau',
   PHONE_DISPLAY: '+31 631 791 165',
   PHONE_TEL: '+31631791165',
   EMAIL: 'contact@ongdimipabos.org',
@@ -39,84 +40,63 @@ const footerLegal = {
 } as const
 
 /**
- * The {@link footerCopy} constant
- * @description Static Portuguese copy used in the footer
- */
-const footerCopy = {
-  ABOUT_TITLE: 'Sobre Nós',
-  ABOUT_BODY:
-    'A DI MI PA BÔS (dimipabos) é uma ONG na Guiné-Bissau, sediada em Bissau, dedicada a transformar vidas através de habitação, cuidado e serviços essenciais.',
-  QUICK_LINKS_TITLE: 'Links Rápidos',
-  LINK_SOBRE: 'Nossa História',
-  LINK_PROJETOS: 'Projetos',
-  LINK_DOAR: 'Doe',
-  LINK_VOLUNTARIO: 'Seja Voluntário',
-  LINK_PARCEIROS: 'Seja Parceiro',
-  CONTACT_TITLE: 'Contato',
-  LEGAL_TITLE: 'Legal',
-  LINK_PRIVACY: 'Política de Privacidade',
-  LINK_TERMS: 'Termos e Condições',
-  FACEBOOK_LABEL: 'Facebook',
-  WHATSAPP_LABEL: 'WhatsApp',
-  ORG_NAME: 'DI MI PA BÔS',
-  RIGHTS_RESERVED: 'Todos os direitos reservados.',
-} as const
-
-/**
  * The {@link Footer} component
  * @description Renders the global site footer with about copy, quick links and contact info
  * @returns The rendered footer
  */
 export function Footer() {
+  // Read the locale-aware footer translations
+  const t = useTranslations('footer')
+
   // Resolve the current year once per render
   const currentYear = new Date().getFullYear()
 
-  // Render the three-column footer layout
+  // Render the four-column footer layout
   return (
     <footer className='bg-primary text-primary-foreground'>
       <div className='mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8'>
         <div className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4'>
           <div>
-            <h3 className='font-semibold text-lg'>{footerCopy.ABOUT_TITLE}</h3>
-            <p className='mt-4 text-primary-foreground text-sm'>{footerCopy.ABOUT_BODY}</p>
+            <h3 className='font-semibold text-lg'>{t('aboutTitle')}</h3>
+            <p className='mt-4 text-primary-foreground text-sm'>{t('aboutBody')}</p>
           </div>
           <div>
-            <h3 className='font-semibold text-lg'>{footerCopy.QUICK_LINKS_TITLE}</h3>
+            <h3 className='font-semibold text-lg'>{t('quickLinks')}</h3>
             <ul className='mt-4 space-y-2 text-sm'>
               <li>
                 <Link href={footerRoute.SOBRE} className='hover:text-primary-foreground'>
-                  {footerCopy.LINK_SOBRE}
+                  {t('linkAbout')}
                 </Link>
               </li>
               <li>
                 <Link href={footerRoute.PROJETOS} className='hover:text-primary-foreground'>
-                  {footerCopy.LINK_PROJETOS}
+                  {t('linkProjects')}
                 </Link>
               </li>
               <li>
                 <Link href={footerRoute.DOAR} className='hover:text-primary-foreground'>
-                  {footerCopy.LINK_DOAR}
+                  {t('linkDonate')}
                 </Link>
               </li>
               <li>
                 <Link href={footerRoute.VOLUNTARIO} className='hover:text-primary-foreground'>
-                  {footerCopy.LINK_VOLUNTARIO}
+                  {t('linkVolunteer')}
                 </Link>
               </li>
               <li>
                 <Link href={footerRoute.PARCEIROS} className='hover:text-primary-foreground'>
-                  {footerCopy.LINK_PARCEIROS}
+                  {t('linkPartner')}
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className='font-semibold text-lg'>{footerCopy.CONTACT_TITLE}</h3>
+            <h3 className='font-semibold text-lg'>{t('contactTitle')}</h3>
             <address className='mt-4 not-italic'>
               <ul className='space-y-4 text-sm'>
                 <li className='flex items-center gap-4'>
                   <MapPin className='size-5' />
-                  <span>{footerContact.LOCATION}</span>
+                  <span>{t('location')}</span>
                 </li>
                 <li className='flex items-center gap-4'>
                   <Phone className='size-5' />
@@ -146,7 +126,7 @@ export function Footer() {
                 className='rounded-sm border p-1 hover:text-primary-foreground'
               >
                 <Facebook className='size-6' />
-                <span className='sr-only'>{footerCopy.FACEBOOK_LABEL}</span>
+                <span className='sr-only'>{t('facebookLabel')}</span>
               </Link>
               <Link
                 target='_blank'
@@ -155,21 +135,21 @@ export function Footer() {
                 className='rounded-sm border p-1 hover:text-primary-foreground'
               >
                 <MessageCircle className='size-6' />
-                <span className='sr-only'>{footerCopy.WHATSAPP_LABEL}</span>
+                <span className='sr-only'>{t('whatsappLabel')}</span>
               </Link>
             </div>
           </div>
           <div>
-            <h3 className='font-semibold text-lg'>{footerCopy.LEGAL_TITLE}</h3>
+            <h3 className='font-semibold text-lg'>{t('legalTitle')}</h3>
             <ul className='mt-4 space-y-2 text-sm'>
               <li>
                 <Link href={footerRoute.PRIVACY} className='hover:text-primary-foreground'>
-                  {footerCopy.LINK_PRIVACY}
+                  {t('linkPrivacy')}
                 </Link>
               </li>
               <li>
                 <Link href={footerRoute.TERMS} className='hover:text-primary-foreground'>
-                  {footerCopy.LINK_TERMS}
+                  {t('linkTerms')}
                 </Link>
               </li>
             </ul>
@@ -178,10 +158,10 @@ export function Footer() {
         <div className='mt-8 flex flex-col items-center gap-2 border-primary-foreground/10 border-t pt-8 text-center text-sm'>
           <p>
             {footerLegal.LEGAL_NAME} · {footerLegal.NIPC_LABEL} {footerLegal.NIPC_VALUE} ·{' '}
-            {footerContact.LOCATION}
+            {t('location')}
           </p>
           <p>
-            &copy; {currentYear} {footerCopy.ORG_NAME}. {footerCopy.RIGHTS_RESERVED}
+            &copy; {currentYear} {t('orgName')}. {t('rightsReserved')}
           </p>
         </div>
       </div>

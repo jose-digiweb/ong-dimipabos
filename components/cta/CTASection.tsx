@@ -1,11 +1,12 @@
-import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
+import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 
 import { Button } from '../ui/button'
 import { SectionDescription, SectionTitle } from '../section'
 import { CTAButton } from './CTAButton'
-import { ctaCopy, ctaRoute } from './constants'
+import { ctaRoute } from './constants'
 import type { CTASectionProps } from './types'
 
 /**
@@ -16,6 +17,9 @@ import type { CTASectionProps } from './types'
  * @returns The rendered CTA section
  */
 export const CTASection = ({ className }: CTASectionProps) => {
+  // Read the locale-aware section translations
+  const t = useTranslations('cta')
+
   // Render the section composed of a badge, headline, copy and dual CTAs
   return (
     <section className={cn('bg-primary py-16 text-primary-foreground', className)}>
@@ -25,12 +29,12 @@ export const CTASection = ({ className }: CTASectionProps) => {
             <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75' />
             <span className='relative inline-flex h-3 w-3 rounded-full bg-secondary' />
           </span>
-          {ctaCopy.BADGE_LABEL}
+          {t('badge')}
         </div>
 
-        <SectionTitle className='text-primary-foreground'>{ctaCopy.SECTION_TITLE}</SectionTitle>
+        <SectionTitle className='text-primary-foreground'>{t('title')}</SectionTitle>
         <SectionDescription className='text-primary-foreground'>
-          {ctaCopy.SECTION_DESCRIPTION}
+          {t('description')}
         </SectionDescription>
 
         <div className='mt-8 flex justify-center gap-4'>
@@ -41,7 +45,7 @@ export const CTASection = ({ className }: CTASectionProps) => {
             size='lg'
             variant='outlineInverse'
           >
-            {ctaCopy.VOLUNTEER_BUTTON_TEXT}
+            {t('volunteerButton')}
           </Button>
         </div>
       </div>

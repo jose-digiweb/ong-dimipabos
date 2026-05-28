@@ -1,10 +1,11 @@
 import { HeartHandshake } from 'lucide-react'
-import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
+import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 
 import { Button } from '../ui/button'
-import { ctaCopy, ctaRoute } from './constants'
+import { ctaRoute } from './constants'
 import type { CTAButtonProps } from './types'
 
 /**
@@ -18,8 +19,11 @@ import type { CTAButtonProps } from './types'
  * @returns The rendered CTA button
  */
 export const CTAButton = ({ text, onClick, size = 'lg', className }: CTAButtonProps) => {
-  // Resolve the label, falling back to the default copy
-  const label = text ?? ctaCopy.DEFAULT_BUTTON_TEXT
+  // Read the locale-aware default button label
+  const t = useTranslations('cta')
+
+  // Resolve the label, falling back to the translated default
+  const label = text ?? t('defaultButton')
 
   // Render the button as a Link to the donation route
   return (

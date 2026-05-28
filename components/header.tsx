@@ -1,13 +1,14 @@
 'use client'
 
 import { Menu } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { Link } from '@/i18n/navigation'
-import { usePathname } from '@/i18n/navigation'
 import { useState } from 'react'
 
 import logoImage from '@/assets/dimipabos_logo.png'
+import { LanguageSwitcher } from '@/components/language-switcher'
 import { Button } from '@/components/ui/button'
+import { Link, usePathname } from '@/i18n/navigation'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -73,49 +74,6 @@ type NavMenuItem = {
 type NavItem = NavLinkItem | NavMenuItem
 
 /**
- * The {@link navigationItems} constant
- * @description Primary navigation entries rendered in both desktop and mobile menus
- */
-const navigationItems: readonly NavItem[] = [
-  { kind: navItemKind.LINK, name: 'Início', href: '/' },
-  { kind: navItemKind.LINK, name: 'Sobre', href: '/sobre' },
-  { kind: navItemKind.LINK, name: 'Projetos', href: '/projetos' },
-  {
-    kind: navItemKind.MENU,
-    name: 'Como Ajudar',
-    items: [
-      {
-        name: 'Doe',
-        href: '/como-ajudar/doar',
-        description: 'Contribua financeiramente com a construção do centro.',
-      },
-      {
-        name: 'Seja Voluntário',
-        href: '/como-ajudar/voluntario',
-        description: 'Doe seu tempo e talento aos nossos programas.',
-      },
-      {
-        name: 'Seja Parceiro',
-        href: '/como-ajudar/parceiros',
-        description: 'Junte sua empresa ou instituição à nossa missão.',
-      },
-    ],
-  },
-  { kind: navItemKind.LINK, name: 'Contato', href: '/contato' },
-] as const
-
-/**
- * The {@link headerCopy} constant
- * @description Static copy used by the {@link Header} component
- */
-const headerCopy = {
-  LOGO_ALT: 'DI MI PA BÔS',
-  MENU_TOGGLE_LABEL: 'Abrir menu principal',
-  MOBILE_MENU_TITLE: 'The mobile menu',
-  MOBILE_MENU_DESCRIPTION: 'The navigation menu for mobile',
-} as const
-
-/**
  * The {@link LOGO_SIZE} constant
  * @description Logo pixel dimensions
  */
@@ -129,6 +87,39 @@ const LOGO_SIZE = 50
 export function Header() {
   // Track the open/closed state of the mobile menu sheet
   const [isOpen, setIsOpen] = useState(false)
+
+  // Read translations for the header chrome and primary nav
+  const tNav = useTranslations('nav')
+  const tHeader = useTranslations('header')
+
+  // Build the navigation tree from the active locale's translations
+  const navigationItems: readonly NavItem[] = [
+    { kind: navItemKind.LINK, name: tNav('home'), href: '/' },
+    { kind: navItemKind.LINK, name: tNav('about'), href: '/sobre' },
+    { kind: navItemKind.LINK, name: tNav('projects'), href: '/projetos' },
+    {
+      kind: navItemKind.MENU,
+      name: tNav('help'),
+      items: [
+        {
+          name: tNav('donate.label'),
+          href: '/como-ajudar/doar',
+          description: tNav('donate.description'),
+        },
+        {
+          name: tNav('volunteer.label'),
+          href: '/como-ajudar/voluntario',
+          description: tNav('volunteer.description'),
+        },
+        {
+          name: tNav('partner.label'),
+          href: '/como-ajudar/parceiros',
+          description: tNav('partner.description'),
+        },
+      ],
+    },
+    { kind: navItemKind.LINK, name: tNav('contact'), href: '/contato' },
+  ]
 
   // Read the current path so we can highlight the active nav entry
   const pathname = usePathname()
@@ -154,7 +145,7 @@ export function Header() {
           <Link href='/' className='rounded-full font-bold text-white text-xl drop-shadow-md'>
             <Image
               src={logoImage}
-              alt={headerCopy.LOGO_ALT}
+              alt={tHeader('logoAlt')}
               width={LOGO_SIZE}
               height={LOGO_SIZE}
               className='rounded-full drop-shadow-md'
@@ -224,6 +215,9 @@ export function Header() {
         </NavigationMenu>
 
         <div className='flex items-center gap-4'>
+          <div className='hidden lg:flex'>
+            <LanguageSwitcher />
+          </div>
           <div className='flex'>
             <CTAButton size='default' />
           </div>
@@ -239,14 +233,14 @@ export function Header() {
                   />
                 }
               >
-                <span className='sr-only'>{headerCopy.MENU_TOGGLE_LABEL}</span>
+                <span className='sr-only'>{tHeader('menuToggle')}</span>
                 <Menu className='size-10' aria-hidden='true' />
               </SheetTrigger>
               <SheetContent side='right' className='w-full bg-slate-50 px-6 py-6 backdrop-blur-xs'>
                 <div className='mt-6 flow-root'>
-                  <SheetTitle className='sr-only'>{headerCopy.MOBILE_MENU_TITLE}</SheetTitle>
+                  <SheetTitle className='sr-only'>{tHeader('mobileMenuTitle')}</SheetTitle>
                   <SheetDescription className='sr-only'>
-                    {headerCopy.MOBILE_MENU_DESCRIPTION}
+                    {tHeader('mobileMenuDescription')}
                   </SheetDescription>
 
                   <div className='divide-y'>
@@ -305,7 +299,8 @@ export function Header() {
                         )
                       })}
                     </div>
-                    <div className='py-6'>
+                    <div className='py-6 space-y-4'>
+                      <LanguageSwitcher />
                       <CTAButton className='w-full' onClick={closeMenu} />
                     </div>
                   </div>

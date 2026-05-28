@@ -5,10 +5,54 @@
     "projects": "Projetos",
     "help": "Como Ajudar",
     "contact": "Contato",
-    "switcher": {
-      "label": "Idioma",
-      "select": "Selecionar idioma"
+    "donate": {
+      "label": "Doe",
+      "description": "Contribua financeiramente com a construção do centro."
+    },
+    "volunteer": {
+      "label": "Seja Voluntário",
+      "description": "Doe seu tempo e talento aos nossos programas."
+    },
+    "partner": {
+      "label": "Seja Parceiro",
+      "description": "Junte sua empresa ou instituição à nossa missão."
     }
+  },
+  "header": {
+    "logoAlt": "DI MI PA BÔS",
+    "menuToggle": "Abrir menu principal",
+    "mobileMenuTitle": "Menu móvel",
+    "mobileMenuDescription": "O menu de navegação para mobile"
+  },
+  "footer": {
+    "aboutTitle": "Sobre Nós",
+    "aboutBody": "A DI MI PA BÔS (dimipabos) é uma ONG na Guiné-Bissau, sediada em Bissau, dedicada a transformar vidas através de habitação, cuidado e serviços essenciais.",
+    "quickLinks": "Links Rápidos",
+    "linkAbout": "Nossa História",
+    "linkProjects": "Projetos",
+    "linkDonate": "Doe",
+    "linkVolunteer": "Seja Voluntário",
+    "linkPartner": "Seja Parceiro",
+    "contactTitle": "Contato",
+    "legalTitle": "Legal",
+    "linkPrivacy": "Política de Privacidade",
+    "linkTerms": "Termos e Condições",
+    "facebookLabel": "Facebook",
+    "whatsappLabel": "WhatsApp",
+    "orgName": "DI MI PA BÔS",
+    "rightsReserved": "Todos os direitos reservados.",
+    "location": "Bissau, Guiné-Bissau"
+  },
+  "cta": {
+    "defaultButton": "Doe Agora",
+    "badge": "Faça Parte Desta Construção",
+    "title": "Ajude a Construir Esperança",
+    "description": "Sua contribuição é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Cada tijolo conta, cada ajuda importa.",
+    "volunteerButton": "Seja Voluntário"
+  },
+  "languageSwitcher": {
+    "label": "Idioma",
+    "select": "Selecionar idioma"
   },
   "common": {
     "loading": "Carregando…",
