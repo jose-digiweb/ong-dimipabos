@@ -179,185 +179,207 @@ export function VolunteerForm() {
   // Render the volunteer form
   return (
     <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-      <SectionTitle>{t('sectionTitle')}</SectionTitle>
-      <SectionDescription>{t('sectionDescription')}</SectionDescription>
+      <div className='text-center'>
+        <SectionTitle>{t('sectionTitle')}</SectionTitle>
+        <SectionDescription>{t('sectionDescription')}</SectionDescription>
+      </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='mt-8 space-y-8' noValidate>
-          {submitted ? (
-            <div
-              role='status'
-              className='rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-900 text-sm'
-            >
-              <p className='font-semibold'>{t('successTitle')}</p>
-              <p className='mt-1'>{t('successBody')}</p>
+      <div className='mx-auto mt-12 max-w-2xl rounded-2xl border bg-background p-6 shadow-sm sm:p-10'>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6' noValidate>
+            {submitted ? (
+              <div
+                role='status'
+                className='rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-900 text-sm'
+              >
+                <p className='font-semibold'>{t('successTitle')}</p>
+                <p className='mt-1'>{t('successBody')}</p>
+              </div>
+            ) : null}
+
+            {errors.root?.serverError ? (
+              <div
+                role='alert'
+                className='rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-amber-900 text-sm'
+              >
+                {errors.root.serverError.message}
+              </div>
+            ) : null}
+
+            <div className='grid gap-6 sm:grid-cols-2'>
+              <FormField
+                control={form.control}
+                name='name'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('nameLabel')}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={t('namePlaceholder')}
+                        autoComplete='name'
+                        maxLength={VOLUNTEER_LIMITS.NAME_MAX}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='email'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('emailLabel')}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={t('emailPlaceholder')}
+                        type='email'
+                        inputMode='email'
+                        autoComplete='email'
+                        maxLength={VOLUNTEER_LIMITS.EMAIL_MAX}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-          ) : null}
 
-          {errors.root?.serverError ? (
-            <div
-              role='alert'
-              className='rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-amber-900 text-sm'
-            >
-              {errors.root.serverError.message}
+            <div className='grid gap-6 sm:grid-cols-2'>
+              <FormField
+                control={form.control}
+                name='phone'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('phoneLabel')}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={t('phonePlaceholder')}
+                        type='tel'
+                        inputMode='tel'
+                        autoComplete='tel'
+                        maxLength={VOLUNTEER_LIMITS.PHONE_MAX}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='area'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('areaLabel')}</FormLabel>
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger className='w-full'>
+                          <SelectValue placeholder={t('areaPlaceholder')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {areaOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-          ) : null}
 
-          <FormField
-            control={form.control}
-            name='name'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('nameLabel')}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={t('namePlaceholder')}
-                    autoComplete='name'
-                    maxLength={VOLUNTEER_LIMITS.NAME_MAX}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name='email'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('emailLabel')}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={t('emailPlaceholder')}
-                    type='email'
-                    inputMode='email'
-                    autoComplete='email'
-                    maxLength={VOLUNTEER_LIMITS.EMAIL_MAX}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name='phone'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('phoneLabel')}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={t('phonePlaceholder')}
-                    type='tel'
-                    inputMode='tel'
-                    autoComplete='tel'
-                    maxLength={VOLUNTEER_LIMITS.PHONE_MAX}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name='area'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('areaLabel')}</FormLabel>
-                <Select value={field.value} onValueChange={field.onChange}>
+            <FormField
+              control={form.control}
+              name='availability'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('availabilityLabel')}</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder={t('areaPlaceholder')} />
-                    </SelectTrigger>
+                    <Textarea
+                      placeholder={t('availabilityPlaceholder')}
+                      className='min-h-24 resize-none'
+                      maxLength={VOLUNTEER_LIMITS.AVAILABILITY_MAX}
+                      {...field}
+                    />
                   </FormControl>
-                  <SelectContent>
-                    {areaOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name='availability'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('availabilityLabel')}</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder={t('availabilityPlaceholder')}
-                    className='min-h-24 resize-none'
-                    maxLength={VOLUNTEER_LIMITS.AVAILABILITY_MAX}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name='experience'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('experienceLabel')}</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder={t('experiencePlaceholder')}
-                    className='min-h-24 resize-none'
-                    maxLength={VOLUNTEER_LIMITS.EXPERIENCE_MAX}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name='terms'
-            render={({ field }) => (
-              <FormItem className='flex flex-row items-start space-x-3 space-y-0'>
-                <FormControl>
-                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                </FormControl>
-                <div className='space-y-1 leading-none'>
-                  <FormLabel>{t('termsLabel')}</FormLabel>
                   <FormMessage />
-                </div>
-              </FormItem>
-            )}
-          />
-
-          {siteKey ? (
-            <Turnstile
-              ref={turnstileRef}
-              siteKey={siteKey}
-              onVerify={(token) => setTurnstileToken(token)}
-              onExpire={() => setTurnstileToken(null)}
-              onError={() => setTurnstileToken(null)}
+                </FormItem>
+              )}
             />
-          ) : null}
 
-          <Button type='submit' variant='secondary' disabled={isSubmitting}>
-            {isSubmitting ? tCommon('formSubmitting') : t('submitLabel')}
-          </Button>
-        </form>
-      </Form>
+            <FormField
+              control={form.control}
+              name='experience'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('experienceLabel')}</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder={t('experiencePlaceholder')}
+                      className='min-h-28 resize-none'
+                      maxLength={VOLUNTEER_LIMITS.EXPERIENCE_MAX}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name='terms'
+              render={({ field }) => (
+                <FormItem className='flex flex-row items-start gap-3 rounded-lg border bg-muted/30 p-4'>
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className='mt-0.5'
+                    />
+                  </FormControl>
+                  <div className='space-y-1 leading-snug'>
+                    <FormLabel className='font-normal text-muted-foreground text-sm'>
+                      {t('termsLabel')}
+                    </FormLabel>
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+
+            {siteKey ? (
+              <div className='flex justify-center'>
+                <Turnstile
+                  ref={turnstileRef}
+                  siteKey={siteKey}
+                  onVerify={(token) => setTurnstileToken(token)}
+                  onExpire={() => setTurnstileToken(null)}
+                  onError={() => setTurnstileToken(null)}
+                />
+              </div>
+            ) : null}
+
+            <Button
+              type='submit'
+              variant='CTA'
+              size='lg'
+              className='w-full'
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? tCommon('formSubmitting') : t('submitLabel')}
+            </Button>
+          </form>
+        </Form>
+      </div>
     </div>
   )
 }
