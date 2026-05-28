@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+import { cfImage } from '@/lib/img'
 import { getR2Images } from '@/lib/r2-images'
 
 import {
@@ -28,9 +29,9 @@ const CAROUSEL_PRIORITY_COUNT = 0
 
 /**
  * The {@link CAROUSEL_IMAGE_SIZES} constant
- * @description `sizes` attribute used by the carousel images
+ * @description `sizes` attribute used by the carousel images — matches `md:basis-1/2` then `lg:basis-1/3`
  */
-const CAROUSEL_IMAGE_SIZES = '(max-width: 768px) 100vw, 50vw'
+const CAROUSEL_IMAGE_SIZES = '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 34vw'
 
 /**
  * The {@link CAROUSEL_ALT_PREFIX} constant
@@ -82,7 +83,7 @@ export const ImageCarousel = async () => {
                   ? `${CAROUSEL_ALT_PREFIX} — ${humanizeKey(image.key)}`
                   : CAROUSEL_ALT_PREFIX
               }
-              src={image.url}
+              src={cfImage(image.url, { width: 800 })}
               sizes={CAROUSEL_IMAGE_SIZES}
               className='object-cover object-top'
             />

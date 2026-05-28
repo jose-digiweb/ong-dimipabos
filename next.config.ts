@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'ongdimipabos.org',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'storage.ongdimipabos.org',
         pathname: '/**',
       },
