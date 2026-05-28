@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import projReab from '@/assets/projectos/proj_reab.jpeg'
 import { CTASection } from '@/components/cta'
@@ -18,50 +19,50 @@ import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
- * The {@link metadata} constant
- * @description Per-route SEO metadata for the partners page
+ * The {@link PartnersRouteProps} type
+ * @description Route props for the partners page
  */
-export const metadata: Metadata = buildMetadata({
-  title: 'Parcerias',
-  description:
-    'Construa uma parceria com a DI MI PA BÔS e amplie o impacto da reabilitação e reintegração social na Guiné-Bissau.',
-  path: '/como-ajudar/parceiros',
-})
+type PartnersRouteProps = {
+  params: Promise<{ locale: string }>
+}
 
 /**
- * The {@link partnersPageCopy} constant
- * @description Static Portuguese copy used by the partners page
+ * The {@link generateMetadata} export
+ * @description Locale-aware SEO metadata for the partners page
+ * @param {PartnersRouteProps} props - The route props
+ * @returns {Promise<Metadata>} The metadata for the active locale
  */
-const partnersPageCopy = {
-  HERO_TOP: 'Como Ajudar / Parceiros',
-  HERO_TITLE: 'Seja Nosso Parceiro',
-  HERO_SUBTITLE: 'Construa Junto com a Gente',
-  HERO_DESCRIPTION:
-    'Empresas, instituições e organizações que se juntam à DI MI PA BÔS ampliam o alcance da reabilitação e reintegração social na Guiné-Bissau.',
-  STAT_PARTNERS_LABEL: 'Parcerias Ativas',
-  CARD_TITLE: 'Por que ser Parceiro',
-  CARD_BODY:
-    'Apoie o trabalho de reintegração social, manutenção da sobriedade e fortalecimento comunitário com visibilidade e impacto mensurável.',
-} as const
+export async function generateMetadata({ params }: PartnersRouteProps): Promise<Metadata> {
+  // Resolve the locale and read the SEO copy
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'partnersPage' })
 
-/**
- * The {@link partnersStats} constant
- * @description Hero statistic values for the partners page
- */
-const partnersStats = {
-  PARTNERS: '2+',
-} as const
+  // Build the metadata with the localised title and description
+  return buildMetadata({
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+    path: '/como-ajudar/parceiros',
+  })
+}
 
 /**
  * The {@link PartnersPage} component
  * @description Renders the standalone partners page
+ * @param {PartnersRouteProps} props - The route props
  * @returns The rendered partners page
  */
-export default function PartnersPage() {
+export default async function PartnersPage({ params }: PartnersRouteProps) {
+  // Opt this route into static rendering for the active locale
+  const { locale } = await params
+  setRequestLocale(locale)
+
+  // Read the locale-aware partners page translations
+  const t = await getTranslations('partnersPage')
+
   // Build the breadcrumb schema for this route
   const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: 'Início', path: '/' },
-    { name: 'Parcerias', path: '/como-ajudar/parceiros' },
+    { name: t('breadcrumbHome'), path: '/' },
+    { name: t('breadcrumbPartners'), path: '/como-ajudar/parceiros' },
   ])
 
   // Render the full partners page layout
@@ -70,24 +71,24 @@ export default function PartnersPage() {
       <JsonLd data={breadcrumbSchema} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
-          <HeroTopText>{partnersPageCopy.HERO_TOP}</HeroTopText>
+          <HeroTopText>{t('heroTop')}</HeroTopText>
 
-          <HeroTitle>{partnersPageCopy.HERO_TITLE}</HeroTitle>
-          <HeroSubtitle>{partnersPageCopy.HERO_SUBTITLE}</HeroSubtitle>
+          <HeroTitle>{t('heroTitle')}</HeroTitle>
+          <HeroSubtitle>{t('heroSubtitle')}</HeroSubtitle>
 
-          <HeroDescription>{partnersPageCopy.HERO_DESCRIPTION}</HeroDescription>
+          <HeroDescription>{t('heroDescription')}</HeroDescription>
 
           <div className='mt-10 flex items-center gap-4'>
             <HeroStats
-              value={partnersStats.PARTNERS}
-              label={partnersPageCopy.STAT_PARTNERS_LABEL}
+              value={t('statPartnersValue')}
+              label={t('statPartnersLabel')}
             />
           </div>
         </div>
 
         <HeroCardSection>
-          <HeroCard variant='ajudar' title={partnersPageCopy.CARD_TITLE} image={projReab}>
-            {partnersPageCopy.CARD_BODY}
+          <HeroCard variant='ajudar' title={t('cardTitle')} image={projReab}>
+            {t('cardBody')}
           </HeroCard>
         </HeroCardSection>
       </HeroWrapper>

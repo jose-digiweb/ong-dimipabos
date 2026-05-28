@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import projHabitacao from '@/assets/projectos/proj_habitacao.jpeg'
 import { BankTransferSection } from '@/components/bank-transfer-section'
@@ -17,41 +18,50 @@ import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
- * The {@link metadata} constant
- * @description Per-route SEO metadata for the donate page
+ * The {@link DonateRouteProps} type
+ * @description Route props for the donate page
  */
-export const metadata: Metadata = buildMetadata({
-  title: 'Como Doar',
-  description:
-    'Apoie a construção do Centro de Tratamento e Reabilitação da DI MI PA BÔS através de uma doação por transferência bancária.',
-  path: '/como-ajudar/doar',
-})
+type DonateRouteProps = {
+  params: Promise<{ locale: string }>
+}
 
 /**
- * The {@link donatePageCopy} constant
- * @description Static Portuguese copy used by the donate page
+ * The {@link generateMetadata} export
+ * @description Locale-aware SEO metadata for the donate page
+ * @param {DonateRouteProps} props - The route props
+ * @returns {Promise<Metadata>} The metadata for the active locale
  */
-const donatePageCopy = {
-  HERO_TOP: 'Como Ajudar / Doe',
-  HERO_TITLE: 'Sua Doação Constrói Esperança',
-  HERO_SUBTITLE: 'Cada Euro Importa',
-  HERO_DESCRIPTION:
-    'Sua contribuição é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Cada tijolo conta, cada ajuda importa.',
-  CARD_TITLE: 'Por que Doar',
-  CARD_BODY:
-    '100% dos fundos são destinados à construção e operação do centro de acolhimento, com prestação de contas transparente.',
-} as const
+export async function generateMetadata({ params }: DonateRouteProps): Promise<Metadata> {
+  // Resolve the locale and read the SEO copy
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'donatePage' })
+
+  // Build the metadata with the localised title and description
+  return buildMetadata({
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+    path: '/como-ajudar/doar',
+  })
+}
 
 /**
  * The {@link DonatePage} component
  * @description Renders the standalone donation page
+ * @param {DonateRouteProps} props - The route props
  * @returns The rendered donate page
  */
-export default function DonatePage() {
+export default async function DonatePage({ params }: DonateRouteProps) {
+  // Opt this route into static rendering for the active locale
+  const { locale } = await params
+  setRequestLocale(locale)
+
+  // Read the locale-aware donate page translations
+  const t = await getTranslations('donatePage')
+
   // Build the breadcrumb schema for this route
   const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: 'Início', path: '/' },
-    { name: 'Como Doar', path: '/como-ajudar/doar' },
+    { name: t('breadcrumbHome'), path: '/' },
+    { name: t('breadcrumbDonate'), path: '/como-ajudar/doar' },
   ])
 
   // Render the full donate page layout
@@ -60,17 +70,17 @@ export default function DonatePage() {
       <JsonLd data={breadcrumbSchema} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
-          <HeroTopText>{donatePageCopy.HERO_TOP}</HeroTopText>
+          <HeroTopText>{t('heroTop')}</HeroTopText>
 
-          <HeroTitle>{donatePageCopy.HERO_TITLE}</HeroTitle>
-          <HeroSubtitle>{donatePageCopy.HERO_SUBTITLE}</HeroSubtitle>
+          <HeroTitle>{t('heroTitle')}</HeroTitle>
+          <HeroSubtitle>{t('heroSubtitle')}</HeroSubtitle>
 
-          <HeroDescription>{donatePageCopy.HERO_DESCRIPTION}</HeroDescription>
+          <HeroDescription>{t('heroDescription')}</HeroDescription>
         </div>
 
         <HeroCardSection>
-          <HeroCard variant='ajudar' title={donatePageCopy.CARD_TITLE} image={projHabitacao}>
-            {donatePageCopy.CARD_BODY}
+          <HeroCard variant='ajudar' title={t('cardTitle')} image={projHabitacao}>
+            {t('cardBody')}
           </HeroCard>
         </HeroCardSection>
       </HeroWrapper>

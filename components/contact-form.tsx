@@ -61,9 +61,7 @@ export function ContactForm() {
         email: z.string().email({ message: t('emailError') }),
         subject: z.string().min(MIN_NAME_LENGTH, { message: t('subjectError') }),
         message: z.string().min(MIN_MESSAGE_LENGTH, { message: t('messageError') }),
-        consent: z
-          .boolean()
-          .refine((val) => val === true, { message: t('consentError') }),
+        consent: z.boolean().refine((val) => val === true, { message: t('consentError') }),
       }),
     [t],
   )

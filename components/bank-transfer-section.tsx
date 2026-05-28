@@ -1,36 +1,12 @@
 'use client'
 
 import { Check, Copy, Landmark, Mail, ShieldCheck } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
+import { SectionDescription, SectionTitle } from '@/components/section'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
-import { SectionDescription, SectionTitle } from '@/components/section'
-
-/**
- * The {@link bankTransferCopy} constant
- * @description Static Portuguese copy for the bank-transfer donation section
- */
-const bankTransferCopy = {
-  SECTION_TITLE: 'Faça Sua Doação',
-  SECTION_DESCRIPTION:
-    'No momento, recebemos doações por transferência bancária. Utilize os dados abaixo para contribuir e ajudar a construir o centro de acolhimento.',
-  CARD_TITLE: 'Dados Bancários',
-  CARD_DESCRIPTION: 'Use estes dados para realizar a sua transferência.',
-  COPY_LABEL: 'Copiar',
-  COPIED_LABEL: 'Copiado',
-  REFERENCE_TITLE: 'Sugestão de referência',
-  REFERENCE_HINT:
-    'Inclua a referência abaixo, substituindo "Seu Nome" pelo seu nome, para que possamos identificar e agradecer a sua doação.',
-  INSTRUCTIONS_TITLE: 'Após a transferência',
-  INSTRUCTIONS_BODY:
-    'Envie o comprovativo para donativos@ongdimipabos.org para receber o nosso agradecimento e, se desejar, um recibo da contribuição.',
-  CONTACT_EMAIL: 'donativos@ongdimipabos.org',
-  TRUST_HEADING: 'A sua contribuição em boas mãos:',
-  TRUST_FUNDS: '100% dos fundos são destinados aos projetos da ONG.',
-  TRUST_TRANSPARENCY: 'Prestação de contas transparente aos doadores e parceiros.',
-  TRUST_RECEIPT: 'Recibo enviado a pedido, após confirmação da transferência.',
-} as const
 
 /**
  * The {@link bankAccountField} constant
@@ -50,31 +26,25 @@ const bankAccountField = {
 type BankAccountField = (typeof bankAccountField)[keyof typeof bankAccountField]
 
 /**
- * The {@link BankAccountRow} type
- * @description Shape of a row rendered in the bank account details list
+ * The {@link BankAccountValueRow} type
+ * @description Locale-independent value row used by the bank account list
  */
-type BankAccountRow = {
+type BankAccountValueRow = {
   id: BankAccountField
-  label: string
   value: string
 }
 
 /**
- * The {@link bankAccountRows} constant
- * @description Mock bank account rows shown until real details are provided
+ * The {@link bankAccountValueRows} constant
+ * @description Locale-independent account values. Labels and the placeholder
+ * bank name come from translations.
  */
-const bankAccountRows: readonly BankAccountRow[] = [
-  { id: bankAccountField.HOLDER, label: 'Titular', value: 'ONG DI MI PA BÔS' },
-  { id: bankAccountField.BANK, label: 'Banco', value: 'Banco a definir' },
-  { id: bankAccountField.IBAN, label: 'IBAN', value: 'PT50 0000 0000 0000 0000 0000 0' },
-  { id: bankAccountField.BIC, label: 'BIC / SWIFT', value: 'XXXXPTPL' },
+const bankAccountValueRows: readonly BankAccountValueRow[] = [
+  { id: bankAccountField.HOLDER, value: 'ONG DI MI PA BÔS' },
+  { id: bankAccountField.BANK, value: '' },
+  { id: bankAccountField.IBAN, value: 'PT50 0000 0000 0000 0000 0000 0' },
+  { id: bankAccountField.BIC, value: 'XXXXPTPL' },
 ] as const
-
-/**
- * The {@link DONATION_REFERENCE} constant
- * @description Suggested reference text donors should include in their transfer
- */
-const DONATION_REFERENCE = 'Donativo - Seu Nome'
 
 /**
  * The {@link COPY_FEEDBACK_MS} constant
@@ -83,13 +53,38 @@ const DONATION_REFERENCE = 'Donativo - Seu Nome'
 const COPY_FEEDBACK_MS = 2000
 
 /**
+ * The {@link REFERENCE_FIELD_ID} constant
+ * @description Identifier used to track the reference copy state separately from
+ * the account rows
+ */
+const REFERENCE_FIELD_ID = 'reference'
+
+/**
  * The {@link BankTransferSection} component
- * @description Renders the manual bank-transfer donation details with copy-to-clipboard
+ * @description Renders the manual bank-transfer donation details with
+ * copy-to-clipboard in the active locale
  * @returns The rendered bank-transfer section
  */
 export function BankTransferSection() {
+  // Read the locale-aware bank transfer translations
+  const t = useTranslations('bankTransfer')
+
   // Track which field has just been copied so we can show transient feedback
   const [copiedField, setCopiedField] = useState<string | null>(null)
+
+  // Resolve the labels for every account row
+  const rowLabels = {
+    [bankAccountField.HOLDER]: t('rowHolder'),
+    [bankAccountField.BANK]: t('rowBank'),
+    [bankAccountField.IBAN]: t('rowIban'),
+    [bankAccountField.BIC]: t('rowBic'),
+  } as const satisfies Record<BankAccountField, string>
+
+  // Resolve the placeholder bank name for the active locale
+  const bankPlaceholder = t('rowBankValue')
+
+  // Resolve the suggested donation reference for the active locale
+  const donationReference = t('donationReference')
 
   // Copy the given value to the clipboard and surface transient feedback
   const handleCopy = async (id: string, value: string) => {
@@ -108,8 +103,8 @@ export function BankTransferSection() {
   return (
     <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
       <div className='text-center'>
-        <SectionTitle>{bankTransferCopy.SECTION_TITLE}</SectionTitle>
-        <SectionDescription>{bankTransferCopy.SECTION_DESCRIPTION}</SectionDescription>
+        <SectionTitle>{t('sectionTitle')}</SectionTitle>
+        <SectionDescription>{t('sectionDescription')}</SectionDescription>
       </div>
 
       <div className='mx-auto mt-16 max-w-2xl'>
@@ -120,19 +115,25 @@ export function BankTransferSection() {
                 <Landmark className='size-5' />
               </span>
               <div>
-                <h3 className='font-medium text-base leading-snug'>
-                  {bankTransferCopy.CARD_TITLE}
-                </h3>
-                <CardDescription>{bankTransferCopy.CARD_DESCRIPTION}</CardDescription>
+                <h3 className='font-medium text-base leading-snug'>{t('cardTitle')}</h3>
+                <CardDescription>{t('cardDescription')}</CardDescription>
               </div>
             </div>
           </CardHeader>
 
           <CardContent className='space-y-6'>
             <dl className='divide-y divide-border rounded-lg border border-border'>
-              {bankAccountRows.map((row) => {
+              {bankAccountValueRows.map((row) => {
+                // Resolve the locale-aware label for the row
+                const label = rowLabels[row.id]
+
+                // Use the localized bank placeholder when the row value is empty
+                const value = row.id === bankAccountField.BANK ? bankPlaceholder : row.value
+
+                // Track whether this row was just copied
                 const isCopied = copiedField === row.id
 
+                // Render the account row with a copy button
                 return (
                   <div
                     key={row.id}
@@ -140,21 +141,19 @@ export function BankTransferSection() {
                   >
                     <div className='flex flex-col'>
                       <dt className='text-muted-foreground text-xs uppercase tracking-wide'>
-                        {row.label}
+                        {label}
                       </dt>
-                      <dd className='font-mono font-medium text-foreground text-sm'>{row.value}</dd>
+                      <dd className='font-mono font-medium text-foreground text-sm'>{value}</dd>
                     </div>
                     <Button
                       type='button'
                       variant='outline'
                       size='sm'
-                      onClick={() => handleCopy(row.id, row.value)}
-                      aria-label={`${bankTransferCopy.COPY_LABEL} ${row.label}`}
+                      onClick={() => handleCopy(row.id, value)}
+                      aria-label={`${t('copyLabel')} ${label}`}
                     >
                       {isCopied ? <Check className='size-4' /> : <Copy className='size-4' />}
-                      <span>
-                        {isCopied ? bankTransferCopy.COPIED_LABEL : bankTransferCopy.COPY_LABEL}
-                      </span>
+                      <span>{isCopied ? t('copiedLabel') : t('copyLabel')}</span>
                     </Button>
                   </div>
                 )
@@ -164,56 +163,46 @@ export function BankTransferSection() {
             <div className='rounded-lg border border-border bg-muted/40 p-4'>
               <div className='flex items-center justify-between gap-2'>
                 <div className='flex flex-col'>
-                  <p className='font-semibold text-foreground text-sm'>
-                    {bankTransferCopy.REFERENCE_TITLE}
-                  </p>
-                  <p className='font-mono text-foreground text-sm'>{DONATION_REFERENCE}</p>
+                  <p className='font-semibold text-foreground text-sm'>{t('referenceTitle')}</p>
+                  <p className='font-mono text-foreground text-sm'>{donationReference}</p>
                 </div>
                 <Button
                   type='button'
                   variant='outline'
                   size='sm'
-                  onClick={() => handleCopy('reference', DONATION_REFERENCE)}
-                  aria-label={`${bankTransferCopy.COPY_LABEL} ${bankTransferCopy.REFERENCE_TITLE}`}
+                  onClick={() => handleCopy(REFERENCE_FIELD_ID, donationReference)}
+                  aria-label={`${t('copyLabel')} ${t('referenceTitle')}`}
                 >
-                  {copiedField === 'reference' ? (
+                  {copiedField === REFERENCE_FIELD_ID ? (
                     <Check className='size-4' />
                   ) : (
                     <Copy className='size-4' />
                   )}
                   <span>
-                    {copiedField === 'reference'
-                      ? bankTransferCopy.COPIED_LABEL
-                      : bankTransferCopy.COPY_LABEL}
+                    {copiedField === REFERENCE_FIELD_ID ? t('copiedLabel') : t('copyLabel')}
                   </span>
                 </Button>
               </div>
-              <p className='mt-3 text-muted-foreground text-sm'>
-                {bankTransferCopy.REFERENCE_HINT}
-              </p>
+              <p className='mt-3 text-muted-foreground text-sm'>{t('referenceHint')}</p>
             </div>
 
             <div className='rounded-lg bg-muted p-4'>
               <div className='flex items-center gap-2'>
                 <Mail className='size-5 text-primary' />
-                <h4 className='font-semibold text-foreground'>
-                  {bankTransferCopy.INSTRUCTIONS_TITLE}
-                </h4>
+                <h4 className='font-semibold text-foreground'>{t('instructionsTitle')}</h4>
               </div>
-              <p className='mt-2 text-foreground/80 text-sm'>
-                {bankTransferCopy.INSTRUCTIONS_BODY}
-              </p>
+              <p className='mt-2 text-foreground/80 text-sm'>{t('instructionsBody')}</p>
             </div>
 
             <div className='rounded-lg border border-border p-4'>
               <div className='flex items-center gap-2'>
                 <ShieldCheck className='size-5 text-green-600' />
-                <h4 className='font-semibold text-foreground'>{bankTransferCopy.TRUST_HEADING}</h4>
+                <h4 className='font-semibold text-foreground'>{t('trustHeading')}</h4>
               </div>
               <ul className='mt-3 space-y-2 text-foreground/80 text-sm'>
-                <li>• {bankTransferCopy.TRUST_FUNDS}</li>
-                <li>• {bankTransferCopy.TRUST_TRANSPARENCY}</li>
-                <li>• {bankTransferCopy.TRUST_RECEIPT}</li>
+                <li>• {t('trustFunds')}</li>
+                <li>• {t('trustTransparency')}</li>
+                <li>• {t('trustReceipt')}</li>
               </ul>
             </div>
           </CardContent>

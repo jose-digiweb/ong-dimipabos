@@ -1,6 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -18,56 +20,6 @@ import { Textarea } from '@/components/ui/textarea'
 
 import { SectionDescription } from './section/SectionDescription'
 import { SectionTitle } from './section/SectionTitle'
-
-/**
- * The {@link partnershipCopy} constant
- * @description Static Portuguese copy for the partnership form section
- */
-const partnershipCopy = {
-  SECTION_TITLE: 'Seja Nosso Parceiro',
-  SECTION_DESCRIPTION:
-    'Sua empresa pode fazer parte desta transformação social. Entre em contato conosco.',
-  WHY_TITLE: 'Por que ser nosso parceiro?',
-  TYPES_TITLE: 'Tipos de Parceria',
-  COMPANY_LABEL: 'Nome da Empresa',
-  COMPANY_PLACEHOLDER: 'Digite o nome da empresa',
-  CONTACT_LABEL: 'Nome do Contato',
-  CONTACT_PLACEHOLDER: 'Digite o nome do contato',
-  EMAIL_LABEL: 'E-mail',
-  EMAIL_PLACEHOLDER: 'Digite seu e-mail',
-  PHONE_LABEL: 'Telefone',
-  PHONE_PLACEHOLDER: 'Digite seu telefone',
-  MESSAGE_LABEL: 'Mensagem',
-  MESSAGE_PLACEHOLDER: 'Conte-nos sobre seu interesse em ser parceiro',
-  SUBMIT_LABEL: 'Enviar Mensagem',
-  COMPANY_ERROR: 'O nome da empresa deve ter pelo menos 2 caracteres.',
-  CONTACT_ERROR: 'O nome do contato deve ter pelo menos 2 caracteres.',
-  EMAIL_ERROR: 'Digite um e-mail válido.',
-  PHONE_ERROR: 'Digite um número de telefone válido.',
-  MESSAGE_ERROR: 'A mensagem deve ter pelo menos 10 caracteres.',
-} as const
-
-/**
- * The {@link partnershipBenefits} constant
- * @description Bullet list explaining why companies should partner with us
- */
-const partnershipBenefits = [
-  'Impacto social direto na Guiné-Bissau',
-  'Visibilidade e reconhecimento como empresa socialmente responsável',
-  'Relatórios detalhados sobre o impacto das ações',
-  'Oportunidades de engajamento dos colaboradores',
-] as const
-
-/**
- * The {@link partnershipTypes} constant
- * @description Bullet list with the available partnership formats
- */
-const partnershipTypes = [
-  'Doações financeiras regulares',
-  'Doações de materiais e equipamentos',
-  'Voluntariado corporativo',
-  'Projetos específicos e patrocínios',
-] as const
 
 /**
  * The {@link MIN_NAME_LENGTH} constant
@@ -88,29 +40,44 @@ const MIN_PHONE_LENGTH = 8
 const MIN_MESSAGE_LENGTH = 10
 
 /**
- * The {@link partnershipSchema} constant
- * @description Zod schema for the partnership form payload
- */
-const partnershipSchema = z.object({
-  companyName: z.string().min(MIN_NAME_LENGTH, { message: partnershipCopy.COMPANY_ERROR }),
-  contactName: z.string().min(MIN_NAME_LENGTH, { message: partnershipCopy.CONTACT_ERROR }),
-  email: z.string().email({ message: partnershipCopy.EMAIL_ERROR }),
-  phone: z.string().min(MIN_PHONE_LENGTH, { message: partnershipCopy.PHONE_ERROR }),
-  message: z.string().min(MIN_MESSAGE_LENGTH, { message: partnershipCopy.MESSAGE_ERROR }),
-})
-
-/**
  * The {@link PartnershipFormValues} type
- * @description Inferred shape of the partnership form values
+ * @description Shape of the partnership form values
  */
-type PartnershipFormValues = z.infer<typeof partnershipSchema>
+type PartnershipFormValues = {
+  companyName: string
+  contactName: string
+  email: string
+  phone: string
+  message: string
+}
 
 /**
  * The {@link PartnershipForm} component
- * @description Renders the partnership pitch alongside its contact form
+ * @description Renders the partnership pitch alongside its contact form in the
+ * active locale
  * @returns The rendered partnership section
  */
 export function PartnershipForm() {
+  // Read the locale-aware partnership form translations
+  const t = useTranslations('partnershipForm')
+
+  // Read the benefits and types as typed string arrays
+  const benefits = t.raw('benefits') as readonly string[]
+  const types = t.raw('types') as readonly string[]
+
+  // Build the schema bound to the active locale messages
+  const partnershipSchema = useMemo(
+    () =>
+      z.object({
+        companyName: z.string().min(MIN_NAME_LENGTH, { message: t('companyError') }),
+        contactName: z.string().min(MIN_NAME_LENGTH, { message: t('contactError') }),
+        email: z.string().email({ message: t('emailError') }),
+        phone: z.string().min(MIN_PHONE_LENGTH, { message: t('phoneError') }),
+        message: z.string().min(MIN_MESSAGE_LENGTH, { message: t('messageError') }),
+      }),
+    [t],
+  )
+
   // Initialise the form with empty defaults
   const form = useForm<PartnershipFormValues>({
     resolver: zodResolver(partnershipSchema),
@@ -121,16 +88,16 @@ export function PartnershipForm() {
   return (
     <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
       <div className='text-center'>
-        <SectionTitle>{partnershipCopy.SECTION_TITLE}</SectionTitle>
-        <SectionDescription>{partnershipCopy.SECTION_DESCRIPTION}</SectionDescription>
+        <SectionTitle>{t('sectionTitle')}</SectionTitle>
+        <SectionDescription>{t('sectionDescription')}</SectionDescription>
       </div>
 
       <div className='mt-16 grid gap-12 lg:grid-cols-2'>
         <div>
-          <h3 className='font-bold text-xl'>{partnershipCopy.WHY_TITLE}</h3>
+          <h3 className='font-bold text-xl'>{t('whyTitle')}</h3>
 
           <ul className='mt-6 space-y-4'>
-            {partnershipBenefits.map((benefit) => (
+            {benefits.map((benefit) => (
               <li key={benefit} className='flex items-start'>
                 <span className='mr-2 text-primary'>•</span>
                 <span>{benefit}</span>
@@ -138,10 +105,10 @@ export function PartnershipForm() {
             ))}
           </ul>
 
-          <h3 className='mt-12 font-bold text-xl'>{partnershipCopy.TYPES_TITLE}</h3>
+          <h3 className='mt-12 font-bold text-xl'>{t('typesTitle')}</h3>
 
           <ul className='mt-6 space-y-4'>
-            {partnershipTypes.map((type) => (
+            {types.map((type) => (
               <li key={type} className='flex items-start'>
                 <span className='mr-2 text-primary'>•</span>
                 <span>{type}</span>
@@ -158,9 +125,9 @@ export function PartnershipForm() {
                 name='companyName'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{partnershipCopy.COMPANY_LABEL}</FormLabel>
+                    <FormLabel>{t('companyLabel')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={partnershipCopy.COMPANY_PLACEHOLDER} {...field} />
+                      <Input placeholder={t('companyPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -172,9 +139,9 @@ export function PartnershipForm() {
                 name='contactName'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{partnershipCopy.CONTACT_LABEL}</FormLabel>
+                    <FormLabel>{t('contactLabel')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={partnershipCopy.CONTACT_PLACEHOLDER} {...field} />
+                      <Input placeholder={t('contactPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -187,9 +154,9 @@ export function PartnershipForm() {
                   name='email'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{partnershipCopy.EMAIL_LABEL}</FormLabel>
+                      <FormLabel>{t('emailLabel')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={partnershipCopy.EMAIL_PLACEHOLDER} {...field} />
+                        <Input placeholder={t('emailPlaceholder')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -201,9 +168,9 @@ export function PartnershipForm() {
                   name='phone'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{partnershipCopy.PHONE_LABEL}</FormLabel>
+                      <FormLabel>{t('phoneLabel')}</FormLabel>
                       <FormControl>
-                        <Input placeholder={partnershipCopy.PHONE_PLACEHOLDER} {...field} />
+                        <Input placeholder={t('phonePlaceholder')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -216,10 +183,10 @@ export function PartnershipForm() {
                 name='message'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{partnershipCopy.MESSAGE_LABEL}</FormLabel>
+                    <FormLabel>{t('messageLabel')}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder={partnershipCopy.MESSAGE_PLACEHOLDER}
+                        placeholder={t('messagePlaceholder')}
                         className='resize-none'
                         {...field}
                       />
@@ -230,7 +197,7 @@ export function PartnershipForm() {
               />
 
               <Button type='submit' variant='secondary'>
-                {partnershipCopy.SUBMIT_LABEL}
+                {t('submitLabel')}
               </Button>
             </form>
           </Form>

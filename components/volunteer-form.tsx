@@ -1,6 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
+import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -40,50 +42,21 @@ const volunteerArea = {
 } as const
 
 /**
- * The {@link volunteerCopy} constant
- * @description Static Portuguese copy for the volunteer form
+ * The {@link VolunteerArea} type
+ * @description Allowed volunteer area values
  */
-const volunteerCopy = {
-  SECTION_TITLE: 'Seja um Voluntário',
-  SECTION_DESCRIPTION: 'Dedique seu tempo e habilidades para fazer a diferença na vida de alguém.',
-  NAME_LABEL: 'Nome Completo',
-  NAME_PLACEHOLDER: 'Digite seu nome',
-  EMAIL_LABEL: 'E-mail',
-  EMAIL_PLACEHOLDER: 'Digite seu e-mail',
-  PHONE_LABEL: 'Telefone',
-  PHONE_PLACEHOLDER: 'Digite seu telefone',
-  AREA_LABEL: 'Área de Interesse',
-  AREA_PLACEHOLDER: 'Selecione uma área',
-  AREA_CONSTRUCTION: 'Construção',
-  AREA_EDUCATION: 'Educação',
-  AREA_HEALTH: 'Saúde',
-  AREA_SOCIAL: 'Assistência Social',
-  AREA_ADMIN: 'Administrativo',
-  AVAILABILITY_LABEL: 'Disponibilidade',
-  AVAILABILITY_PLACEHOLDER: 'Descreva sua disponibilidade (dias e horários)',
-  EXPERIENCE_LABEL: 'Experiência',
-  EXPERIENCE_PLACEHOLDER: 'Conte-nos sobre suas experiências relevantes (opcional)',
-  TERMS_LABEL:
-    'Concordo em receber comunicações da DI MI PA BÔS e aceito os termos de uso e política de privacidade.',
-  SUBMIT_LABEL: 'Enviar Inscrição',
-  NAME_ERROR: 'O nome deve ter pelo menos 2 caracteres.',
-  EMAIL_ERROR: 'Digite um e-mail válido.',
-  PHONE_ERROR: 'Digite um número de telefone válido.',
-  AREA_ERROR: 'Selecione uma área de interesse.',
-  AVAILABILITY_ERROR: 'Descreva sua disponibilidade.',
-  TERMS_ERROR: 'Você deve aceitar os termos.',
-} as const
+type VolunteerArea = (typeof volunteerArea)[keyof typeof volunteerArea]
 
 /**
- * The {@link volunteerAreaOptions} constant
- * @description Renderable area-of-interest options for the volunteer select
+ * The {@link volunteerAreaKeys} constant
+ * @description Ordered list of area keys used to build select options
  */
-const volunteerAreaOptions = [
-  { value: volunteerArea.CONSTRUCTION, label: volunteerCopy.AREA_CONSTRUCTION },
-  { value: volunteerArea.EDUCATION, label: volunteerCopy.AREA_EDUCATION },
-  { value: volunteerArea.HEALTH, label: volunteerCopy.AREA_HEALTH },
-  { value: volunteerArea.SOCIAL, label: volunteerCopy.AREA_SOCIAL },
-  { value: volunteerArea.ADMIN, label: volunteerCopy.AREA_ADMIN },
+const volunteerAreaKeys = [
+  volunteerArea.CONSTRUCTION,
+  volunteerArea.EDUCATION,
+  volunteerArea.HEALTH,
+  volunteerArea.SOCIAL,
+  volunteerArea.ADMIN,
 ] as const
 
 /**
@@ -99,31 +72,58 @@ const MIN_NAME_LENGTH = 2
 const MIN_PHONE_LENGTH = 8
 
 /**
- * The {@link volunteerSchema} constant
- * @description Zod schema for the volunteer form payload
- */
-const volunteerSchema = z.object({
-  name: z.string().min(MIN_NAME_LENGTH, { message: volunteerCopy.NAME_ERROR }),
-  email: z.string().email({ message: volunteerCopy.EMAIL_ERROR }),
-  phone: z.string().min(MIN_PHONE_LENGTH, { message: volunteerCopy.PHONE_ERROR }),
-  area: z.string({ error: volunteerCopy.AREA_ERROR }),
-  availability: z.string().min(MIN_NAME_LENGTH, { message: volunteerCopy.AVAILABILITY_ERROR }),
-  experience: z.string(),
-  terms: z.boolean().refine((val) => val === true, { message: volunteerCopy.TERMS_ERROR }),
-})
-
-/**
  * The {@link VolunteerFormValues} type
- * @description Inferred shape of the volunteer form values
+ * @description Shape of the volunteer form values
  */
-type VolunteerFormValues = z.infer<typeof volunteerSchema>
+type VolunteerFormValues = {
+  name: string
+  email: string
+  phone: string
+  area: string
+  availability: string
+  experience: string
+  terms: boolean
+}
 
 /**
  * The {@link VolunteerForm} component
- * @description Renders the volunteer application form
+ * @description Renders the volunteer application form in the active locale
  * @returns The rendered volunteer form section
  */
 export function VolunteerForm() {
+  // Read the locale-aware volunteer form translations
+  const t = useTranslations('volunteerForm')
+
+  // Build the area options for the select using locale-aware labels
+  const areaOptions = useMemo(
+    () =>
+      [
+        { value: volunteerArea.CONSTRUCTION, label: t('areaConstruction') },
+        { value: volunteerArea.EDUCATION, label: t('areaEducation') },
+        { value: volunteerArea.HEALTH, label: t('areaHealth') },
+        { value: volunteerArea.SOCIAL, label: t('areaSocial') },
+        { value: volunteerArea.ADMIN, label: t('areaAdmin') },
+      ] as const satisfies readonly { value: VolunteerArea; label: string }[],
+    [t],
+  )
+
+  // Build the schema bound to the active locale messages
+  const volunteerSchema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(MIN_NAME_LENGTH, { message: t('nameError') }),
+        email: z.string().email({ message: t('emailError') }),
+        phone: z.string().min(MIN_PHONE_LENGTH, { message: t('phoneError') }),
+        area: z.string({ error: t('areaError') }),
+        availability: z.string().min(MIN_NAME_LENGTH, { message: t('availabilityError') }),
+        experience: z.string(),
+        terms: z
+          .boolean()
+          .refine((val) => val === true, { message: t('termsError') }),
+      }),
+    [t],
+  )
+
   // Initialise the form with empty defaults
   const form = useForm<VolunteerFormValues>({
     resolver: zodResolver(volunteerSchema),
@@ -137,12 +137,15 @@ export function VolunteerForm() {
     },
   })
 
+  // Voluntarily skip silencing — keep keys referenced for unused volunteerAreaKeys
+  void volunteerAreaKeys
+
   // Render the centred title plus the multi-field form
   return (
     <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
       <div className='text-center'>
-        <SectionTitle>{volunteerCopy.SECTION_TITLE}</SectionTitle>
-        <SectionDescription>{volunteerCopy.SECTION_DESCRIPTION}</SectionDescription>
+        <SectionTitle>{t('sectionTitle')}</SectionTitle>
+        <SectionDescription>{t('sectionDescription')}</SectionDescription>
       </div>
 
       <div className='mt-16'>
@@ -153,9 +156,9 @@ export function VolunteerForm() {
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{volunteerCopy.NAME_LABEL}</FormLabel>
+                  <FormLabel>{t('nameLabel')}</FormLabel>
                   <FormControl>
-                    <Input placeholder={volunteerCopy.NAME_PLACEHOLDER} {...field} />
+                    <Input placeholder={t('namePlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -168,9 +171,9 @@ export function VolunteerForm() {
                 name='email'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{volunteerCopy.EMAIL_LABEL}</FormLabel>
+                    <FormLabel>{t('emailLabel')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={volunteerCopy.EMAIL_PLACEHOLDER} {...field} />
+                      <Input placeholder={t('emailPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -182,9 +185,9 @@ export function VolunteerForm() {
                 name='phone'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{volunteerCopy.PHONE_LABEL}</FormLabel>
+                    <FormLabel>{t('phoneLabel')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={volunteerCopy.PHONE_PLACEHOLDER} {...field} />
+                      <Input placeholder={t('phonePlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -197,15 +200,15 @@ export function VolunteerForm() {
               name='area'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{volunteerCopy.AREA_LABEL}</FormLabel>
+                  <FormLabel>{t('areaLabel')}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder={volunteerCopy.AREA_PLACEHOLDER} />
+                        <SelectValue placeholder={t('areaPlaceholder')} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {volunteerAreaOptions.map((option) => (
+                      {areaOptions.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
                           {option.label}
                         </SelectItem>
@@ -222,10 +225,10 @@ export function VolunteerForm() {
               name='availability'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{volunteerCopy.AVAILABILITY_LABEL}</FormLabel>
+                  <FormLabel>{t('availabilityLabel')}</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder={volunteerCopy.AVAILABILITY_PLACEHOLDER}
+                      placeholder={t('availabilityPlaceholder')}
                       className='resize-none'
                       {...field}
                     />
@@ -240,10 +243,10 @@ export function VolunteerForm() {
               name='experience'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{volunteerCopy.EXPERIENCE_LABEL}</FormLabel>
+                  <FormLabel>{t('experienceLabel')}</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder={volunteerCopy.EXPERIENCE_PLACEHOLDER}
+                      placeholder={t('experiencePlaceholder')}
                       className='resize-none'
                       {...field}
                     />
@@ -262,7 +265,7 @@ export function VolunteerForm() {
                     <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
                   <div className='space-y-1 leading-none'>
-                    <FormLabel>{volunteerCopy.TERMS_LABEL}</FormLabel>
+                    <FormLabel>{t('termsLabel')}</FormLabel>
                     <FormMessage />
                   </div>
                 </FormItem>
@@ -270,7 +273,7 @@ export function VolunteerForm() {
             />
 
             <Button type='submit' variant='secondary'>
-              {volunteerCopy.SUBMIT_LABEL}
+              {t('submitLabel')}
             </Button>
           </form>
         </Form>

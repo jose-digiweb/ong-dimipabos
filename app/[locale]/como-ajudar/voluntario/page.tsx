@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import projEducacao from '@/assets/projectos/proj_educacao.jpeg'
 import { CTASection } from '@/components/cta'
@@ -12,57 +13,57 @@ import {
   HeroTopText,
   HeroWrapper,
 } from '@/components/heroSection'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { TestimonialSection } from '@/components/testimonial-section'
 import { VolunteerForm } from '@/components/volunteer-form'
-import { JsonLd } from '@/components/seo/JsonLd'
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
- * The {@link metadata} constant
- * @description Per-route SEO metadata for the volunteer page
+ * The {@link VolunteerRouteProps} type
+ * @description Route props for the volunteer page
  */
-export const metadata: Metadata = buildMetadata({
-  title: 'Seja Voluntário',
-  description:
-    'Doe o seu tempo e talento como voluntário da DI MI PA BÔS e ajude a transformar vidas na Guiné-Bissau.',
-  path: '/como-ajudar/voluntario',
-})
+type VolunteerRouteProps = {
+  params: Promise<{ locale: string }>
+}
 
 /**
- * The {@link volunteerPageCopy} constant
- * @description Static Portuguese copy used by the volunteer page
+ * The {@link generateMetadata} export
+ * @description Locale-aware SEO metadata for the volunteer page
+ * @param {VolunteerRouteProps} props - The route props
+ * @returns {Promise<Metadata>} The metadata for the active locale
  */
-const volunteerPageCopy = {
-  HERO_TOP: 'Como Ajudar / Voluntário',
-  HERO_TITLE: 'Seja Voluntário e Mude Vidas',
-  HERO_SUBTITLE: 'Some Sua Energia à Nossa Missão',
-  HERO_DESCRIPTION:
-    'Doe seu tempo e talento para nossos programas de acompanhamento, suporte emocional e atividades terapêuticas. Cada hora dedicada transforma uma história.',
-  STAT_VOLUNTEERS_LABEL: 'Voluntários Ativos',
-  CARD_TITLE: 'Por que ser Voluntário',
-  CARD_BODY:
-    'Faça parte de uma equipe que acolhe, escuta e reconstrói trajetórias junto com pessoas em situação de vulnerabilidade.',
-} as const
+export async function generateMetadata({ params }: VolunteerRouteProps): Promise<Metadata> {
+  // Resolve the locale and read the SEO copy
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'volunteerPage' })
 
-/**
- * The {@link volunteerStats} constant
- * @description Hero statistic values for the volunteer page
- */
-const volunteerStats = {
-  VOLUNTEERS: '5',
-} as const
+  // Build the metadata with the localised title and description
+  return buildMetadata({
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+    path: '/como-ajudar/voluntario',
+  })
+}
 
 /**
  * The {@link VolunteerPage} component
  * @description Renders the standalone volunteer page
+ * @param {VolunteerRouteProps} props - The route props
  * @returns The rendered volunteer page
  */
-export default function VolunteerPage() {
+export default async function VolunteerPage({ params }: VolunteerRouteProps) {
+  // Opt this route into static rendering for the active locale
+  const { locale } = await params
+  setRequestLocale(locale)
+
+  // Read the locale-aware volunteer page translations
+  const t = await getTranslations('volunteerPage')
+
   // Build the breadcrumb schema for this route
   const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: 'Início', path: '/' },
-    { name: 'Seja Voluntário', path: '/como-ajudar/voluntario' },
+    { name: t('breadcrumbHome'), path: '/' },
+    { name: t('breadcrumbVolunteer'), path: '/como-ajudar/voluntario' },
   ])
 
   // Render the full volunteer page layout
@@ -71,24 +72,24 @@ export default function VolunteerPage() {
       <JsonLd data={breadcrumbSchema} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
-          <HeroTopText>{volunteerPageCopy.HERO_TOP}</HeroTopText>
+          <HeroTopText>{t('heroTop')}</HeroTopText>
 
-          <HeroTitle>{volunteerPageCopy.HERO_TITLE}</HeroTitle>
-          <HeroSubtitle>{volunteerPageCopy.HERO_SUBTITLE}</HeroSubtitle>
+          <HeroTitle>{t('heroTitle')}</HeroTitle>
+          <HeroSubtitle>{t('heroSubtitle')}</HeroSubtitle>
 
-          <HeroDescription>{volunteerPageCopy.HERO_DESCRIPTION}</HeroDescription>
+          <HeroDescription>{t('heroDescription')}</HeroDescription>
 
           <div className='mt-10 flex items-center gap-4'>
             <HeroStats
-              value={volunteerStats.VOLUNTEERS}
-              label={volunteerPageCopy.STAT_VOLUNTEERS_LABEL}
+              value={t('statVolunteersValue')}
+              label={t('statVolunteersLabel')}
             />
           </div>
         </div>
 
         <HeroCardSection>
-          <HeroCard variant='ajudar' title={volunteerPageCopy.CARD_TITLE} image={projEducacao}>
-            {volunteerPageCopy.CARD_BODY}
+          <HeroCard variant='ajudar' title={t('cardTitle')} image={projEducacao}>
+            {t('cardBody')}
           </HeroCard>
         </HeroCardSection>
       </HeroWrapper>

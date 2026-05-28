@@ -264,9 +264,7 @@ export default async function ContactPage({ params }: ContactRouteProps) {
             <div>
               <SectionTitle>{t('formTitle')}</SectionTitle>
 
-              <SectionDescription className='mx-0'>
-                {t('formDescription')}
-              </SectionDescription>
+              <SectionDescription className='mx-0'>{t('formDescription')}</SectionDescription>
 
               <div className='mt-8'>
                 <ContactForm />
