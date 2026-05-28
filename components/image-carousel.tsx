@@ -79,11 +79,7 @@ export const ImageCarousel = async () => {
             <Image
               fill
               priority={index < CAROUSEL_PRIORITY_COUNT}
-              alt={
-                image.key
-                  ? `${altPrefix} — ${humanizeKey(image.key)}`
-                  : altPrefix
-              }
+              alt={image.key ? `${altPrefix} — ${humanizeKey(image.key)}` : altPrefix}
               src={cfImage(image.url, { width: 800 })}
               sizes={CAROUSEL_IMAGE_SIZES}
               className='object-cover object-top'
