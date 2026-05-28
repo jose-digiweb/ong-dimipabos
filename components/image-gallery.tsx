@@ -90,7 +90,7 @@ export function ImageGallery({ images, alt }: ImageGalleryProps) {
             >
               <X className='h-6 w-6' />
             </Button>
-            <div className='relative aspect-4/3 min-h-[300px] w-full min-w-[300px] md:min-h-[500px] md:min-w-[500px]'>
+            <div className='relative aspect-4/3 min-h-75 w-full min-w-75 md:min-h-125 md:min-w-125'>
               <Image
                 src={images[currentImage] || galleryFallback.PLACEHOLDER_SRC}
                 alt={imageAlt}

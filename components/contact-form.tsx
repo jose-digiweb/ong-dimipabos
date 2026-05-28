@@ -141,7 +141,7 @@ export function ContactForm() {
               <FormControl>
                 <Textarea
                   placeholder={contactCopy.MESSAGE_PLACEHOLDER}
-                  className='min-h-[120px] resize-none'
+                  className='min-h-30 resize-none'
                   {...field}
                 />
               </FormControl>

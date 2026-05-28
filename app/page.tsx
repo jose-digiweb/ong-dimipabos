@@ -21,10 +21,12 @@ import { Button } from '@/components/ui/button'
 import { SectionDescription, SectionTitle } from '@/components/section'
 
 /**
- * The dynamic export
- * @description Forces dynamic rendering — the homepage reads R2 images at request time via `getCloudflareContext()`
+ * The revalidate export
+ * @description ISR cadence in seconds. The homepage carousel reads R2 once per
+ * week, and Cloudflare Workers deploys reset the ISR cache automatically, so
+ * the practical refresh interval is `min(1 week, next deploy)`.
  */
-export const dynamic = 'force-dynamic'
+export const revalidate = 604800
 
 /**
  * The {@link homeRoute} constant
@@ -178,7 +180,7 @@ export default function Page() {
             </div>
           }
         >
-          <div className='mx-auto w-full max-w-[1400px]'>
+          <div className='mx-auto w-full max-w-350'>
             <ImageCarousel />
           </div>
         </Suspense>

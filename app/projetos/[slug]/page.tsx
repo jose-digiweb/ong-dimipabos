@@ -236,7 +236,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <section className='py-10 sm:py-16'>
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <Tabs defaultValue='sobre' className='space-y-6 sm:space-y-8'>
-            <TabsList className='grid w-full grid-cols-2 sm:w-[400px]'>
+            <TabsList className='grid w-full grid-cols-2 sm:w-100'>
               <TabsTrigger value='sobre'>{projectPageCopy.TAB_ABOUT}</TabsTrigger>
               <TabsTrigger value='galeria'>{projectPageCopy.TAB_GALLERY}</TabsTrigger>
             </TabsList>

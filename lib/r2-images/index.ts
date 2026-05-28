@@ -11,8 +11,9 @@ export type { R2Image } from './types'
  * @returns {Promise<R2Image[]>} The list of R2 images with public URLs
  */
 export async function getR2Images(): Promise<R2Image[]> {
-  // Resolve the Cloudflare bindings for the current request
-  const { env } = getCloudflareContext()
+  // Resolve the Cloudflare bindings — async mode is required so this can run
+  // during ISR prerender (where there is no incoming request context).
+  const { env } = await getCloudflareContext({ async: true })
 
   // Compute the public base URL once before iterating
   const publicBaseUrl = getPublicBaseUrl()
