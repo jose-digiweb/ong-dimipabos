@@ -300,7 +300,7 @@ export function Header() {
                       })}
                     </div>
                     <div className='py-6 space-y-4'>
-                      <LanguageSwitcher />
+                      <LanguageSwitcher tone='onLight' />
                       <CTAButton className='w-full' onClick={closeMenu} />
                     </div>
                   </div>
