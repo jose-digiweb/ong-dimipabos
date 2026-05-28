@@ -17,6 +17,7 @@ import type { ProjectStatus, ProjectType } from '@/lib/data'
 import { cfImage } from '@/lib/img'
 import { buildArticleSchema, buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
+import type { Locale } from '@/i18n/config'
 
 /**
  * The {@link projectsRoute} constant
@@ -43,7 +44,7 @@ const projectStatusBadgeClass = {
  * @description Props for the {@link ProjectPage} component
  */
 type ProjectPageProps = {
-  params: Promise<{ locale: string; slug: string }>
+  params: Promise<{ locale: Locale; slug: string }>
 }
 
 /**
@@ -95,6 +96,7 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     title: t('title'),
     description: t('shortDescription'),
     path: `/projetos/${project.slug}`,
+    locale,
     image: cfImage(project.image, { width: 1200, height: 630 }),
     ogType: 'article',
   })

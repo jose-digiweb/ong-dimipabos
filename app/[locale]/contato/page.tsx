@@ -26,13 +26,14 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Link } from '@/i18n/navigation'
 import { buildBreadcrumbSchema, buildContactPageSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
+import type { Locale } from '@/i18n/config'
 
 /**
  * The {@link ContactRouteProps} type
  * @description Route props for the contact page
  */
 type ContactRouteProps = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 /**
@@ -51,6 +52,7 @@ export async function generateMetadata({ params }: ContactRouteProps): Promise<M
     title: t('metaTitle'),
     description: t('metaDescription'),
     path: '/contato',
+    locale,
   })
 }
 

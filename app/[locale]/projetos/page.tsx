@@ -20,13 +20,14 @@ import { Link } from '@/i18n/navigation'
 import { projects } from '@/lib/data'
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
+import type { Locale } from '@/i18n/config'
 
 /**
  * The {@link ProjectsHubRouteProps} type
  * @description Route props for the projects index page
  */
 type ProjectsHubRouteProps = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 /**
@@ -45,6 +46,7 @@ export async function generateMetadata({ params }: ProjectsHubRouteProps): Promi
     title: t('metaTitle'),
     description: t('metaDescription'),
     path: '/projetos',
+    locale,
   })
 }
 

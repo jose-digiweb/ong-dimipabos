@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { HeroDescription, HeroTitle, HeroTopText, HeroWrapper } from '@/components/heroSection'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { Link } from '@/i18n/navigation'
+import type { Locale } from '@/i18n/config'
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
@@ -23,7 +24,7 @@ type LegalSection = {
  * @description Route props for the terms page
  */
 type TermsRouteProps = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 /**
@@ -42,6 +43,7 @@ export async function generateMetadata({ params }: TermsRouteProps): Promise<Met
     title: t('metaTitle'),
     description: t('metaDescription'),
     path: '/termos',
+    locale,
   })
 }
 

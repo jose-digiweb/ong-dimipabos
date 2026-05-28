@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Image from 'next/image'
 import { Suspense } from 'react'
@@ -5,6 +6,8 @@ import { Suspense } from 'react'
 import cardImage from '@/assets/dimipabos_logo_2.png'
 import heroImage from '@/assets/heroSection/hero_image.jpg'
 import { CTAButton, CTASection } from '@/components/cta'
+import type { Locale } from '@/i18n/config'
+import { buildMetadata } from '@/lib/seo/metadata'
 import {
   HeroCard,
   HeroCardSection,
@@ -64,7 +67,27 @@ const homeProjectIcons = [
  * @description Props for the homepage server component
  */
 type PageProps = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
+}
+
+/**
+ * The {@link generateMetadata} export
+ * @description Locale-aware SEO metadata for the homepage
+ * @param {PageProps} props - The route props
+ * @returns {Promise<Metadata>} The metadata for the active locale
+ */
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  // Resolve the locale and read the SEO copy
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'home' })
+
+  // Build the metadata with the localised title and description
+  return buildMetadata({
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+    path: '/',
+    locale,
+  })
 }
 
 /**

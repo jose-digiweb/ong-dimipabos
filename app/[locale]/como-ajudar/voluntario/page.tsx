@@ -18,13 +18,14 @@ import { TestimonialSection } from '@/components/testimonial-section'
 import { VolunteerForm } from '@/components/volunteer-form'
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
+import type { Locale } from '@/i18n/config'
 
 /**
  * The {@link VolunteerRouteProps} type
  * @description Route props for the volunteer page
  */
 type VolunteerRouteProps = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 /**
@@ -43,6 +44,7 @@ export async function generateMetadata({ params }: VolunteerRouteProps): Promise
     title: t('metaTitle'),
     description: t('metaDescription'),
     path: '/como-ajudar/voluntario',
+    locale,
   })
 }
 

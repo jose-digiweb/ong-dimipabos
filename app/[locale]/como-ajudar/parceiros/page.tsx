@@ -17,13 +17,14 @@ import { PartnershipForm } from '@/components/partnership-form'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
+import type { Locale } from '@/i18n/config'
 
 /**
  * The {@link PartnersRouteProps} type
  * @description Route props for the partners page
  */
 type PartnersRouteProps = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 /**
@@ -42,6 +43,7 @@ export async function generateMetadata({ params }: PartnersRouteProps): Promise<
     title: t('metaTitle'),
     description: t('metaDescription'),
     path: '/como-ajudar/parceiros',
+    locale,
   })
 }
 

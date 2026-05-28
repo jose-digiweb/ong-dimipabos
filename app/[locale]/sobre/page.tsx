@@ -23,13 +23,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Link } from '@/i18n/navigation'
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
+import type { Locale } from '@/i18n/config'
 
 /**
  * The {@link SobreRouteProps} type
  * @description Props for the sobre route segment (metadata + page)
  */
 type SobreRouteProps = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 /**
@@ -48,6 +49,7 @@ export async function generateMetadata({ params }: SobreRouteProps): Promise<Met
     title: t('metaTitle'),
     description: t('metaDescription'),
     path: '/sobre',
+    locale,
   })
 }
 

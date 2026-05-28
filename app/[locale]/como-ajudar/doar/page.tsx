@@ -16,13 +16,14 @@ import {
 import { JsonLd } from '@/components/seo/JsonLd'
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
+import type { Locale } from '@/i18n/config'
 
 /**
  * The {@link DonateRouteProps} type
  * @description Route props for the donate page
  */
 type DonateRouteProps = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 /**
@@ -41,6 +42,7 @@ export async function generateMetadata({ params }: DonateRouteProps): Promise<Me
     title: t('metaTitle'),
     description: t('metaDescription'),
     path: '/como-ajudar/doar',
+    locale,
   })
 }
 
