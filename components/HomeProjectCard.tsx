@@ -1,8 +1,11 @@
+'use client'
+
 import { ArrowRight, Heart, Home, Users } from 'lucide-react'
-import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 import { type ReactNode, useMemo } from 'react'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 
 /**
@@ -32,14 +35,6 @@ const homeProjectIconMap = {
 } as const
 
 /**
- * The {@link homeProjectCopy} constant
- * @description Static copy used by the {@link HomeProjectCard} component
- */
-const homeProjectCopy = {
-  LEARN_MORE: 'Saiba mais',
-} as const
-
-/**
  * The {@link HomeProjectCardProps} type
  * @description Props for the {@link HomeProjectCard} component
  */
@@ -65,7 +60,7 @@ const getIcon = (icon: HomeProjectIcon) => {
  * The {@link HomeProjectCard} component
  * @description Compact card used on the home page to preview a project area
  * @param {HomeProjectCardProps} props - The component props
- * @param {string} props.title - The card title
+ * @param {string} props.title - The card title (already translated by the caller)
  * @param {ReactNode} props.children - The card description content
  * @param {string} props.href - The route for the "learn more" link
  * @param {HomeProjectIcon} props.icon - Which icon key to render
@@ -82,6 +77,9 @@ export const HomeProjectCard = ({
   // Memoise the icon component so it is not re-resolved on every render
   const Icon = useMemo(() => getIcon(icon), [icon])
 
+  // Read the shared home-card copy
+  const t = useTranslations('projects.homeCard')
+
   // Render the styled card with header icon/title, body copy and learn-more link
   return (
     <Card className={cn('flex flex-col', className)}>
@@ -96,9 +94,9 @@ export const HomeProjectCard = ({
         <Link
           href={href}
           className='mt-4 inline-flex items-center font-medium text-primary hover:text-secondary/90'
-          aria-label={`${homeProjectCopy.LEARN_MORE} sobre ${title}`}
+          aria-label={`${t('learnMoreAriaPrefix')} ${title}`}
         >
-          {homeProjectCopy.LEARN_MORE}
+          {t('learnMore')}
           <ArrowRight className='ml-1 size-4' />
         </Link>
       </CardContent>

@@ -160,5 +160,70 @@
         "description": "Passionate about helping people in vulnerable situations."
       }
     }
+  },
+  "projectsHub": {
+    "metaTitle": "Projects",
+    "metaDescription": "Discover the projects of DI MI PA BÔS, including the Treatment and Rehabilitation Centre in Guinea-Bissau.",
+    "breadcrumbHome": "Home",
+    "breadcrumbProjects": "Projects",
+    "heroTop": "Our Projects",
+    "heroTitle": "Recovery and a New Life",
+    "heroSubtitle": "Discover our rehabilitation programmes",
+    "heroDescription": "Through our projects we offer a complete path to recovery, from initial shelter to post-treatment follow-up, ensuring safe and lasting reintegration.",
+    "ctaSupport": "Support Our Projects",
+    "ctaVolunteer": "Volunteer",
+    "cardTitle": "Our Programmes",
+    "cardBody": "Specialised and humane treatment for chemical dependency.",
+    "featuredTitle": "Featured Projects",
+    "featuredDescription": "Discover our flagship projects and the impact we are making in the community."
+  },
+  "projectDetail": {
+    "backToProjects": "Back to Projects",
+    "breadcrumbHome": "Home",
+    "breadcrumbProjects": "Projects",
+    "status": {
+      "captacao": "Fundraising",
+      "planejamento": "Planning",
+      "andamento": "In Progress",
+      "concluido": "Completed"
+    },
+    "locationLabel": "Location",
+    "startLabel": "Start",
+    "capacityLabel": "Capacity",
+    "tabAbout": "About the Project",
+    "tabGallery": "Gallery",
+    "detailsTitle": "Project Details",
+    "teamTitle": "Project Team",
+    "contactTitle": "Contact",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "emptyGallery": "No images available at the moment."
+  },
+  "projects": {
+    "card": {
+      "readMore": "Read More",
+      "readMoreAriaPrefix": "Read more about"
+    },
+    "homeCard": {
+      "learnMore": "Learn more",
+      "learnMoreAriaPrefix": "Learn more about"
+    },
+    "items": {
+      "centro-tratamento": {
+        "title": "Treatment and Rehabilitation Centre",
+        "description": "The first specialised treatment and rehabilitation centre for people facing chemical dependency in Guinea-Bissau.",
+        "shortDescription": "Specialised treatment with a multidisciplinary team.",
+        "longDescription": "Our flagship project is the construction of a modern, humane treatment centre. With the land already acquired in 2023, we are now in the fundraising phase to begin construction.\n\nThe centre will be equipped with:\n• Dormitories for up to 20 people\n• Communal and leisure areas\n• Rooms for individual and group sessions\n• Dining hall and industrial kitchen\n• Space for therapeutic activities",
+        "location": "Bissau, Guinea-Bissau",
+        "capacity": "20 people",
+        "contactRole": "General Coordinator",
+        "team": [
+          "Specialised medical team",
+          "Psychologists",
+          "Social workers",
+          "Occupational therapists"
+        ]
+      }
+    }
   }
 }

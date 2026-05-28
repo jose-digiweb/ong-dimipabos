@@ -8,32 +8,28 @@ export type ProjectStatus = (typeof projectStatus)[keyof typeof projectStatus]
 
 /**
  * The {@link ProjectContact} type
- * @description The contact information attached to a project
+ * @description The locale-independent contact information attached to a project.
+ * The contact role label is read from translations under
+ * `projects.items.<slug>.contactRole`.
  */
 export type ProjectContact = {
   name: string
-  role: string
   email: string
   phone: string
 }
 
 /**
  * The {@link ProjectType} type
- * @description The shape of a single project entry rendered on the projetos pages
+ * @description The locale-independent shape of a single project entry rendered on
+ * the projetos pages. Translatable fields (title, descriptions, team, contact
+ * role, location, capacity) live in messages under `projects.items.<slug>`.
  */
 export type ProjectType = {
   id: string
   slug: string
-  title: string
   status: ProjectStatus
-  description: string
-  shortDescription: string
-  longDescription: string
-  location: string
   startDate: string
-  capacity: string
   image: string
   images: string[]
-  team: string[]
   contact: ProjectContact
 }

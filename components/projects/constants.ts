@@ -1,12 +1,4 @@
 /**
- * The {@link projectCardCopy} constant
- * @description Static copy used by the {@link ProjectCard} component
- */
-export const projectCardCopy = {
-  READ_MORE: 'Leia Mais',
-} as const
-
-/**
  * The {@link projectRoute} constant
  * @description Route helpers for project pages
  */

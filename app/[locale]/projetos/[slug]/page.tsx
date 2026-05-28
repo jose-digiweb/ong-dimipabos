@@ -1,44 +1,22 @@
 import { ArrowLeft, Calendar, Mail, MapPin, Phone, Users } from 'lucide-react'
 import type { Metadata } from 'next'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Image from 'next/image'
-import { Link } from '@/i18n/navigation'
 import { notFound } from 'next/navigation'
 
 import { CTASection } from '@/components/cta'
 import { ImageGallery } from '@/components/image-gallery'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Link } from '@/i18n/navigation'
+import { routing } from '@/i18n/routing'
 import { projects } from '@/lib/data'
 import type { ProjectStatus, ProjectType } from '@/lib/data'
-import { JsonLd } from '@/components/seo/JsonLd'
 import { cfImage } from '@/lib/img'
 import { buildArticleSchema, buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
-import { routing } from '@/i18n/routing'
-
-/**
- * The {@link projectPageCopy} constant
- * @description Static Portuguese copy used by the project detail page
- */
-const projectPageCopy = {
-  BACK_TO_PROJECTS: 'Voltar para Projetos',
-  BADGE_CAPTACAO: 'Em Captação de Recursos',
-  BADGE_PLANEJAMENTO: 'Em Planejamento',
-  BADGE_ANDAMENTO: 'Em Andamento',
-  BADGE_CONCLUIDO: 'Concluído',
-  LOCATION_LABEL: 'Localização',
-  START_LABEL: 'Início',
-  CAPACITY_LABEL: 'Capacidade',
-  TAB_ABOUT: 'Sobre o Projeto',
-  TAB_GALLERY: 'Galeria',
-  DETAILS_TITLE: 'Detalhes do Projeto',
-  TEAM_TITLE: 'Equipe do Projeto',
-  CONTACT_TITLE: 'Contato',
-  EMAIL_LABEL: 'E-mail',
-  PHONE_LABEL: 'Telefone',
-  EMPTY_GALLERY: 'Nenhuma imagem disponível no momento.',
-} as const
 
 /**
  * The {@link projectsRoute} constant
@@ -49,18 +27,16 @@ const projectsRoute = {
 } as const
 
 /**
- * The {@link projectStatusBadge} constant
- * @description Status-to-badge presentation map
+ * The {@link projectStatusBadgeClass} constant
+ * @description Status-to-badge className map (presentation only). Labels come
+ * from translations under `projectDetail.status.<status>`.
  */
-const projectStatusBadge = {
-  captacao: { label: projectPageCopy.BADGE_CAPTACAO, className: 'bg-yellow-500 text-white' },
-  planejamento: {
-    label: projectPageCopy.BADGE_PLANEJAMENTO,
-    className: 'bg-blue-500 text-white',
-  },
-  andamento: { label: projectPageCopy.BADGE_ANDAMENTO, className: 'bg-green-500 text-white' },
-  concluido: { label: projectPageCopy.BADGE_CONCLUIDO, className: 'bg-green-500 text-white' },
-} as const satisfies Record<ProjectStatus, { label: string; className: string }>
+const projectStatusBadgeClass = {
+  captacao: 'bg-yellow-500 text-white',
+  planejamento: 'bg-blue-500 text-white',
+  andamento: 'bg-green-500 text-white',
+  concluido: 'bg-green-500 text-white',
+} as const satisfies Record<ProjectStatus, string>
 
 /**
  * The {@link ProjectPageProps} type
@@ -95,16 +71,15 @@ export async function generateStaticParams(): Promise<{ locale: string; slug: st
 
 /**
  * The {@link generateMetadata} export
- * @description Builds per-project SEO metadata including canonical URL and Open Graph image
+ * @description Builds per-project SEO metadata for the active locale
  * @param {ProjectPageProps} props - The route props
- * @param {Promise<{ slug: string }>} props.params - The dynamic route params
  * @returns {Promise<Metadata>} The metadata for the resolved project, or empty when missing
  */
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-  // Resolve the slug from the dynamic params
-  const slug = (await params).slug
+  // Resolve the route params
+  const { locale, slug } = await params
 
-  // Look up the matching project
+  // Look up the matching project shell
   const project = await getProject(slug)
 
   // Return empty metadata when the project does not exist so notFound takes over rendering
@@ -112,10 +87,13 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
     return {}
   }
 
+  // Read the project-specific translations for the active locale
+  const t = await getTranslations({ locale, namespace: `projects.items.${slug}` })
+
   // Build per-project metadata with canonical URL and project image as the OG card
   return buildMetadata({
-    title: project.title,
-    description: project.shortDescription,
+    title: t('title'),
+    description: t('shortDescription'),
     path: `/projetos/${project.slug}`,
     image: cfImage(project.image, { width: 1200, height: 630 }),
     ogType: 'article',
@@ -124,16 +102,16 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
 /**
  * The {@link ProjectPage} component
- * @description Renders the detail page for a single project
+ * @description Renders the detail page for a single project in the active locale
  * @param {ProjectPageProps} props - The component props
- * @param {Promise<{ slug: string }>} props.params - The dynamic route params
  * @returns The rendered project detail page
  */
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  // Resolve the slug from the dynamic route params
-  const slug = (await params).slug
+  // Resolve the route params and opt into static rendering for the active locale
+  const { locale, slug } = await params
+  setRequestLocale(locale)
 
-  // Fetch the project that matches the slug
+  // Fetch the project shell that matches the slug
   const project = await getProject(slug)
 
   // 404 when no matching project is found
@@ -141,19 +119,32 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound()
   }
 
-  // Resolve the badge presentation for the project status
-  const statusBadge = projectStatusBadge[project.status]
+  // Read the per-project translations and the shared detail-page copy
+  const tItem = await getTranslations(`projects.items.${slug}`)
+  const tDetail = await getTranslations('projectDetail')
+
+  // Resolve the translated title, descriptions, team list and status badge label
+  const title = tItem('title')
+  const description = tItem('description')
+  const shortDescription = tItem('shortDescription')
+  const longDescription = tItem('longDescription')
+  const location = tItem('location')
+  const capacity = tItem('capacity')
+  const contactRole = tItem('contactRole')
+  const team = tItem.raw('team') as readonly string[]
+  const statusLabel = tDetail(`status.${project.status}`)
+  const statusClassName = projectStatusBadgeClass[project.status]
 
   // Build the breadcrumb + Article schemas for this project
   const jsonLdData = [
     buildBreadcrumbSchema([
-      { name: 'Início', path: '/' },
-      { name: 'Projetos', path: '/projetos' },
-      { name: project.title, path: `/projetos/${project.slug}` },
+      { name: tDetail('breadcrumbHome'), path: '/' },
+      { name: tDetail('breadcrumbProjects'), path: '/projetos' },
+      { name: title, path: `/projetos/${project.slug}` },
     ]),
     buildArticleSchema({
-      title: project.title,
-      description: project.shortDescription,
+      title,
+      description: shortDescription,
       path: `/projetos/${project.slug}`,
       image: cfImage(project.image, { width: 1200, height: 630 }),
     }),
@@ -170,50 +161,50 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             className='inline-flex items-center text-muted-foreground text-sm hover:text-foreground'
           >
             <ArrowLeft className='mr-2 size-4' />
-            {projectPageCopy.BACK_TO_PROJECTS}
+            {tDetail('backToProjects')}
           </Link>
 
           <div className='mt-6 grid gap-8 lg:mt-10 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-12'>
             <div className='order-2 lg:order-1'>
-              <Badge className={statusBadge.className}>{statusBadge.label}</Badge>
+              <Badge className={statusClassName}>{statusLabel}</Badge>
 
               <h1 className='mt-4 text-balance font-bold text-3xl text-foreground tracking-tight sm:text-4xl lg:text-5xl'>
-                {project.title}
+                {title}
               </h1>
 
               <p className='mt-4 max-w-prose text-pretty text-base text-muted-foreground sm:mt-6 sm:text-lg'>
-                {project.description}
+                {description}
               </p>
 
               <dl className='mt-6 flex flex-wrap gap-x-5 gap-y-3 text-muted-foreground text-sm sm:mt-8'>
-                {project.location && (
+                {location && (
                   <div className='flex items-center gap-2'>
                     <MapPin className='size-4 shrink-0 text-primary' aria-hidden />
-                    <dt className='sr-only'>{projectPageCopy.LOCATION_LABEL}</dt>
-                    <dd>{project.location}</dd>
+                    <dt className='sr-only'>{tDetail('locationLabel')}</dt>
+                    <dd>{location}</dd>
                   </div>
                 )}
                 {project.startDate && (
                   <div className='flex items-center gap-2'>
                     <Calendar className='size-4 shrink-0 text-primary' aria-hidden />
-                    <dt className='sr-only'>{projectPageCopy.START_LABEL}</dt>
+                    <dt className='sr-only'>{tDetail('startLabel')}</dt>
                     <dd>
                       <span className='font-medium text-foreground'>
-                        {projectPageCopy.START_LABEL}:
+                        {tDetail('startLabel')}:
                       </span>{' '}
                       {project.startDate}
                     </dd>
                   </div>
                 )}
-                {project.capacity && (
+                {capacity && (
                   <div className='flex items-center gap-2'>
                     <Users className='size-4 shrink-0 text-primary' aria-hidden />
-                    <dt className='sr-only'>{projectPageCopy.CAPACITY_LABEL}</dt>
+                    <dt className='sr-only'>{tDetail('capacityLabel')}</dt>
                     <dd>
                       <span className='font-medium text-foreground'>
-                        {projectPageCopy.CAPACITY_LABEL}:
+                        {tDetail('capacityLabel')}:
                       </span>{' '}
-                      {project.capacity}
+                      {capacity}
                     </dd>
                   </div>
                 )}
@@ -224,7 +215,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <div className='relative order-1 aspect-video w-full overflow-hidden rounded-2xl bg-muted shadow-lg lg:order-2 lg:aspect-4/3'>
                 <Image
                   src={cfImage(project.image, { width: 1200 })}
-                  alt={project.title}
+                  alt={title}
                   fill
                   priority
                   sizes='(min-width: 1024px) 45vw, 100vw'
@@ -240,8 +231,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <Tabs defaultValue='sobre' className='space-y-6 sm:space-y-8'>
             <TabsList className='grid w-full grid-cols-2 sm:w-100'>
-              <TabsTrigger value='sobre'>{projectPageCopy.TAB_ABOUT}</TabsTrigger>
-              <TabsTrigger value='galeria'>{projectPageCopy.TAB_GALLERY}</TabsTrigger>
+              <TabsTrigger value='sobre'>{tDetail('tabAbout')}</TabsTrigger>
+              <TabsTrigger value='galeria'>{tDetail('tabGallery')}</TabsTrigger>
             </TabsList>
 
             <TabsContent value='sobre'>
@@ -249,21 +240,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <Card>
                   <CardContent className='p-5 sm:p-7'>
                     <h2 className='font-bold text-xl sm:text-2xl'>
-                      {projectPageCopy.DETAILS_TITLE}
+                      {tDetail('detailsTitle')}
                     </h2>
                     <div className='mt-4 whitespace-pre-line text-pretty text-[15px] text-muted-foreground leading-relaxed sm:text-base'>
-                      {project.longDescription}
+                      {longDescription}
                     </div>
                   </CardContent>
                 </Card>
 
                 <aside className='space-y-6 lg:sticky lg:top-6 lg:self-start'>
-                  {project.team && project.team.length > 0 && (
+                  {team && team.length > 0 && (
                     <Card>
                       <CardContent className='p-5 sm:p-6'>
-                        <h3 className='font-bold text-lg'>{projectPageCopy.TEAM_TITLE}</h3>
+                        <h3 className='font-bold text-lg'>{tDetail('teamTitle')}</h3>
                         <ul className='mt-4 list-disc space-y-2 pl-5 text-muted-foreground text-sm marker:text-primary/60'>
-                          {project.team.map((member) => (
+                          {team.map((member) => (
                             <li key={member}>{member}</li>
                           ))}
                         </ul>
@@ -274,11 +265,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   {project.contact && (
                     <Card>
                       <CardContent className='p-5 sm:p-6'>
-                        <h3 className='font-bold text-lg'>{projectPageCopy.CONTACT_TITLE}</h3>
+                        <h3 className='font-bold text-lg'>{tDetail('contactTitle')}</h3>
                         <div className='mt-4 space-y-3 text-sm'>
                           <div>
                             <p className='font-medium text-foreground'>{project.contact.name}</p>
-                            <p className='text-muted-foreground'>{project.contact.role}</p>
+                            <p className='text-muted-foreground'>{contactRole}</p>
                           </div>
                           {project.contact.email && (
                             <a
@@ -310,7 +301,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               {project.images && project.images.length > 0 ? (
                 <ImageGallery images={project.images} />
               ) : (
-                <p className='text-center text-muted-foreground'>{projectPageCopy.EMPTY_GALLERY}</p>
+                <p className='text-center text-muted-foreground'>
+                  {tDetail('emptyGallery')}
+                </p>
               )}
             </TabsContent>
           </Tabs>

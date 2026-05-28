@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Link } from '@/i18n/navigation'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 import projReab from '@/assets/projectos/proj_reab.jpeg'
 import { CTAButton, CTASection } from '@/components/cta'
@@ -13,42 +13,42 @@ import {
   HeroWrapper,
 } from '@/components/heroSection'
 import { ProjectCard } from '@/components/projects'
-import { Button } from '@/components/ui/button'
 import { SectionDescription, SectionTitle } from '@/components/section'
-import { projects } from '@/lib/data'
 import { JsonLd } from '@/components/seo/JsonLd'
+import { Button } from '@/components/ui/button'
+import { Link } from '@/i18n/navigation'
+import { projects } from '@/lib/data'
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 
 /**
- * The {@link metadata} constant
- * @description Per-route SEO metadata for the projects index page
+ * The {@link ProjectsHubRouteProps} type
+ * @description Route props for the projects index page
  */
-export const metadata: Metadata = buildMetadata({
-  title: 'Projetos',
-  description:
-    'Conheça os projetos da DI MI PA BÔS, incluindo o Centro de Tratamento e Reabilitação na Guiné-Bissau.',
-  path: '/projetos',
-})
+type ProjectsHubRouteProps = {
+  params: Promise<{ locale: string }>
+}
 
 /**
- * The {@link projectsPageCopy} constant
- * @description Static Portuguese copy used by the projects index page
+ * The {@link generateMetadata} export
+ * @description Locale-aware SEO metadata for the projects index page
+ * @param {ProjectsHubRouteProps} props - The route props
+ * @returns {Promise<Metadata>} The metadata for the active locale
  */
-const projectsPageCopy = {
-  HERO_TOP: 'Nossos Projetos',
-  HERO_TITLE: 'Recuperação e Vida Nova',
-  HERO_SUBTITLE: 'Conheça nossos programas de reabilitação',
-  HERO_DESCRIPTION:
-    'Através de nossos projetos, oferecemos um caminho completo para a recuperação, desde o acolhimento inicial até o acompanhamento pós-tratamento, garantindo uma reintegração segura e duradoura.',
-  CTA_SUPPORT: 'Apoie Nossos Projetos',
-  CTA_VOLUNTEER: 'Seja Voluntário',
-  CARD_TITLE: 'Nossos Programas',
-  CARD_BODY: 'Tratamento especializado e humanizado para dependência química.',
-  FEATURED_TITLE: 'Projetos em Destaque',
-  FEATURED_DESCRIPTION:
-    'Conheça nossos principais projetos e o impacto que estamos gerando na comunidade.',
-} as const
+export async function generateMetadata({
+  params,
+}: ProjectsHubRouteProps): Promise<Metadata> {
+  // Resolve the locale and read the SEO copy from the projectsHub namespace
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'projectsHub' })
+
+  // Build the metadata with the localised title and description
+  return buildMetadata({
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+    path: '/projetos',
+  })
+}
 
 /**
  * The {@link projectsPageRoute} constant
@@ -60,14 +60,22 @@ const projectsPageRoute = {
 
 /**
  * The {@link ProjectsPage} component
- * @description Renders the public projects index page
+ * @description Renders the public projects index page in the active locale
+ * @param {ProjectsHubRouteProps} props - The route props
  * @returns The rendered projects index page
  */
-export default function ProjectsPage() {
+export default async function ProjectsPage({ params }: ProjectsHubRouteProps) {
+  // Opt this route into static rendering for the active locale
+  const { locale } = await params
+  setRequestLocale(locale)
+
+  // Read the locale-aware projectsHub translations
+  const t = await getTranslations('projectsHub')
+
   // Build the breadcrumb schema for this route
   const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: 'Início', path: '/' },
-    { name: 'Projetos', path: '/projetos' },
+    { name: t('breadcrumbHome'), path: '/' },
+    { name: t('breadcrumbProjects'), path: '/projetos' },
   ])
 
   // Render the full projects index layout
@@ -76,15 +84,15 @@ export default function ProjectsPage() {
       <JsonLd data={breadcrumbSchema} />
       <HeroWrapper>
         <div className='flex flex-col justify-center'>
-          <HeroTopText>{projectsPageCopy.HERO_TOP}</HeroTopText>
+          <HeroTopText>{t('heroTop')}</HeroTopText>
 
-          <HeroTitle>{projectsPageCopy.HERO_TITLE}</HeroTitle>
-          <HeroSubtitle>{projectsPageCopy.HERO_SUBTITLE}</HeroSubtitle>
+          <HeroTitle>{t('heroTitle')}</HeroTitle>
+          <HeroSubtitle>{t('heroSubtitle')}</HeroSubtitle>
 
-          <HeroDescription>{projectsPageCopy.HERO_DESCRIPTION}</HeroDescription>
+          <HeroDescription>{t('heroDescription')}</HeroDescription>
 
           <div className='mt-8 flex flex-col gap-4 sm:flex-row'>
-            <CTAButton text={projectsPageCopy.CTA_SUPPORT} size='lg' />
+            <CTAButton text={t('ctaSupport')} size='lg' />
 
             <Button
               render={<Link href={projectsPageRoute.VOLUNTEER} />}
@@ -93,14 +101,14 @@ export default function ProjectsPage() {
               variant='outline'
               className='bg-white'
             >
-              {projectsPageCopy.CTA_VOLUNTEER}
+              {t('ctaVolunteer')}
             </Button>
           </div>
         </div>
 
         <HeroCardSection>
-          <HeroCard variant='projetos' title={projectsPageCopy.CARD_TITLE} image={projReab}>
-            {projectsPageCopy.CARD_BODY}
+          <HeroCard variant='projetos' title={t('cardTitle')} image={projReab}>
+            {t('cardBody')}
           </HeroCard>
         </HeroCardSection>
       </HeroWrapper>
@@ -108,8 +116,8 @@ export default function ProjectsPage() {
       <section className='py-16'>
         <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <div className='text-center'>
-            <SectionTitle>{projectsPageCopy.FEATURED_TITLE}</SectionTitle>
-            <SectionDescription>{projectsPageCopy.FEATURED_DESCRIPTION}</SectionDescription>
+            <SectionTitle>{t('featuredTitle')}</SectionTitle>
+            <SectionDescription>{t('featuredDescription')}</SectionDescription>
           </div>
 
           <div className='mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
