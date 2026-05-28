@@ -401,5 +401,200 @@
     "emailError": "Please enter a valid email.",
     "phoneError": "Please enter a valid phone number.",
     "messageError": "Message must be at least 10 characters."
+  },
+  "privacyPolicy": {
+    "metaTitle": "Privacy Policy",
+    "metaDescription": "How DI MI PA BÔS collects, uses and protects the personal data of this website's visitors.",
+    "breadcrumbHome": "Home",
+    "breadcrumbPrivacy": "Privacy Policy",
+    "heroTop": "Legal Information",
+    "heroTitle": "Privacy Policy",
+    "heroDescription": "This policy describes how DI MI PA BÔS collects, uses and protects your personal data when you interact with this website.",
+    "lastUpdatedLabel": "Last updated:",
+    "lastUpdatedValue": "27 May 2026",
+    "relatedText": "See also our",
+    "relatedLinkLabel": "Terms and Conditions",
+    "sections": [
+      {
+        "id": "responsavel",
+        "title": "1. Data controller",
+        "paragraphs": [
+          "The controller of your personal data is DI MI PA BÔS (Non-Governmental Organisation), tax identification number 910324840, with its registered office in Bissau, Guinea-Bissau, Republic of Guinea-Bissau.",
+          "For any question regarding the processing of your data, you can contact us at privacidade@ongdimipabos.org."
+        ]
+      },
+      {
+        "id": "dados",
+        "title": "2. Personal data collected",
+        "paragraphs": [
+          "We only collect the data necessary to operate the services made available on this website, as indicated in the forms we provide. Specifically, we may collect:"
+        ],
+        "list": [
+          "Identification and contact data voluntarily provided in forms (name, email address, phone, message).",
+          "Data associated with donations, where applicable, processed directly by the payment service provider that may be engaged.",
+          "Technical data automatically collected by our infrastructure provider (IP address, browser type, access date and time), exclusively for security and site operation purposes."
+        ]
+      },
+      {
+        "id": "finalidades",
+        "title": "3. Purposes and legal basis",
+        "paragraphs": ["We process your personal data for the following purposes:"],
+        "list": [
+          "To respond to contact requests, volunteer applications and partnership proposals submitted through the website's forms (performance of pre-contractual steps and legitimate interest).",
+          "To process donations, issue receipts and comply with related legal and accounting obligations (compliance with legal obligation and contract performance).",
+          "To ensure the security, integrity and technical operation of the website (legitimate interest)."
+        ]
+      },
+      {
+        "id": "subcontratantes",
+        "title": "4. Sub-processors",
+        "paragraphs": [
+          "To provide our services we rely on suppliers acting as sub-processors, bound by contractual obligations of confidentiality and data protection:"
+        ],
+        "list": [
+          "Cloudflare, Inc., for hosting, distribution and security of the website and its digital assets.",
+          "A payment service provider, to be announced in due course, for the processing of electronic donations."
+        ]
+      },
+      {
+        "id": "transferencias",
+        "title": "5. International data transfers",
+        "paragraphs": [
+          "Some of our sub-processors are based outside Guinea-Bissau and the European Economic Area, in particular in the United States of America. Whenever international data transfers occur, we ensure that they are carried out on the basis of appropriate safeguards, in particular the Standard Contractual Clauses approved by the European Commission, where applicable."
+        ]
+      },
+      {
+        "id": "conservacao",
+        "title": "6. Data retention",
+        "paragraphs": [
+          "Your personal data is kept only for as long as necessary for the purposes for which it was collected, or for the legally required period. Messages sent through the website's forms are kept for as long as needed for their processing and historical archive, and may be deleted at the data subject's request. Records associated with donations are kept for the periods required by the applicable accounting and tax legislation."
+        ]
+      },
+      {
+        "id": "direitos",
+        "title": "7. Your rights",
+        "paragraphs": ["As a data subject, you have the following rights:"],
+        "list": [
+          "Right to access your personal data.",
+          "Right to rectify inaccurate or incomplete data.",
+          "Right to erasure of data, in the cases provided for by law.",
+          "Right to restrict and object to processing, in the cases legally permitted.",
+          "Right to data portability, where applicable.",
+          "Right to lodge a complaint with the competent supervisory authority."
+        ]
+      },
+      {
+        "id": "cookies",
+        "title": "8. Cookies",
+        "paragraphs": [
+          "This website uses only cookies and similar technologies strictly necessary for its operation, and does not currently use analytics, advertising or behavioural tracking cookies that require prior consent. Should this change, this policy will be updated and appropriate consent will be requested."
+        ]
+      },
+      {
+        "id": "contacto",
+        "title": "9. Contact",
+        "paragraphs": [
+          "To exercise your rights or clarify any question about the processing of your personal data, contact us at privacidade@ongdimipabos.org or, alternatively, contact@ongdimipabos.org. We undertake to respond without undue delay and, in any case, within the legally applicable deadlines."
+        ]
+      },
+      {
+        "id": "alteracoes",
+        "title": "10. Changes to this policy",
+        "paragraphs": [
+          "This Privacy Policy may be updated at any time to reflect legal, technical or operational changes. The version in force is always the one published on this page, identified by the last updated date shown at the top."
+        ]
+      }
+    ]
+  },
+  "terms": {
+    "metaTitle": "Terms and Conditions",
+    "metaDescription": "Terms of use of the DI MI PA BÔS website and conditions applicable to donations.",
+    "breadcrumbHome": "Home",
+    "breadcrumbTerms": "Terms and Conditions",
+    "heroTop": "Legal Information",
+    "heroTitle": "Terms and Conditions",
+    "heroDescription": "These terms govern the use of the DI MI PA BÔS website and the conditions applicable to donations and other interactions made available.",
+    "lastUpdatedLabel": "Last updated:",
+    "lastUpdatedValue": "27 May 2026",
+    "relatedText": "See also our",
+    "relatedLinkLabel": "Privacy Policy",
+    "sections": [
+      {
+        "id": "identificacao",
+        "title": "1. Identification",
+        "paragraphs": [
+          "This website is owned and operated by DI MI PA BÔS (Non-Governmental Organisation), tax identification number 910324840, with its registered office in Bissau, Guinea-Bissau, Republic of Guinea-Bissau, reachable at contact@ongdimipabos.org."
+        ]
+      },
+      {
+        "id": "objeto",
+        "title": "2. Purpose",
+        "paragraphs": [
+          "The purpose of this website is to present the mission, projects and initiatives of DI MI PA BÔS, and to allow visitors to contact the organisation, apply for volunteering, propose partnerships and contribute through donations.",
+          "Use of the website implies full acceptance of these terms and of the Privacy Policy."
+        ]
+      },
+      {
+        "id": "doacoes",
+        "title": "3. Donations",
+        "paragraphs": [
+          "Donations made through this website are voluntary and are used entirely to fund the activities and projects of DI MI PA BÔS, and may be allocated to any area of intervention according to the operational needs of the organisation, unless expressly stated otherwise at the time of donation.",
+          "A donation is considered complete when the transaction is confirmed by the payment service provider. As donations are gratuitous and without consideration, they are, as a rule, final and non-refundable."
+        ]
+      },
+      {
+        "id": "reembolsos",
+        "title": "4. Refund requests",
+        "paragraphs": [
+          "Without prejudice to the final nature of donations, the donor may request the refund of a donation within fourteen (14) days of the donation date, in the event of proven error, duplicate payment, unauthorised transaction or other clearly justified circumstance.",
+          "Refund requests must be sent to donativos@ongdimipabos.org, stating the donor's name, the date, the donation amount and the reason for the request. The organisation undertakes to review and respond to each request in a timely manner."
+        ]
+      },
+      {
+        "id": "pagamentos",
+        "title": "5. Payment processing",
+        "paragraphs": [
+          "Donations are processed by a third-party payment service provider, to be announced in due course on this page. DI MI PA BÔS does not collect or store card data or other sensitive payment data, that responsibility being entirely assumed by the provider, in accordance with the standards applicable to the payments industry."
+        ]
+      },
+      {
+        "id": "recibos",
+        "title": "6. Proofs and receipts",
+        "paragraphs": [
+          "After each completed donation, the donor will receive an electronic proof issued by the payment service provider. Additional receipts may be requested on demand at donativos@ongdimipabos.org, providing the data needed for their issuance.",
+          "DI MI PA BÔS does not currently issue statements eligible for tax deduction in Portugal or other jurisdictions. The tax eligibility of a donation is the donor's responsibility and must be assessed in light of the legislation applicable in their country of residence."
+        ]
+      },
+      {
+        "id": "propriedade",
+        "title": "7. Intellectual property",
+        "paragraphs": [
+          "All content made available on this website, including texts, images, videos, logos, trademarks, illustrations and graphic elements, is the property of DI MI PA BÔS or of third parties who have authorised its use and is protected by the applicable intellectual property legislation.",
+          "Reproduction, distribution, modification or commercial use of the content without the prior, express authorisation of the organisation is prohibited, except for personal non-commercial use."
+        ]
+      },
+      {
+        "id": "responsabilidade",
+        "title": "8. Limitation of liability",
+        "paragraphs": [
+          "DI MI PA BÔS makes its best efforts to ensure the accuracy and currency of the information made available on this website, but assumes no responsibility for any errors, omissions or occasional technical unavailability.",
+          "This website may contain links to external sites whose content and policies are the sole responsibility of the respective entities; no responsibility is assumed for their operation or for the practices of those entities."
+        ]
+      },
+      {
+        "id": "lei-aplicavel",
+        "title": "9. Governing law and jurisdiction",
+        "paragraphs": [
+          "These terms are governed by the law of the Republic of Guinea-Bissau. Any dispute arising from their application or interpretation will be submitted to the competent courts of Bissau, without prejudice to mandatory legal jurisdictions applicable to consumers residing in other jurisdictions."
+        ]
+      },
+      {
+        "id": "alteracoes",
+        "title": "10. Changes",
+        "paragraphs": [
+          "DI MI PA BÔS reserves the right to change these terms at any time. The version in force is always the one published on this page, identified by the last updated date shown at the top."
+        ]
+      }
+    ]
   }
 }

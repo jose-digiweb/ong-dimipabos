@@ -401,5 +401,200 @@
     "emailError": "Digite um e-mail válido.",
     "phoneError": "Digite um número de telefone válido.",
     "messageError": "A mensagem deve ter pelo menos 10 caracteres."
+  },
+  "privacyPolicy": {
+    "metaTitle": "Política de Privacidade",
+    "metaDescription": "Como a ONG DI MI PA BÔS recolhe, utiliza e protege os dados pessoais dos visitantes deste website.",
+    "breadcrumbHome": "Início",
+    "breadcrumbPrivacy": "Política de Privacidade",
+    "heroTop": "Informação Legal",
+    "heroTitle": "Política de Privacidade",
+    "heroDescription": "Esta política descreve como a ONG DI MI PA BÔS recolhe, utiliza e protege os seus dados pessoais quando interage com este website.",
+    "lastUpdatedLabel": "Última atualização:",
+    "lastUpdatedValue": "27 de Maio de 2026",
+    "relatedText": "Consulte também os nossos",
+    "relatedLinkLabel": "Termos e Condições",
+    "sections": [
+      {
+        "id": "responsavel",
+        "title": "1. Responsável pelo tratamento",
+        "paragraphs": [
+          "O responsável pelo tratamento dos seus dados pessoais é a ONG DI MI PA BÔS (Organização Não Governamental), com o número de identificação fiscal 910324840, sede em Bissau, Guiné-Bissau, República da Guiné-Bissau.",
+          "Para qualquer questão relativa ao tratamento dos seus dados, pode contactar-nos através do endereço privacidade@ongdimipabos.org."
+        ]
+      },
+      {
+        "id": "dados",
+        "title": "2. Dados pessoais recolhidos",
+        "paragraphs": [
+          "Recolhemos apenas os dados necessários para o funcionamento dos serviços disponibilizados neste website, conforme indicado nos formulários disponíveis. Em concreto, podemos recolher:"
+        ],
+        "list": [
+          "Dados de identificação e contacto fornecidos voluntariamente em formulários (nome, endereço de email, telefone, mensagem).",
+          "Dados associados a doações, quando aplicável, processados diretamente pelo prestador de serviços de pagamento que venha a ser contratado.",
+          "Dados técnicos recolhidos de forma automática pelo nosso fornecedor de infraestrutura (endereço IP, tipo de navegador, data e hora do acesso), exclusivamente para fins de segurança e funcionamento do site."
+        ]
+      },
+      {
+        "id": "finalidades",
+        "title": "3. Finalidades e fundamento legal",
+        "paragraphs": ["Tratamos os seus dados pessoais para as seguintes finalidades:"],
+        "list": [
+          "Responder a pedidos de contacto, candidaturas a voluntariado e propostas de parceria submetidos através dos formulários do website (execução de diligências pré-contratuais e interesse legítimo).",
+          "Processar doações, emitir comprovativos e cumprir obrigações legais e contabilísticas associadas (cumprimento de obrigação legal e execução de contrato).",
+          "Garantir a segurança, integridade e funcionamento técnico do website (interesse legítimo)."
+        ]
+      },
+      {
+        "id": "subcontratantes",
+        "title": "4. Subcontratantes e transferências internacionais",
+        "paragraphs": [
+          "Para prestar os nossos serviços recorremos a fornecedores que atuam como subcontratantes, vinculados por obrigações contratuais de confidencialidade e proteção de dados:"
+        ],
+        "list": [
+          "Cloudflare, Inc., para alojamento, distribuição e segurança do website e dos respetivos ativos digitais.",
+          "Prestador de serviços de pagamento, a indicar oportunamente, para o processamento de doações eletrónicas."
+        ]
+      },
+      {
+        "id": "transferencias",
+        "title": "5. Transferências internacionais de dados",
+        "paragraphs": [
+          "Alguns dos nossos subcontratantes estão sediados fora da Guiné-Bissau e do Espaço Económico Europeu, designadamente nos Estados Unidos da América. Sempre que existam transferências internacionais de dados, asseguramos que as mesmas são realizadas com base em garantias adequadas, nomeadamente Cláusulas Contratuais-Tipo aprovadas pela Comissão Europeia, quando aplicáveis."
+        ]
+      },
+      {
+        "id": "conservacao",
+        "title": "6. Conservação dos dados",
+        "paragraphs": [
+          "Os seus dados pessoais são conservados apenas durante o período necessário para as finalidades para as quais foram recolhidos, ou pelo período legalmente exigido. Mensagens enviadas através dos formulários do website são conservadas pelo tempo necessário ao seu tratamento e arquivo histórico, podendo ser eliminadas a pedido do titular. Registos associados a doações são conservados pelos prazos exigidos pela legislação contabilística e fiscal aplicável."
+        ]
+      },
+      {
+        "id": "direitos",
+        "title": "7. Os seus direitos",
+        "paragraphs": ["Enquanto titular dos dados, assistem-lhe os seguintes direitos:"],
+        "list": [
+          "Direito de acesso aos seus dados pessoais.",
+          "Direito de retificação de dados inexatos ou incompletos.",
+          "Direito ao apagamento dos dados, nos casos previstos na lei.",
+          "Direito à limitação e à oposição ao tratamento, nos casos legalmente admitidos.",
+          "Direito à portabilidade dos dados, quando aplicável.",
+          "Direito a apresentar reclamação junto da autoridade de controlo competente."
+        ]
+      },
+      {
+        "id": "cookies",
+        "title": "8. Cookies",
+        "paragraphs": [
+          "Este website utiliza apenas cookies e tecnologias semelhantes estritamente necessárias ao seu funcionamento, não recorrendo, à data, a cookies de análise, publicidade ou rastreio comportamental que exijam consentimento prévio. Caso esta situação se altere, esta política será atualizada e será solicitado o consentimento adequado."
+        ]
+      },
+      {
+        "id": "contacto",
+        "title": "9. Contacto",
+        "paragraphs": [
+          "Para exercer os seus direitos ou esclarecer qualquer dúvida sobre o tratamento dos seus dados pessoais, contacte-nos através de privacidade@ongdimipabos.org ou, em alternativa, contact@ongdimipabos.org. Comprometemo-nos a responder sem demora injustificada e, em qualquer caso, dentro dos prazos legalmente aplicáveis."
+        ]
+      },
+      {
+        "id": "alteracoes",
+        "title": "10. Alterações a esta política",
+        "paragraphs": [
+          "Esta Política de Privacidade poderá ser atualizada a qualquer momento para refletir alterações legais, técnicas ou operacionais. A versão em vigor é sempre a publicada nesta página, identificada pela data de última atualização indicada no topo."
+        ]
+      }
+    ]
+  },
+  "terms": {
+    "metaTitle": "Termos e Condições",
+    "metaDescription": "Termos de utilização do website da DI MI PA BÔS e condições aplicáveis às doações.",
+    "breadcrumbHome": "Início",
+    "breadcrumbTerms": "Termos e Condições",
+    "heroTop": "Informação Legal",
+    "heroTitle": "Termos e Condições",
+    "heroDescription": "Estes termos regulam a utilização do website da ONG DI MI PA BÔS e as condições aplicáveis às doações e demais interações disponibilizadas.",
+    "lastUpdatedLabel": "Última atualização:",
+    "lastUpdatedValue": "27 de Maio de 2026",
+    "relatedText": "Consulte também a nossa",
+    "relatedLinkLabel": "Política de Privacidade",
+    "sections": [
+      {
+        "id": "identificacao",
+        "title": "1. Identificação",
+        "paragraphs": [
+          "Este website é detido e operado pela ONG DI MI PA BÔS (Organização Não Governamental), com o número de identificação fiscal 910324840, sede em Bissau, Guiné-Bissau, República da Guiné-Bissau, contactável através do endereço contact@ongdimipabos.org."
+        ]
+      },
+      {
+        "id": "objeto",
+        "title": "2. Objeto",
+        "paragraphs": [
+          "O presente website tem como finalidade dar a conhecer a missão, os projetos e as iniciativas da ONG DI MI PA BÔS, bem como permitir aos visitantes contactar a organização, candidatar-se a voluntariado, propor parcerias e contribuir através de doações.",
+          "A utilização do website pressupõe a aceitação integral dos presentes termos e da Política de Privacidade."
+        ]
+      },
+      {
+        "id": "doacoes",
+        "title": "3. Doações",
+        "paragraphs": [
+          "As doações realizadas através deste website têm natureza voluntária e revertem integralmente para o financiamento das atividades e projetos da ONG DI MI PA BÔS, podendo ser afetas a qualquer área de intervenção de acordo com as necessidades operacionais da organização, salvo indicação expressa em contrário no momento da doação.",
+          "A doação é considerada concluída no momento em que a transação é confirmada pelo prestador de serviços de pagamento. Por se tratar de liberalidade sem contraprestação, as doações têm, em regra, caráter definitivo e não reembolsável."
+        ]
+      },
+      {
+        "id": "reembolsos",
+        "title": "4. Pedidos de reembolso",
+        "paragraphs": [
+          "Sem prejuízo do caráter definitivo das doações, o doador pode solicitar o reembolso de uma doação no prazo de catorze (14) dias contados da respetiva data, quando se verifique erro comprovado, duplicação de pagamento, transação não autorizada ou outra circunstância manifestamente justificada.",
+          "Os pedidos de reembolso devem ser enviados para donativos@ongdimipabos.org, indicando o nome do doador, a data, o valor da doação e o motivo do pedido. A organização compromete-se a analisar e responder a cada pedido em tempo útil."
+        ]
+      },
+      {
+        "id": "pagamentos",
+        "title": "5. Processamento de pagamentos",
+        "paragraphs": [
+          "O processamento das doações é assegurado por um prestador de serviços de pagamento terceiro, a indicar oportunamente nesta página. A ONG DI MI PA BÔS não recolhe nem armazena dados de cartão ou outros dados sensíveis de pagamento, sendo essa responsabilidade integralmente assumida pelo prestador, em conformidade com os padrões aplicáveis à indústria de pagamentos."
+        ]
+      },
+      {
+        "id": "recibos",
+        "title": "6. Comprovativos e recibos",
+        "paragraphs": [
+          "Após cada doação concluída, o doador receberá um comprovativo eletrónico emitido pelo prestador de serviços de pagamento. Recibos adicionais podem ser solicitados a pedido, através do endereço donativos@ongdimipabos.org, indicando os dados necessários à respetiva emissão.",
+          "A ONG DI MI PA BÔS não emite, no presente, declarações com efeitos de dedução fiscal em Portugal ou noutras jurisdições. A elegibilidade fiscal de uma doação é da responsabilidade do doador, devendo ser avaliada à luz da legislação aplicável no seu país de residência."
+        ]
+      },
+      {
+        "id": "propriedade",
+        "title": "7. Propriedade intelectual",
+        "paragraphs": [
+          "Todos os conteúdos disponibilizados neste website, incluindo textos, imagens, vídeos, logotípos, marcas, ilustrações e elementos gráficos, são propriedade da ONG DI MI PA BÔS ou de terceiros que autorizaram a sua utilização e encontram-se protegidos pela legislação aplicável em matéria de propriedade intelectual.",
+          "É proibida a reprodução, distribuição, modificação ou utilização comercial dos conteúdos sem autorização prévia e expressa da organização, salvo para fins de uso pessoal não comercial."
+        ]
+      },
+      {
+        "id": "responsabilidade",
+        "title": "8. Limitação de responsabilidade",
+        "paragraphs": [
+          "A ONG DI MI PA BÔS envida os melhores esforços para garantir a exatidão e atualização da informação disponibilizada neste website, não assumindo, contudo, responsabilidade por eventuais erros, omissões ou indisponibilidades técnicas pontuais.",
+          "Este website pode conter ligações para sites externos, cujos conteúdos e políticas são da exclusiva responsabilidade das respetivas entidades, não sendo assumida qualquer responsabilidade pelo seu funcionamento ou pelas práticas dessas entidades."
+        ]
+      },
+      {
+        "id": "lei-aplicavel",
+        "title": "9. Lei aplicável e foro",
+        "paragraphs": [
+          "Os presentes termos regem-se pela lei da República da Guiné-Bissau. Qualquer litígio emergente da sua aplicação ou interpretação será submetido aos tribunais competentes de Bissau, sem prejuízo dos foros legalmente imperativos aplicáveis a consumidores residentes noutras jurisdições."
+        ]
+      },
+      {
+        "id": "alteracoes",
+        "title": "10. Alterações",
+        "paragraphs": [
+          "A ONG DI MI PA BÔS reserva-se o direito de alterar os presentes termos a qualquer momento. A versão em vigor é sempre a publicada nesta página, identificada pela data de última atualização indicada no topo."
+        ]
+      }
+    ]
   }
 }

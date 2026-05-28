@@ -80,10 +80,7 @@ export default async function VolunteerPage({ params }: VolunteerRouteProps) {
           <HeroDescription>{t('heroDescription')}</HeroDescription>
 
           <div className='mt-10 flex items-center gap-4'>
-            <HeroStats
-              value={t('statVolunteersValue')}
-              label={t('statVolunteersLabel')}
-            />
+            <HeroStats value={t('statVolunteersValue')} label={t('statVolunteersLabel')} />
           </div>
         </div>
 

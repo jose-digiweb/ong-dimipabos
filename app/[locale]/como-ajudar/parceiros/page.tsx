@@ -79,10 +79,7 @@ export default async function PartnersPage({ params }: PartnersRouteProps) {
           <HeroDescription>{t('heroDescription')}</HeroDescription>
 
           <div className='mt-10 flex items-center gap-4'>
-            <HeroStats
-              value={t('statPartnersValue')}
-              label={t('statPartnersLabel')}
-            />
+            <HeroStats value={t('statPartnersValue')} label={t('statPartnersLabel')} />
           </div>
         </div>
 

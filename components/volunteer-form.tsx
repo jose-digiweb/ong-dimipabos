@@ -117,9 +117,7 @@ export function VolunteerForm() {
         area: z.string({ error: t('areaError') }),
         availability: z.string().min(MIN_NAME_LENGTH, { message: t('availabilityError') }),
         experience: z.string(),
-        terms: z
-          .boolean()
-          .refine((val) => val === true, { message: t('termsError') }),
+        terms: z.boolean().refine((val) => val === true, { message: t('termsError') }),
       }),
     [t],
   )
