@@ -43,7 +43,7 @@ const aboutCopy = {
   HERO_TITLE: 'Quem Somos',
   HERO_SUBTITLE: 'Construindo um futuro de esperança',
   HERO_DESCRIPTION:
-    'A DI MI PA BÔS nasceu da urgente necessidade de oferecer tratamento adequado e humanizado para pessoas em situação de dependência química na Guiné-Bissau. Nossa missão é construir e operar o primeiro centro especializado do país.',
+    'A DI MI PA BÔS (também conhecida como dimipabos) é uma ONG na Guiné-Bissau, sediada em Bissau. Nascemos da urgente necessidade de oferecer tratamento adequado e humanizado para pessoas em situação de dependência química, e nossa missão é construir e operar o primeiro centro especializado do país.',
   CTA_SUPPORT: 'Apoie Nossa Causa',
   CTA_PROJECTS: 'Conheça o Projeto',
   STAT_FOUNDED_LABEL: 'Ano de Fundação',

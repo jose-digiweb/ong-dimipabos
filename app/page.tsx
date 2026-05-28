@@ -45,7 +45,7 @@ const homeCopy = {
   HERO_TITLE: 'DI MI PA BÔS',
   HERO_SUBTITLE: 'Um lugar de acolhimento e recuperação',
   HERO_DESCRIPTION:
-    'Estamos construindo o primeiro centro especializado em tratamento e reabilitação para pessoas em situação de dependência química na Guiné-Bissau. Um espaço de acolhimento, cuidado e renovação.',
+    'A DI MI PA BÔS (dimipabos) é uma ONG na Guiné-Bissau a construir o primeiro centro especializado em tratamento e reabilitação para pessoas em situação de dependência química. Um espaço de acolhimento, cuidado e renovação em Bissau.',
   CTA_SUPPORT: 'Apoie a Construção',
   CTA_LEARN: 'Conheça o Projeto',
   STAT_CONSTRUCTION_VALUE: '10%',

@@ -1,4 +1,4 @@
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from './constants'
+import { SITE_ALTERNATE_NAMES, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from './constants'
 
 /**
  * The {@link organizationLegalData} constant
@@ -47,6 +47,7 @@ export type OrganizationSchema = {
   '@type': 'NGO'
   '@id': string
   name: string
+  alternateName: readonly string[]
   legalName: string
   url: string
   logo: string
@@ -170,6 +171,7 @@ export function buildOrganizationSchema(): OrganizationSchema {
     '@type': 'NGO',
     '@id': ORGANIZATION_ID,
     name: SITE_NAME,
+    alternateName: SITE_ALTERNATE_NAMES,
     legalName: organizationLegalData.LEGAL_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/icon.png`,

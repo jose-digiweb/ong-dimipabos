@@ -45,7 +45,7 @@ const footerLegal = {
 const footerCopy = {
   ABOUT_TITLE: 'Sobre Nós',
   ABOUT_BODY:
-    'A DI MI PA BÔS é uma ONG dedicada a transformar vidas através de habitação, cuidado e serviços essenciais na Guiné-Bissau.',
+    'A DI MI PA BÔS (dimipabos) é uma ONG na Guiné-Bissau, sediada em Bissau, dedicada a transformar vidas através de habitação, cuidado e serviços essenciais.',
   QUICK_LINKS_TITLE: 'Links Rápidos',
   LINK_SOBRE: 'Nossa História',
   LINK_PROJETOS: 'Projetos',

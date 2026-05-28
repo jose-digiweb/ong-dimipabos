@@ -5,7 +5,14 @@ import type { ReactNode } from 'react'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { JsonLd } from '@/components/seo/JsonLd'
-import { SITE_DESCRIPTION, SITE_LOCALE, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/seo/constants'
+import {
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from '@/lib/seo/constants'
 import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo/jsonLd'
 
 import './globals.css'
@@ -27,6 +34,7 @@ export const metadata: Metadata = {
     template: `%s · ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  keywords: [...SITE_KEYWORDS],
   alternates: {
     canonical: SITE_URL,
   },
