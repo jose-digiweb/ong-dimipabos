@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Image from 'next/image'
 
-import logo from '@/assets/dimipabos_logo_2.png'
+import logo from '@/assets/dimipabos_logo_2.webp'
 import { CTAButton } from '@/components/cta'
 import {
   HeroCard,

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
-import cesaltinaImage from '@/assets/team/cesaltina.jpeg'
+import cesaltinaImage from '@/assets/team/cesaltina.webp'
 import { Card, CardContent } from '@/components/ui/card'
 
 import { SectionDescription } from './section/SectionDescription'

@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
 
-import logoImage from '@/assets/dimipabos_logo.png'
+import logoImage from '@/assets/dimipabos_logo.webp'
 import { LanguageSwitcher } from '@/components/language-switcher'
 import { Button } from '@/components/ui/button'
 import { Link, usePathname } from '@/i18n/navigation'
@@ -148,6 +148,7 @@ export function Header() {
               alt={tHeader('logoAlt')}
               width={LOGO_SIZE}
               height={LOGO_SIZE}
+              priority
               className='rounded-full drop-shadow-md'
             />
           </Link>

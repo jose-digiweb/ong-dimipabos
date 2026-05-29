@@ -2,7 +2,7 @@ import { Quote } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
-import testimonialImage from '@/assets/testimonial/testimonial.jpg'
+import testimonialImage from '@/assets/testimonial/testimonial.webp'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
 import { SectionDescription } from './section/SectionDescription'

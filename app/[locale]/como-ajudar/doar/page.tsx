@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
-import projHabitacao from '@/assets/projectos/proj_habitacao.jpeg'
+import projHabitacao from '@/assets/projectos/proj_habitacao.webp'
 import { BankTransferSection } from '@/components/bank-transfer-section'
 import { CTASection } from '@/components/cta'
 import {

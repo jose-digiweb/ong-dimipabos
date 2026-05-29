@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
-import projReab from '@/assets/projectos/proj_reab.jpeg'
+import projReab from '@/assets/projectos/proj_reab.webp'
 import { CTAButton, CTASection } from '@/components/cta'
 import {
   HeroCard,
