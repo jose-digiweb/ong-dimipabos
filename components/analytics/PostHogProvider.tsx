@@ -50,6 +50,12 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
       ip: false,
       disable_session_recording: true,
       autocapture: false,
+      // Trim third-party scripts/requests — we only emit manual events,
+      // no surveys, dead-click capture, web vitals or feature flags
+      disable_surveys: true,
+      capture_dead_clicks: false,
+      capture_performance: false,
+      advanced_disable_flags: true,
     })
   }, [key])
 
