@@ -36,7 +36,6 @@
     "CONTACT_FROM_NAME": "DI MI PA BÔS",
     "CONTACT_TO_ADDRESS": "josefurtado.digital@google.com",
     "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAADX_maCjLdoRjeSa",
-    "NEXT_PUBLIC_POSTHOG_KEY": "",
     "NEXT_PUBLIC_POSTHOG_HOST": "https://eu.i.posthog.com",
     "NEXT_PUBLIC_POSTHOG_KEY": "phc_xSuwnWBCaGkFiTiphNHvZKmDczJ5Je8jd87Jjf65tkbd",
   },

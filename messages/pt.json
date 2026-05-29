@@ -37,6 +37,7 @@
     "legalTitle": "Legal",
     "linkPrivacy": "Política de Privacidade",
     "linkTerms": "Termos e Condições",
+    "linkCookies": "Política de Cookies",
     "facebookLabel": "Facebook",
     "whatsappLabel": "WhatsApp",
     "orgName": "DI MI PA BÔS",
@@ -518,7 +519,7 @@
         "id": "cookies",
         "title": "8. Cookies",
         "paragraphs": [
-          "Este website utiliza apenas cookies e tecnologias semelhantes estritamente necessárias ao seu funcionamento, não recorrendo, à data, a cookies de análise, publicidade ou rastreio comportamental que exijam consentimento prévio. Caso esta situação se altere, esta política será atualizada e será solicitado o consentimento adequado."
+          "Este website utiliza apenas cookies e tecnologias semelhantes estritamente necessárias ao seu funcionamento, não recorrendo a cookies de publicidade ou rastreio comportamental que exijam consentimento prévio. Para fins estatísticos utilizamos uma solução de análise sem cookies (PostHog), alojada na União Europeia e configurada sem cookies, sem armazenamento no dispositivo e sem recolha do endereço IP. Para mais detalhes, consulte a nossa Política de Cookies."
         ]
       },
       {
@@ -624,6 +625,68 @@
         "title": "10. Alterações",
         "paragraphs": [
           "A ONG DI MI PA BÔS reserva-se o direito de alterar os presentes termos a qualquer momento. A versão em vigor é sempre a publicada nesta página, identificada pela data de última atualização indicada no topo."
+        ]
+      }
+    ]
+  },
+  "cookies": {
+    "metaTitle": "Política de Cookies",
+    "metaDescription": "Como a ONG DI MI PA BÔS utiliza cookies estritamente necessários e análise sem cookies neste website.",
+    "breadcrumbHome": "Início",
+    "breadcrumbCookies": "Política de Cookies",
+    "heroTop": "Informação Legal",
+    "heroTitle": "Política de Cookies",
+    "heroDescription": "Esta política explica o que são cookies, que cookies este website utiliza e como pode geri-los.",
+    "lastUpdatedLabel": "Última atualização:",
+    "lastUpdatedValue": "29 de Maio de 2026",
+    "relatedText": "Consulte também a nossa",
+    "relatedLinkLabel": "Política de Privacidade",
+    "sections": [
+      {
+        "id": "o-que-sao",
+        "title": "1. O que são cookies",
+        "paragraphs": [
+          "Os cookies são pequenos ficheiros de texto que os websites colocam no seu dispositivo para armazenar informação. São amplamente utilizados para garantir o funcionamento dos sites e para recolher informação sobre a forma como os utilizadores interagem com os mesmos. Existem também tecnologias semelhantes, como o armazenamento local do navegador, que cumprem funções equivalentes."
+        ]
+      },
+      {
+        "id": "cookies-necessarios",
+        "title": "2. Cookies estritamente necessários",
+        "paragraphs": [
+          "Utilizamos apenas cookies e tecnologias semelhantes estritamente necessários ao funcionamento do website. Estes cookies não exigem consentimento prévio e não são utilizados para fins de marketing ou rastreio. Em concreto, podem incluir:"
+        ],
+        "list": [
+          "Preferência de idioma, para apresentar o website no idioma escolhido.",
+          "Cookies de segurança e de funcionamento técnico geridos pelo nosso fornecedor de infraestrutura (Cloudflare), para proteger o site e assegurar o seu correto funcionamento."
+        ]
+      },
+      {
+        "id": "analise",
+        "title": "3. Análise sem cookies",
+        "paragraphs": [
+          "Para compreender de forma agregada como o website é utilizado, recorremos a uma solução de análise (PostHog) configurada em modo sem cookies. Esta solução não coloca cookies no seu dispositivo, não utiliza armazenamento local persistente, não recolhe o seu endereço IP e não realiza rastreio entre websites nem gravação de sessões.",
+          "Os dados são tratados de forma agregada e anónima, exclusivamente para fins estatísticos e de melhoria do website, e são alojados em servidores localizados na União Europeia. Por não serem armazenadas nem lidas informações no seu dispositivo, esta análise não exige o seu consentimento prévio."
+        ]
+      },
+      {
+        "id": "terceiros",
+        "title": "4. Cookies de terceiros",
+        "paragraphs": [
+          "Este website não utiliza cookies de publicidade, de redes sociais ou de rastreio comportamental de terceiros. Caso, no futuro, venham a ser introduzidos cookies que exijam consentimento, esta política será atualizada e ser-lhe-á solicitado o consentimento adequado antes da sua utilização."
+        ]
+      },
+      {
+        "id": "gerir",
+        "title": "5. Como gerir os cookies",
+        "paragraphs": [
+          "Pode controlar e eliminar cookies através das definições do seu navegador. A maioria dos navegadores permite bloquear ou apagar cookies, bem como ser notificado sempre que um cookie é colocado. Tenha em conta que a desativação dos cookies estritamente necessários pode afetar o funcionamento de algumas funcionalidades do website."
+        ]
+      },
+      {
+        "id": "contacto",
+        "title": "6. Contacto",
+        "paragraphs": [
+          "Para qualquer questão sobre a utilização de cookies neste website, contacte-nos através de privacidade@ongdimipabos.org. Para mais informação sobre o tratamento dos seus dados pessoais, consulte a nossa Política de Privacidade."
         ]
       }
     ]

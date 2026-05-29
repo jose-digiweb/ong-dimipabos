@@ -41,6 +41,8 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
       api_host: POSTHOG_HOST,
       // Cookie-less mode — no localStorage, no cookies, no banner required
       persistence: 'memory',
+      // Event-based only — never create anonymous person profiles
+      person_profiles: 'identified_only',
       // App Router needs manual pageview capture (see PageviewTracker)
       capture_pageview: false,
       capture_pageleave: true,

@@ -37,6 +37,7 @@
     "legalTitle": "Legal",
     "linkPrivacy": "Privacy Policy",
     "linkTerms": "Terms & Conditions",
+    "linkCookies": "Cookie Policy",
     "facebookLabel": "Facebook",
     "whatsappLabel": "WhatsApp",
     "orgName": "DI MI PA BÔS",
@@ -518,7 +519,7 @@
         "id": "cookies",
         "title": "8. Cookies",
         "paragraphs": [
-          "This website uses only cookies and similar technologies strictly necessary for its operation, and does not currently use analytics, advertising or behavioural tracking cookies that require prior consent. Should this change, this policy will be updated and appropriate consent will be requested."
+          "This website uses only cookies and similar technologies strictly necessary for its operation, and does not use advertising or behavioural tracking cookies that require prior consent. For statistical purposes we use a cookieless analytics solution (PostHog), hosted in the European Union and configured without cookies, without storage on your device and without collecting your IP address. For more details, see our Cookie Policy."
         ]
       },
       {
@@ -624,6 +625,68 @@
         "title": "10. Changes",
         "paragraphs": [
           "DI MI PA BÔS reserves the right to change these terms at any time. The version in force is always the one published on this page, identified by the last updated date shown at the top."
+        ]
+      }
+    ]
+  },
+  "cookies": {
+    "metaTitle": "Cookie Policy",
+    "metaDescription": "How DI MI PA BÔS uses strictly necessary cookies and cookieless analytics on this website.",
+    "breadcrumbHome": "Home",
+    "breadcrumbCookies": "Cookie Policy",
+    "heroTop": "Legal Information",
+    "heroTitle": "Cookie Policy",
+    "heroDescription": "This policy explains what cookies are, which cookies this website uses and how you can manage them.",
+    "lastUpdatedLabel": "Last updated:",
+    "lastUpdatedValue": "29 May 2026",
+    "relatedText": "See also our",
+    "relatedLinkLabel": "Privacy Policy",
+    "sections": [
+      {
+        "id": "o-que-sao",
+        "title": "1. What cookies are",
+        "paragraphs": [
+          "Cookies are small text files that websites place on your device to store information. They are widely used to make sites work and to gather information about how users interact with them. Similar technologies, such as browser local storage, perform equivalent functions."
+        ]
+      },
+      {
+        "id": "cookies-necessarios",
+        "title": "2. Strictly necessary cookies",
+        "paragraphs": [
+          "We use only cookies and similar technologies that are strictly necessary for the website to function. These cookies do not require prior consent and are not used for marketing or tracking purposes. Specifically, they may include:"
+        ],
+        "list": [
+          "Language preference, to display the website in your chosen language.",
+          "Security and technical operation cookies managed by our infrastructure provider (Cloudflare), to protect the site and ensure it works correctly."
+        ]
+      },
+      {
+        "id": "analise",
+        "title": "3. Cookieless analytics",
+        "paragraphs": [
+          "To understand in aggregate how the website is used, we rely on an analytics solution (PostHog) configured in cookieless mode. This solution does not place cookies on your device, does not use persistent local storage, does not collect your IP address and does not perform cross-site tracking or session recording.",
+          "The data is processed in aggregate and anonymously, exclusively for statistical purposes and to improve the website, and is hosted on servers located in the European Union. Because no information is stored on or read from your device, this analytics does not require your prior consent."
+        ]
+      },
+      {
+        "id": "terceiros",
+        "title": "4. Third-party cookies",
+        "paragraphs": [
+          "This website does not use advertising, social media or third-party behavioural tracking cookies. Should cookies requiring consent be introduced in the future, this policy will be updated and your appropriate consent will be requested before they are used."
+        ]
+      },
+      {
+        "id": "gerir",
+        "title": "5. How to manage cookies",
+        "paragraphs": [
+          "You can control and delete cookies through your browser settings. Most browsers let you block or delete cookies, as well as be notified whenever a cookie is set. Please note that disabling strictly necessary cookies may affect how some features of the website work."
+        ]
+      },
+      {
+        "id": "contacto",
+        "title": "6. Contact",
+        "paragraphs": [
+          "For any question about the use of cookies on this website, contact us at privacidade@ongdimipabos.org. For more information about the processing of your personal data, see our Privacy Policy."
         ]
       }
     ]

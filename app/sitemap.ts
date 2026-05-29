@@ -19,6 +19,7 @@ const staticRoute = [
   { path: '/como-ajudar/parceiros', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/politica-de-privacidade', changeFrequency: 'yearly', priority: 0.3 },
   { path: '/termos', changeFrequency: 'yearly', priority: 0.3 },
+  { path: '/cookies', changeFrequency: 'yearly', priority: 0.3 },
 ] as const satisfies readonly {
   path: string
   changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'

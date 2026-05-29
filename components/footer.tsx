@@ -15,6 +15,7 @@ const footerRoute = {
   PARCEIROS: '/como-ajudar/parceiros',
   PRIVACY: '/politica-de-privacidade',
   TERMS: '/termos',
+  COOKIES: '/cookies',
 } as const
 
 /**
@@ -150,6 +151,11 @@ export function Footer() {
               <li>
                 <Link href={footerRoute.TERMS} className='hover:text-primary-foreground'>
                   {t('linkTerms')}
+                </Link>
+              </li>
+              <li>
+                <Link href={footerRoute.COOKIES} className='hover:text-primary-foreground'>
+                  {t('linkCookies')}
                 </Link>
               </li>
             </ul>
