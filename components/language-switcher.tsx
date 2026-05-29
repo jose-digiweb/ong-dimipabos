@@ -29,8 +29,8 @@ export type LanguageSwitcherTone = (typeof languageSwitcherTone)[keyof typeof la
  */
 const toneClasses = {
   [languageSwitcherTone.ON_DARK]: {
-    container: 'border border-white/20 bg-white/5 backdrop-blur-sm',
-    inactive: 'text-white/70 hover:text-white',
+    container: 'border border-white/20 bg-black/20 backdrop-blur-sm',
+    inactive: 'text-white/90 hover:text-white',
     active: 'text-primary',
     indicator: 'bg-white shadow-sm',
   },
