@@ -16,6 +16,7 @@ import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
   SITE_NAME,
+  SITE_OG_IMAGE,
   SITE_TITLE,
   SITE_URL,
 } from '@/lib/seo/constants'
@@ -60,11 +61,20 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE.URL,
+        width: SITE_OG_IMAGE.WIDTH,
+        height: SITE_OG_IMAGE.HEIGHT,
+        alt: SITE_OG_IMAGE.ALT,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: [SITE_OG_IMAGE.TWITTER_URL],
   },
 }
 

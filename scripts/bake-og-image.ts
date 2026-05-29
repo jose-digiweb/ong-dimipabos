@@ -26,8 +26,8 @@ const SOURCE_IMAGE = join(process.cwd(), 'assets', 'heroSection', 'hero_image.jp
  * @description File paths the baked card should be written to
  */
 const OUTPUT_TARGETS = [
-  join(process.cwd(), 'app', 'opengraph-image.jpg'),
-  join(process.cwd(), 'app', 'twitter-image.jpg'),
+  join(process.cwd(), 'public', 'opengraph-image.jpg'),
+  join(process.cwd(), 'public', 'twitter-image.jpg'),
 ] as const
 
 /**

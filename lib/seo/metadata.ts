@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { defaultLocale, type Locale, localeOgCodes, locales } from '@/i18n/config'
 
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from './constants'
+import { SITE_DESCRIPTION, SITE_NAME, SITE_OG_IMAGE, SITE_URL } from './constants'
 
 /**
  * The {@link BuildMetadataParams} type
@@ -66,8 +66,18 @@ export function buildMetadata({
   // Resolve the OG type with a website default
   const resolvedType = ogType ?? 'website'
 
-  // Build the OG images array only when an image is provided so the file convention default still applies
-  const ogImages = image ? [{ url: image }] : undefined
+  // Resolve the social card image, falling back to the static default served from public/
+  const ogImage = image
+    ? { url: image }
+    : {
+        url: SITE_OG_IMAGE.URL,
+        width: SITE_OG_IMAGE.WIDTH,
+        height: SITE_OG_IMAGE.HEIGHT,
+        alt: SITE_OG_IMAGE.ALT,
+      }
+
+  // Resolve the matching Twitter card image URL
+  const twitterImage = image ? image : SITE_OG_IMAGE.TWITTER_URL
 
   // Return the merged metadata object
   return {
@@ -87,13 +97,13 @@ export function buildMetadata({
       siteName: SITE_NAME,
       title,
       description: resolvedDescription,
-      images: ogImages,
+      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description: resolvedDescription,
-      images: ogImages ? [image as string] : undefined,
+      images: [twitterImage],
     },
   }
 }

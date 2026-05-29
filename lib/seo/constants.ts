@@ -21,13 +21,26 @@ export const SITE_TITLE = 'DI MI PA BÔS - Transformando vidas na Guiné-Bissau'
  * @description Default meta description used as fallback when a page does not provide its own
  */
 export const SITE_DESCRIPTION =
-  'DI MI PA BÔS (dimipabos) é uma ONG na Guiné-Bissau, sediada em Bissau, que constrói o primeiro centro de tratamento e reabilitação para dependência química no país. Apoie projetos de saúde, acolhimento e esperança.'
+  'DI MI PA BÔS: ONG na Guiné-Bissau a construir o primeiro centro de tratamento e reabilitação para dependência química. Apoie saúde e esperança.'
 
 /**
  * The {@link SITE_LOCALE} constant
  * @description Open Graph locale tag used site-wide
  */
 export const SITE_LOCALE = 'pt_PT'
+
+/**
+ * The {@link SITE_OG_IMAGE} constant
+ * @description Default social card image served as a static asset from `public/`.
+ * Used for Open Graph and Twitter cards on every route that does not supply its own image.
+ */
+export const SITE_OG_IMAGE = {
+  URL: '/opengraph-image.jpg',
+  TWITTER_URL: '/twitter-image.jpg',
+  WIDTH: 1200,
+  HEIGHT: 630,
+  ALT: 'DI MI PA BÔS — Transformando vidas na Guiné-Bissau. Construindo o primeiro centro de tratamento e reabilitação.',
+} as const
 
 /**
  * The {@link SITE_ALTERNATE_NAMES} constant
