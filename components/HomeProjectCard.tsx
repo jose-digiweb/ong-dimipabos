@@ -94,10 +94,10 @@ export const HomeProjectCard = ({
         <Link
           href={href}
           className='mt-4 inline-flex items-center font-medium text-primary hover:text-secondary/90'
-          aria-label={`${t('learnMoreAriaPrefix')} ${title}`}
         >
-          {t('learnMore')}
-          <ArrowRight className='ml-1 size-4' />
+          <span aria-hidden='true'>{t('learnMore')}</span>
+          <span className='sr-only'>{`${t('learnMoreAriaPrefix')} ${title}`}</span>
+          <ArrowRight className='ml-1 size-4' aria-hidden='true' />
         </Link>
       </CardContent>
     </Card>

@@ -24,7 +24,7 @@ export const CTASection = ({ className }: CTASectionProps) => {
   return (
     <section className={cn('bg-primary py-16 text-primary-foreground', className)}>
       <div className='mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8'>
-        <div className='mb-4 inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 font-medium text-sm text-white'>
+        <div className='mb-4 inline-flex items-center rounded-full bg-black/20 px-4 py-1.5 font-medium text-sm text-white'>
           <span className='relative mr-2 flex h-3 w-3'>
             <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75' />
             <span className='relative inline-flex h-3 w-3 rounded-full bg-secondary' />
