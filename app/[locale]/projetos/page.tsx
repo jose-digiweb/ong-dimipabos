@@ -73,10 +73,13 @@ export default async function ProjectsPage({ params }: ProjectsHubRouteProps) {
   const t = await getTranslations('projectsHub')
 
   // Build the breadcrumb schema for this route
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: t('breadcrumbHome'), path: '/' },
-    { name: t('breadcrumbProjects'), path: '/projetos' },
-  ])
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: t('breadcrumbHome'), path: '/' },
+      { name: t('breadcrumbProjects'), path: '/projetos' },
+    ],
+    locale,
+  )
 
   // Render the full projects index layout
   return (

@@ -65,10 +65,13 @@ export default async function PrivacyPolicyPage({ params }: PrivacyRouteProps) {
   const sections = t.raw('sections') as readonly LegalSection[]
 
   // Build the breadcrumb schema for this route
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: t('breadcrumbHome'), path: '/' },
-    { name: t('breadcrumbPrivacy'), path: '/politica-de-privacidade' },
-  ])
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: t('breadcrumbHome'), path: '/' },
+      { name: t('breadcrumbPrivacy'), path: '/politica-de-privacidade' },
+    ],
+    locale,
+  )
 
   // Render the full privacy policy layout
   return (

@@ -62,10 +62,13 @@ export default async function PartnersPage({ params }: PartnersRouteProps) {
   const t = await getTranslations('partnersPage')
 
   // Build the breadcrumb schema for this route
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: t('breadcrumbHome'), path: '/' },
-    { name: t('breadcrumbPartners'), path: '/como-ajudar/parceiros' },
-  ])
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: t('breadcrumbHome'), path: '/' },
+      { name: t('breadcrumbPartners'), path: '/como-ajudar/parceiros' },
+    ],
+    locale,
+  )
 
   // Render the full partners page layout
   return (

@@ -65,10 +65,13 @@ export default async function CookiesPage({ params }: CookiesRouteProps) {
   const sections = t.raw('sections') as readonly LegalSection[]
 
   // Build the breadcrumb schema for this route
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: t('breadcrumbHome'), path: '/' },
-    { name: t('breadcrumbCookies'), path: '/cookies' },
-  ])
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: t('breadcrumbHome'), path: '/' },
+      { name: t('breadcrumbCookies'), path: '/cookies' },
+    ],
+    locale,
+  )
 
   // Render the full cookies page layout
   return (

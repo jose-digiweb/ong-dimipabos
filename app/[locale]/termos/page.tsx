@@ -65,10 +65,13 @@ export default async function TermsPage({ params }: TermsRouteProps) {
   const sections = t.raw('sections') as readonly LegalSection[]
 
   // Build the breadcrumb schema for this route
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: t('breadcrumbHome'), path: '/' },
-    { name: t('breadcrumbTerms'), path: '/termos' },
-  ])
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: t('breadcrumbHome'), path: '/' },
+      { name: t('breadcrumbTerms'), path: '/termos' },
+    ],
+    locale,
+  )
 
   // Render the full terms page layout
   return (

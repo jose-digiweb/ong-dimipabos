@@ -175,14 +175,18 @@ export default async function ContactPage({ params }: ContactRouteProps) {
 
   // Build the breadcrumb + ContactPage schemas for this route
   const jsonLdData = [
-    buildBreadcrumbSchema([
-      { name: t('breadcrumbHome'), path: '/' },
-      { name: t('breadcrumbContact'), path: '/contato' },
-    ]),
+    buildBreadcrumbSchema(
+      [
+        { name: t('breadcrumbHome'), path: '/' },
+        { name: t('breadcrumbContact'), path: '/contato' },
+      ],
+      locale,
+    ),
     buildContactPageSchema({
       name: t('breadcrumbContact'),
       description: t('metaDescription'),
       path: '/contato',
+      locale,
     }),
   ]
 

@@ -139,16 +139,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   // Build the breadcrumb + Article schemas for this project
   const jsonLdData = [
-    buildBreadcrumbSchema([
-      { name: tDetail('breadcrumbHome'), path: '/' },
-      { name: tDetail('breadcrumbProjects'), path: '/projetos' },
-      { name: title, path: `/projetos/${project.slug}` },
-    ]),
+    buildBreadcrumbSchema(
+      [
+        { name: tDetail('breadcrumbHome'), path: '/' },
+        { name: tDetail('breadcrumbProjects'), path: '/projetos' },
+        { name: title, path: `/projetos/${project.slug}` },
+      ],
+      locale,
+    ),
     buildArticleSchema({
       title,
       description: shortDescription,
       path: `/projetos/${project.slug}`,
       image: cfImage(project.image, { width: 1200, height: 630 }),
+      locale,
     }),
   ]
 

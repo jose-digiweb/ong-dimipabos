@@ -42,3 +42,12 @@ export const localeOgCodes = {
   pt: 'pt_PT',
   en: 'en_US',
 } as const satisfies Record<Locale, string>
+
+/**
+ * The {@link localeBcp47Codes} constant
+ * @description BCP-47 language tags mapped from app locales, used by schema.org `inLanguage`
+ */
+export const localeBcp47Codes = {
+  pt: 'pt-PT',
+  en: 'en-US',
+} as const satisfies Record<Locale, string>

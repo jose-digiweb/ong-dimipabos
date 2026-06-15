@@ -120,10 +120,13 @@ export default async function SobrePage({ params }: SobreRouteProps) {
   const valuesItems = t.raw('values.items') as readonly string[]
 
   // Build the breadcrumb schema for this route
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: t('breadcrumbHome'), path: '/' },
-    { name: t('breadcrumbAbout'), path: '/sobre' },
-  ])
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: t('breadcrumbHome'), path: '/' },
+      { name: t('breadcrumbAbout'), path: '/sobre' },
+    ],
+    locale,
+  )
 
   // Render the full sobre page layout
   return (

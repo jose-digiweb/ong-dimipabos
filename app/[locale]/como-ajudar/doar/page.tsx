@@ -61,10 +61,13 @@ export default async function DonatePage({ params }: DonateRouteProps) {
   const t = await getTranslations('donatePage')
 
   // Build the breadcrumb schema for this route
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: t('breadcrumbHome'), path: '/' },
-    { name: t('breadcrumbDonate'), path: '/como-ajudar/doar' },
-  ])
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: t('breadcrumbHome'), path: '/' },
+      { name: t('breadcrumbDonate'), path: '/como-ajudar/doar' },
+    ],
+    locale,
+  )
 
   // Render the full donate page layout
   return (

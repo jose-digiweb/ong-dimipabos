@@ -63,10 +63,13 @@ export default async function VolunteerPage({ params }: VolunteerRouteProps) {
   const t = await getTranslations('volunteerPage')
 
   // Build the breadcrumb schema for this route
-  const breadcrumbSchema = buildBreadcrumbSchema([
-    { name: t('breadcrumbHome'), path: '/' },
-    { name: t('breadcrumbVolunteer'), path: '/como-ajudar/voluntario' },
-  ])
+  const breadcrumbSchema = buildBreadcrumbSchema(
+    [
+      { name: t('breadcrumbHome'), path: '/' },
+      { name: t('breadcrumbVolunteer'), path: '/como-ajudar/voluntario' },
+    ],
+    locale,
+  )
 
   // Render the full volunteer page layout
   return (

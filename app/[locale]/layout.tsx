@@ -107,7 +107,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   setRequestLocale(locale)
 
   // Build site-wide JSON-LD nodes once per render
-  const jsonLdData = [buildOrganizationSchema(), buildWebsiteSchema()]
+  const jsonLdData = [buildOrganizationSchema(), buildWebsiteSchema(locale)]
 
   // Render the full document shell
   return (

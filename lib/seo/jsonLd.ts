@@ -1,4 +1,7 @@
+import { localeBcp47Codes, type Locale } from '@/i18n/config'
+
 import { SITE_ALTERNATE_NAMES, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from './constants'
+import { buildLocalizedUrl } from './metadata'
 
 /**
  * The {@link organizationLegalData} constant
@@ -116,6 +119,7 @@ export type ArticleSchemaInput = {
   description: string
   path: string
   image: string
+  locale: Locale
 }
 
 /**
@@ -203,9 +207,10 @@ export function buildOrganizationSchema(): OrganizationSchema {
 /**
  * The {@link buildWebsiteSchema} helper
  * @description Builds the WebSite schema describing this site as a publication
+ * @param {Locale} locale - The active locale, used for the `inLanguage` tag
  * @returns {WebsiteSchema} The WebSite schema
  */
-export function buildWebsiteSchema(): WebsiteSchema {
+export function buildWebsiteSchema(locale: Locale): WebsiteSchema {
   // Build the WebSite node linked back to the Organization as publisher
   return {
     '@context': 'https://schema.org',
@@ -214,7 +219,7 @@ export function buildWebsiteSchema(): WebsiteSchema {
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    inLanguage: 'pt-PT',
+    inLanguage: localeBcp47Codes[locale],
     publisher: { '@id': ORGANIZATION_ID },
   }
 }
@@ -223,15 +228,19 @@ export function buildWebsiteSchema(): WebsiteSchema {
  * The {@link buildBreadcrumbSchema} helper
  * @description Builds a BreadcrumbList schema from an ordered list of crumbs
  * @param {readonly BreadcrumbItem[]} items - The ordered crumbs from root to current page
+ * @param {Locale} locale - The active locale, used to build locale-aware crumb URLs
  * @returns {BreadcrumbListSchema} The BreadcrumbList schema
  */
-export function buildBreadcrumbSchema(items: readonly BreadcrumbItem[]): BreadcrumbListSchema {
-  // Map each crumb to a positioned ListItem entry
+export function buildBreadcrumbSchema(
+  items: readonly BreadcrumbItem[],
+  locale: Locale,
+): BreadcrumbListSchema {
+  // Map each crumb to a positioned ListItem entry with a locale-aware URL
   const itemListElement = items.map((item, index) => ({
     '@type': 'ListItem' as const,
     position: index + 1,
     name: item.name,
-    item: `${SITE_URL}${item.path}`,
+    item: buildLocalizedUrl(locale, item.path),
   }))
 
   // Return the BreadcrumbList wrapper
@@ -255,7 +264,7 @@ export function buildArticleSchema(input: ArticleSchemaInput): ArticleSchema {
     '@type': 'Article',
     headline: input.title,
     description: input.description,
-    url: `${SITE_URL}${input.path}`,
+    url: buildLocalizedUrl(input.locale, input.path),
     image: input.image,
     author: { '@type': 'NGO', name: SITE_NAME },
     publisher: { '@id': ORGANIZATION_ID },
@@ -270,6 +279,7 @@ export type ContactPageInput = {
   name: string
   description: string
   path: string
+  locale: Locale
 }
 
 /**
@@ -284,9 +294,9 @@ export function buildContactPageSchema(input: ContactPageInput): ContactPageSche
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
     name: input.name,
-    url: `${SITE_URL}${input.path}`,
+    url: buildLocalizedUrl(input.locale, input.path),
     description: input.description,
-    inLanguage: 'pt-PT',
+    inLanguage: localeBcp47Codes[input.locale],
     about: { '@id': ORGANIZATION_ID },
   }
 }
