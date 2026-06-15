@@ -20,5 +20,5 @@ export const config = {
   //   - `/_vercel/*`          (Vercel internals)
   //   - `/cdn-cgi/*`          (Cloudflare Image Transformations)
   //   - Any path with a dot   (static files: icons, OG images, manifests, robots, sitemap)
-  matcher: '/((?!api|_next|_vercel|cdn-cgi|.*\\..*).*)',
+  matcher: ['/', '/((?!api|_next|_vercel|cdn-cgi|.*\\..*).*)'],
 }

@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 
 import { defaultLocale, locales } from '@/i18n/config'
 import { projects } from '@/lib/data'
-import { SITE_URL } from '@/lib/seo/constants'
+import { buildLocalizedUrl } from '@/lib/seo/metadata'
 
 /**
  * The {@link staticRoute} constant
@@ -33,13 +33,13 @@ const staticRoute = [
  * @returns {Record<string, string>} The map of locale codes to absolute URLs
  */
 const buildAlternates = (path: string): Record<string, string> => {
-  // Build one entry per supported locale
+  // Build one entry per supported locale (default locale is served unprefixed)
   const languages = Object.fromEntries(
-    locales.map((locale) => [locale, `${SITE_URL}/${locale}${path}`]),
+    locales.map((locale) => [locale, buildLocalizedUrl(locale, path)]),
   )
 
-  // Include an x-default pointing at the default locale
-  return { ...languages, 'x-default': `${SITE_URL}/${defaultLocale}${path}` }
+  // Include an x-default pointing at the unprefixed default-locale URL
+  return { ...languages, 'x-default': buildLocalizedUrl(defaultLocale, path) }
 }
 
 /**
@@ -56,7 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Build sitemap entries for the static routes across every locale
   const staticEntries: MetadataRoute.Sitemap = staticRoute.flatMap((route) =>
     locales.map((locale) => ({
-      url: `${SITE_URL}/${locale}${route.path}`,
+      url: buildLocalizedUrl(locale, route.path),
       lastModified,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
@@ -67,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Build sitemap entries for the dynamic project routes across every locale
   const projectEntries: MetadataRoute.Sitemap = projects.flatMap((project) =>
     locales.map((locale) => ({
-      url: `${SITE_URL}/${locale}/projetos/${project.slug}`,
+      url: buildLocalizedUrl(locale, `/projetos/${project.slug}`),
       lastModified,
       changeFrequency: 'monthly' as const,
       priority: 0.7,

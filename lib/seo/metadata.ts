@@ -24,12 +24,16 @@ export type BuildMetadataParams = {
  * @param {string} path - The route path starting with a slash
  * @returns {string} The absolute, locale-prefixed URL
  */
-const buildLocalizedUrl = (locale: Locale, path: string): string => {
-  // Normalise the trailing slash on the path
+export const buildLocalizedUrl = (locale: Locale, path: string): string => {
+  // Normalise the home path so it yields the bare origin (no trailing slash)
   const normalisedPath = path === '/' ? '' : path
 
-  // Return the absolute, locale-prefixed URL
-  return `${SITE_URL}/${locale}${normalisedPath}`
+  // The default locale is served unprefixed (localePrefix: 'as-needed'); every
+  // other locale keeps its `/<locale>` prefix. Canonical/hreflang must match the
+  // URL the middleware actually serves, so the default locale drops the prefix.
+  return locale === defaultLocale
+    ? `${SITE_URL}${normalisedPath}`
+    : `${SITE_URL}/${locale}${normalisedPath}`
 }
 
 /**
