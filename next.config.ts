@@ -48,6 +48,19 @@ const nextConfig: NextConfig = {
       },
     ]
   },
+  async redirects() {
+    // Permanently strip the redundant default-locale (`pt`) prefix from legacy URLs.
+    // Before the `localePrefix: 'as-needed'` migration the Portuguese pages lived at
+    // `/pt/*`; next-intl still normalises those to the unprefixed canonical, but only
+    // with a *temporary* 307. Config redirects are evaluated ahead of the middleware,
+    // so a `permanent: true` (308) redirect here overrides that 307 — telling Google
+    // the move is permanent so it consolidates signals onto the canonical URL and
+    // retires the old `/pt/*` entries instead of endlessly re-crawling them.
+    return [
+      { source: '/pt', destination: '/', permanent: true },
+      { source: '/pt/:path*', destination: '/:path*', permanent: true },
+    ]
+  },
 }
 
 export default withNextIntl(nextConfig)
