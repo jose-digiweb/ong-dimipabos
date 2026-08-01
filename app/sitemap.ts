@@ -14,7 +14,7 @@ const staticRoute = [
   { path: '/sobre', changeFrequency: 'monthly', priority: 0.8 },
   { path: '/projetos', changeFrequency: 'monthly', priority: 0.9 },
   { path: '/contato', changeFrequency: 'yearly', priority: 0.6 },
-  { path: '/como-ajudar/doar', changeFrequency: 'monthly', priority: 0.9 },
+  { path: '/como-ajudar/doar', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/como-ajudar/voluntario', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/como-ajudar/parceiros', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/politica-de-privacidade', changeFrequency: 'yearly', priority: 0.3 },

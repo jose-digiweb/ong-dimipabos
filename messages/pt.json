@@ -6,8 +6,8 @@
     "help": "Como Ajudar",
     "contact": "Contato",
     "donate": {
-      "label": "Doe",
-      "description": "Contribua financeiramente com a construção do centro."
+      "label": "Apoiar",
+      "description": "Conheça as formas de apoiar a construção do centro."
     },
     "volunteer": {
       "label": "Seja Voluntário",
@@ -30,7 +30,7 @@
     "quickLinks": "Links Rápidos",
     "linkAbout": "Nossa História",
     "linkProjects": "Projetos",
-    "linkDonate": "Doe",
+    "linkDonate": "Apoiar",
     "linkVolunteer": "Seja Voluntário",
     "linkPartner": "Seja Parceiro",
     "contactTitle": "Contato",
@@ -45,10 +45,10 @@
     "location": "Bissau, Guiné-Bissau"
   },
   "cta": {
-    "defaultButton": "Doe Agora",
+    "defaultButton": "Como Apoiar",
     "badge": "Faça Parte Desta Construção",
     "title": "Ajude a Construir Esperança",
-    "description": "Sua contribuição é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Cada tijolo conta, cada ajuda importa.",
+    "description": "O seu apoio é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Como voluntário, parceiro ou divulgando a nossa missão — cada ajuda conta.",
     "volunteerButton": "Seja Voluntário"
   },
   "languageSwitcher": {
@@ -285,14 +285,14 @@
   },
   "donatePage": {
     "metaTitle": "Como Doar",
-    "metaDescription": "Apoie a construção do Centro de Tratamento e Reabilitação da DI MI PA BÔS através de uma doação por transferência bancária.",
+    "metaDescription": "Saiba como apoiar a construção do Centro de Tratamento e Reabilitação da DI MI PA BÔS. Donativos bancários em breve; voluntariado e parcerias já disponíveis.",
     "breadcrumbHome": "Início",
     "breadcrumbDonate": "Como Doar",
-    "heroTop": "Como Ajudar / Doe",
-    "heroTitle": "Sua Doação Constrói Esperança",
-    "heroSubtitle": "Cada Euro Importa",
-    "heroDescription": "Sua contribuição é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Cada tijolo conta, cada ajuda importa.",
-    "cardTitle": "Por que Doar",
+    "heroTop": "Como Ajudar / Apoiar",
+    "heroTitle": "O Seu Apoio Constrói Esperança",
+    "heroSubtitle": "Cada Ajuda Importa",
+    "heroDescription": "O seu apoio é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Cada tijolo conta, cada ajuda importa.",
+    "cardTitle": "Por que Apoiar",
     "cardBody": "100% dos fundos são destinados à construção e operação do centro de acolhimento, com prestação de contas transparente."
   },
   "volunteerPage": {

@@ -6,8 +6,8 @@
     "help": "How to Help",
     "contact": "Contact",
     "donate": {
-      "label": "Donate",
-      "description": "Support the construction of the centre financially."
+      "label": "Support",
+      "description": "See the ways to support the centre's construction."
     },
     "volunteer": {
       "label": "Volunteer",
@@ -30,7 +30,7 @@
     "quickLinks": "Quick Links",
     "linkAbout": "Our Story",
     "linkProjects": "Projects",
-    "linkDonate": "Donate",
+    "linkDonate": "Support",
     "linkVolunteer": "Volunteer",
     "linkPartner": "Partner",
     "contactTitle": "Contact",
@@ -45,10 +45,10 @@
     "location": "Bissau, Guinea-Bissau"
   },
   "cta": {
-    "defaultButton": "Donate Now",
+    "defaultButton": "How to Help",
     "badge": "Be Part of This Build",
     "title": "Help Us Build Hope",
-    "description": "Your contribution is essential to finishing the centre and starting to transform lives. Every brick counts, every bit of help matters.",
+    "description": "Your support is essential for us to finish building the centre and start transforming lives. As a volunteer, as a partner, or by sharing our mission — every bit of help counts.",
     "volunteerButton": "Volunteer"
   },
   "languageSwitcher": {
@@ -285,14 +285,14 @@
   },
   "donatePage": {
     "metaTitle": "How to Donate",
-    "metaDescription": "Support the construction of the DI MI PA BÔS Treatment and Rehabilitation Centre with a bank transfer donation.",
+    "metaDescription": "Learn how to support the construction of the DI MI PA BÔS Treatment and Rehabilitation Centre. Bank donations opening soon; volunteering and partnerships available now.",
     "breadcrumbHome": "Home",
     "breadcrumbDonate": "How to Donate",
-    "heroTop": "How to Help / Donate",
-    "heroTitle": "Your Donation Builds Hope",
-    "heroSubtitle": "Every Euro Counts",
-    "heroDescription": "Your contribution is essential for us to finish building the centre and start transforming lives. Every brick counts, every bit of help matters.",
-    "cardTitle": "Why Donate",
+    "heroTop": "How to Help / Support",
+    "heroTitle": "Your Support Builds Hope",
+    "heroSubtitle": "Every Bit of Help Counts",
+    "heroDescription": "Your support is essential for us to finish building the centre and start transforming lives. Every brick counts, every bit of help matters.",
+    "cardTitle": "Why Support Us",
     "cardBody": "100% of funds go to the construction and operation of the shelter centre, with transparent accountability."
   },
   "volunteerPage": {
