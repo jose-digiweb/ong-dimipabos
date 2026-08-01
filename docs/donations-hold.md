@@ -9,6 +9,37 @@ Charted on [Hold the donation ask until the bank account is confirmed](https://g
 
 ---
 
+## While the hold is live — the one thing to watch
+
+`/como-ajudar/doar` and `/en/como-ajudar/doar` were kept at **HTTP 200** rather than redirected or
+removed, because no source documents how long a de-indexed URL takes to come back, and this URL has
+to come back. Keeping it live means there is no de-indexing event to recover from.
+
+The cost of that choice is a **`Soft 404`** risk: Google may decide the page is an error page served
+with a 200. Mitigation is already in place — the page was rebuilt to be genuinely about supporting
+the organisation, which is Google's own documented remedy ("adding more information on the page").
+
+**What to check.** Search Console → Page Indexing, for both donate URLs. Look specifically for a
+`Soft 404` verdict.
+
+- The outcome is **binary**, not a ranking gradient: the page is either dropped or ranks normally.
+  There is no slow bleed to catch early, so infrequent checks are enough.
+- There is **no documented safe duration** for a soft-404 exposure, so there is no deadline at which
+  it becomes safe to stop looking. Check occasionally for as long as the hold lasts.
+- Detection is reported to be per-device, with Search Console surfacing the mobile verdict, so a
+  desktop-side classification may never appear in the report.
+- **If it does tip:** the fallback is a `307` from the donate URL to a support page. That option is no
+  worse then than it would have been at any earlier point, which is why it was not taken up front.
+
+PostHog `$pageview` already covers this route (`components/analytics/PostHogProvider.tsx`), so the
+traffic effect is measurable there without waiting on Search Console.
+
+> A pre-change Search Console baseline was never captured — the hold shipped first, so that window
+> has closed. It is not needed: the check above is a verdict lookup, not a comparison against
+> previous numbers.
+
+---
+
 ## Do not re-enable until both of these are true
 
 Both conditions, not either.
@@ -68,19 +99,19 @@ the trigger above.
 Original values below. `metaTitle`, `breadcrumbDonate` and `cardBody` were never changed, so they
 need nothing.
 
-| Key                          | Currently                       | Restore to (pt)                                                                                                                                   | Restore to (en)                                                                                                                                    |
-| ---------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `cta.defaultButton`          | Como Apoiar / How to Help       | `Doe Agora`                                                                                                                                       | `Donate Now`                                                                                                                                       |
-| `cta.description`            | support-framed                  | `Sua contribuição é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Cada tijolo conta, cada ajuda importa.` | `Your contribution is essential to finishing the centre and starting to transform lives. Every brick counts, every bit of help matters.`           |
-| `nav.donate.label`           | Apoiar / Support                | `Doe`                                                                                                                                             | `Donate`                                                                                                                                           |
-| `nav.donate.description`     | forms-of-support wording        | `Contribua financeiramente com a construção do centro.`                                                                                           | `Support the construction of the centre financially.`                                                                                              |
-| `footer.linkDonate`          | Apoiar / Support                | `Doe`                                                                                                                                             | `Donate`                                                                                                                                           |
-| `donatePage.metaDescription` | "bank donations opening soon"   | `Apoie a construção do Centro de Tratamento e Reabilitação da DI MI PA BÔS através de uma doação por transferência bancária.`                     | `Support the construction of the DI MI PA BÔS Treatment and Rehabilitation Centre with a bank transfer donation.`                                  |
-| `donatePage.heroTop`         | Como Ajudar / Apoiar            | `Como Ajudar / Doe`                                                                                                                               | `How to Help / Donate`                                                                                                                             |
-| `donatePage.heroTitle`       | O Seu Apoio Constrói Esperança  | `Sua Doação Constrói Esperança`                                                                                                                   | `Your Donation Builds Hope`                                                                                                                        |
-| `donatePage.heroSubtitle`    | Cada Ajuda Importa              | `Cada Euro Importa`                                                                                                                               | `Every Euro Counts`                                                                                                                                |
-| `donatePage.heroDescription` | "O seu apoio…"                  | `Sua contribuição é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Cada tijolo conta, cada ajuda importa.` | `Your contribution is essential for us to finish building the centre and start transforming lives. Every brick counts, every bit of help matters.` |
-| `donatePage.cardTitle`       | Por que Apoiar / Why Support Us | `Por que Doar`                                                                                                                                    | `Why Donate`                                                                                                                                       |
+| Key                          | Currently                        | Restore to (pt)                                                                                                                                   | Restore to (en)                                                                                                                                    |
+| ---------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cta.defaultButton`          | Como Apoiar / How to Help        | `Doe Agora`                                                                                                                                       | `Donate Now`                                                                                                                                       |
+| `cta.description`            | support-framed                   | `Sua contribuição é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Cada tijolo conta, cada ajuda importa.` | `Your contribution is essential to finishing the centre and starting to transform lives. Every brick counts, every bit of help matters.`           |
+| `nav.donate.label`           | Apoiar / Support                 | `Doe`                                                                                                                                             | `Donate`                                                                                                                                           |
+| `nav.donate.description`     | forms-of-support wording         | `Contribua financeiramente com a construção do centro.`                                                                                           | `Support the construction of the centre financially.`                                                                                              |
+| `footer.linkDonate`          | Apoiar / Support                 | `Doe`                                                                                                                                             | `Donate`                                                                                                                                           |
+| `donatePage.metaDescription` | volunteering + partnerships only | `Apoie a construção do Centro de Tratamento e Reabilitação da DI MI PA BÔS através de uma doação por transferência bancária.`                     | `Support the construction of the DI MI PA BÔS Treatment and Rehabilitation Centre with a bank transfer donation.`                                  |
+| `donatePage.heroTop`         | Como Ajudar / Apoiar             | `Como Ajudar / Doe`                                                                                                                               | `How to Help / Donate`                                                                                                                             |
+| `donatePage.heroTitle`       | O Seu Apoio Constrói Esperança   | `Sua Doação Constrói Esperança`                                                                                                                   | `Your Donation Builds Hope`                                                                                                                        |
+| `donatePage.heroSubtitle`    | Cada Ajuda Importa               | `Cada Euro Importa`                                                                                                                               | `Every Euro Counts`                                                                                                                                |
+| `donatePage.heroDescription` | "O seu apoio…"                   | `Sua contribuição é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Cada tijolo conta, cada ajuda importa.` | `Your contribution is essential for us to finish building the centre and start transforming lives. Every brick counts, every bit of help matters.` |
+| `donatePage.cardTitle`       | Por que Apoiar / Why Support Us  | `Por que Doar`                                                                                                                                    | `Why Donate`                                                                                                                                       |
 
 ## 4. Restore the sitemap priority
 
@@ -130,8 +161,10 @@ On re-enable:
 - `supportOptions.statusTitle` becomes **false** and must be removed. It is the single-line
   "Donativos bancários em breve" / "Bank donations opening soon" note, rendered from the status box
   at the top of `components/support-options-section.tsx` — delete both the key and that box.
-- `donatePage.metaDescription` also mentions bank donations opening soon. It is search-result copy
-  rather than on-page copy, so it is easy to miss; restore it along with the rest of section 3.
+- `donatePage.metaDescription` is search-result copy rather than on-page copy, so it is easy to miss.
+  It now says the centre is supported "através de voluntariado e parcerias" / "through volunteering
+  and partnerships", which stops being the whole truth once bank donations reopen. Restore it along
+  with the rest of section 3.
 - The three option cards do not become false. Volunteering, partnerships and contact all still work,
   and keeping them alongside the bank details is probably better than deleting them. This is a
   judgement call, not a reversal — decide it deliberately.

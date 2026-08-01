@@ -6,14 +6,9 @@
     "status": "exists"
   },
   {
-    "event": "donation_cta_clicked",
-    "description": "User clicked the primary CTA button that links to the donation page.",
+    "event": "support_cta_clicked",
+    "description": "User clicked the primary CTA button. It links to /como-ajudar/doar, which is a support page while donations are held, so this is not a donation action. Renamed from donation_cta_clicked.",
     "file": "components/cta/CTAButton.tsx"
-  },
-  {
-    "event": "bank_transfer_details_copied",
-    "description": "User copied a bank account field (IBAN, BIC, reference, etc.) on the donate page.",
-    "file": "components/bank-transfer-section.tsx"
   },
   {
     "event": "language_switched",
@@ -21,8 +16,15 @@
     "file": "components/language-switcher.tsx"
   },
   {
+    "event": "bank_transfer_details_copied",
+    "description": "User copied a bank account field (IBAN, BIC, reference) on the donate page. Blocked: components/bank-transfer-section.tsx was deleted for the donations hold and is restored from git on re-enable. See docs/donations-hold.md.",
+    "file": "components/bank-transfer-section.tsx",
+    "status": "blocked-by-donations-hold"
+  },
+  {
     "event": "donation_amount_set",
-    "description": "User clicked proceed to payment on the donation section, capturing amount and frequency.",
-    "file": "components/donation-section.tsx"
+    "description": "User clicked proceed to payment on the donation section, capturing amount and frequency. Blocked: components/donation-section.tsx has never been imported and belongs to the unbuilt payment feature rather than to this hold.",
+    "file": "components/donation-section.tsx",
+    "status": "blocked-by-unbuilt-payment-feature"
   }
 ]
