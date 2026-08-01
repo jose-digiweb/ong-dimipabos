@@ -3,7 +3,6 @@
 ## Overview
 
 - This is a Next.js 15 App Router site for DI MI PA BÔS, deployed to Cloudflare Workers via `@opennextjs/cloudflare`.
-- **Issues live in Linear, not GitHub.** See `.agents/tracker.md` before filing anything or charting a wayfinder map. GitHub Issues stays enabled only to keep the closed `#1`–`#9` decision archive reachable — do not disable it.
 - Prefer concise, focused changes that preserve the current Portuguese copy and existing visual patterns.
 - Reuse established components and utilities before introducing new abstractions.
 
