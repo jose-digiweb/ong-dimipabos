@@ -48,7 +48,7 @@
     "defaultButton": "How to Help",
     "badge": "Be Part of This Build",
     "title": "Help Us Build Hope",
-    "description": "Your support is essential for us to finish building the centre and start transforming lives. As a volunteer, as a partner, or by sharing our mission — every bit of help counts.",
+    "description": "Your support is essential for us to finish building the centre and start transforming lives.",
     "volunteerButton": "Volunteer"
   },
   "languageSwitcher": {
@@ -325,9 +325,9 @@
   },
   "supportOptions": {
     "statusTitle": "Bank donations opening soon",
-    "statusBody": "We are finalising the opening of the organisation's bank account. As soon as it is confirmed, we will publish the transfer details on this page. Until then, there are other ways to support the centre's construction — all with immediate impact.",
+    "statusBody": "We are finalising the organisation's bank account. We will publish the transfer details here.",
     "sectionTitle": "Ways to Help",
-    "sectionDescription": "Three routes open right now.",
+    "sectionDescription": "Ways to help available now.",
     "volunteerTitle": "Volunteering",
     "volunteerBody": "Give your time and skills to our projects in Guinea-Bissau. Applying takes just a few minutes.",
     "volunteerCta": "Apply now",

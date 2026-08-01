@@ -48,7 +48,7 @@
     "defaultButton": "Como Apoiar",
     "badge": "Faça Parte Desta Construção",
     "title": "Ajude a Construir Esperança",
-    "description": "O seu apoio é fundamental para concluirmos a construção do centro e começarmos a transformar vidas. Como voluntário, parceiro ou divulgando a nossa missão — cada ajuda conta.",
+    "description": "O seu apoio é fundamental para concluirmos a construção do centro e começarmos a transformar vidas.",
     "volunteerButton": "Seja Voluntário"
   },
   "languageSwitcher": {
@@ -325,9 +325,9 @@
   },
   "supportOptions": {
     "statusTitle": "Donativos bancários em breve",
-    "statusBody": "Estamos a finalizar a abertura da conta bancária da organização. Assim que estiver confirmada, publicaremos nesta página os dados para transferência. Até lá, há outras formas de apoiar a construção do centro — todas com impacto imediato.",
+    "statusBody": "Estamos a finalizar a conta bancária da organização. Publicaremos aqui os dados para transferência.",
     "sectionTitle": "Formas de Apoiar",
-    "sectionDescription": "Três caminhos abertos agora mesmo.",
+    "sectionDescription": "Formas de ajudar disponíveis agora.",
     "volunteerTitle": "Voluntariado",
     "volunteerBody": "Dê o seu tempo e as suas competências aos nossos projetos na Guiné-Bissau. A candidatura leva poucos minutos.",
     "volunteerCta": "Candidatar-me",
