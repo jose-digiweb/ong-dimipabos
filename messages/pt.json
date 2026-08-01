@@ -540,7 +540,7 @@
     "heroTitle": "Termos e Condições",
     "heroDescription": "Estes termos regulam a utilização do website da ONG DI MI PA BÔS e as condições aplicáveis às doações e demais interações disponibilizadas.",
     "lastUpdatedLabel": "Última atualização:",
-    "lastUpdatedValue": "27 de Maio de 2026",
+    "lastUpdatedValue": "1 de Agosto de 2026",
     "relatedText": "Consulte também a nossa",
     "relatedLinkLabel": "Política de Privacidade",
     "sections": [
@@ -555,7 +555,7 @@
         "id": "objeto",
         "title": "2. Objeto",
         "paragraphs": [
-          "O presente website tem como finalidade dar a conhecer a missão, os projetos e as iniciativas da ONG DI MI PA BÔS, bem como permitir aos visitantes contactar a organização, candidatar-se a voluntariado, propor parcerias e contribuir através de doações.",
+          "O presente website tem como finalidade dar a conhecer a missão, os projetos e as iniciativas da ONG DI MI PA BÔS, bem como permitir aos visitantes contactar a organização, candidatar-se a voluntariado e propor parcerias. A possibilidade de contribuir através de doações será disponibilizada oportunamente, nos termos da cláusula 3.",
           "A utilização do website pressupõe a aceitação integral dos presentes termos e da Política de Privacidade."
         ]
       },
@@ -563,6 +563,7 @@
         "id": "doacoes",
         "title": "3. Doações",
         "paragraphs": [
+          "As doações através deste website não se encontram, no presente, disponíveis. As condições previstas na presente cláusula e nas cláusulas 4 a 6 aplicam-se a partir do momento em que essa funcionalidade for ativada, sendo a respetiva data de produção de efeitos identificada pela data de última atualização indicada no topo desta página.",
           "As doações realizadas através deste website têm natureza voluntária e revertem integralmente para o financiamento das atividades e projetos da ONG DI MI PA BÔS, podendo ser afetas a qualquer área de intervenção de acordo com as necessidades operacionais da organização, salvo indicação expressa em contrário no momento da doação.",
           "A doação é considerada concluída no momento em que a transação é confirmada pelo prestador de serviços de pagamento. Por se tratar de liberalidade sem contraprestação, as doações têm, em regra, caráter definitivo e não reembolsável."
         ]
