@@ -323,28 +323,6 @@
     "cardTitle": "Why Partner With Us",
     "cardBody": "Support social reintegration, sustained sobriety and community strengthening with visibility and measurable impact."
   },
-  "bankTransfer": {
-    "sectionTitle": "Make Your Donation",
-    "sectionDescription": "At the moment we receive donations by bank transfer. Use the details below to contribute and help build the shelter centre.",
-    "cardTitle": "Bank Details",
-    "cardDescription": "Use these details to make your transfer.",
-    "copyLabel": "Copy",
-    "copiedLabel": "Copied",
-    "referenceTitle": "Suggested reference",
-    "referenceHint": "Include the reference below, replacing \"Your Name\" with your name, so we can identify and thank you for your donation.",
-    "donationReference": "Donation - Your Name",
-    "instructionsTitle": "After the transfer",
-    "instructionsBody": "Send the receipt to donativos@ongdimipabos.org to receive our thanks and, if you wish, a contribution receipt.",
-    "trustHeading": "Your contribution in good hands:",
-    "trustFunds": "100% of funds go to the NGO's projects.",
-    "trustTransparency": "Transparent accountability to donors and partners.",
-    "trustReceipt": "Receipt issued on request, after transfer confirmation.",
-    "rowHolder": "Account holder",
-    "rowBank": "Bank",
-    "rowBankValue": "Bank to be defined",
-    "rowIban": "IBAN",
-    "rowBic": "BIC / SWIFT"
-  },
   "testimonial": {
     "sectionTitle": "Stories of Impact",
     "sectionDescription": "Meet some of the lives that have been transformed by our work.",

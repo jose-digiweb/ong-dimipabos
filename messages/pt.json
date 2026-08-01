@@ -323,28 +323,6 @@
     "cardTitle": "Por que ser Parceiro",
     "cardBody": "Apoie o trabalho de reintegração social, manutenção da sobriedade e fortalecimento comunitário com visibilidade e impacto mensurável."
   },
-  "bankTransfer": {
-    "sectionTitle": "Faça Sua Doação",
-    "sectionDescription": "No momento, recebemos doações por transferência bancária. Utilize os dados abaixo para contribuir e ajudar a construir o centro de acolhimento.",
-    "cardTitle": "Dados Bancários",
-    "cardDescription": "Use estes dados para realizar a sua transferência.",
-    "copyLabel": "Copiar",
-    "copiedLabel": "Copiado",
-    "referenceTitle": "Sugestão de referência",
-    "referenceHint": "Inclua a referência abaixo, substituindo \"Seu Nome\" pelo seu nome, para que possamos identificar e agradecer a sua doação.",
-    "donationReference": "Donativo - Seu Nome",
-    "instructionsTitle": "Após a transferência",
-    "instructionsBody": "Envie o comprovativo para donativos@ongdimipabos.org para receber o nosso agradecimento e, se desejar, um recibo da contribuição.",
-    "trustHeading": "A sua contribuição em boas mãos:",
-    "trustFunds": "100% dos fundos são destinados aos projetos da ONG.",
-    "trustTransparency": "Prestação de contas transparente aos doadores e parceiros.",
-    "trustReceipt": "Recibo enviado a pedido, após confirmação da transferência.",
-    "rowHolder": "Titular",
-    "rowBank": "Banco",
-    "rowBankValue": "Banco a definir",
-    "rowIban": "IBAN",
-    "rowBic": "BIC / SWIFT"
-  },
   "testimonial": {
     "sectionTitle": "Histórias de Impacto",
     "sectionDescription": "Conheça algumas das vidas que foram transformadas através do nosso trabalho.",
