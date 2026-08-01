@@ -323,6 +323,21 @@
     "cardTitle": "Why Partner With Us",
     "cardBody": "Support social reintegration, sustained sobriety and community strengthening with visibility and measurable impact."
   },
+  "supportOptions": {
+    "statusTitle": "Bank donations opening soon",
+    "statusBody": "We are finalising the opening of the organisation's bank account. As soon as it is confirmed, we will publish the transfer details on this page. Until then, there are other ways to support the centre's construction — all with immediate impact.",
+    "sectionTitle": "Ways to Help",
+    "sectionDescription": "Three routes open right now.",
+    "volunteerTitle": "Volunteering",
+    "volunteerBody": "Give your time and skills to our projects in Guinea-Bissau. Applying takes just a few minutes.",
+    "volunteerCta": "Apply now",
+    "partnerTitle": "Partnerships",
+    "partnerBody": "Companies and institutions can help through regular financial donations, materials and equipment, corporate volunteering or sponsorships.",
+    "partnerCta": "Propose a partnership",
+    "contactTitle": "Contact",
+    "contactBody": "Want to be told when bank donations open, or have another question? Leave us a message.",
+    "contactCta": "Send a message"
+  },
   "testimonial": {
     "sectionTitle": "Stories of Impact",
     "sectionDescription": "Meet some of the lives that have been transformed by our work.",

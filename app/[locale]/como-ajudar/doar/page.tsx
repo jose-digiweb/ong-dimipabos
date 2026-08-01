@@ -13,6 +13,7 @@ import {
   HeroWrapper,
 } from '@/components/heroSection'
 import { JsonLd } from '@/components/seo/JsonLd'
+import { SupportOptionsSection } from '@/components/support-options-section'
 import { buildBreadcrumbSchema } from '@/lib/seo/jsonLd'
 import { buildMetadata } from '@/lib/seo/metadata'
 import type { Locale } from '@/i18n/config'
@@ -88,6 +89,8 @@ export default async function DonatePage({ params }: DonateRouteProps) {
           </HeroCard>
         </HeroCardSection>
       </HeroWrapper>
+
+      <SupportOptionsSection />
 
       <CTASection className='border-b' />
     </div>

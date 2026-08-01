@@ -323,6 +323,21 @@
     "cardTitle": "Por que ser Parceiro",
     "cardBody": "Apoie o trabalho de reintegração social, manutenção da sobriedade e fortalecimento comunitário com visibilidade e impacto mensurável."
   },
+  "supportOptions": {
+    "statusTitle": "Donativos bancários em breve",
+    "statusBody": "Estamos a finalizar a abertura da conta bancária da organização. Assim que estiver confirmada, publicaremos nesta página os dados para transferência. Até lá, há outras formas de apoiar a construção do centro — todas com impacto imediato.",
+    "sectionTitle": "Formas de Apoiar",
+    "sectionDescription": "Três caminhos abertos agora mesmo.",
+    "volunteerTitle": "Voluntariado",
+    "volunteerBody": "Dê o seu tempo e as suas competências aos nossos projetos na Guiné-Bissau. A candidatura leva poucos minutos.",
+    "volunteerCta": "Candidatar-me",
+    "partnerTitle": "Parcerias",
+    "partnerBody": "Empresas e instituições podem apoiar com donativos financeiros regulares, materiais e equipamentos, voluntariado corporativo ou patrocínios.",
+    "partnerCta": "Propor parceria",
+    "contactTitle": "Contacto",
+    "contactBody": "Quer ser avisado quando os donativos bancários abrirem, ou tem outra questão? Deixe-nos uma mensagem.",
+    "contactCta": "Enviar mensagem"
+  },
   "testimonial": {
     "sectionTitle": "Histórias de Impacto",
     "sectionDescription": "Conheça algumas das vidas que foram transformadas através do nosso trabalho.",
