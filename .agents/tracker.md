@@ -4,6 +4,23 @@
 
 GitHub Issues stays **enabled** — see [The GitHub archive](#the-github-archive) for why that is deliberate and must not be changed.
 
+## Scope: personal account only
+
+This Linear workspace covers the **personal** GitHub account `jose-digiweb` and nothing else. It is not
+the tracker for `J-Fannilla` or the `fannilla` org, which keep whatever they already use.
+
+This machine has both accounts configured side by side (`~/Projects/side` → personal,
+`~/Projects/work` → work; see `~/.ssh/config` and the per-tree `.gitconfig` files), so the separation
+has to be maintained deliberately:
+
+- **The Linear GitHub App must be installed on `jose-digiweb` only** — never on the `fannilla` org, and
+  scoped to selected repositories rather than "all repositories". An org-wide install is the easy
+  mistake here, because the browser is often signed in to the work account first.
+- **Linear must not be granted access to any repo under `~/Projects/work`.**
+- If work ever adopts Linear, it gets its **own workspace**. Do not add a work team to this one —
+  Linear's GitHub connection is per workspace, and merging them re-creates exactly the account bleed
+  the two-account setup exists to prevent.
+
 ---
 
 ## Wayfinding operations
