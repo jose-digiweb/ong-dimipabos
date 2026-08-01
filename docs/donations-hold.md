@@ -127,8 +127,11 @@ becoming a thin "unavailable" notice. That was deliberate soft-404 mitigation.
 
 On re-enable:
 
-- `statusTitle` and `statusBody` become **false** and must be removed or rewritten. They say bank
-  donations are not open yet.
+- `supportOptions.statusTitle` becomes **false** and must be removed. It is the single-line
+  "Donativos bancários em breve" / "Bank donations opening soon" note, rendered from the status box
+  at the top of `components/support-options-section.tsx` — delete both the key and that box.
+- `donatePage.metaDescription` also mentions bank donations opening soon. It is search-result copy
+  rather than on-page copy, so it is easy to miss; restore it along with the rest of section 3.
 - The three option cards do not become false. Volunteering, partnerships and contact all still work,
   and keeping them alongside the bank details is probably better than deleting them. This is a
   judgement call, not a reversal — decide it deliberately.
