@@ -33,9 +33,8 @@ export const SupportOptionsSection = () => {
   return (
     <section className='py-16'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-        <div className='mx-auto max-w-3xl rounded-lg border border-border bg-muted/40 p-6 sm:p-8'>
-          <h2 className='font-bold text-foreground text-xl'>{t('statusTitle')}</h2>
-          <p className='mt-3 text-pretty text-muted-foreground'>{t('statusBody')}</p>
+        <div className='mx-auto max-w-3xl rounded-lg border border-border bg-muted/40 px-6 py-5 text-center'>
+          <p className='font-semibold text-foreground text-lg'>{t('statusTitle')}</p>
         </div>
 
         <div className='mt-16 text-center'>
