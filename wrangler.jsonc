@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "ong-dimipabos",
+  "account_id": "f64d64019e54283038b8a4d52ef03185",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-05-26",
   "compatibility_flags": ["nodejs_compat"],
