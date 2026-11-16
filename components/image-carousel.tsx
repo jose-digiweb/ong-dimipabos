@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 
 import { cfImage } from '@/lib/img'
-import { getR2Images } from '@/lib/r2-images'
+import { getGalleryImages } from '@/lib/gallery-images'
 
 import {
   Carousel,
@@ -36,8 +36,8 @@ const CAROUSEL_IMAGE_SIZES = '(max-width: 768px) 100vw, (max-width: 1024px) 50vw
 
 /**
  * The {@link humanizeKey} helper
- * @description Turns an R2 object key into a human-readable label for `alt` text
- * @param {string} key - The R2 object key
+ * @description Turns a gallery file name into a human-readable label for `alt` text
+ * @param {string} key - The gallery file name
  * @returns {string} The humanized label
  */
 const humanizeKey = (key: string): string => {
@@ -54,12 +54,12 @@ const humanizeKey = (key: string): string => {
 
 /**
  * The {@link ImageCarousel} component
- * @description Server component that loads R2 images and renders them as a centred carousel
+ * @description Server component that renders the gallery photos as a centred carousel
  * @returns The rendered carousel
  */
 export const ImageCarousel = async () => {
-  // Fetch the list of R2 images at request time
-  const images = await getR2Images()
+  // Read the gallery photos shipped with the site
+  const images = getGalleryImages()
 
   // Read the locale-aware carousel translations
   const t = await getTranslations('imageCarousel')
@@ -79,7 +79,7 @@ export const ImageCarousel = async () => {
             <Image
               fill
               priority={index < CAROUSEL_PRIORITY_COUNT}
-              alt={image.key ? `${altPrefix} — ${humanizeKey(image.key)}` : altPrefix}
+              alt={`${altPrefix} — ${humanizeKey(image.key)}`}
               src={cfImage(image.url, { width: 800 })}
               sizes={CAROUSEL_IMAGE_SIZES}
               className='object-cover object-top'

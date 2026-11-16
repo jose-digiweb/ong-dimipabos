@@ -25,17 +25,6 @@ const nextConfig: NextConfig = {
         hostname: 'ongdimipabos.org',
         pathname: '/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'storage.ongdimipabos.org',
-        pathname: '/**',
-      },
-      // R2 public bucket URL — kept for fallback access when public bucket is used directly
-      {
-        protocol: 'https',
-        hostname: '*.r2.dev',
-        pathname: '/**',
-      },
     ],
   },
   async headers() {

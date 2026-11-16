@@ -55,13 +55,13 @@ export type CfImageOptions = {
 /**
  * The {@link cfImage} helper
  * @description Wraps a source URL in a Cloudflare Image Transformations URL on the site zone
- * @param {string} src - The absolute http(s) source URL (typically R2)
+ * @param {string} src - The absolute http(s) source URL (typically a gallery photo)
  * @param {CfImageOptions} [options] - Optional width, height, fit, quality
  * @returns {string} The transformed CDN URL, or the original src for non-http sources
  *
  * @example
- * cfImage('https://storage.ongdimipabos.org/org/29.jpeg', { width: 1200, fit: 'cover' })
- * // → https://ongdimipabos.org/cdn-cgi/image/format=auto,quality=auto,fit=cover,width=1200/https://storage.ongdimipabos.org/org/29.jpeg
+ * cfImage('https://ongdimipabos.org/images/gallery/2.jpeg', { width: 1200, fit: 'cover' })
+ * // → https://ongdimipabos.org/cdn-cgi/image/format=auto,quality=auto,fit=cover,width=1200/https://ongdimipabos.org/images/gallery/2.jpeg
  */
 export const cfImage = (src: string, options: CfImageOptions = {}): string => {
   // Pass through non-http sources (e.g. static imports, data URIs, local paths)

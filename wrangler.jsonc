@@ -15,12 +15,6 @@
       "database_id": "a4e51623-0de3-4c5d-9cc5-d0b5ee4278d5",
     },
   ],
-  "r2_buckets": [
-    {
-      "binding": "R2_BUCKET",
-      "bucket_name": "dimipabos",
-    },
-  ],
   "send_email": [
     {
       "name": "EMAIL",
@@ -31,7 +25,6 @@
     },
   ],
   "vars": {
-    "R2_PUBLIC_URL": "https://storage.ongdimipabos.org",
     "CONTACT_FROM_ADDRESS": "noreply@ongdimipabos.org",
     "CONTACT_FROM_NAME": "DI MI PA BÔS",
     "CONTACT_TO_ADDRESS": "josefurtado.digital@google.com",

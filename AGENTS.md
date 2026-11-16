@@ -11,7 +11,7 @@
 - Install dependencies with `bun install`.
 - Start local development with `bun run dev`.
 - Run a Next.js production build with `bun run build` (this is `next build` only — it does NOT produce the Workers artifact).
-- Run the full Workers build (Next.js + OpenNext adapter, outputs `.open-next/`) with `bun run build:cf`. Used by Cloudflare Workers Builds (GitHub integration) as the build command.
+- Run the full Workers build (Next.js + OpenNext adapter, outputs `.open-next/`) with `bun run build:cf`. It also copies the prerendered pages into the static assets (`populateCache local`), which a plain `wrangler deploy` would otherwise skip. Used by Cloudflare Workers Builds (GitHub integration) as the build command.
 - Preview locally with the Cloudflare Workers runtime: `bun run preview`.
 - Deploy locally to Cloudflare Workers: `bun run deploy`. In Cloudflare Workers Builds the deploy command is `npx wrangler deploy` (the `.open-next/` artifact is produced by `bun run build:cf`).
 - Generate Cloudflare binding types: `bun run cf-typegen` (reads `wrangler.jsonc` — keep the real `database_id` in place).
@@ -33,10 +33,10 @@
 - `components/cta/` and `components/heroSection/`: reusable homepage section building blocks.
 - `lib/data.ts`: static project content used by the `projetos` pages.
 - `lib/db/`: Drizzle schema, connection setup, and repository classes.
-- `lib/r2-images.ts`: R2 image listing via native Cloudflare binding.
+- `lib/gallery-images/`: the gallery photos (homepage carousel, project image), shipped as static assets from `public/images/gallery/`.
 - `drizzle/`: generated SQL migrations (dialect: SQLite / D1).
 - `assets/`: local static assets.
-- `wrangler.jsonc`: Cloudflare Workers configuration (D1 binding `DB`, R2 binding `R2_BUCKET`, assets binding `ASSETS`).
+- `wrangler.jsonc`: Cloudflare Workers configuration (D1 binding `DB`, send-email binding `EMAIL`, assets binding `ASSETS`). No R2: it needs an R2 subscription with a working payment method, and a failed payment took the site down in November 2026.
 - `open-next.config.ts`: OpenNext Cloudflare adapter config.
 - `cloudflare-env.d.ts`: Cloudflare binding type declarations (regenerate with `bun run cf-typegen`).
 
@@ -52,22 +52,22 @@
 ## Editing Patterns
 
 - Pages in `app/` are mostly composition-oriented server components. Prefer assembling existing sections over adding local state to route files.
-- Pages that use Cloudflare bindings (D1, R2) must export `export const dynamic = 'force-dynamic'` or be server-rendered routes.
+- Pages that use Cloudflare bindings (D1) must export `export const dynamic = 'force-dynamic'` or be server-rendered routes.
 - Forms are client components built with `react-hook-form`, `zod`, and the shared primitives in `components/ui/form.tsx`.
 - When extending a form, wire the full submit flow deliberately. Some current forms are UI-only or have stub handlers.
 - The dynamic project page under `app/projetos/[slug]/page.tsx` currently reads from `lib/data.ts`; do not assume project content is database-backed.
 - For database work, update `lib/db/schema.ts`, generate the appropriate Drizzle migration, and keep query logic inside repository classes under `lib/db/repositories/`.
 - Prefer repository methods over raw DB access from pages or components.
 - Access the database via `getDb()` from `lib/db/index.ts` (uses React `cache()` for per-request deduplication). Never import the global `db` directly — it no longer exists.
-- Access R2 images via `getR2Images()` from `lib/r2-images.ts` (uses native R2 binding).
+- Read gallery photos via `getGalleryImages()` or `getGalleryImageUrl()` from `lib/gallery-images`. To add a photo, put it in `public/images/gallery/` and add its file name to `GALLERY_IMAGE_FILES`.
 
 ## Environment And Pitfalls
 
 - `lib/db/index.ts` uses `getCloudflareContext()` — do not import DB modules from client components.
 - `drizzle.config.ts` requires `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_D1_DATABASE_ID`, and `CLOUDFLARE_D1_TOKEN` for Drizzle Studio and remote migrations.
-- `lib/r2-images.ts` uses the `R2_BUCKET` binding and `R2_PUBLIC_URL` env var for public image URLs. Set `R2_PUBLIC_URL` to your R2 public bucket URL (e.g. `https://pub-<hash>.r2.dev`) after enabling public access on the bucket in the Cloudflare dashboard.
+- The site runs on the Workers Free plan: 10 ms CPU per request and 100,000 requests a day. `open-next.config.ts` serves prerendered pages from static assets (`staticAssetsIncrementalCache`, read-only), so pages are not re-rendered per request. Do not add `revalidate` (ISR) to a page: that cache cannot revalidate. Do not add R2 or any service that needs a subscription.
+- Gallery photos are resized through Cloudflare Image Transformations (`cfImage` in `lib/img.ts`). The Free plan allows 5,000 unique transformations a month.
 - `wrangler.jsonc` contains the real D1 `database_id` for the `dimipabos` D1 database. Do not replace it with a placeholder.
-- `R2_PUBLIC_URL` is declared in `wrangler.jsonc` `vars` and overridden locally via `.dev.vars`. Set the production value via the Workers dashboard or directly in `wrangler.jsonc`.
 - `bun run build:cf` internally calls `bun run build`, so `build` must stay as `next build` (never set it to `opennextjs-cloudflare build` — that creates an infinite recursion).
 - If you add a new remote image host, update `next.config.ts` `remotePatterns`.
 - The README is still the default Next.js template and does not document project-specific setup. Infer behavior from the code and scripts instead.
