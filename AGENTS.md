@@ -66,6 +66,7 @@
 - `lib/db/index.ts` uses `getCloudflareContext()` — do not import DB modules from client components.
 - `drizzle.config.ts` requires `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_D1_DATABASE_ID`, and `CLOUDFLARE_D1_TOKEN` for Drizzle Studio and remote migrations.
 - The site runs on the Workers Free plan: 10 ms CPU per request and 100,000 requests a day. `open-next.config.ts` serves prerendered pages from static assets (`staticAssetsIncrementalCache`, read-only), so pages are not re-rendered per request. Do not add `revalidate` (ISR) to a page: that cache cannot revalidate. Do not add R2 or any service that needs a subscription.
+- Form emails go through the `EMAIL` send-email binding. On the Free plan it can only send to verified Email Routing destination addresses, so `CONTACT_TO_ADDRESS` is the verified inbox `ongdimipabos8@gmail.com` (where `contact@ongdimipabos.org` forwards), not `contact@` itself. A new recipient must first be verified under Email Routing > Destination addresses and added to `allowed_destination_addresses`.
 - Gallery photos are resized through Cloudflare Image Transformations (`cfImage` in `lib/img.ts`). The Free plan allows 5,000 unique transformations a month.
 - `wrangler.jsonc` contains the real D1 `database_id` for the `dimipabos` D1 database. Do not replace it with a placeholder.
 - `bun run build:cf` internally calls `bun run build`, so `build` must stay as `next build` (never set it to `opennextjs-cloudflare build` — that creates an infinite recursion).
