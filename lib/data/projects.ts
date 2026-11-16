@@ -1,3 +1,5 @@
+import { getGalleryImageUrl } from '@/lib/gallery-images'
+
 import { projectStatus } from './constants'
 import type { ProjectType } from './types'
 
@@ -12,7 +14,7 @@ export const projects: ProjectType[] = [
     slug: 'centro-tratamento',
     status: projectStatus.CAPTACAO,
     startDate: '2023',
-    image: 'https://storage.ongdimipabos.org/org/29.jpeg',
+    image: getGalleryImageUrl('2.jpeg'),
     images: [],
     contact: {
       name: 'Cesaltina Pereira',

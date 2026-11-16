@@ -25,14 +25,6 @@ import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 
 /**
- * The revalidate export
- * @description ISR cadence in seconds. The homepage carousel reads R2 once per
- * week, and Cloudflare Workers deploys reset the ISR cache automatically, so
- * the practical refresh interval is `min(1 week, next deploy)`.
- */
-export const revalidate = 604800
-
-/**
  * The {@link homeRoute} constant
  * @description Internal links surfaced from the homepage
  */
